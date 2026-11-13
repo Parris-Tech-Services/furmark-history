@@ -51,6 +51,7 @@
       .catch(function(){res.innerHTML='<p class="searchmessage">Search is unavailable right now. <a href="'+window.__base+'index.html#library">Browse the document library instead.</a></p>'});
   }
   function run(){
+    if(!idx)return; // load(run) replays the current query when the index arrives.
     var q=input.value.trim().toLowerCase();if(q.length<2){res.innerHTML='<p style="padding:18px 20px;color:var(--mut)">Type at least two letters. <span class="kbd">↑</span> <span class="kbd">↓</span> to move, <span class="kbd">Enter</span> to open, <span class="kbd">Esc</span> to close.</p>';hits=[];return}
     var terms=q.split(/\s+/);var out=[];
     idx.forEach(function(s){var h=(s.h+" "+s.t).toLowerCase(),sc=0;
