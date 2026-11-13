@@ -13,7 +13,11 @@ $$(".reveal").forEach(function(el){io.observe(el)});
 /* ---------- hero fur torus ---------- */
 (function(){
   var cv=$("#furcv");if(!cv)return;var ctx=cv.getContext("2d");
-  var N=3600,pts=[],R=1,r=.46;
+  var N=3600,pts=[],R=1,r=.46,heroVisible=true,lastFrame=0;
+  if("IntersectionObserver" in window){
+    var heroObserver=new IntersectionObserver(function(entries){heroVisible=entries[0].isIntersecting},{threshold:0});
+    heroObserver.observe(cv);
+  }
   for(var i=0;i<N;i++){var u=Math.random()*6.2832,v=Math.random()*6.2832;
     var nx=Math.cos(v)*Math.cos(u),ny=Math.cos(v)*Math.sin(u),nz=Math.sin(v);
     pts.push({x:(R+r*Math.cos(v))*Math.cos(u),y:(R+r*Math.cos(v))*Math.sin(u),z:r*Math.sin(v),nx:nx,ny:ny,nz:nz,l:.09+Math.random()*.12,w:Math.random()})}
@@ -23,9 +27,18 @@ $$(".reveal").forEach(function(el){io.observe(el)});
   function setHeat(){heat=hs.value/100;hv.textContent=Math.round(heat*100)+"% colour"}
   hs.addEventListener("input",setHeat);setHeat();
   cv.addEventListener("pointerdown",function(e){drag=true;lx=e.clientX;ly=e.clientY;cv.setPointerCapture(e.pointerId);cv.style.cursor="grabbing"});
-  cv.addEventListener("pointerup",function(){drag=false;cv.style.cursor="grab"});
+  function stopDrag(){drag=false;cv.style.cursor="grab"}
+  cv.addEventListener("pointerup",stopDrag);
+  cv.addEventListener("pointercancel",stopDrag);
+  cv.addEventListener("lostpointercapture",stopDrag);
   cv.addEventListener("pointermove",function(e){if(!drag)return;vy=(e.clientX-lx)*.0016;vx=(e.clientY-ly)*.0016;ay+=vy*3;ax+=vx*3;lx=e.clientX;ly=e.clientY});
   function draw(t){
+    if(!reduce)requestAnimationFrame(draw);
+    if(!heroVisible||document.hidden||(!reduce&&t-lastFrame<33))return;
+    lastFrame=t;
+    // Render to the actual viewport size rather than a 900px offscreen mobile canvas.
+    var rect=cv.getBoundingClientRect(),side=Math.min(900,Math.max(300,Math.round(rect.width*Math.min(devicePixelRatio||1,2))));
+    if(cv.width!==side){cv.width=side;cv.height=side}
     var W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
     if(!drag&&!reduce){ay+=.006;ax+=.0022}
     var ca=Math.cos(ax),sa=Math.sin(ax),cb=Math.cos(ay),sb=Math.sin(ay),S=W*.255,cx=W/2,cy=H/2,persp=4.2;
@@ -46,7 +59,7 @@ $$(".reveal").forEach(function(el){io.observe(el)});
     // glow
     var g=ctx.createRadialGradient(cx,cy,S*.3,cx,cy,S*1.8);g.addColorStop(0,hsl(hue,95,55,.10+heat*.14));g.addColorStop(1,"transparent");
     ctx.globalCompositeOperation="lighter";ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.globalCompositeOperation="source-over";
-    if(!reduce)requestAnimationFrame(draw)}
+    }
   requestAnimationFrame(draw);
   if(reduce)hs.addEventListener("input",function(){requestAnimationFrame(draw)});
 })();
