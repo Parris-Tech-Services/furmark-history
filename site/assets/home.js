@@ -13,7 +13,11 @@ $$(".reveal").forEach(function(el){io.observe(el)});
 /* ---------- hero fur torus ---------- */
 (function(){
   var cv=$("#furcv");if(!cv)return;var ctx=cv.getContext("2d");
-  var N=3600,pts=[],R=1,r=.46;
+  var N=3600,pts=[],R=1,r=.46,heroVisible=true,lastFrame=0;
+  if("IntersectionObserver" in window){
+    var heroObserver=new IntersectionObserver(function(entries){heroVisible=entries[0].isIntersecting},{threshold:0});
+    heroObserver.observe(cv);
+  }
   for(var i=0;i<N;i++){var u=Math.random()*6.2832,v=Math.random()*6.2832;
     var nx=Math.cos(v)*Math.cos(u),ny=Math.cos(v)*Math.sin(u),nz=Math.sin(v);
     pts.push({x:(R+r*Math.cos(v))*Math.cos(u),y:(R+r*Math.cos(v))*Math.sin(u),z:r*Math.sin(v),nx:nx,ny:ny,nz:nz,l:.09+Math.random()*.12,w:Math.random()})}
@@ -23,9 +27,18 @@ $$(".reveal").forEach(function(el){io.observe(el)});
   function setHeat(){heat=hs.value/100;hv.textContent=Math.round(heat*100)+"% colour"}
   hs.addEventListener("input",setHeat);setHeat();
   cv.addEventListener("pointerdown",function(e){drag=true;lx=e.clientX;ly=e.clientY;cv.setPointerCapture(e.pointerId);cv.style.cursor="grabbing"});
-  cv.addEventListener("pointerup",function(){drag=false;cv.style.cursor="grab"});
+  function stopDrag(){drag=false;cv.style.cursor="grab"}
+  cv.addEventListener("pointerup",stopDrag);
+  cv.addEventListener("pointercancel",stopDrag);
+  cv.addEventListener("lostpointercapture",stopDrag);
   cv.addEventListener("pointermove",function(e){if(!drag)return;vy=(e.clientX-lx)*.0016;vx=(e.clientY-ly)*.0016;ay+=vy*3;ax+=vx*3;lx=e.clientX;ly=e.clientY});
   function draw(t){
+    if(!reduce)requestAnimationFrame(draw);
+    if(!heroVisible||document.hidden||(!reduce&&t-lastFrame<33))return;
+    lastFrame=t;
+    // Render to the actual viewport size rather than a 900px offscreen mobile canvas.
+    var rect=cv.getBoundingClientRect(),side=Math.min(900,Math.max(300,Math.round(rect.width*Math.min(devicePixelRatio||1,2))));
+    if(cv.width!==side){cv.width=side;cv.height=side}
     var W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
     if(!drag&&!reduce){ay+=.006;ax+=.0022}
     var ca=Math.cos(ax),sa=Math.sin(ax),cb=Math.cos(ay),sb=Math.sin(ay),S=W*.255,cx=W/2,cy=H/2,persp=4.2;
@@ -46,7 +59,7 @@ $$(".reveal").forEach(function(el){io.observe(el)});
     // glow
     var g=ctx.createRadialGradient(cx,cy,S*.3,cx,cy,S*1.8);g.addColorStop(0,hsl(hue,95,55,.10+heat*.14));g.addColorStop(1,"transparent");
     ctx.globalCompositeOperation="lighter";ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.globalCompositeOperation="source-over";
-    if(!reduce)requestAnimationFrame(draw)}
+    }
   requestAnimationFrame(draw);
   if(reduce)hs.addEventListener("input",function(){requestAnimationFrame(draw)});
 })();
@@ -131,7 +144,7 @@ function watch(M){
 /* ---------- spotify shelf ---------- */
 (function(){
   var KEY="spotify-shelf",box=$("#spembeds");
-  function get(){try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return[]}}
+  function get(){try{var a=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(a)?a.filter(function(x){return x&&/^(episode|show|playlist|album|track|artist)$/.test(x.t)&&/^[A-Za-z0-9]+$/.test(x.id)}).slice(0,20):[]}catch(e){return[]}}
   function set(a){try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}}
   function parse(u){var m=u.trim().match(/open\.spotify\.com\/(?:intl-[a-z]+\/)?(episode|show|playlist|album|track|artist)\/([A-Za-z0-9]+)/);return m?{t:m[1],id:m[2]}:null}
   function draw(){var a=get();box.innerHTML=a.map(function(x){return'<iframe loading="lazy" src="https://open.spotify.com/embed/'+x.t+"/"+x.id+'?theme=0" height="'+(x.t==="episode"||x.t==="show"?152:232)+'" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="Spotify '+x.t+'"></iframe>'}).join("")||'<p style="color:var(--faint);font-size:13px;margin:0">Nothing pinned yet.</p>'}
@@ -144,10 +157,10 @@ function watch(M){
 /* ---------- photos ---------- */
 function photos(P){
   var el=$("#photogrid");if(!P.length){$("#photos").style.display="none";return}
-  el.innerHTML=P.map(function(p,i){return'<figure data-i="'+i+'"><div class="imgwrap"><img loading="lazy" src="'+esc(p.src)+'" alt="'+esc(p.alt)+'"></div><figcaption><b>'+esc(p.t)+"</b>"+esc(p.c)+' <a href="'+esc(p.page)+'" target="_blank" rel="noopener">'+esc(p.credit)+" · "+esc(p.lic)+"</a></figcaption></figure>"}).join("");
+  el.innerHTML=P.map(function(p,i){return'<figure><button class="photozoom" type="button" data-i="'+i+'" aria-label="Enlarge photo: '+esc(p.t)+'"><img loading="lazy" src="'+esc(p.src)+'" alt="'+esc(p.alt)+'"></button><figcaption><b>'+esc(p.t)+"</b>"+esc(p.c)+' <a href="'+esc(p.page)+'" target="_blank" rel="noopener">'+esc(p.credit)+" · "+esc(p.lic)+"</a></figcaption></figure>"}).join("");
   var lb=$("#lightbox");
   var previousFocus=null;
-  el.addEventListener("click",function(e){var f=e.target.closest("figure");if(!f||e.target.tagName==="A")return;var p=P[+f.dataset.i];previousFocus=document.activeElement;$("#lbimg").src=p.big||p.src;$("#lbimg").alt=p.alt;$("#lbcap").textContent=p.t+" — "+p.credit+", "+p.lic;lb.classList.add("open");$("#lbclose").focus()});
+  el.addEventListener("click",function(e){var b=e.target.closest(".photozoom");if(!b)return;var p=P[+b.dataset.i];previousFocus=document.activeElement;$("#lbimg").src=p.big||p.src;$("#lbimg").alt=p.alt;$("#lbcap").textContent=p.t+" — "+p.credit+", "+p.lic;lb.classList.add("open");$("#lbclose").focus()});
   function close(){if(!lb.classList.contains("open"))return;lb.classList.remove("open");if(previousFocus&&previousFocus.focus)previousFocus.focus()}
   lb.onclick=function(e){if(e.target===lb||e.target.closest("#lbclose"))close()};
   addEventListener("keydown",function(e){if(e.key==="Escape")close()})}
@@ -274,8 +287,16 @@ function fleet(F){
     $("#fscatter").insertAdjacentHTML("afterend",'<div class="legend">'+Object.keys(RIGC).filter(function(r){return C.some(function(c){return c.rig===r})}).map(function(r){return'<span><i style="background:'+RIGC[r]+'"></i>'+r+"</span>"}).join("")+"</div>");
     // rigs
     $("#frigs").innerHTML='<table class="table"><thead><tr><th>Test PC</th><th>Cards</th><th>FurMark mean</th><th>Superposition mean</th><th>Steel Nomad mean</th><th>CPU in public result</th></tr></thead><tbody>'+Object.keys(RIGC).filter(function(r){return C.some(function(c){return c.rig===r})}).map(function(r){var cs=C.filter(function(c){return c.rig===r}),m=function(kk){var a=vals(kk,r);return a.length?fmt(mean(a)):"–"},cpus=cs.map(function(c){return c.cpu}).filter(function(v,i,a){return v&&a.indexOf(v)===i}).join(", ");return"<tr><td><i class=\"dot\" style=\"background:"+RIGC[r]+"\"></i> <b>"+r+"</b></td><td>"+cs.length+"</td><td>"+m("fm")+"</td><td>"+m("sp")+"</td><td>"+m("sn")+"</td><td>"+esc(cpus||"–")+"</td></tr>"}).join("")+"</tbody></table>"}
-  $("#fflags").innerHTML=Object.keys(FLAGS).map(function(n){var f=FLAGS[n];return'<div class="flag" data-n="'+n+'"><b>#'+n+'</b><span><span class="pill '+f[0]+'">'+(f[0]==="warn"?"check":f[0]==="ok"?"good":"note")+"</span> "+esc(f[1])+"</span></div>"}).join("");
-  $$(".flag").forEach(function(f){f.onclick=function(){sel(+f.dataset.n);$("#fdetail").scrollIntoView({block:"center",behavior:"smooth"})}});
+  // Derive actionable list from saved audit statuses, rather than displaying
+  // historically "good" cards as if they still require attention.
+  var flagged=C.filter(needsFollowUp);
+  $("#fflags").innerHTML=flagged.length?flagged.map(function(c){
+    var fl=FLAGS[c.card],level=c.status==="FAN_NOISE_STOP"||c.status==="LINK_SCORE_MISMATCH"?"warn":"note";
+    var description=fl?fl[1]:[c.fm==null?"FurMark":null,c.sp==null?"Superposition":null,c.sn==null?"Steel Nomad":null]
+      .filter(Boolean).join(", ")+" not recorded in the snapshot. Finish testing before grading.";
+    return '<button type="button" class="flag" data-n="'+c.card+'"><b>#'+c.card+'</b><span><span class="pill '+level+'">'+(level==="warn"?"check":"follow up")+'</span> '+esc(description)+'</span></button>'
+  }).join(""):'<p class="searchmessage">No outstanding items in this snapshot.</p>';
+  $$(".flag").forEach(function(button){button.onclick=function(){sel(+button.dataset.n);$("#fdetail").focus();$("#fdetail").scrollIntoView({block:"center",behavior:"smooth"})}});
   draw();sel(24);
 }
 
