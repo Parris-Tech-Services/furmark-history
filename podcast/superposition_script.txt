@@ -33,14 +33,14 @@ ALEX: Which is why Superposition was never a ray tracing benchmark. The first de
 MORGAN: Beyond the scripted run there is an interactive mode with mini-games and over nine hundred objects you can pick up and throw. Darts are in there. It turns out there was once a crash caused by throwing darts, and it got a line in the release notes.
 ALEX: There is also a loop stress test, built to find out whether your card, your cooling and your power supply stay stable for hours, not minutes.
 
-## Three editions
-MORGAN: Superposition comes in three editions. Basic is free, with single runs, settings, GPU monitoring and the virtual reality readiness test.
-ALEX: Advanced adds history, the stress test and the online leaderboards, for personal use. Pro adds command-line automation, reports, per-frame statistics, technical support and commercial use, which is how hardware makers use it on a production line.
+## Editions
+MORGAN: The original manual described three editions, but the current product page lists four licence tiers. Basic is free, with single benchmark runs, GPU monitoring and the virtual reality readiness test.
+ALEX: Advanced adds result history, a timed stress-test loop and online leaderboard posting, for personal use. Professional adds command-line automation and commercial use. Enterprise is the multi-seat option, not a new benchmark release.
 MORGAN: It runs on Windows seven service pack one and up, and on Linux. Notably not on Mac. UNIGINE support once told a forum user that macOS lacks the OpenGL four point five core profile the engine needed.
 
 ## Version one point one
-ALEX: In April of twenty nineteen, version one point one arrived, and it is still the latest listed in UNIGINE's own version history.
-MORGAN: The headline: free virtual reality in the Basic edition, which used to be paid. Plus virtual reality on Linux through SteamVR.
+ALEX: In April of twenty nineteen, version one point one arrived, and it is still the latest version listed on UNIGINE's website as of November twenty twenty-six.
+MORGAN: The headline: free virtual reality in the Basic edition, which used to be paid. Plus virtual reality on Linux through SteamVR. UNIGINE said the scoring algorithm and workload did not change between one point zero and one point one.
 ALEX: They also raised the maximum render resolution to sixteen thousand three hundred eighty-four pixels square, added a Vive Pro preset, and updated the hardware database so new cards were detected properly.
 MORGAN: And a handful of fixes, including a wrong setting at three thousand four hundred forty by fourteen hundred forty, a splash screen bug on ultrawide monitors, and, yes, the dart crash.
 ALEX: UNIGINE also shared its first two years of numbers. Over two hundred thousand competitive scores, more than eight thousand benchmark videos on YouTube, and three million, three hundred thirty-eight thousand, nine hundred twenty-three tests run.
@@ -48,5 +48,5 @@ MORGAN: Plus a claim that an eight K demo was broadcast from space by satellite.
 
 ## Why it stuck
 ALEX: Superposition sits in a useful niche. It is free, it runs on Linux, it has a stress test, and it is pretty enough to leave running while you tune a card.
-MORGAN: And it is the last stop of a line that began with a rendered sanctuary in two thousand and seven. Five benchmarks, one engine, and a professor who is still, as far as anyone can tell, mid-experiment.
+MORGAN: It has a free benchmark for Windows and Linux, but the loop stress-test feature requires a paid edition. And it is the last stop of a line that began with Sanctuary in two thousand and seven: five benchmarks, a shared engine family, and a professor still mid-experiment.
 ALEX: The full research and every source are in the repo. Thanks for listening.
