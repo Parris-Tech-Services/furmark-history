@@ -4,7 +4,14 @@ This repo documents the history of GPU benchmark culture: sourced research on Fu
 
 Sourced histories of GPU benchmarks. The main project is **FurMark** (below); newer write-ups cover **UNIGINE Superposition** and **3DMark / Steel Nomad**.
 
-**NEW: The stories behind the scenes (30 additional questions, completed 13 November 2026)**
+**NEW: The actual GTX 1070 batch being benchmarked (13 November 2026)**
+
+- [Deep research and hardware identification audit](docs/GPU_BATCH_RESEARCH.md) — 2016 GTX 1070 history/specs, Colorful PCI subsystem vs Gigabyte-label discrepancy, real score analysis, driver lifespan, cooling/VRAM, resale and recommended checks.
+- [Source-linked GPU testing snapshot (CSV)](data/benchmark_snapshot_2026-11-13.csv) — 100 numbered sheet slots, each published test URL, result verification, CPU/driver/temperature/power and issue flags. This is a dated snapshot, not live-sync.
+- [Live GPU Testing Sheet](https://docs.google.com/spreadsheets/d/1yCaJ1PXI7R5sCuZopxetPMwNWyK142i7SJOmZRwTj44/edit) (also linked by the raw [benchmark](benchmark) file).
+- **Important findings:** 36 correctly linked GTX 1070 submissions; card #4 has an unrelated RX 9070 XT URL, #36 has a noisy fan, and the actual physical board manufacturer needs verification. **The live Google Sheet was not modified.**
+
+**The stories behind the scenes (30 additional questions, completed 13 November 2026)**
 
 - [All 30 scene-story questions](docs/SCENE_STORY_QUESTIONS.md) — the furry doughnut, the vanished professor and the masked Steel Nomad
 - [FurMark: why fur, why a doughnut, and how its strange visual evolved](docs/SCENE_FURMARK.md)
