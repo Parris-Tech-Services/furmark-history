@@ -116,7 +116,7 @@ function timeline(TL){
   chips($("#tf-bench"),["all","furmark","superposition","3dmark"],"b",function(x){return BN[x]});
   chips($("#tf-type"),["all","release","company","controversy","hardware","milestone"],"t",function(x){return x==="all"?"All kinds":x[0].toUpperCase()+x.slice(1)});
   $("#tsearch").oninput=function(){fb.q=this.value.toLowerCase();render()};
-  var allOpen=false;$("#texp").onclick=function(){allOpen=!allOpen;this.textContent=allOpen?"Collapse all":"Expand all";$(".ev").forEach(function(x){x.classList.toggle("open",allOpen);x.querySelector(".ev-toggle").setAttribute("aria-expanded",String(allOpen))})};
+  var allOpen=false;$("#texp").onclick=function(){allOpen=!allOpen;this.textContent=allOpen?"Collapse all":"Expand all";$$(".ev").forEach(function(x){x.classList.toggle("open",allOpen);x.querySelector(".ev-toggle").setAttribute("aria-expanded",String(allOpen))})};
   function fmtD(d){var p=d.split("-");var M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];return p.length===3?(+p[2])+" "+M[+p[1]-1]+" "+p[0]:p.length===2?M[+p[1]-1]+" "+p[0]:p[0]}
   function render(){
     var rows=TL.filter(function(e){return(fb.b==="all"||e.b===fb.b)&&(fb.t==="all"||e.ty===fb.t)&&(!fb.q||(e.t+" "+e.x).toLowerCase().indexOf(fb.q)>=0)});
@@ -228,7 +228,7 @@ function fleet(F){
     if(!c){$("#factionmsg").textContent="Card #"+n+" is a blank, unstarted slot in this saved snapshot.";return}
     $("#factionmsg").textContent="Showing saved results for card #"+n+".";
     st.rig="all";st.follow=false;$("#ffollow").checked=false;
-    $("#ff-rig button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.k==="all"))});
+    $$("#ff-rig button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.k==="all"))});
     draw();sel(n);$("#fdetail").focus();$("#fdetail").scrollIntoView({block:"nearest",behavior:"smooth"});
   };
   $("#fcardgo").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();$("#fgo").click()}});
