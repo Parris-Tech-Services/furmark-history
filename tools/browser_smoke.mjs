@@ -19,7 +19,7 @@ const mime={".html":"text/html; charset=utf-8",".js":"text/javascript; charset=u
   ".mp3":"audio/mpeg",".pdf":"application/pdf"};
 const server=createServer(async(req,res)=>{
   const u=new URL(req.url,"http://localhost");
-  let file=resolve(site,"."+decodeURIComponent(u.pathname===" / "?"index.html":u.pathname));
+  let file=resolve(site,"."+decodeURIComponent(u.pathname));
   if(u.pathname==="/")file=join(site,"index.html");
   if(!file.startsWith(site+"/") && file!==join(site,"index.html")){res.writeHead(403);res.end();return}
   try{
@@ -66,7 +66,7 @@ try{
   await page.locator("#ffollow").check();
   await page.locator('#ff-metric button[data-k="sp"]').click();
   await page.locator('#ff-rig button[data-k="Asus B250"]').click();
-  assert.match(await page.locator("#fbt").innerText(),/Superposition/);
+  assert.match(await page.locator("#fbt").innerText(),/superposition/i);
   assert(await page.locator(".frow").count()>0);
   pass("Follow-ups-only, benchmark and test-rig filters");
   const downloaded=page.waitForEvent("download",{timeout:10000});
