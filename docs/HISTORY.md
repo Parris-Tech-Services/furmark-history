@@ -1,5 +1,7 @@
 # FurMark: a history
 
+**Scene deep dive:** [Why a furry doughnut? Ten questions about the visual story](SCENE_FURMARK.md).
+
 *Compiled 13 November 2026 from the developer's own posts and release notes, plus independent coverage. Every claim below has a source number in brackets; the list is at the end. Where the evidence is thin, it says so.*
 
 ## The short version
