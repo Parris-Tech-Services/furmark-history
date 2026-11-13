@@ -17,6 +17,16 @@ check("JavaScript parses",() => {
   for(const file of ["site/assets/app.js","site/assets/home.js"])
     execFileSync(process.execPath, ["--check", join(root,file)], {stdio:"pipe"});
 });
+check("Interactive controls retain working selectors and accessibility hooks",() => {
+  const home=read("site/assets/home.js"), shared=read("site/assets/app.js");
+  const html=read("site/index.html");
+  assert(!/\$\("[^"]+"\)\.forEach\(/.test(home),"querySelector is not iterable: use $()");
+  for(const id of ["fgo","fcardgo","ffollow","fexport","fdetail","fflags","texp","lbclose","heat","heatv"])
+    assert(html.includes('id="'+id+'"'),"Missing interactive control "+id);
+  assert(home.includes('rowsForView()'),"Fleet filters/export disconnected");
+  assert(home.includes('aria-expanded'),"Timeline accessibility missing");
+  assert(shared.includes('aria-modal'),"Search dialog accessibility missing");
+});
 check("All local landing-page assets and links exist", () => {
   const html=read("site/index.html");
   assert.match(html,/<title>/);
