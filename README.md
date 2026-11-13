@@ -28,4 +28,4 @@ python3 tools/build_audio.py && python3 tools/build_pdf.py
 **Notes**
 - Voices are synthetic (ElevenLabs "Laura" and "Charlie"). The intro/outro bed is generated noise, not licensed music.
 - Short quotations from the developer's posts are used for commentary; follow the source links for the originals.
-- No licence has been chosen yet: all rights reserved until one is added.
+- Licence: [MIT](LICENSE) for the code and the original text (script, research write-up, PDF layout). Short quotations from the developer's posts and the sources they come from stay with their owners. The audio is synthetic speech generated with ElevenLabs under that service's terms.
