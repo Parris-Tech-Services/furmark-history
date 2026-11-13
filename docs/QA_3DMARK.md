@@ -96,6 +96,8 @@ The prices below are historical **US-dollar list prices or stated publisher offe
 - **12 October 2022:** Speed Way brought Advanced's advertised price from **US$29.99 to US$34.99**, with an optional **US$4.99** upgrade for eligible existing owners [41].
 - **Steam page inspected November 2026:** the US-price page displayed **US$29.99** normal price and separate optional DLC prices; regional prices, temporary sales and licence bundles can differ [42]. This shows that an old price announcement is not a dependable present-day price.
 
+**Edition naming note (2026):** UL's current reviewers' guide calls the free tier *3DMark Demo*, the consumer paid tier *3DMark*, and the commercial tier *3DMark for Enterprise*; historical announcements used *Basic*, *Advanced* and *Professional*. These names have evolved, so a 2013 price list is not a current commercial licence offer [34].
+
 **Business model:** 2013 onward, 3DMark shifted away from issuing a completely new standalone suite for each DirectX generation. UL keeps adding free tests, paid upgrades and some separate DLC; business use requires the licensed Professional/enterprise route, not simply owning the consumer Steam version [27][41][43].
 
 **What about success?** A Steam product page exposes reviews and its catalogue, but does **not** reveal independently auditable gross sales, net revenue, margins or total paying customers. SteamSpy/third-party owner and revenue estimates are model-derived rather than receipts. **No actual lifetime Steam revenue or unit sales could be confirmed.** Claims that Steam popularity proves precise revenue would be false precision.
@@ -144,7 +146,7 @@ UL does provide **statistical game-FPS estimates** for selected combinations of 
 5. UL, *Steel Nomad Graphics Test*. https://support.benchmarks.ul.com/support/solutions/articles/44002528063-steel-nomad-graphics-test
 6. UL, *Steel Nomad Light Graphics Test*. https://support.benchmarks.ul.com/support/solutions/articles/44002528074-steel-nomad-graphics-test
 7. UL, *Steel Nomad Engine*. https://support.benchmarks.ul.com/support/solutions/articles/44002528067-steel-nomad-engine
-8. UL, *Overview of Steel Nomad*. https://support.benchmarks.ul.com/support/solutions/articles/44002528060-overview-of-3dmark-steel-nomad
+8. UL, *Overview of Steel Nomad*. https://support.benchmarks.ul.com/support/solutions/articles/44002528058-overview-of-3dmark-steel-nomad
 9. Futuremark, *3DMark03 downloads exceed 2,500,000 copies in first month* (10 March 2003). https://benchmarks.ul.com/news/20387
 10. Futuremark, *3DMark and PCMark Pricing Cut in Half; Distribution Marks New Records* (12 September 2003). https://benchmarks.ul.com/news/20432
 11. Futuremark, *Time Spy DX12 benchmark available now* (14 July 2016). https://benchmarks.ul.com/en-pt/news/3dmark-time-spy-directx-12-benchmark-test-available-now
