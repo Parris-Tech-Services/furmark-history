@@ -133,3 +133,11 @@ footer.site a{display:block;padding:3px 0;color:var(--mut)}
   #searchbox input{font-size:16px}
   .demo-note{line-height:1.5}
 }
+
+
+/* Interactive media and grounded same-PC comparisons */
+.photozoom{width:100%;padding:0;display:block;background:none;border:0;color:inherit;cursor:zoom-in}
+.photozoom img{width:100%;height:auto;transition:transform .25s ease}
+.photozoom:hover img{transform:scale(1.03)}
+.fleetcompare{font:13px/1.55 var(--f-ui);color:var(--mut);margin:12px 0 0;padding:10px 12px;border-radius:10px;background:var(--surface2)}
+#fscatter circle:focus-visible{stroke:var(--acc2);stroke-width:3px;outline:none}
