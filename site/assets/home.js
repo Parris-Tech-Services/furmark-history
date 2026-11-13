@@ -181,6 +181,7 @@ function watch(M){
       var audio=document.getElementById(btn.dataset.audio);if(!audio)return;
       if(!audio.paused){audio.pause();return}
       var p=audio.play();
+      refresh(audio);
       if(p&&typeof p.catch==="function")p.catch(function(){
         getFeedback(audio).textContent="Playback was blocked or the recording did not load. Use the native audio controls or the Download MP3 link.";
         refresh(audio);
