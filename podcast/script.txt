@@ -9,9 +9,9 @@ DORAL: And somehow it ended up detected, throttled and argued over by two of the
 
 ## Seed
 DORAL: It starts in two thousand and seven. The author goes by JeGX, Jérôme Guinot. He wrote graphics tutorials on a site called oZone3D, and later ran Geeks3D.
-LEDA: And his own words, from a post in March twenty twenty-five: the first version of FurMark one was released in two thousand and seven.
+LEDA: His later posts confirm it began in two thousand and seven. More precisely, on August the twenty-sixth that year, he wrote that he had officially released the fur rendering benchmark four days earlier. That points to around August the twenty-second.
 DORAL: It's built on OpenGL. One scene. A torus covered in fur, drawn with shaders that do an enormous amount of maths on every single frame.
-LEDA: Why fur? Because fur is brutal to render. It's dense, shader-heavy work that keeps every core busy. Great for hurting a card, useless for playing anything.
+LEDA: Why fur? Because that shader-heavy scene can push a graphics card far beyond a typical game's workload. The point was to test heat and stability, not to provide a realistic gaming simulation.
 DORAL: So it was never really a game demo. JeGX pitched it as a stability test. Overclock your card, run the donut, see if it survives.
 
 ## Hot like hell
@@ -36,7 +36,7 @@ LEDA: With the next generation, the Radeon HD fifty-eight seventy, AMD moved the
 ## Nvidia joins in
 DORAL: Then November two thousand and ten. Nvidia launches the GeForce GTX five-eighty, and Geeks3D's headline is: the Anti-FurMark card.
 LEDA: Three sensors on the twelve-volt lines measured power. And the driver watched for FurMark or OCCT running.
-DORAL: When it detected one, the card clocked itself down. Not in games, only in the stress tests. Nvidia said it was protecting cards and motherboards.
+DORAL: In the tests reviewers reported at the time, the limiter responded to those stress programs, rather than ordinary games. Nvidia said the protection was there to prevent damage.
 LEDA: The reviewer at TechPowerUp measured it. A hundred and fifty-three watts with the limiter. Three hundred and four without.
 DORAL: Half the power. In the one program people used to measure power.
 LEDA: Reviewers were stuck, because FurMark was how they tested temperatures, noise and power draw. Suddenly the donut wasn't telling the whole truth.
@@ -65,6 +65,6 @@ LEDA: And the old version? In March twenty twenty-five JeGX wrote that FurMark o
 ## Outro
 DORAL: So that's FurMark. A program written to be unreasonable, that forced two chip giants to build safety nets into their hardware.
 LEDA: And still, nearly twenty years on, one fuzzy donut is how a lot of us decide whether a graphics card is ready to be trusted.
-DORAL: Check your temperatures. Keep the fans clean.
+DORAL: And one safety note. Nvidia warns not to bypass thermal or over-current protections to boost a FurMark number. A stress test should never come before protecting the hardware. Keep an eye on temperatures, and don't leave a questionable card testing unattended.
 LEDA: And if your card ever starts clocking down the moment you launch the donut, now you know why.
 DORAL: Thanks for listening.
