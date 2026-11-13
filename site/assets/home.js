@@ -243,12 +243,15 @@ function fleet(F){
     setTimeout(function(){URL.revokeObjectURL(blob)},1000);
     $("#factionmsg").textContent="Exported "+rows.length+" visible cards (snapshot "+F.snapshot+").";
   };
-  function sel(n){var c=C.find(function(x){return x.card===n});if(!c)return;st.sel=n;draw();var fl=FLAGS[n];
-    var peers=C.filter(function(x){return x.rig===c.rig&&x.fm!=null}),avg=peers.length?mean(peers.map(function(x){return x.fm})):null;
-    var comparison=c.fm!=null&&avg!=null?'<p class="fleetcompare">Compared with '+esc(c.rig)+' rig mean ('+fmt(avg)+', n='+peers.length+'): '+((c.fm/avg-1)*100).toFixed(1)+'%. Not a hardware pass/fail or a cross-PC ranking.</p>':"";
+  function sel(n){var c=C.find(function(x){return x.card===n});if(!c)return;st.sel=n;draw();var fl=c.history?.length ? null : FLAGS[n];
+    var peers=C.filter(function(x){return x.card!==n && c.preset && c.driver && c.cpu && c.rig!=="unlabelled" && x.rig===c.rig && x.driver===c.driver && x.cpu===c.cpu && x.preset===c.preset && x.fm!=null}).map(x=>x.fm).sort((a,b)=>a-b);
+    var mid=Math.floor(peers.length/2);
+    var median=peers.length%2?peers[mid]:(peers[mid-1]+peers[mid])/2;
+    var comparison='<p class="fleetcompare">'+(peers.length && c.fm!=null?'FurMark peer median '+median.toLocaleString()+' ('+peers.length+' other cards, same PC, CPU, driver and preset). This card: '+((c.fm/median-1)*100).toFixed(1)+'%.':'FurMark: insufficient data for comparison.')+' Superposition and Steel Nomad: insufficient data for comparison (preset or edition unknown).</p>';
+    comparison+='<a href="?card='+n+'#fdetail">Permanent link to card #'+n+'</a>';
+    comparison+=(c.history||[]).map(h=>'<p>Earlier sheet entry ('+esc(h.observed)+'): FurMark '+(h.fm??'–')+' · Superposition '+(h.sp??'–')+' · Steel Nomad '+(h.sn??'–')+'</p>').join('');
     var missing=[c.fm==null?"FurMark":null,c.sp==null?"Superposition":null,c.sn==null?"Steel Nomad":null].filter(Boolean);
-    $("#fdetail").innerHTML='<span class="kicker">Card #'+n+'</span><div class="dgrid">'+[["FurMark",c.fm],["Superposition",c.sp],["Steel Nomad",c.sn],["Peak temp",c.temp!=null?c.temp+" °C":null],["Peak power (est.)",c.power!=null?c.power+" W":null],["Max clock",c.clockmax!=null?c.clockmax+" MHz":null],["Test PC",c.rig],["CPU",c.cpu],["Driver",c.driver]].map(function(x){return"<div>"+x[0]+"<b>"+(x[1]!=null&&x[1]!==""?(typeof x[1]==="number"?x[1].toLocaleString():esc(x[1])):"–")+"</b></div>"}).join("")+"</div>"+comparison+(missing.length?'<p class="fleetcompare">No saved score: '+missing.join(", ")+'. Blank is not a failure.</p>':"")+
-      (c.fm!=null?'<p style="margin:12px 0 0;color:var(--mut);font-size:14px">FurMark '+fmt(c.fm)+' points ≈ '+(c.fm/60).toFixed(0)+' FPS over the 60 s run'+(c.sn!=null?'; Steel Nomad '+fmt(c.sn)+' ≈ '+(c.sn/100).toFixed(1)+' FPS at 4K':"")+".</p>":"")+
+    $("#fdetail").innerHTML='<span class="kicker">Card #'+n+'</span><div class="dgrid">'+[["FurMark",c.fm],["Superposition",c.sp],["Steel Nomad",c.sn],["FurMark submission",c.tested],["Verified settings",c.preset],["Peak temp",c.temp!=null?c.temp+" °C":null],["Peak power (est.)",c.power!=null?c.power+" W":null],["Max clock",c.clockmax!=null?c.clockmax+" MHz":null],["Test PC",c.rig],["CPU",c.cpu],["Driver",c.driver]].map(function(x){return"<div>"+x[0]+"<b>"+(x[1]!=null&&x[1]!==""?(typeof x[1]==="number"?x[1].toLocaleString():esc(x[1])):"–")+"</b></div>"}).join("")+"</div>"+comparison+(missing.length?'<p class="fleetcompare">No saved score: '+missing.join(", ")+'. Blank is not a failure.</p>':"")+
       '<div style="margin-top:10px">'+(c.gpuz?'<span class="pill ok">GPU-Z recognised</span>':"")+(c.status==="MATCHED_GTX1070"?'<span class="pill ok">public result matches</span>':"")+(c.status==="LINK_SCORE_MISMATCH"?'<span class="pill warn">link mismatch</span>':"")+(c.occt?'<span class="pill ok">OCCT: '+esc(c.occt)+"</span>":"")+(c.note?'<span class="pill warn">'+esc(c.note)+"</span>":"")+(fl?'<span class="pill '+fl[0]+'">'+esc(fl[1])+"</span>":"")+"</div>"+(c.url?'<a href="'+esc(c.url)+'" target="_blank" rel="noopener">'+(c.status==="LINK_SCORE_MISMATCH"?"Incorrect link — opens a different GPU ↗":"Open public FurMark result ↗")+'</a>':"")}
   function draw(){
     var k=st.m,rows=rowsForView(),values=rows.map(function(c){return c[k]});
@@ -291,13 +294,22 @@ function fleet(F){
   // historically "good" cards as if they still require attention.
   var flagged=C.filter(needsFollowUp);
   $("#fflags").innerHTML=flagged.length?flagged.map(function(c){
-    var fl=FLAGS[c.card],level=c.status==="FAN_NOISE_STOP"||c.status==="LINK_SCORE_MISMATCH"?"warn":"note";
+    var fl=c.history?.length ? null : FLAGS[c.card],level=c.status==="FAN_NOISE_STOP"||c.status==="LINK_SCORE_MISMATCH"?"warn":"note";
     var description=fl?fl[1]:[c.fm==null?"FurMark":null,c.sp==null?"Superposition":null,c.sn==null?"Steel Nomad":null]
       .filter(Boolean).join(", ")+" not recorded in the snapshot. Finish testing before grading.";
     return '<button type="button" class="flag" data-n="'+c.card+'"><b>#'+c.card+'</b><span><span class="pill '+level+'">'+(level==="warn"?"check":"follow up")+'</span> '+esc(description)+'</span></button>'
   }).join(""):'<p class="searchmessage">No outstanding items in this snapshot.</p>';
   $$(".flag").forEach(function(button){button.onclick=function(){sel(+button.dataset.n);$("#fdetail").focus();$("#fdetail").scrollIntoView({block:"center",behavior:"smooth"})}});
-  draw();sel(24);
+  function submissionTime(c){return c.tested ? Date.parse(c.tested.replace(" @ "," ")+" GMT") : 0}
+  var latest=C.filter(c=>c.tested).sort((a,b)=>submissionTime(b)-submissionTime(a))[0];
+  $("#freshness").textContent="Latest verified test submission: "+(latest?latest.tested:"unknown")+". Last synced: "+(F.synced||"awaiting first import")+".";
+  var params=new URLSearchParams(location.search);
+  var requested=Number(params.get("card"));
+  var metric=params.get("metric");
+  if(["fm","sp","sn"].includes(metric)) $("#ff-metric button[data-k="+metric+"]").click();
+  sel(C.some(c=>c.card===requested)?requested:C[0].card);
+  if(requested && location.hash==="#fdetail") $("#fdetail").scrollIntoView();
+
 }
 
 /* ---------- Q&A ---------- */

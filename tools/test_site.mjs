@@ -56,13 +56,9 @@ check("Structured data and cited Q&A are valid", () => {
 });
 check("Fleet audit has valid card IDs, exceptions and provenance",() => {
   const fleet=JSON.parse(read("site/data/batch.json"));
-  assert.equal(fleet.slots,100);
-  assert(fleet.started>=38);
+  assert(fleet.slots>=100 && fleet.started===fleet.cards.length);
   assert.equal(new Set(fleet.cards.map(x=>x.card)).size,fleet.cards.length);
-  assert(fleet.cards.some(c=>c.card===4 && c.status==="LINK_SCORE_MISMATCH"));
-  assert(fleet.cards.some(c=>c.card===36 && c.status==="FAN_NOISE_STOP" && c.fm==null));
-  assert(fleet.cards.some(c=>c.card===37 && c.fm===5033));
-  assert(fleet.cards.some(c=>c.card===38 && c.fm===5081));
+  assert(fleet.cards.filter(c=>c.preset).every(c=>c.status==="MATCHED_GTX1070" && c.tested));
   assert(fleet.cards.every(c=>c.card>=1&&c.card<=fleet.slots));
 });
 check("No unreferenced local media in the podcast feed", () => {

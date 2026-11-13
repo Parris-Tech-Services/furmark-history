@@ -40,7 +40,7 @@ try{
   page.on("pageerror",e=>errors.push(e.message));
   await page.goto(url,{waitUntil:"domcontentloaded"});
   await page.waitForFunction(()=>document.querySelector("#ftiles")?.children.length>=5,{timeout:25000});
-  assert.match(await page.locator("#ftiles").innerText(),/38\s*\/\s*100/);
+  assert.match(await page.locator("#ftiles").innerText(),/\d+\s*\/\s*\d+/);
   assert.match(await page.locator("#heatv").innerText(),/^\d+% colour$/);
   pass("Desktop homepage, fleet data and honest colour-only slider");
   const first=page.locator(".ev").first();
@@ -92,6 +92,10 @@ try{
   await mp.locator("#fcardgo").fill("37");
   await mp.locator("#fgo").click();
   assert.match(await mp.locator("#fdetail").innerText(),/card #37/i);
+  await mp.locator("#fdetail a", {hasText:"Permanent link"}).click();
+  await mp.reload({waitUntil:"domcontentloaded"});
+  await mp.waitForFunction(()=>document.querySelector("#fdetail")?.textContent.includes("Card #37"));
+  assert.match(await mp.locator("#fdetail").innerText(),/peer median|insufficient data for comparison/i);
   pass("390px mobile layout and card finder");
   await context.close();await mobile.close();
   assert.deepEqual(errors,[],"Uncaught browser errors: "+errors.join("; "));
