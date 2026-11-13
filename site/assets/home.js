@@ -160,6 +160,7 @@ function watch(M){
       getFeedback(audio).textContent="";
       refresh(audio);
     });
+    audio.addEventListener("playing",function(){refresh(audio)});
     audio.addEventListener("pause",function(){refresh(audio)});
     audio.addEventListener("ended",function(){refresh(audio);getFeedback(audio).textContent="Episode finished."});
     audio.addEventListener("error",function(){
@@ -182,7 +183,7 @@ function watch(M){
       if(!audio.paused){audio.pause();return}
       var p=audio.play();
       refresh(audio);
-      if(p&&typeof p.catch==="function")p.catch(function(){
+      if(p&&typeof p.then==="function")p.then(function(){refresh(audio)},function(){
         getFeedback(audio).textContent="Playback was blocked or the recording did not load. Use the native audio controls or the Download MP3 link.";
         refresh(audio);
       });
