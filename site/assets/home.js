@@ -131,7 +131,7 @@ function watch(M){
 /* ---------- spotify shelf ---------- */
 (function(){
   var KEY="spotify-shelf",box=$("#spembeds");
-  function get(){try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return[]}}
+  function get(){try{var a=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(a)?a.filter(function(x){return x&&/^(episode|show|playlist|album|track|artist)$/.test(x.t)&&/^[A-Za-z0-9]+$/.test(x.id)}).slice(0,20):[]}catch(e){return[]}}
   function set(a){try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}}
   function parse(u){var m=u.trim().match(/open\.spotify\.com\/(?:intl-[a-z]+\/)?(episode|show|playlist|album|track|artist)\/([A-Za-z0-9]+)/);return m?{t:m[1],id:m[2]}:null}
   function draw(){var a=get();box.innerHTML=a.map(function(x){return'<iframe loading="lazy" src="https://open.spotify.com/embed/'+x.t+"/"+x.id+'?theme=0" height="'+(x.t==="episode"||x.t==="show"?152:232)+'" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="Spotify '+x.t+'"></iframe>'}).join("")||'<p style="color:var(--faint);font-size:13px;margin:0">Nothing pinned yet.</p>'}
@@ -144,10 +144,10 @@ function watch(M){
 /* ---------- photos ---------- */
 function photos(P){
   var el=$("#photogrid");if(!P.length){$("#photos").style.display="none";return}
-  el.innerHTML=P.map(function(p,i){return'<figure data-i="'+i+'"><div class="imgwrap"><img loading="lazy" src="'+esc(p.src)+'" alt="'+esc(p.alt)+'"></div><figcaption><b>'+esc(p.t)+"</b>"+esc(p.c)+' <a href="'+esc(p.page)+'" target="_blank" rel="noopener">'+esc(p.credit)+" · "+esc(p.lic)+"</a></figcaption></figure>"}).join("");
+  el.innerHTML=P.map(function(p,i){return'<figure><button class="photozoom" type="button" data-i="'+i+'" aria-label="Enlarge photo: '+esc(p.t)+'"><img loading="lazy" src="'+esc(p.src)+'" alt="'+esc(p.alt)+'"></button><figcaption><b>'+esc(p.t)+"</b>"+esc(p.c)+' <a href="'+esc(p.page)+'" target="_blank" rel="noopener">'+esc(p.credit)+" · "+esc(p.lic)+"</a></figcaption></figure>"}).join("");
   var lb=$("#lightbox");
   var previousFocus=null;
-  el.addEventListener("click",function(e){var f=e.target.closest("figure");if(!f||e.target.tagName==="A")return;var p=P[+f.dataset.i];previousFocus=document.activeElement;$("#lbimg").src=p.big||p.src;$("#lbimg").alt=p.alt;$("#lbcap").textContent=p.t+" — "+p.credit+", "+p.lic;lb.classList.add("open");$("#lbclose").focus()});
+  el.addEventListener("click",function(e){var b=e.target.closest(".photozoom");if(!b)return;var p=P[+b.dataset.i];previousFocus=document.activeElement;$("#lbimg").src=p.big||p.src;$("#lbimg").alt=p.alt;$("#lbcap").textContent=p.t+" — "+p.credit+", "+p.lic;lb.classList.add("open");$("#lbclose").focus()});
   function close(){if(!lb.classList.contains("open"))return;lb.classList.remove("open");if(previousFocus&&previousFocus.focus)previousFocus.focus()}
   lb.onclick=function(e){if(e.target===lb||e.target.closest("#lbclose"))close()};
   addEventListener("keydown",function(e){if(e.key==="Escape")close()})}
