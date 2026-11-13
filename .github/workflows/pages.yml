@@ -3,6 +3,8 @@ on:
   push:
     branches: [main]
     paths: ['site/**', 'tools/test_site.mjs', 'tools/browser_smoke.mjs', '.github/workflows/pages.yml']
+  schedule:
+    - cron: '17 */4 * * *'
   workflow_dispatch:
 permissions:
   contents: read
@@ -12,10 +14,33 @@ concurrency:
   group: pages
   cancel-in-progress: true
 jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      revision: ${{ steps.rev.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Refresh public fleet extract
+        if: github.event_name != 'push'
+        run: |
+          python3 tools/sync_fleet.py
+          node tools/test_site.mjs
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add site/data/batch.json
+          git commit -m 'Refresh public fleet scores'
+          git push origin HEAD:main
+      - id: rev
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
   verify:
+    needs: sync
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.sync.outputs.revision }}
       - name: Check published site and dataset
         run: node tools/test_site.mjs
       - name: Browser smoke tests (desktop and mobile)
@@ -23,13 +48,15 @@ jobs:
           npm install --no-save --no-package-lock --ignore-scripts playwright-core@1.57.0
           node tools/browser_smoke.mjs
   deploy:
-    needs: verify
+    needs: [sync, verify]
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.sync.outputs.revision }}
       - uses: actions/configure-pages@v5
         with:
           enablement: true
@@ -47,7 +74,7 @@ jobs:
           set -euo pipefail
           site_url="https://parris-tech-services.github.io/furmark-history/"
           for attempt in $(seq 1 18); do
-            if curl --fail --silent --show-error --location --max-time 15 "${site_url}" -o /tmp/furmark-live.html && grep -q 'id="fexport"' /tmp/furmark-live.html; then
+            if curl --fail --silent --show-error --location --max-time 15 "${site_url}" -o /tmp/furmark-live.html && grep -q 'Compare this card' /tmp/furmark-live.html; then
               echo "Production homepage includes the GPU fleet controls"
               break
             fi
