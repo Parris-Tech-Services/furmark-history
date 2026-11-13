@@ -42,3 +42,20 @@ jobs:
         run: sleep 25
       - id: deployment
         uses: actions/deploy-pages@v4
+      - name: Check live website after deployment
+        run: |
+          set -euo pipefail
+          site_url="https://parris-tech-services.github.io/furmark-history/"
+          for attempt in $(seq 1 18); do
+            if curl --fail --silent --show-error --location --max-time 15 "${site_url}" -o /tmp/furmark-live.html && grep -q 'id="fexport"' /tmp/furmark-live.html; then
+              echo "Production homepage includes the GPU fleet controls"
+              break
+            fi
+            if [ "$attempt" = 18 ]; then echo "Production homepage did not publish the updated controls"; exit 1; fi
+            sleep 5
+          done
+          for asset in assets/app.js assets/home.js data/batch.json read/gpu-batch-research.html podcast.xml; do
+            curl --fail --silent --show-error --location --retry 3 --retry-delay 2 "${site_url}${asset}" --output /dev/null
+            echo "Live asset OK: $asset"
+          done
+
