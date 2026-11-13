@@ -14,7 +14,7 @@
 | Nov 1997 | Company founded in Espoo, Finland | [2] |
 | 27 Feb 1998 | Company launched | [2] |
 | 26 Oct 1998 | 3DMark99 released, "the world's first 3D benchmark aimed directly at the 3D gaming community" | [10] |
-| 1999 | Trading name changed to MadOnion.com | [2] |
+| By Nov 1999 | Trading name changed to MadOnion.com (Futuremark press release dated 9 Nov 1999) | [2] |
 | 2002 | Renamed Futuremark | [2] |
 | Dec 2009 | Mobile and embedded unit spun off as Rightware | [2] |
 | Mar 2012 | Games division sold to Rovio | [2] |
@@ -29,7 +29,7 @@ Scores are not comparable across versions, because each is tied to a DirectX gen
 |---|---|---|---|
 | 3DMark99 | 26 Oct 1998 | DirectX 6, Remedy's MAX-FX engine | [10][11] |
 | 3DMark99 MAX | 8 Mar 1999 | content update | [3] |
-| 3DMark2000 | Dec 2000 | DirectX 7, hardware transform and lighting | [11] |
+| 3DMark2000 | 6 Dec 1999 | DirectX 7, hardware transform and lighting | [3] |
 | 3DMark2001 | 13 Mar 2001 | DirectX 8; first with vertex and pixel shaders; last on MAX-FX | [3][11] |
 | 3DMark2001 SE | 12 Feb 2002 | DirectX 8.1 | [3] |
 | 3DMark03 | 11 Feb 2003 | DirectX 9; no third-party engine; first to include CPU tests | [3][11] |
@@ -90,7 +90,7 @@ UL promised Linux support in May 2024 and at one point said macOS and Linux woul
 
 - UL's next-generation benchmark has no name or release date in its posts.
 - Whether and when Steel Nomad reaches Linux publicly.
-- The 3DMark2000 month comes from a hobbyist history (December 2000); I did not find the press release.
+- 3DMark2000's date (6 December 1999) comes from Wikipedia's table; a hobbyist history says December 2000, which conflicts with it. I did not retrieve Futuremark's press release.
 - The Steel Nomad delay articles (VideoCardz, Overclock3D, TweakTown) are cited from search summaries; some of those pages blocked my fetches.
 
 ## Sources

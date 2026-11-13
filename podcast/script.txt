@@ -11,7 +11,7 @@ DORAL: And somehow it ended up detected, throttled and argued over by two of the
 DORAL: It starts in two thousand and seven. The author goes by JeGX, Jérôme Guinot. He wrote graphics tutorials on a site called oZone3D, and later ran Geeks3D.
 LEDA: And his own words, from a post in March twenty twenty-five: the first version of FurMark one was released in two thousand and seven.
 DORAL: It's built on OpenGL. One scene. A torus covered in fur, drawn with shaders that do an enormous amount of maths on every single frame.
-LEDA: Why fur? Because fur is brutal to render. It's dense, shader-heavy work that keeps every core busy. Great for hurting a card, useless for playing anything.
+LEDA: Why fur? The developer's changelogs call it the furry donut, and the fur is there to give the card as much work as possible. We could not find him spelling out the exact technique.
 DORAL: So it was never really a game demo. JeGX pitched it as a stability test. Overclock your card, run the donut, see if it survives.
 
 ## Hot like hell
@@ -36,17 +36,17 @@ LEDA: With the next generation, the Radeon HD fifty-eight seventy, AMD moved the
 ## Nvidia joins in
 DORAL: Then November two thousand and ten. Nvidia launches the GeForce GTX five-eighty, and Geeks3D's headline is: the Anti-FurMark card.
 LEDA: Three sensors on the twelve-volt lines measured power. And the driver watched for FurMark or OCCT running.
-DORAL: When it detected one, the card clocked itself down. Not in games, only in the stress tests. Nvidia said it was protecting cards and motherboards.
+DORAL: When it detected one, the card clocked itself down. Not in games, only in the stress tests. One review quoted by Geeks3D said Nvidia's reason was to combat those two programs, which it called dangerous for the power supply.
 LEDA: The reviewer at TechPowerUp measured it. A hundred and fifty-three watts with the limiter. Three hundred and four without.
 DORAL: Half the power. In the one program people used to measure power.
-LEDA: Reviewers were stuck, because FurMark was how they tested temperatures, noise and power draw. Suddenly the donut wasn't telling the whole truth.
+LEDA: The same review suspected a second motive: Nvidia being tired of review sites publishing huge power numbers for loads no game produces.
 DORAL: In January twenty eleven, JeGX picked up on a TechPowerUp reader poll about these limiters. The majority said they were fine with them, but only with full control to switch them off.
 LEDA: He put himself in that majority. His complaint about Nvidia's version was that it was based on, quote, an applications blacklist. Which, he wrote, really sucks.
 DORAL: He added that AMD's PowerTune at least let you adjust the limit by about twenty percent. And that Asus had left the limiter off its GTX five-sixty Ti, so FurMark ran at full speed.
 
 ## Spin-offs and long life
 DORAL: Meanwhile FurMark became a standard. Geeks3D describes MSI's Kombustor as a burn-in tool, quote, based on the well-known FurMark software. MSI's own support page from twenty eleven says it was co-developed by MSI and the FurMark team.
-LEDA: A blog post by JeGX has FurMark at DreamHack in June twenty eleven, stressing an Asus ROG GTX five-eighty on the show floor.
+LEDA: In June twenty eleven, Geeks3D's review of the Asus ROG Matrix GTX five-eighty Platinum used FurMark as its burn-in test. And Asus later got its own ROG Edition of FurMark two, with a first beta in September twenty twenty-three.
 DORAL: And the old version just kept shipping. One point seventeen in August twenty fifteen. One point eighteen a year later, adding GTX ten-eighty and RX four-eighty support, plus a five-K resolution.
 LEDA: Over the years it went from fighting drivers to being listed in every guide on how to test a new build.
 DORAL: A caution that every guide repeats, though: it's a stress test, much harsher than any game. Treat the temperature numbers with respect.
