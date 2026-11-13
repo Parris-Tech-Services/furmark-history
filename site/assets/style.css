@@ -92,3 +92,44 @@ footer.site a{display:block;padding:3px 0;color:var(--mut)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 @media(max-width:520px){.brand .bt{display:none}}
+
+
+/* Accessibility and responsive improvements — 2026-11-13 */
+.skiplink{position:fixed;left:12px;top:-100px;z-index:500;background:var(--acc);color:#07080d;padding:10px 16px;border-radius:10px;font-weight:700}
+.skiplink:focus{top:8px}
+:focus-visible{outline:3px solid var(--acc2);outline-offset:3px}
+.searchhead{display:flex;align-items:center;justify-content:space-between;padding:12px 18px 0;gap:12px}
+.searchhead label{font-size:14px;font-weight:700;color:var(--ink)}
+#sclose{border:0;border-radius:9px;background:var(--surface2);color:var(--ink);font:18px var(--f-ui);cursor:pointer;width:34px;height:34px}
+.searchmessage{padding:18px 20px;color:var(--mut);margin:0}
+.demo-note{font-size:12px!important;max-width:none!important;margin:8px 0 0!important;color:var(--mut)!important}
+.fleetlinks{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0 0!important}
+.fleettoolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;border:1px solid var(--line);border-radius:14px;padding:13px;background:var(--surface)}
+.fleettoolbar>label{font-size:13px;font-weight:700;color:var(--mut)}
+.fleettoolbar input.field{max-width:105px;min-height:41px}
+.fleettoolbar .fleettoggle{display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:400}
+.fleettoolbar #factionmsg{font-size:13px;color:var(--mut)}
+.fleettoolbar .btn{font-size:13px;padding:9px 12px}
+.frow{width:100%;border:0;text-align:left;background:none;color:var(--ink);font-family:var(--f-ui)}
+.frow div{background:color-mix(in srgb,var(--surface2) 80%,var(--bg));border-radius:6px;min-height:11px;overflow:hidden}
+.frow:focus-visible,.flag:focus-visible{outline:2px solid var(--acc2);outline-offset:2px}
+.flag{width:100%;text-align:left;background:transparent;color:var(--mut);font-family:var(--f-ui)}
+.ev-toggle{background:none;color:var(--ink);border:0;padding:2px 0;display:flex;align-items:center;text-align:left;gap:14px;cursor:pointer;width:100%;font:inherit}
+.ev-toggle h3{flex:1}
+.ev-toggle .expandhint{font-size:12px;color:var(--acc2);flex:none}
+.ev:not(.open) .x{display:none}
+.ev.open .x{max-height:none;overflow:visible}
+.lightbox-close{position:absolute;top:18px;right:18px;background:#171b29;color:#fff}
+#lightbox img{max-width:min(94vw,1100px)}
+@media(max-width:620px){
+  .fleettoolbar{align-items:stretch}
+  .fleettoolbar label[for=fcardgo]{flex:0 0 100%}
+  .fleettoolbar input.field{max-width:none;flex:1 1 80px}
+  .fleettoolbar #fexport{width:100%;justify-content:center}
+  .fleettoolbar .fleettoggle{margin-left:2px}
+  .frow{grid-template-columns:38px 1fr 60px}
+  .nav{max-width:calc(100vw - 110px)}
+  #searchwrap{padding-top:3vh}
+  #searchbox input{font-size:16px}
+  .demo-note{line-height:1.5}
+}
