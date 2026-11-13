@@ -113,14 +113,14 @@ function timeline(TL){
       var eid="event-"+i;
       out+='<article class="ev'+(allOpen?" open":"")+'" data-bench="'+e.b+'"><div class="card"><div class="head"><span class="tag">'+BN[e.b]+'</span><span class="ty '+e.ty+'">'+e.ty+'</span><span class="d">'+fmtD(e.d)+'</span></div><button type="button" class="ev-toggle" aria-expanded="'+allOpen+'" aria-controls="'+eid+'"><h3>'+esc(e.t)+'</h3><span class="expandhint">'+(allOpen?"Collapse":"Explore")+' ▾</span></button><div class="x" id="'+eid+'"><p>'+esc(e.x)+'</p><a href="read/'+e.doc+'.html">Read more and see sources →</a></div></div></article>'});
     $("#rail").innerHTML=out||'<p style="color:var(--mut)">No events match. Try clearing a filter.</p>';
-    $(".ev-toggle").forEach(function(b){b.addEventListener("click",function(){var el=b.closest(".ev"),opened=el.classList.toggle("open");b.setAttribute("aria-expanded",String(opened));b.querySelector(".expandhint").textContent=opened?"Collapse ▴":"Explore ▾"})})}
+    $$(".ev-toggle").forEach(function(b){b.addEventListener("click",function(){var el=b.closest(".ev"),opened=el.classList.toggle("open");b.setAttribute("aria-expanded",String(opened));b.querySelector(".expandhint").textContent=opened?"Collapse ▴":"Explore ▾"})})}
   render()}
 
 /* ---------- watch ---------- */
 function watch(M){
   var st={g:0,b:"all"};
   $("#vtabs").innerHTML=M.map(function(g,i){return'<button class="chip" data-i="'+i+'" aria-pressed="'+(i===0)+'">'+esc(g.g)+"</button>"}).join("");
-  $("#vbench").innerHTML=["all","furmark","superposition","3dmark"].map(function(b){return'<button class="chip" data-b="'+b+'" aria-pressed="'+(b==="all")+'">'+BN[b]+"</button>"}).join("");
+  $("#vbench").innerHTML=["all","fleet","furmark","superposition","3dmark"].map(function(b){return'<button class="chip" data-b="'+b+'" aria-pressed="'+(b==="all")+'">'+BN[b]+"</button>"}).join("");
   $$("#vtabs .chip").forEach(function(c){c.onclick=function(){st.g=+c.dataset.i;$$("#vtabs .chip").forEach(function(o){o.setAttribute("aria-pressed",o===c)});r()}});
   $$("#vbench .chip").forEach(function(c){c.onclick=function(){st.b=c.dataset.b;$$("#vbench .chip").forEach(function(o){o.setAttribute("aria-pressed",o===c)});r()}});
   function r(){var items=M[st.g].items.filter(function(v){return st.b==="all"||v.b===st.b});

@@ -143,6 +143,208 @@
   ]
  },
  {
+  "g": "History & retro demos",
+  "items": [
+   {
+    "id": "2cG4Z25oJKA",
+    "t": "Final Reality DirectX 5 Benchmark (1997)",
+    "by": "AlphaYellow",
+    "b": "3dmark",
+    "n": "The Remedy benchmark that came before 3DMark."
+   },
+   {
+    "id": "GQWKFBuWuBo",
+    "t": "Final Reality | 4K 2160p",
+    "by": "James Mackenzie",
+    "b": "3dmark",
+    "n": "The same author wrote the 3DMark history cited in this site."
+   },
+   {
+    "id": "dfhrolZwjQs",
+    "t": "The Evolution of 3DMark Benchmark Demos (1999-2010)",
+    "by": "AlphaYellow",
+    "b": "3dmark",
+    "n": "Every early 3DMark scene in order."
+   },
+   {
+    "id": "xs3rnFicHG8",
+    "t": "20 Years of 3DMark Demo (Everything From 1999 to 2019)",
+    "by": "CR4P Gaming",
+    "b": "3dmark",
+    "n": ""
+   },
+   {
+    "id": "gUtOhDcaVNI",
+    "t": "3DMark Ten Years",
+    "by": "YouGamersTV",
+    "b": "3dmark",
+    "n": "A ten-year retrospective by Futuremark's own YouGamers."
+   },
+   {
+    "id": "z3XllGbKDyY",
+    "t": "3DMark03 – Mother Nature – Official Benchmark Video",
+    "by": "3DMark - The Gamer's Benchmark",
+    "b": "3dmark",
+    "n": "The scene from the 2003 release, the year of the audit."
+   },
+   {
+    "id": "ZMVz3oUCagw",
+    "t": "Unigine Valley Benchmark (2013)",
+    "by": "UNIGINE",
+    "b": "superposition",
+    "n": "The forest valley by UNIGINE's Siberian artists."
+   },
+   {
+    "id": "RUEsYP6CTNs",
+    "t": "Unigine Superposition Benchmark Beta on EVGA GeForce GTX 1080 Ti",
+    "by": "TEAMEVGA",
+    "b": "superposition",
+    "n": "An early look at Superposition in beta."
+   },
+   {
+    "id": "NzCAMcz5AwY",
+    "t": "UNIGINE 2 Sim Use Cases Showreel 2024",
+    "by": "UNIGINE",
+    "b": "superposition",
+    "n": "The engine behind Superposition at work in simulators."
+   }
+  ]
+ },
+ {
+  "g": "Explainers & controversies",
+  "items": [
+   {
+    "id": "8OrHZPYYY9g",
+    "t": "Understanding Asynchronous Compute in 3DMark Time Spy",
+    "by": "PC Perspective",
+    "b": "3dmark",
+    "n": "PC Perspective's explainer on the Time Spy argument."
+   },
+   {
+    "id": "dTJPp7WdEBs",
+    "t": "3DMark DirectX 12 Time Spy: GTX 1060 vs RX 480 Analysis",
+    "by": "Digital Foundry",
+    "b": "3dmark",
+    "n": ""
+   },
+   {
+    "id": "x1k_oxW12Vc",
+    "t": "Huawei Devices Delisted from UL Benchmarks",
+    "by": "TWiT Tech Podcast Network",
+    "b": "3dmark",
+    "n": "The 2018 phone delisting."
+   },
+   {
+    "id": "KofCLcwP1jg",
+    "t": "First Look: 3DMark Port Royal (Real-time Ray Tracing Benchmark)",
+    "by": "Jagat Review",
+    "b": "3dmark",
+    "n": "A hands-on look at launch."
+   },
+   {
+    "id": "l0sT9JvStGY",
+    "t": "3DMark Port Royal Realtime Ray Tracing vs Traditional Rasterization Visual Comparison",
+    "by": "WccftechTV",
+    "b": "3dmark",
+    "n": ""
+   },
+   {
+    "id": "cpoByv9lRZg",
+    "t": "Steel Nomad: Forging Nostalgia with 3DMark's Latest DX12 Benchmark",
+    "by": "314Reactor",
+    "b": "3dmark",
+    "n": ""
+   },
+   {
+    "id": "XwQV02rbTzY",
+    "t": "3DMark Steel Nomad: So schnell sind Grafikkarten",
+    "by": "PC Games Hardware",
+    "b": "3dmark",
+    "n": "In German."
+   }
+  ]
+ },
+ {
+  "g": "Overclocking & records",
+  "items": [
+   {
+    "id": "ymrX61x61uM",
+    "t": "Chasing a Gaming World Record",
+    "by": "Linus Tech Tips",
+    "b": "3dmark",
+    "n": ""
+   },
+   {
+    "id": "zkQ9ihrSJ_0",
+    "t": "LIVE: NVIDIA RTX 4090 Overclocking WORLD RECORD On-Air",
+    "by": "Gamers Nexus",
+    "b": "3dmark",
+    "n": "A live record attempt."
+   },
+   {
+    "id": "LuhTujr6zgI",
+    "t": "I Love This Benchmark! Breaking the Record in the 20 year old 3DMark",
+    "by": "der8auer EN",
+    "b": "3dmark",
+    "n": ""
+   },
+   {
+    "id": "V4bNZscGx90",
+    "t": "3DMark Speedway | Nvidia Geforce RTX 4090 OC @ 3 GHz",
+    "by": "PCGH (english)",
+    "b": "3dmark",
+    "n": "Speed Way on an overclocked 4090."
+   }
+  ]
+ },
+ {
+  "g": "Your GTX 1070s",
+  "items": [
+   {
+    "id": "hwMAR7LDOQA",
+    "t": "The GTX 1070 - Still Good Value after 8 years?",
+    "by": "zWORMz Gaming",
+    "b": "fleet",
+    "n": ""
+   },
+   {
+    "id": "YGCvDQRe8oo",
+    "t": "GTX 1070 — 10 YEARS Later",
+    "by": "Nicolas11x12 English",
+    "b": "fleet",
+    "n": "The card is ten years old in 2026."
+   },
+   {
+    "id": "DpbawKvltEc",
+    "t": "A retrospective & future look at the GTX 1070",
+    "by": "Old But Not Obsolete Tech",
+    "b": "fleet",
+    "n": ""
+   },
+   {
+    "id": "7jIDbZG1VxY",
+    "t": "Nvidia Pascal GTX 1080 & GTX 1070 - Maxwell on Speed",
+    "by": "AdoredTV",
+    "b": "fleet",
+    "n": "The architecture behind your batch."
+   },
+   {
+    "id": "J2VkkEHDG5E",
+    "t": "Warning Signs When Buying Used GPUs: How to Detect Defective Video Cards",
+    "by": "Gamers Nexus",
+    "b": "fleet",
+    "n": "Useful before grading cards for resale."
+   },
+   {
+    "id": "oRMPp-8IGQw",
+    "t": "Fear of Mining? This is How to Test a Used GPU.",
+    "by": "TechLens",
+    "b": "fleet",
+    "n": ""
+   }
+  ]
+ },
+ {
   "g": "How-to & stress-test walkthroughs",
   "items": [
    {
@@ -158,6 +360,27 @@
     "by": "Guidify",
     "b": "furmark",
     "n": "FurMark 2 settings and presets."
+   },
+   {
+    "id": "SSrbZqp4omc",
+    "t": "How to Test Your Graphics Card for Errors! (GPU Stress Test)",
+    "by": "Memory",
+    "b": "furmark",
+    "n": ""
+   },
+   {
+    "id": "waro2ShyFOw",
+    "t": "FurMark Benchmark Overview",
+    "by": "TheLegitPC",
+    "b": "furmark",
+    "n": ""
+   },
+   {
+    "id": "oLDwZadMXu4",
+    "t": "How to benchmark your system (esp. GPU) with Unigine Superposition",
+    "by": "TechRacoon",
+    "b": "superposition",
+    "n": ""
    }
   ]
  }
