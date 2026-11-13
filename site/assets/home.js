@@ -13,7 +13,7 @@ $$(".reveal").forEach(function(el){io.observe(el)});
 /* ---------- hero fur torus ---------- */
 (function(){
   var cv=$("#furcv");if(!cv)return;var ctx=cv.getContext("2d");
-  var N=3600,pts=[],R=1,r=.46,heroVisible=true,lastFrame=0;
+  var N=1500,pts=[],R=1,r=.46,heroVisible=true,lastFrame=0,SEG=N,segs=new Float32Array(3*N*4),NA=N,cost=0,frames=0,stopAt=0;
   if("IntersectionObserver" in window){
     var heroObserver=new IntersectionObserver(function(entries){heroVisible=entries[0].isIntersecting},{threshold:0});
     heroObserver.observe(cv);
@@ -31,41 +31,40 @@ $$(".reveal").forEach(function(el){io.observe(el)});
   cv.addEventListener("pointerup",stopDrag);
   cv.addEventListener("pointercancel",stopDrag);
   cv.addEventListener("lostpointercapture",stopDrag);
+  cv.addEventListener("keydown",function(e){var d={ArrowLeft:[0,-.15],ArrowRight:[0,.15],ArrowUp:[-.15,0],ArrowDown:[.15,0]}[e.key];if(!d)return;e.preventDefault();ax+=d[0];ay+=d[1];if(reduce)requestAnimationFrame(draw)});
   cv.addEventListener("pointermove",function(e){if(!drag)return;vy=(e.clientX-lx)*.0016;vx=(e.clientY-ly)*.0016;ay+=vy*3;ax+=vx*3;lx=e.clientX;ly=e.clientY});
   function draw(t){
     if(!reduce)requestAnimationFrame(draw);
-    if(!heroVisible||document.hidden||(!reduce&&t-lastFrame<33))return;
-    lastFrame=t;
+    if(!heroVisible||document.hidden||(!reduce&&t-lastFrame<41))return;
+    lastFrame=t;var f0=performance.now();
     // Render to the actual viewport size rather than a 900px offscreen mobile canvas.
-    var rect=cv.getBoundingClientRect(),side=Math.min(900,Math.max(300,Math.round(rect.width*Math.min(devicePixelRatio||1,2))));
+    var rect=cv.getBoundingClientRect(),side=Math.min(720,Math.max(300,Math.round(rect.width*Math.min(devicePixelRatio||1,2))));
     if(cv.width!==side){cv.width=side;cv.height=side}
     var W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
     if(!drag&&!reduce){ay+=.006;ax+=.0022}
     var ca=Math.cos(ax),sa=Math.sin(ax),cb=Math.cos(ay),sb=Math.sin(ay),S=W*.255,cx=W/2,cy=H/2,persp=4.2;
     var K=[[0,215,95,50],[.22,262,90,56],[.4,330,92,56],[.55,8,96,55],[.7,28,100,54],[.86,44,100,60],[1,52,100,86]],hue=215,sat=95,lit=52;
     for(var q=0;q<K.length-1;q++){if(heat>=K[q][0]&&heat<=K[q+1][0]){var f=(heat-K[q][0])/(K[q+1][0]-K[q][0]);hue=K[q][1]+(K[q+1][1]-K[q][1])*f;sat=K[q][2]+(K[q+1][2]-K[q][2])*f;lit=K[q][3]+(K[q+1][3]-K[q][3])*f;break}}
-    var buckets=[[],[],[]];
-    for(var i=0;i<N;i++){var p=pts[i];
-      var sway=Math.sin(t*.0016*(1+heat*2)+p.w*9)*.03*(.4+heat);
-      function tr(x,y,z){var y1=y*ca-z*sa,z1=y*sa+z*ca;var x2=x*cb+z1*sb,z2=-x*sb+z1*cb;return[x2,y1,z2]}
-      var a=tr(p.x,p.y,p.z),L=p.l*(1+heat*.55),
-          b=tr(p.x+p.nx*L+sway,p.y+p.ny*L+sway,p.z+p.nz*L);
-      var d1=persp/(persp-a[2]),d2=persp/(persp-b[2]);
-      var seg=[cx+a[0]*S*d1,cy+a[1]*S*d1,cx+b[0]*S*d2,cy+b[1]*S*d2];
-      var depth=(a[2]+1)/2;buckets[depth<.35?0:depth<.65?1:2].push(seg)}
+    var nb=[0,0,0],tt=t*.0016*(1+heat*2),amp=.03*(.4+heat),lf=1+heat*.55;
+    for(var i=0;i<NA;i++){var p=pts[i],sway=Math.sin(tt+p.w*9)*amp,L=p.l*lf;
+      var y1=p.y*ca-p.z*sa,z1=p.y*sa+p.z*ca,x1=p.x*cb+z1*sb,za=-p.x*sb+z1*cb;
+      var bx=p.x+p.nx*L+sway,by=p.y+p.ny*L+sway,bz=p.z+p.nz*L,yb=by*ca-bz*sa,zb1=by*sa+bz*ca,xb=bx*cb+zb1*sb,zb=-bx*sb+zb1*cb;
+      var d1=persp/(persp-za),d2=persp/(persp-zb),depth=(za+1)/2,k=depth<.35?0:depth<.65?1:2,o=k*SEG*4+nb[k]*4;
+      segs[o]=cx+x1*S*d1;segs[o+1]=cy+y1*S*d1;segs[o+2]=cx+xb*S*d2;segs[o+3]=cy+yb*S*d2;nb[k]++}
     ctx.lineCap="round";
-    for(var k=0;k<3;k++){ctx.beginPath();buckets[k].forEach(function(s){ctx.moveTo(s[0],s[1]);ctx.lineTo(s[2],s[3])});
+    for(var k=0;k<3;k++){ctx.beginPath();for(var m=0,base=k*SEG*4;m<nb[k];m++){var q4=base+m*4;ctx.moveTo(segs[q4],segs[q4+1]);ctx.lineTo(segs[q4+2],segs[q4+3])}
       ctx.lineWidth=.9+k*.7;ctx.strokeStyle=hsl(hue+k*10,sat,lit-18+k*14,.35+k*.3);ctx.stroke()}
     // glow
     var g=ctx.createRadialGradient(cx,cy,S*.3,cx,cy,S*1.8);g.addColorStop(0,hsl(hue,95,55,.10+heat*.14));g.addColorStop(1,"transparent");
     ctx.globalCompositeOperation="lighter";ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.globalCompositeOperation="source-over";
+    cost=cost*.8+(performance.now()-f0)*.2;if(++frames%8===0){if(cost>7&&NA>400)NA=Math.max(400,Math.round(NA*.75));else if(cost<3&&NA<N)NA=Math.min(N,Math.round(NA*1.15))}
     }
-  requestAnimationFrame(draw);
+  (window.requestIdleCallback||function(f){setTimeout(f,60)})(function(){requestAnimationFrame(draw)},{timeout:400});
   if(reduce)hs.addEventListener("input",function(){requestAnimationFrame(draw)});
 })();
 
 /* ---------- mini art ---------- */
-$$(".miniart").forEach(function(cv){
+function drawArt(cv){
   cv.width=700;cv.height=300;var c=cv.getContext("2d"),k=cv.dataset.kind,W=700,H=300;
   var cs=getComputedStyle(cv.closest("[data-bench]")),acc=cs.getPropertyValue("--acc").trim()||"#ff8a2a",acc2=cs.getPropertyValue("--acc2").trim()||"#ffc15a";
   var g=c.createLinearGradient(0,0,0,H);
@@ -91,12 +90,14 @@ $$(".miniart").forEach(function(cv){
     c.fillStyle="#0a0418";c.beginPath();c.moveTo(250,150);c.lineTo(228,178);c.lineTo(272,178);c.fill();c.fillRect(242,178,16,50);c.beginPath();c.moveTo(242,228);c.lineTo(236,258);c.lineTo(246,258);c.lineTo(250,228);c.fill();c.beginPath();c.moveTo(258,228);c.lineTo(254,258);c.lineTo(264,258);c.lineTo(262,228);c.fill();
     c.fillStyle="#7df9ff";c.fillRect(246,176,3,3);c.fillRect(252,176,3,3);
   }
-});
+}
+var artIO=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){artIO.unobserve(e.target);drawArt(e.target)}})},{rootMargin:"300px"});
+$$(".miniart").forEach(function(c){artIO.observe(c)});
 
 /* ---------- JSON-driven sections ---------- */
-Promise.all([j("data/timeline.json"),j("data/media.json"),j("data/gpus.json"),j("data/qa.json"),j("data/library.json"),j("data/photos.json").catch(function(){return[]}),j("data/batch.json").catch(function(){return null})]).then(function(d){
-  var TL=d[0],MEDIA=d[1],GPUS=d[2],QA=d[3],LIB=d[4],PH=d[5],FLEET=d[6];
-  stats(TL,MEDIA,QA,LIB);timeline(TL);watch(MEDIA);photos(PH);hall(GPUS);qa(QA);library(LIB);if(FLEET)fleet(FLEET);
+Promise.all([j("data/timeline.json"),j("data/media.json"),j("data/gpus.json"),j("data/counts.json"),j("data/library.json"),j("data/photos.json").catch(function(){return[]}),j("data/batch.json").catch(function(){return null})]).then(function(d){
+  var TL=d[0],MEDIA=d[1],GPUS=d[2],COUNTS=d[3],LIB=d[4],PH=d[5],FLEET=d[6];
+  stats(TL,MEDIA,COUNTS.qa,LIB);timeline(TL);watch(MEDIA);photos(PH);hall(GPUS);library(LIB);lazyQA();if(FLEET)fleet(FLEET);
 }).catch(function(err){
   console.error("Research data could not load",err);
   var s=$("#stats");if(s)s.textContent="Some research data could not load. Refresh to try again; the reading library is still available.";
@@ -104,9 +105,10 @@ Promise.all([j("data/timeline.json"),j("data/media.json"),j("data/gpus.json"),j(
   var b=$("#lab-fleet");if(b && !$("#ftiles").children.length)b.insertAdjacentHTML("beforeend",'<p class="notice">The fleet dataset is temporarily unavailable. <a href="read/gpu-batch-research.html">Read the saved GPU audit.</a></p>');
 });
 
-function stats(TL,M,QA,LIB){
+function lazyQA(){var el=$("#questions");if(!el)return;var go=function(){if(go.done)return;go.done=true;j("data/qa.json").then(qa).catch(function(){var q=$("#qa");if(q)q.innerHTML='<p class="searchmessage">The questions could not load. <a href="read/questions.html">Read the question index.</a></p>'})};if("IntersectionObserver" in window){var qo=new IntersectionObserver(function(es){if(es[0].isIntersecting){qo.disconnect();go()}},{rootMargin:"900px"});qo.observe(el)}else go();addEventListener("hashchange",function(){if(location.hash==="#questions")go()})}
+function stats(TL,M,QAN,LIB){
   var vids=0;M.forEach(function(g){vids+=g.items.length});
-  $("#stats").innerHTML=[[TL.length,"timeline events"],[QA.length,"answered questions"],[LIB.length,"documents"],[vids,"videos"]].map(function(s){return"<div><b>"+s[0]+"</b>"+s[1]+"</div>"}).join("")}
+  $("#stats").innerHTML=[[TL.length,"timeline events"],[QAN,"answered questions"],[LIB.length,"documents"],[vids,"videos"]].map(function(s){return"<div><b>"+s[0]+"</b>"+s[1]+"</div>"}).join("")}
 
 /* ---------- timeline ---------- */
 function timeline(TL){
@@ -137,7 +139,7 @@ function watch(M){
   $$("#vtabs .chip").forEach(function(c){c.onclick=function(){st.g=+c.dataset.i;$$("#vtabs .chip").forEach(function(o){o.setAttribute("aria-pressed",o===c)});r()}});
   $$("#vbench .chip").forEach(function(c){c.onclick=function(){st.b=c.dataset.b;$$("#vbench .chip").forEach(function(o){o.setAttribute("aria-pressed",o===c)});r()}});
   function r(){var items=M[st.g].items.filter(function(v){return st.b==="all"||v.b===st.b});
-    $("#vgrid").innerHTML=items.map(function(v){return'<article class="vcard" data-bench="'+v.b+'"><div class="yt" data-id="'+v.id+'" data-title="'+esc(v.t)+'" role="button" tabindex="0" aria-label="Play: '+esc(v.t)+'"><img loading="lazy" onerror="this.classList.add(\'bad\')" src="https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg" alt=""><div class="play"><i></i></div></div><h4>'+esc(v.t)+"</h4><small>"+esc(v.by)+" · "+BN[v.b]+"</small>"+(v.n?"<p>"+esc(v.n)+"</p>":"")+'<a href="https://www.youtube.com/watch?v='+v.id+'" target="_blank" rel="noopener" style="font-size:13px">Open on YouTube ↗</a></article>'}).join("")||'<p style="color:var(--mut)">Nothing in this view.</p>';
+    $("#vgrid").innerHTML=items.map(function(v){return'<article class="vcard" data-bench="'+v.b+'"><div class="yt" data-id="'+v.id+'" data-title="'+esc(v.t)+'" role="button" tabindex="0" aria-label="Play: '+esc(v.t)+'"><img loading="lazy" decoding="async" width="480" height="360" referrerpolicy="no-referrer" onerror="this.classList.add(\'bad\')" src="https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg" alt=""><div class="play"><i></i></div></div><h3>'+esc(v.t)+"</h3><small>"+esc(v.by)+" · "+BN[v.b]+"</small>"+(v.n?"<p>"+esc(v.n)+"</p>":"")+'<a href="https://www.youtube.com/watch?v='+v.id+'" target="_blank" rel="noopener" style="font-size:13px">Open on YouTube ↗</a></article>'}).join("")||'<p style="color:var(--mut)">Nothing in this view.</p>';
     $$(".yt").forEach(function(y){y.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();y.click()}})})}
   r()}
 
@@ -157,7 +159,7 @@ function watch(M){
 /* ---------- photos ---------- */
 function photos(P){
   var el=$("#photogrid");if(!P.length){$("#photos").style.display="none";return}
-  el.innerHTML=P.map(function(p,i){return'<figure><button class="photozoom" type="button" data-i="'+i+'" aria-label="Enlarge photo: '+esc(p.t)+'"><img loading="lazy" src="'+esc(p.src)+'" alt="'+esc(p.alt)+'"></button><figcaption><b>'+esc(p.t)+"</b>"+esc(p.c)+' <a href="'+esc(p.page)+'" target="_blank" rel="noopener">'+esc(p.credit)+" · "+esc(p.lic)+"</a></figcaption></figure>"}).join("");
+  el.innerHTML=P.map(function(p,i){return'<figure><button class="photozoom" type="button" data-i="'+i+'" aria-label="Enlarge photo: '+esc(p.t)+'"><img loading="lazy" decoding="async" width="'+(p.w||960)+'" height="'+(p.h||640)+'" src="'+esc(p.src)+'" alt="'+esc(p.alt)+'"></button><figcaption><b>'+esc(p.t)+"</b>"+esc(p.c)+' <a href="'+esc(p.page)+'" target="_blank" rel="noopener">'+esc(p.credit)+" · "+esc(p.lic)+"</a></figcaption></figure>"}).join("");
   var lb=$("#lightbox");
   var previousFocus=null;
   el.addEventListener("click",function(e){var b=e.target.closest(".photozoom");if(!b)return;var p=P[+b.dataset.i];previousFocus=document.activeElement;$("#lbimg").src=p.big||p.src;$("#lbimg").alt=p.alt;$("#lbcap").textContent=p.t+" — "+p.credit+", "+p.lic;lb.classList.add("open");$("#lbclose").focus()});
@@ -171,7 +173,7 @@ function hall(G){
   var f={v:"all"};var vs=["all"].concat(G.map(function(g){return g.v}).filter(function(v,i,a){return a.indexOf(v)===i}));
   $("#gf").innerHTML=vs.map(function(v){return'<button class="chip" data-v="'+v+'" aria-pressed="'+(v==="all")+'">'+(v==="all"?"All vendors":v)+"</button>"}).join("");
   $$("#gf .chip").forEach(function(c){c.onclick=function(){f.v=c.dataset.v;$$("#gf .chip").forEach(function(o){o.setAttribute("aria-pressed",o===c)});r()}});
-  function r(){$("#gpugrid").innerHTML=G.filter(function(g){return f.v==="all"||g.v===f.v}).map(function(g){return'<article class="card gpu v-'+g.v+'"><div class="chipface"><span>'+esc(g.v)+"</span><span>"+g.y+'</span></div><h4>'+esc(g.n)+'</h4><div class="hh">'+esc(g.h)+"</div><ul>"+g.f.map(function(x){return"<li>"+esc(x)+"</li>"}).join("")+'</ul><div class="srow">'+g.b.map(function(b){return'<span class="tag" data-bench="'+b+'">'+BN[b]+"</span>"}).join("")+'<a class="chip" href="read/'+g.doc+'.html">Sources →</a></div></article>'}).join("")}
+  function r(){$("#gpugrid").innerHTML=G.filter(function(g){return f.v==="all"||g.v===f.v}).map(function(g){return'<article class="card gpu v-'+g.v+'"><div class="chipface"><span>'+esc(g.v)+"</span><span>"+g.y+'</span></div><h3>'+esc(g.n)+'</h3><div class="hh">'+esc(g.h)+"</div><ul>"+g.f.map(function(x){return"<li>"+esc(x)+"</li>"}).join("")+'</ul><div class="srow">'+g.b.map(function(b){return'<span class="tag" data-bench="'+b+'">'+BN[b]+"</span>"}).join("")+'<a class="chip" href="read/'+g.doc+'.html">Sources →</a></div></article>'}).join("")}
   r();
   /* bench */
   var KEY="bench-gpus",rows=[];
@@ -256,7 +258,7 @@ function fleet(F){
     $("#fbt").textContent=MET[k][0]+" · "+rows.length+" cards"+(rows.length?" · chart axis starts at "+fmt(base):"");
     $("#fbars").innerHTML=rows.length?rows.map(function(c){
       var width=mx===base?100:Math.max(2,Math.min(100,(c[k]-base)/(mx-base)*100));
-      return '<button type="button" aria-label="Inspect card '+c.card+', '+MET[k][0]+' '+fmt(c[k])+' points" aria-pressed="'+(st.sel===c.card)+'" class="frow'+(st.sel===c.card?" sel":"")+'" data-n="'+c.card+'" style="--rc:'+(RIGC[c.rig]||"#9aa3b8")+'"><b>#'+c.card+'</b><div><i style="width:'+width+'%"></i></div><span>'+fmt(c[k])+'</span></button>'
+      return '<button type="button" aria-label="#'+c.card+' '+fmt(c[k])+', inspect card '+c.card+' ('+MET[k][0]+' points)" aria-pressed="'+(st.sel===c.card)+'" class="frow'+(st.sel===c.card?" sel":"")+'" data-n="'+c.card+'" style="--rc:'+(RIGC[c.rig]||"#9aa3b8")+'"><b>#'+c.card+'</b><div><i style="width:'+width+'%"></i></div><span>'+fmt(c[k])+'</span></button>'
     }).join(""):'<p class="searchmessage">No scored cards match these filters. Try another test PC or untick “Follow-ups only”.</p>';
     $$(".frow").forEach(function(r){r.onclick=function(){sel(+r.dataset.n)}});
     // The plot is a within-batch comparison, not a causal measure of hardware health.

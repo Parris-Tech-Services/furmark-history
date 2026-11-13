@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="GPU Benchmark Lore">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff8a2a"/><stop offset=".4" stop-color="#ffc15a"/>
+      <stop offset=".7" stop-color="#35e0c6"/><stop offset="1" stop-color="#8b7bff"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#07080d"/>
+  <g fill="none" stroke="url(#g)" stroke-linecap="round" stroke-width="3">
+    <ellipse cx="32" cy="32" rx="19" ry="12"/>
+    <ellipse cx="32" cy="32" rx="8" ry="4"/>
+    <path d="M32 8v6M32 50v6M10 20l5 3M54 20l-5 3M10 44l5-3M54 44l-5-3"/>
+  </g>
+</svg>

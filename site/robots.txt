@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://parris-tech-services.github.io/furmark-history/sitemap.xml

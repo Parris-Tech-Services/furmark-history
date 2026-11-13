@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en" data-bench="all">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How this site is built: web best practices applied · GPU Benchmark Lore</title>
+<meta name="description" content="What research says makes a great website, and what was changed because of it.">
+<link rel="canonical" href="https://parris-tech-services.github.io/furmark-history/read/website-notes.html">
+<meta name="theme-color" content="#07080d"><meta name="color-scheme" content="dark light"><meta name="referrer" content="strict-origin-when-cross-origin">
+<meta property="og:type" content="article"><meta property="og:site_name" content="GPU Benchmark Lore"><meta property="og:url" content="https://parris-tech-services.github.io/furmark-history/read/website-notes.html">
+<meta property="og:title" content="How this site is built: web best practices applied"><meta property="og:description" content="What research says makes a great website, and what was changed because of it.">
+<meta property="og:image" content="https://parris-tech-services.github.io/furmark-history/assets/og-card.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="GPU Benchmark Lore">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="../assets/apple-touch-icon.png"><link rel="manifest" href="../manifest.webmanifest">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"How this site is built: web best practices applied","description":"What research says makes a great website, and what was changed because of it.","url":"https://parris-tech-services.github.io/furmark-history/read/website-notes.html","mainEntityOfPage":"https://parris-tech-services.github.io/furmark-history/read/website-notes.html","inLanguage":"en","dateModified":"2026-11-13","license":"https://opensource.org/licenses/MIT","isPartOf":{"@type":"WebSite","name":"GPU Benchmark Lore","url":"https://parris-tech-services.github.io/furmark-history/"},"publisher":{"@type":"Organization","name":"Parris Tech Services"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://parris-tech-services.github.io/furmark-history/"},{"@type":"ListItem","position":2,"name":"Guides and method","item":"https://parris-tech-services.github.io/furmark-history/#library"},{"@type":"ListItem","position":3,"name":"How this site is built: web best practices applied","item":"https://parris-tech-services.github.io/furmark-history/read/website-notes.html"}]}]}</script>
+<link rel="preload" href="../assets/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500 700;font-display:swap;src:url(../assets/fonts/jetbrains-mono-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:400 700;font-display:swap;src:url(../assets/fonts/newsreader-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:400 700;font-display:swap;src:url(../assets/fonts/space-grotesk-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}</style>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));z-index:60}
+.rhero{padding:54px 0 28px;position:relative}
+.rhero::before{content:"";position:absolute;inset:-60px 0 0;background:radial-gradient(60% 80% at 20% 0,color-mix(in srgb,var(--acc) 22%,transparent),transparent 70%);pointer-events:none}
+.rhero h1{font:700 clamp(30px,5vw,54px)/1.08 var(--f-ui);letter-spacing:-.02em;margin:14px 0 10px;max-width:22ch}
+.crumbs{display:flex;gap:8px;flex-wrap:wrap;font:13px var(--f-mono);color:var(--faint);margin:0 0 14px}.crumbs a{color:var(--mut)}.crumbs [aria-current]{color:var(--ink)}
+.rhero p{color:var(--mut);font-size:18px;max-width:60ch;margin:0 0 16px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--faint);font:13px var(--f-mono)}
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:48px;align-items:start}
+@media(max-width:960px){.layout{grid-template-columns:minmax(0,1fr);gap:0}}
+article.prose{overflow-wrap:anywhere;min-width:0}
+.layout>*{min-width:0}
+aside.toc{position:sticky;top:84px;max-height:calc(100vh - 110px);overflow:auto;font-size:14px;padding-right:6px}
+aside.toc .tochead{margin:0 0 10px;font:600 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+aside.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:6px 0 6px 14px;color:var(--mut);margin-left:-1px;border-left:2px solid transparent;line-height:1.35}
+aside.toc li a:hover{color:var(--ink);text-decoration:none}
+aside.toc li a.on{color:var(--acc2);border-left-color:var(--acc)}
+@media(max-width:960px){aside.toc{position:static;max-height:none;margin:0 0 22px;border:1px solid var(--line);border-radius:14px;padding:14px}aside.toc ol{border:0}}
+article.prose{font:400 19px/1.72 var(--f-read);color:var(--ink);max-width:70ch}
+article.prose h2{font:700 clamp(24px,3vw,32px)/1.2 var(--f-ui);letter-spacing:-.01em;margin:2.2em 0 .5em;position:relative;padding-top:6px}
+article.prose h2::before{content:"";display:block;width:44px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--acc),var(--acc2));margin-bottom:14px}
+article.prose h3{font:700 21px/1.3 var(--f-ui);margin:1.8em 0 .4em;color:var(--acc2)}
+article.prose p{margin:0 0 1.1em}
+article.prose strong{color:var(--ink)}
+article.prose a{border-bottom:1px solid color-mix(in srgb,var(--acc2) 40%,transparent)}
+article.prose a:hover{text-decoration:none;border-bottom-color:var(--acc2)}
+article.prose blockquote{margin:1.2em 0;padding:4px 0 4px 20px;border-left:3px solid var(--acc);color:var(--mut)}
+article.prose code{font:500 .85em var(--f-mono);background:var(--surface2);padding:2px 6px;border-radius:6px}
+article.prose ul,article.prose ol{padding-left:1.3em}
+article.prose li{margin:.35em 0}
+article.prose li::marker{color:var(--acc2)}
+.tablewrap{overflow-x:auto;margin:1.3em 0;border:1px solid var(--line);border-radius:14px}
+article.prose table{border-collapse:collapse;width:100%;font:15px/1.5 var(--f-ui)}
+article.prose th{background:var(--surface2);text-align:left;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+article.prose th,article.prose td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+article.prose tr:last-child td{border-bottom:0}
+article.prose tbody tr:hover td{background:color-mix(in srgb,var(--acc) 7%,transparent)}
+a.cite{font:600 11px var(--f-mono);display:inline-block;min-width:24px;min-height:24px;line-height:24px;text-align:center;box-sizing:border-box;position:relative;top:-.2em;margin:0 1px;border-radius:6px;background:color-mix(in srgb,var(--acc) 22%,transparent);color:var(--acc2);border:0!important}
+a.cite:hover{background:var(--acc);color:#000}
+#sources+*,h2#sources~ol{font:15px/1.55 var(--f-ui);color:var(--mut)}
+li:target{background:color-mix(in srgb,var(--acc) 20%,transparent);outline:2px solid var(--acc);border-radius:6px}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:70px 0 10px}
+.pager a{display:block;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink)}
+.pager a:hover{border-color:var(--acc);text-decoration:none}
+.pager span{display:block;font:11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.pager b{font-size:17px}
+.pager a:last-child{text-align:right}
+.tip{position:fixed;z-index:80;max-width:420px;background:var(--surface);border:1px solid var(--acc);border-radius:12px;padding:12px 14px;font:13px/1.45 var(--f-ui);color:var(--ink);box-shadow:var(--shadow);pointer-events:none;display:none}
+.hlink{opacity:0;margin-left:8px;color:var(--faint);font-size:.7em;border:0!important}
+h2:hover .hlink,h3:hover .hlink{opacity:1}
+.back{position:fixed;right:18px;bottom:18px;z-index:40}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../index.html" aria-label="GPU Benchmark Lore, home"><span class="logo"></span><span class="bt">GPU Benchmark Lore</span></a>
+  <nav class="nav">
+    <a href="../index.html#timeline" class="hide-s">Timeline</a><a href="../index.html#watch" class="hide-s">Watch</a><a href="../index.html#lab" class="hide-s">GPU lab</a><a href="../index.html#library">Library</a>
+    <a href="#" data-open-search>Search <span class="kbd">/</span></a>
+  </nav>
+  <button class="iconbtn" data-theme-toggle title="Toggle light / dark" aria-label="Toggle theme">☾</button>
+</div></header>
+<section class="rhero"><div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span><a href="../index.html#library">Guides and method</a><span aria-hidden="true">/</span><span aria-current="page">How this site is built: web best practices applied</span></nav>
+  <span class="tag">Method</span>
+  <h1>How this site is built: web best practices applied</h1>
+  <p>What research says makes a great website, and what was changed because of it.</p>
+  <div class="meta"><span>~1 min read</span><span>·</span><span>updated <time datetime="2026-11-13">2026-11-13</time></span><span>·</span><a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/WEBSITE_NOTES.md">view source on GitHub</a></div>
+</div></section>
+<main class="wrap layout">
+  <aside class="toc" aria-label="On this page"><p class="tochead">On this page</p><ol id="tocol"></ol></aside>
+  <article class="prose" id="doc">
+
+
+    <nav class="pager"><a href="scene-story-questions.html"><span>Read</span><b>The thirty scene questions</b></a><a href="fact-check.html"><span>Read</span><b>Fact-check log</b></a></nav>
+  </article>
+</main>
+<footer class="site"><div class="wrap">
+  <div><p class="fh">GPU Benchmark Lore</p>Sourced histories of FurMark, UNIGINE Superposition and 3DMark. Every claim carries a numbered source; what could not be confirmed says so. Text is MIT-licensed; quotations stay with their owners.</div>
+  <div><p class="fh">Explore</p><a href="../index.html#timeline">Timeline</a><a href="../index.html#questions">Question explorer</a><a href="fact-check.html">Fact-check log</a></div>
+  <div><p class="fh">Repo</p><a href="https://github.com/Parris-Tech-Services/furmark-history">GitHub repository</a><a href="../furmark-history-podcast.pdf">Podcast PDF</a></div>
+</div></footer>
+<div class="tip" id="tip"></div>
+<script src="../assets/app.js" data-base="../"></script>
+<script>
+(function(){
+  // wrap tables for horizontal scroll, add heading links
+  document.querySelectorAll("article table").forEach(function(t){var w=document.createElement("div");w.className="tablewrap";t.parentNode.insertBefore(w,t);w.appendChild(t)});
+  document.querySelectorAll("article h2[id],article h3[id]").forEach(function(h){var a=document.createElement("a");a.className="hlink";a.href="#"+h.id;a.textContent="#";a.title="Link to this section";h.appendChild(a)});
+  // external links open in new tab
+  document.querySelectorAll("article a[href^=http]").forEach(function(a){a.target="_blank";a.rel="noopener"});
+  // progress
+  var prog=document.getElementById("prog");
+  function sp(){var h=document.documentElement;var m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?h.scrollTop/m*100:0)+"%"}
+  addEventListener("scroll",sp,{passive:true});sp();
+  // scrollspy
+  var links=[].slice.call(document.querySelectorAll("#tocol a")),map={};
+  links.forEach(function(a){map[a.getAttribute("href").slice(1)]=a});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.remove("on")});var l=map[e.target.id];if(l)l.classList.add("on")}})},{rootMargin:"-80px 0px -70% 0px"});
+  document.querySelectorAll("article h2[id]").forEach(function(h){io.observe(h)});
+  // citation tooltips
+  var tip=document.getElementById("tip");
+  document.querySelectorAll("a.cite").forEach(function(a){
+    var id=a.getAttribute("href").slice(1);
+    a.addEventListener("mouseenter",function(){var li=document.getElementById(id);if(!li)return;tip.textContent=li.textContent.trim().slice(0,320);tip.style.display="block";var r=a.getBoundingClientRect();tip.style.left=Math.min(innerWidth-tip.offsetWidth-12,Math.max(12,r.left-20))+"px";tip.style.top=Math.max(12,r.top-tip.offsetHeight-10)+"px"});
+    a.addEventListener("mouseleave",function(){tip.style.display="none"});
+  });
+})();
+</script>
+</body></html>

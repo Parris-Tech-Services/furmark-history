@@ -104,6 +104,14 @@
   "mins": 12
  },
  {
+  "slug": "website-notes",
+  "title": "How this site is built: web best practices applied",
+  "bench": "all",
+  "kind": "Method",
+  "blurb": "What research says makes a great website, and what was changed because of it.",
+  "mins": 1
+ },
+ {
   "slug": "fact-check",
   "title": "Fact-check log",
   "bench": "all",

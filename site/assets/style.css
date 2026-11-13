@@ -1,7 +1,7 @@
 /* GPU Benchmark Lore — shared styles */
 :root{
   --bg:#07080d; --bg2:#0b0d15; --surface:#10131d; --surface2:#171b29; --line:rgba(255,255,255,.09);
-  --ink:#eaedf6; --mut:#9aa3b8; --faint:#6b7389;
+  --ink:#eaedf6; --mut:#9aa3b8; --faint:#8a93aa;
   --fur:#ff8a2a; --fur2:#ffc15a; --sup:#35e0c6; --sup2:#8cf3ff; --dmk:#8b7bff; --dmk2:#d17bff;
   --acc:var(--fur); --acc2:var(--fur2);
   --r:18px; --shadow:0 20px 60px -20px rgba(0,0,0,.7);
@@ -11,7 +11,7 @@
 }
 :root[data-theme="light"]{
   --bg:#f6f3ee; --bg2:#efeae2; --surface:#ffffff; --surface2:#f1ece4; --line:rgba(20,20,30,.12);
-  --ink:#16181f; --mut:#555c70; --faint:#7d8499; --shadow:0 18px 50px -24px rgba(40,30,10,.35);
+  --ink:#16181f; --mut:#555c70; --faint:#5e657b; --shadow:0 18px 50px -24px rgba(40,30,10,.35);
   --fur:#d2570a; --fur2:#b8741a; --sup:#0b8f7d; --sup2:#117c96; --dmk:#5a49e0; --dmk2:#9a37c9;
 }
 [data-bench="furmark"]{--acc:var(--fur);--acc2:var(--fur2)}
@@ -62,7 +62,7 @@ img{max-width:100%;display:block}
 footer.site{margin-top:90px;border-top:1px solid var(--line);padding:38px 0 60px;color:var(--mut);font-size:14px}
 footer.site .wrap{display:grid;gap:22px;grid-template-columns:1.4fr 1fr 1fr}
 @media(max-width:760px){footer.site .wrap{grid-template-columns:1fr}}
-footer.site h4{margin:0 0 10px;color:var(--ink);font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+footer.site .fh{margin:0 0 10px;color:var(--ink);font-size:13px;letter-spacing:.1em;text-transform:uppercase}
 footer.site a{display:block;padding:3px 0;color:var(--mut)}
 
 /* search overlay */
@@ -141,3 +141,27 @@ footer.site a{display:block;padding:3px 0;color:var(--mut)}
 .photozoom:hover img{transform:scale(1.03)}
 .fleetcompare{font:13px/1.55 var(--f-ui);color:var(--mut);margin:12px 0 0;padding:10px 12px;border-radius:10px;background:var(--surface2)}
 #fscatter circle:focus-visible{stroke:var(--acc2);stroke-width:3px;outline:none}
+
+/* ---- Research-driven refinements (web.dev, WCAG 2.2, Google SEO guide; see read/website-notes.html) ---- */
+/* Fallback faces tuned to the web fonts so swapping text barely shifts layout (CLS). */
+@font-face{font-family:"Space Grotesk Fallback";src:local("Arial");size-adjust:104%;ascent-override:94%;descent-override:26%;line-gap-override:0%}
+@font-face{font-family:"Newsreader Fallback";src:local("Georgia");size-adjust:96%;ascent-override:90%;descent-override:26%;line-gap-override:0%}
+:root{--f-ui:"Space Grotesk","Space Grotesk Fallback",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--f-read:"Newsreader","Newsreader Fallback","Iowan Old Style",Georgia,serif}
+/* WCAG 1.4.1: links inside running text must not rely on colour alone. */
+.photos figcaption a,.card p a,.notice a,.spot li a,footer.site p a,.q .a a,.ev .x a{text-decoration:underline;text-underline-offset:3px}
+/* WCAG 2.5.8: at least 24 x 24 CSS px targets. */
+.frow{min-height:24px}
+.flag,.chip,.btn{min-height:24px}
+a.cite{display:inline-block;min-width:24px;min-height:24px;text-align:center;line-height:24px;vertical-align:baseline;margin:0 1px;box-sizing:border-box;font-size:12px;position:relative;top:-.15em}
+/* Printing: the research reads well on paper. */
+@media print{
+  .top,.progress,.back,footer.site,#searchwrap,.pager,aside.toc,.hlink,.yt,audio,.heat,#furcv,.stage{display:none!important}
+  html,body{background:#fff!important;color:#000!important}
+  article.prose{font-size:11pt;max-width:none;color:#000}
+  article.prose a{color:#000;border:0}
+  article.prose a[href^="http"]::after{content:" (" attr(href) ")";font-size:9pt;color:#444;word-break:break-all}
+  a.cite::after{content:none!important}
+  .tablewrap{overflow:visible;border:0}
+  h2,h3{break-after:avoid}
+  table,figure,li{break-inside:avoid}
+}

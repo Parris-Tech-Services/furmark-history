@@ -9,10 +9,14 @@ Reads docs/*.md (needs pandoc) and writes:
   site/data/qa.json       every numbered question/answer from the QA_* and SCENE_* docs
 The home page (site/index.html) is hand-written and reads site/data/*.json.
 """
-import html, json, os, re, subprocess
+import datetime, html, json, os, re, subprocess
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCS, SITE = os.path.join(ROOT, "docs"), os.path.join(ROOT, "site")
 GH = "https://github.com/Parris-Tech-Services/furmark-history/blob/main/"
+BASE = "https://parris-tech-services.github.io/furmark-history/"
+TODAY = datetime.date.today().isoformat()
+FONTCSS = open(os.path.join(SITE, "assets", "fonts.css"), encoding="utf-8").read().split("\n", 1)[1].strip().replace("url(fonts/", "url(../assets/fonts/")
+BENCH_LABEL = {"furmark": "FurMark", "superposition": "UNIGINE Superposition", "3dmark": "3DMark", "fleet": "Your GPUs", "all": "Guides and method"}
 
 # file -> (title, benchmark, kind, blurb)
 META = {
@@ -29,6 +33,7 @@ META = {
  "QUESTIONS":             ("The thirty technical questions", "all", "Index", "Every open question and where it is answered."),
  "SCENE_STORY_QUESTIONS": ("The thirty scene questions", "all", "Index", "Story and visual-lore questions."),
  "GPU_BATCH_RESEARCH":     ("My GTX 1070 batch: deep research", "fleet", "Your GPUs", "100 sheet slots, 38 started cards, link audit, rig bias, health and resale."),
+ "WEBSITE_NOTES":          ("How this site is built: web best practices applied", "all", "Method", "What research says makes a great website, and what was changed because of it."),
  "FACT_CHECK":            ("Fact-check log", "all", "Method", "What was re-checked and corrected."),
 }
 ORDER = list(META)
@@ -93,6 +98,49 @@ def text_of(h): return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ",
 
 TEMPLATE = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "reader_template.html"), encoding="utf-8").read()
 
+def crumbs(name, p):
+    return ('<nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span>'
+            '<a href="../index.html#library">%s</a><span aria-hidden="true">/</span><span aria-current="page">%s</span></nav>'
+            % (html.escape(BENCH_LABEL[p["bench"]]), html.escape(p["title"])))
+
+def jsonld(name, p):
+    url = "%sread/%s.html" % (BASE, slug(name))
+    g = {"@context": "https://schema.org", "@graph": [
+        {"@type": "Article", "headline": p["title"], "description": p["blurb"], "url": url, "mainEntityOfPage": url,
+         "inLanguage": "en", "dateModified": TODAY, "license": "https://opensource.org/licenses/MIT",
+         "isPartOf": {"@type": "WebSite", "name": "GPU Benchmark Lore", "url": BASE},
+         "publisher": {"@type": "Organization", "name": "Parris Tech Services"}},
+        {"@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": BASE},
+            {"@type": "ListItem", "position": 2, "name": BENCH_LABEL[p["bench"]], "item": BASE + "#library"},
+            {"@type": "ListItem", "position": 3, "name": p["title"], "item": url}]}]}
+    return json.dumps(g, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+
+def write_site_files(pages):
+    """sitemap, robots, manifest and the 404 page: small files search engines and browsers look for."""
+    urls = [BASE] + [BASE + "read/%s.html" % slug(n) for n in pages]
+    open(os.path.join(SITE, "sitemap.xml"), "w", encoding="utf-8").write(
+        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "".join("  <url><loc>%s</loc><lastmod>%s</lastmod></url>\n" % (u, TODAY) for u in urls) + "</urlset>\n")
+    open(os.path.join(SITE, "robots.txt"), "w", encoding="utf-8").write("User-agent: *\nAllow: /\n\nSitemap: %ssitemap.xml\n" % BASE)
+    json.dump({"name": "GPU Benchmark Lore", "short_name": "Benchmark Lore", "description": "Sourced histories of FurMark, UNIGINE Superposition and 3DMark.",
+               "start_url": "./", "scope": "./", "display": "standalone", "background_color": "#07080d", "theme_color": "#07080d",
+               "icons": [{"src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png"},
+                         {"src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png"},
+                         {"src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}]},
+              open(os.path.join(SITE, "manifest.webmanifest"), "w", encoding="utf-8"), indent=1)
+    open(os.path.join(SITE, "404.html"), "w", encoding="utf-8").write(NOT_FOUND)
+
+NOT_FOUND = """<!doctype html><html lang="en" data-bench="furmark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Page not found · GPU Benchmark Lore</title><meta name="robots" content="noindex"><meta name="theme-color" content="#07080d">
+<base href="%s"><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/fonts.css"><link rel="stylesheet" href="assets/style.css">
+<style>main{max-width:640px;margin:0 auto;padding:12vh 20px}h1{font:700 clamp(36px,7vw,64px)/1.05 var(--f-ui);letter-spacing:-.03em;margin:.3em 0}p{color:var(--mut);font-size:18px}.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}</style></head>
+<body><main id="maincontent"><span class="kicker">Error 404</span><h1>That page isn’t in the archive.</h1>
+<p>The link may be old, or the page was renamed. Try the search (press <span class="kbd">/</span> on any page) or start from one of the three histories.</p>
+<div class="row"><a class="btn" href="./">Go to the home page</a><a class="btn ghost" href="read/history.html">FurMark</a><a class="btn ghost" href="read/superposition.html">Superposition</a><a class="btn ghost" href="read/3dmark-steel-nomad.html">3DMark</a></div></main>
+<script src="assets/app.js" data-base=""></script></body></html>
+""" % BASE
+
 def build():
     search, qa, pages = [], [], {}
     for name in ORDER:
@@ -129,13 +177,16 @@ def build():
                 .replace("{{KIND}}", p["kind"]).replace("{{BLURB}}", html.escape(p["blurb"]))
                 .replace("{{MINS}}", str(max(1, round(p["words"] / 220)))).replace("{{TOC}}", tocli)
                 .replace("{{BODY}}", p["body"]).replace("{{PREV}}", nav(p["prev"])).replace("{{NEXT}}", nav(p["next"]))
-                .replace("{{GITHUB}}", GH + "docs/" + name + ".md"))
+                .replace("{{GITHUB}}", GH + "docs/" + name + ".md").replace("{{FONTCSS}}", FONTCSS).replace("{{SLUG}}", slug(name)).replace("{{DATE}}", TODAY)
+                .replace("{{CRUMBS}}", crumbs(name, p)).replace("{{JSONLD}}", jsonld(name, p)))
         open(os.path.join(SITE, "read", slug(name) + ".html"), "w", encoding="utf-8").write(page)
     json.dump(search, open(os.path.join(SITE, "data", "search.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     json.dump(qa, open(os.path.join(SITE, "data", "qa.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     lib = [{"slug": slug(n), "title": p["title"], "bench": p["bench"], "kind": p["kind"], "blurb": p["blurb"],
             "mins": max(1, round(p["words"] / 220))} for n, p in pages.items()]
     json.dump(lib, open(os.path.join(SITE, "data", "library.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    json.dump({"qa": len(qa), "docs": len(pages), "sections": len(search)}, open(os.path.join(SITE, "data", "counts.json"), "w"))
+    write_site_files(pages)
     print("pages", len(pages), "search sections", len(search), "qa", len(qa))
 
 if __name__ == "__main__":

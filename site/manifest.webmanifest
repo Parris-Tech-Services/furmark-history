@@ -1,0 +1,28 @@
+{
+ "name": "GPU Benchmark Lore",
+ "short_name": "Benchmark Lore",
+ "description": "Sourced histories of FurMark, UNIGINE Superposition and 3DMark.",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#07080d",
+ "theme_color": "#07080d",
+ "icons": [
+  {
+   "src": "assets/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "assets/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "assets/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

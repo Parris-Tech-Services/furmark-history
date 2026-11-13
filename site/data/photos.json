@@ -1,72 +1,86 @@
 [
  {
-  "src": "assets/photos/3dmark11-computex.jpg",
+  "src": "assets/photos/3dmark11-computex.webp",
   "t": "3DMark 11 live at Computex",
   "c": "3DMark 11 running as a live demo on an MSI Big Bang board at Computex Taipei, 3 June 2010.",
   "alt": "3DMark 11 live at Computex",
   "credit": "Masaru Kamikura",
   "lic": "CC BY 2.0",
   "b": "3dmark",
-  "page": "https://commons.wikimedia.org/wiki/File:3DMark_11_Live_Demo_at_MSI_Big_Bang_System,_Computex_Taipei_20100603.jpg"
+  "page": "https://commons.wikimedia.org/wiki/File:3DMark_11_Live_Demo_at_MSI_Big_Bang_System,_Computex_Taipei_20100603.jpg",
+  "w": 960,
+  "h": 640
  },
  {
-  "src": "assets/photos/rx7900.jpg",
+  "src": "assets/photos/rx7900.webp",
   "t": "Radeon RX 7900 XTX",
   "c": "A Sapphire card. Tom's Hardware measured the RX 7900 XTX at 366 W in FurMark and called its throttling unusually strong.",
   "alt": "Radeon RX 7900 XTX",
   "credit": "Geni",
   "lic": "CC BY-SA 4.0",
   "b": "furmark",
-  "page": "https://commons.wikimedia.org/wiki/File:Sapphire_AMD_Radeon_RX_7900_XTX.jpg"
+  "page": "https://commons.wikimedia.org/wiki/File:Sapphire_AMD_Radeon_RX_7900_XTX.jpg",
+  "w": 960,
+  "h": 601
  },
  {
-  "src": "assets/photos/gf110.jpg",
+  "src": "assets/photos/gf110.webp",
   "t": "A GeForce GTX 580, taken apart",
   "c": "The cooler, the board, the packaged GF110 chip and its bare silicon die: the 'Anti-FurMark' card whose limiter spotted FurMark and OCCT.",
   "alt": "A disassembled GeForce GTX 580 with the GF110 chip and die laid on the board",
   "credit": "Fritzchens Fritz from Berlin",
   "lic": "CC0",
   "b": "furmark",
-  "page": "https://commons.wikimedia.org/wiki/File:NVIDIA@40nm@Fermi@GF110@GeForce_GTX_580@UA10B338_1041A1_N2Y540.000_GF110-375-A1_DSC04152_(27576804994).jpg"
+  "page": "https://commons.wikimedia.org/wiki/File:NVIDIA@40nm@Fermi@GF110@GeForce_GTX_580@UA10B338_1041A1_N2Y540.000_GF110-375-A1_DSC04152_(27576804994).jpg",
+  "w": 960,
+  "h": 623
  },
  {
-  "src": "assets/photos/ad102.jpg",
+  "src": "assets/photos/ad102.webp",
   "t": "A bare RTX 4090 circuit board",
   "c": "The board around the AD102 GPU, the chip behind many recent Superposition and 3DMark overclocking records.",
   "alt": "Circuit board of a GeForce RTX 4090 with the GPU removed",
   "credit": "Fritzchens Fritz",
   "lic": "CC0",
   "b": "superposition",
-  "page": "https://commons.wikimedia.org/wiki/File:Nvidia@5nm@AdaLovelace@AD102@GeForce_RTX_4090@S_TW_2324A1_U2F028.MOW_AD102-301-A1_DSCx1@VIS.jpg"
+  "page": "https://commons.wikimedia.org/wiki/File:Nvidia@5nm@AdaLovelace@AD102@GeForce_RTX_4090@S_TW_2324A1_U2F028.MOW_AD102-301-A1_DSCx1@VIS.jpg",
+  "w": 960,
+  "h": 627
  },
  {
-  "src": "assets/photos/rtx-size.jpg",
+  "src": "assets/photos/rtx-size.webp",
   "t": "RTX 3090 beside RTX 4090",
   "c": "Flagship cards have grown with their power budgets.",
   "alt": "RTX 3090 beside RTX 4090",
   "credit": "Benlisquare",
   "lic": "CC BY-SA 4.0",
   "b": "3dmark",
-  "page": "https://commons.wikimedia.org/wiki/File:Size_comparison_between_RTX_3090_and_RTX_4090.jpg"
+  "page": "https://commons.wikimedia.org/wiki/File:Size_comparison_between_RTX_3090_and_RTX_4090.jpg",
+  "w": 960,
+  "h": 796
  },
  {
-  "src": "assets/photos/otaniemi.jpg",
+  "src": "assets/photos/otaniemi.webp",
   "t": "Otaniemi, Espoo",
   "c": "Espoo, Finland, is where Futuremark was founded in 1997 and where UL says it still develops benchmarks near Helsinki.",
   "alt": "Otaniemi, Espoo",
   "credit": "J-P Kärnä",
   "lic": "CC BY-SA 3.0",
   "b": "3dmark",
-  "page": "https://commons.wikimedia.org/wiki/File:Otaniemi_from_air.jpg"
+  "page": "https://commons.wikimedia.org/wiki/File:Otaniemi_from_air.jpg",
+  "w": 827,
+  "h": 476
  },
  {
-  "src": "assets/photos/tomsk.jpg",
+  "src": "assets/photos/tomsk.webp",
   "t": "Tomsk, Siberia",
   "c": "One of UNIGINE's offices is in Tomsk. Valley's lead artist said: 'Living in Siberia, we wanted to show how beautiful the nature is here.'",
   "alt": "Tomsk, Siberia",
   "credit": "TatyanaPenn",
   "lic": "CC BY 3.0",
   "b": "superposition",
-  "page": "https://commons.wikimedia.org/wiki/File:Tomsk,_view_from_the_fire-observation_tower.jpg"
+  "page": "https://commons.wikimedia.org/wiki/File:Tomsk,_view_from_the_fire-observation_tower.jpg",
+  "w": 960,
+  "h": 642
  }
 ]
