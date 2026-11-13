@@ -2,7 +2,7 @@
 "use strict";
 var $=function(s,r){return(r||document).querySelector(s)},$$=function(s,r){return[].slice.call((r||document).querySelectorAll(s))};
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-function j(u){return fetch(u).then(function(r){return r.json()})}
+function j(u){return fetch(u).then(function(r){if(!r.ok)throw Error(u+" returned HTTP "+r.status);return r.json()})}
 var BN={fleet:"My GPUs",furmark:"FurMark",superposition:"Superposition","3dmark":"3DMark",all:"All"};
 var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -20,7 +20,7 @@ $$(".reveal").forEach(function(el){io.observe(el)});
   var ax=.9,ay=0,vx=.0045,vy=.007,drag=false,lx=0,ly=0,heat=.62,t0=0;
   var hs=$("#heat"),hv=$("#heatv");
   function hsl(h,s,l,a){return"hsla("+h+","+s+"%,"+l+"%,"+a+")"}
-  function setHeat(){heat=hs.value/100;hv.textContent=Math.round(38+heat*70)+" °C"}
+  function setHeat(){heat=hs.value/100;hv.textContent=Math.round(heat*100)+"% colour"}
   hs.addEventListener("input",setHeat);setHeat();
   cv.addEventListener("pointerdown",function(e){drag=true;lx=e.clientX;ly=e.clientY;cv.setPointerCapture(e.pointerId);cv.style.cursor="grabbing"});
   cv.addEventListener("pointerup",function(){drag=false;cv.style.cursor="grab"});
@@ -84,6 +84,11 @@ $$(".miniart").forEach(function(cv){
 Promise.all([j("data/timeline.json"),j("data/media.json"),j("data/gpus.json"),j("data/qa.json"),j("data/library.json"),j("data/photos.json").catch(function(){return[]}),j("data/batch.json").catch(function(){return null})]).then(function(d){
   var TL=d[0],MEDIA=d[1],GPUS=d[2],QA=d[3],LIB=d[4],PH=d[5],FLEET=d[6];
   stats(TL,MEDIA,QA,LIB);timeline(TL);watch(MEDIA);photos(PH);hall(GPUS);qa(QA);library(LIB);if(FLEET)fleet(FLEET);
+}).catch(function(err){
+  console.error("Research data could not load",err);
+  var s=$("#stats");if(s)s.textContent="Some research data could not load. Refresh to try again; the reading library is still available.";
+  var a=$("#rail");if(a)a.innerHTML='<p class="searchmessage">The interactive timeline could not load. <a href="read/history.html">Read the FurMark history directly.</a></p>';
+  var b=$("#lab-fleet");if(b && !$("#ftiles").children.length)b.insertAdjacentHTML("beforeend",'<p class="notice">The fleet dataset is temporarily unavailable. <a href="read/gpu-batch-research.html">Read the saved GPU audit.</a></p>');
 });
 
 function stats(TL,M,QA,LIB){
@@ -98,16 +103,17 @@ function timeline(TL){
   chips($("#tf-bench"),["all","furmark","superposition","3dmark"],"b",function(x){return BN[x]});
   chips($("#tf-type"),["all","release","company","controversy","hardware","milestone"],"t",function(x){return x==="all"?"All kinds":x[0].toUpperCase()+x.slice(1)});
   $("#tsearch").oninput=function(){fb.q=this.value.toLowerCase();render()};
-  var allOpen=false;$("#texp").onclick=function(e){e.preventDefault();allOpen=!allOpen;this.textContent=allOpen?"Collapse all":"Expand all";$$(".ev").forEach(function(x){x.classList.toggle("open",allOpen)})};
+  var allOpen=false;$("#texp").onclick=function(){allOpen=!allOpen;this.textContent=allOpen?"Collapse all":"Expand all";$(".ev").forEach(function(x){x.classList.toggle("open",allOpen);x.querySelector(".ev-toggle").setAttribute("aria-expanded",String(allOpen))})};
   function fmtD(d){var p=d.split("-");var M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];return p.length===3?(+p[2])+" "+M[+p[1]-1]+" "+p[0]:p.length===2?M[+p[1]-1]+" "+p[0]:p[0]}
   function render(){
     var rows=TL.filter(function(e){return(fb.b==="all"||e.b===fb.b)&&(fb.t==="all"||e.ty===fb.t)&&(!fb.q||(e.t+" "+e.x).toLowerCase().indexOf(fb.q)>=0)});
     $("#tcount").textContent=rows.length+" events";
     var out="",yr="";
-    rows.forEach(function(e){var y=e.d.slice(0,4);if(y!==yr){yr=y;out+='<div class="yr"><span>'+y+"</span></div>"}
-      out+='<div class="ev" data-bench="'+e.b+'"><div class="card"><div class="head"><span class="tag">'+BN[e.b]+'</span><span class="ty '+e.ty+'">'+e.ty+'</span><span class="d">'+fmtD(e.d)+'</span></div><h3>'+esc(e.t)+'</h3><div class="x"><p>'+esc(e.x)+'</p><a href="read/'+e.doc+'.html">Read more and see sources →</a></div></div></div>'});
+    rows.forEach(function(e,i){var y=e.d.slice(0,4);if(y!==yr){yr=y;out+='<div class="yr"><span>'+y+"</span></div>"}
+      var eid="event-"+i;
+      out+='<article class="ev'+(allOpen?" open":"")+'" data-bench="'+e.b+'"><div class="card"><div class="head"><span class="tag">'+BN[e.b]+'</span><span class="ty '+e.ty+'">'+e.ty+'</span><span class="d">'+fmtD(e.d)+'</span></div><button type="button" class="ev-toggle" aria-expanded="'+allOpen+'" aria-controls="'+eid+'"><h3>'+esc(e.t)+'</h3><span class="expandhint">'+(allOpen?"Collapse":"Explore")+' ▾</span></button><div class="x" id="'+eid+'"><p>'+esc(e.x)+'</p><a href="read/'+e.doc+'.html">Read more and see sources →</a></div></div></article>'});
     $("#rail").innerHTML=out||'<p style="color:var(--mut)">No events match. Try clearing a filter.</p>';
-    $$(".ev").forEach(function(el){el.addEventListener("click",function(e){if(e.target.tagName==="A")return;el.classList.toggle("open")})})}
+    $(".ev-toggle").forEach(function(b){b.addEventListener("click",function(){var el=b.closest(".ev"),opened=el.classList.toggle("open");b.setAttribute("aria-expanded",String(opened));b.querySelector(".expandhint").textContent=opened?"Collapse ▴":"Explore ▾"})})}
   render()}
 
 /* ---------- watch ---------- */
@@ -140,8 +146,11 @@ function photos(P){
   var el=$("#photogrid");if(!P.length){$("#photos").style.display="none";return}
   el.innerHTML=P.map(function(p,i){return'<figure data-i="'+i+'"><div class="imgwrap"><img loading="lazy" src="'+esc(p.src)+'" alt="'+esc(p.alt)+'"></div><figcaption><b>'+esc(p.t)+"</b>"+esc(p.c)+' <a href="'+esc(p.page)+'" target="_blank" rel="noopener">'+esc(p.credit)+" · "+esc(p.lic)+"</a></figcaption></figure>"}).join("");
   var lb=$("#lightbox");
-  el.addEventListener("click",function(e){var f=e.target.closest("figure");if(!f||e.target.tagName==="A")return;var p=P[+f.dataset.i];$("#lbimg").src=p.big||p.src;$("#lbimg").alt=p.alt;$("#lbcap").textContent=p.t+" — "+p.credit+", "+p.lic;lb.classList.add("open")});
-  lb.onclick=function(){lb.classList.remove("open")};addEventListener("keydown",function(e){if(e.key==="Escape")lb.classList.remove("open")})}
+  var previousFocus=null;
+  el.addEventListener("click",function(e){var f=e.target.closest("figure");if(!f||e.target.tagName==="A")return;var p=P[+f.dataset.i];previousFocus=document.activeElement;$("#lbimg").src=p.big||p.src;$("#lbimg").alt=p.alt;$("#lbcap").textContent=p.t+" — "+p.credit+", "+p.lic;lb.classList.add("open");$("#lbclose").focus()});
+  function close(){if(!lb.classList.contains("open"))return;lb.classList.remove("open");if(previousFocus&&previousFocus.focus)previousFocus.focus()}
+  lb.onclick=function(e){if(e.target===lb||e.target.closest("#lbclose"))close()};
+  addEventListener("keydown",function(e){if(e.key==="Escape")close()})}
 
 /* ---------- lab ---------- */
 $$("#labtabs .chip").forEach(function(c){c.onclick=function(){$$("#labtabs .chip").forEach(function(o){o.classList.toggle("on",o===c)});["fleet","hall","bench","decode"].forEach(function(t){$("#lab-"+t).hidden=t!==c.dataset.t})}});
