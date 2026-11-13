@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en" data-bench="all">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The thirty technical questions · GPU Benchmark Lore</title>
+<meta name="description" content="Every open question and where it is answered.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));z-index:60}
+.rhero{padding:54px 0 28px;position:relative}
+.rhero::before{content:"";position:absolute;inset:-60px 0 0;background:radial-gradient(60% 80% at 20% 0,color-mix(in srgb,var(--acc) 22%,transparent),transparent 70%);pointer-events:none}
+.rhero h1{font:700 clamp(30px,5vw,54px)/1.08 var(--f-ui);letter-spacing:-.02em;margin:14px 0 10px;max-width:22ch}
+.rhero p{color:var(--mut);font-size:18px;max-width:60ch;margin:0 0 16px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--faint);font:13px var(--f-mono)}
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:48px;align-items:start}
+@media(max-width:960px){.layout{grid-template-columns:1fr;gap:0}}
+aside.toc{position:sticky;top:84px;max-height:calc(100vh - 110px);overflow:auto;font-size:14px;padding-right:6px}
+aside.toc h4{margin:0 0 10px;font:600 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+aside.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:6px 0 6px 14px;color:var(--mut);margin-left:-1px;border-left:2px solid transparent;line-height:1.35}
+aside.toc li a:hover{color:var(--ink);text-decoration:none}
+aside.toc li a.on{color:var(--acc2);border-left-color:var(--acc)}
+@media(max-width:960px){aside.toc{position:static;max-height:none;margin:0 0 22px;border:1px solid var(--line);border-radius:14px;padding:14px}aside.toc ol{border:0}}
+article.prose{font:400 19px/1.72 var(--f-read);color:var(--ink);max-width:70ch}
+article.prose h2{font:700 clamp(24px,3vw,32px)/1.2 var(--f-ui);letter-spacing:-.01em;margin:2.2em 0 .5em;position:relative;padding-top:6px}
+article.prose h2::before{content:"";display:block;width:44px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--acc),var(--acc2));margin-bottom:14px}
+article.prose h3{font:700 21px/1.3 var(--f-ui);margin:1.8em 0 .4em;color:var(--acc2)}
+article.prose p{margin:0 0 1.1em}
+article.prose strong{color:var(--ink)}
+article.prose a{border-bottom:1px solid color-mix(in srgb,var(--acc2) 40%,transparent)}
+article.prose a:hover{text-decoration:none;border-bottom-color:var(--acc2)}
+article.prose blockquote{margin:1.2em 0;padding:4px 0 4px 20px;border-left:3px solid var(--acc);color:var(--mut)}
+article.prose code{font:500 .85em var(--f-mono);background:var(--surface2);padding:2px 6px;border-radius:6px}
+article.prose ul,article.prose ol{padding-left:1.3em}
+article.prose li{margin:.35em 0}
+article.prose li::marker{color:var(--acc2)}
+.tablewrap{overflow-x:auto;margin:1.3em 0;border:1px solid var(--line);border-radius:14px}
+article.prose table{border-collapse:collapse;width:100%;font:15px/1.5 var(--f-ui)}
+article.prose th{background:var(--surface2);text-align:left;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+article.prose th,article.prose td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+article.prose tr:last-child td{border-bottom:0}
+article.prose tbody tr:hover td{background:color-mix(in srgb,var(--acc) 7%,transparent)}
+a.cite{font:600 11px var(--f-mono);vertical-align:super;line-height:0;padding:1px 4px;margin:0 1px;border-radius:5px;background:color-mix(in srgb,var(--acc) 22%,transparent);color:var(--acc2);border:0!important}
+a.cite:hover{background:var(--acc);color:#000}
+#sources+*,h2#sources~ol{font:15px/1.55 var(--f-ui);color:var(--mut)}
+li:target{background:color-mix(in srgb,var(--acc) 20%,transparent);outline:2px solid var(--acc);border-radius:6px}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:70px 0 10px}
+.pager a{display:block;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink)}
+.pager a:hover{border-color:var(--acc);text-decoration:none}
+.pager span{display:block;font:11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.pager b{font-size:17px}
+.pager a:last-child{text-align:right}
+.tip{position:fixed;z-index:80;max-width:420px;background:var(--surface);border:1px solid var(--acc);border-radius:12px;padding:12px 14px;font:13px/1.45 var(--f-ui);color:var(--ink);box-shadow:var(--shadow);pointer-events:none;display:none}
+.hlink{opacity:0;margin-left:8px;color:var(--faint);font-size:.7em;border:0!important}
+h2:hover .hlink,h3:hover .hlink{opacity:1}
+.back{position:fixed;right:18px;bottom:18px;z-index:40}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../index.html"><span class="logo"></span><span class="bt">GPU Benchmark Lore</span></a>
+  <nav class="nav">
+    <a href="../index.html#timeline" class="hide-s">Timeline</a><a href="../index.html#watch" class="hide-s">Watch</a><a href="../index.html#lab" class="hide-s">GPU lab</a><a href="../index.html#library">Library</a>
+    <a href="#" data-open-search>Search <span class="kbd">/</span></a>
+  </nav>
+  <button class="iconbtn" data-theme-toggle title="Toggle light / dark" aria-label="Toggle theme">☾</button>
+</div></header>
+<section class="rhero"><div class="wrap">
+  <span class="tag">Index</span>
+  <h1>The thirty technical questions</h1>
+  <p>Every open question and where it is answered.</p>
+  <div class="meta"><span>~2 min read</span><span>·</span><a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/QUESTIONS.md">view source on GitHub</a></div>
+</div></section>
+<main class="wrap layout">
+  <aside class="toc"><h4>On this page</h4><ol id="tocol"><li><a href="#furmark">FurMark</a></li><li><a href="#superposition">Superposition</a></li><li><a href="#3dmark">3DMark</a></li></ol></aside>
+  <article class="prose" id="doc">
+<p>These were gaps in the original histories when the question list was created. <strong>All 30 now have evidence-based answers</strong> in <a href="qa-furmark.html">FurMark</a>, <a href="qa-superposition.html">Superposition</a> and <a href="qa-3dmark.html">3DMark</a>. Answers distinguish sourced facts, reviewer opinions, inference and questions that remain genuinely unverified. A researched question does not imply every historical unknown has been resolved.</p>
+<h2 id="furmark">FurMark</h2>
+<ol type="1">
+<li>How is the fur actually rendered, and what do JeGX's own tutorials say about the technique?</li>
+<li>What are FurMark's presets and burn-in modes, and how is its score calculated?</li>
+<li>What is GeeXLab, and how did it shape FurMark 2?</li>
+<li>Has FurMark ever verifiably damaged a graphics card, or is that myth?</li>
+<li>Do modern GPUs and drivers (RTX, RDNA) still detect or limit FurMark, and how does power limiting work today?</li>
+<li>What did FurMark 1.9.0's "even heavier load" and the Xtreme burning mode change?</li>
+<li>Who is JeGX, and what else did Geeks3D and oZone3D build (GPU Caps Viewer, GPU Shark, GPU-Z links)?</li>
+<li>How does FurMark behave on Raspberry Pi and Arm, and why was that added?</li>
+<li>How does FurMark compare with other stress tools (OCCT, Kombustor, Heaven, Time Spy Stress Test) on heat and power?</li>
+<li>What do online FurMark scores and the comparative score table show, and how big is the database?</li>
+</ol>
+<h2 id="superposition">Superposition</h2>
+<ol type="1">
+<li>Who is UNIGINE (where based, how big), and what is the UNIGINE 2 engine?</li>
+<li>What do typical Superposition scores look like across GPU generations, and who holds records?</li>
+<li>How does the stress test and VR-ready test work, and how do reviewers use them?</li>
+<li>Why does Superposition use DirectX 11 and OpenGL rather than Vulkan or DX12, and did UNIGINE add newer APIs to the engine?</li>
+<li>What are the histories of Heaven and Valley, and are they still used?</li>
+<li>What is the claim about an 8K Superposition demo broadcast from space?</li>
+<li>Which review sites and test suites (Phoronix, Tom's Hardware, others) adopted Superposition?</li>
+<li>How does SSRTGI work according to UNIGINE's own documentation?</li>
+<li>What do the Advanced and Pro editions cost, and how is it licensed?</li>
+<li>How does Superposition rank against competing GPU benchmarks in overclocking competitions?</li>
+</ol>
+<h2 id="3dmark">3DMark</h2>
+<ol type="1">
+<li>How are Time Spy and Steel Nomad scores calculated, and what do the tests actually render?</li>
+<li>How big is 3DMark's user base and result database, and who holds records?</li>
+<li>What were the 3DMark03 Nvidia driver cheating scandal and the smartphone delistings?</li>
+<li>What was the Time Spy asynchronous compute controversy?</li>
+<li>Which 3DMark feature tests exist (DXR, mesh shaders, DLSS, VRS, sampler feedback) and when did they arrive?</li>
+<li>What are the mobile tests (Ice Storm, Sling Shot, Wild Life, Solar Bay) and their history?</li>
+<li>What did 3DMark cost over the years, and how has the Steam business gone?</li>
+<li>What other benchmarks did Futuremark make (PCMark, VRMark, Peacekeeper), and what was the 3DMark Vantage PhysX dispute?</li>
+<li>How does the Benchmark Development Program work, and who are its members?</li>
+<li>How were Port Royal and Speed Way received, and how do their scores relate to real games?</li>
+</ol>
+
+    <nav class="pager"><a href="scene-story-questions.html"><span>Read</span><b>The thirty scene questions</b></a></nav>
+  </article>
+</main>
+<footer class="site"><div class="wrap">
+  <div><h4>GPU Benchmark Lore</h4>Sourced histories of FurMark, UNIGINE Superposition and 3DMark. Every claim carries a numbered source; what could not be confirmed says so. Text is MIT-licensed; quotations stay with their owners.</div>
+  <div><h4>Explore</h4><a href="../index.html#timeline">Timeline</a><a href="../index.html#questions">Question explorer</a><a href="fact-check.html">Fact-check log</a></div>
+  <div><h4>Repo</h4><a href="https://github.com/Parris-Tech-Services/furmark-history">GitHub repository</a><a href="../furmark-history-podcast.pdf">Podcast PDF</a></div>
+</div></footer>
+<div class="tip" id="tip"></div>
+<script src="../assets/app.js" data-base="../"></script>
+<script>
+(function(){
+  // wrap tables for horizontal scroll, add heading links
+  document.querySelectorAll("article table").forEach(function(t){var w=document.createElement("div");w.className="tablewrap";t.parentNode.insertBefore(w,t);w.appendChild(t)});
+  document.querySelectorAll("article h2[id],article h3[id]").forEach(function(h){var a=document.createElement("a");a.className="hlink";a.href="#"+h.id;a.textContent="#";a.title="Link to this section";h.appendChild(a)});
+  // external links open in new tab
+  document.querySelectorAll("article a[href^=http]").forEach(function(a){a.target="_blank";a.rel="noopener"});
+  // progress
+  var prog=document.getElementById("prog");
+  function sp(){var h=document.documentElement;var m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?h.scrollTop/m*100:0)+"%"}
+  addEventListener("scroll",sp,{passive:true});sp();
+  // scrollspy
+  var links=[].slice.call(document.querySelectorAll("#tocol a")),map={};
+  links.forEach(function(a){map[a.getAttribute("href").slice(1)]=a});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.remove("on")});var l=map[e.target.id];if(l)l.classList.add("on")}})},{rootMargin:"-80px 0px -70% 0px"});
+  document.querySelectorAll("article h2[id]").forEach(function(h){io.observe(h)});
+  // citation tooltips
+  var tip=document.getElementById("tip");
+  document.querySelectorAll("a.cite").forEach(function(a){
+    var id=a.getAttribute("href").slice(1);
+    a.addEventListener("mouseenter",function(){var li=document.getElementById(id);if(!li)return;tip.textContent=li.textContent.trim().slice(0,320);tip.style.display="block";var r=a.getBoundingClientRect();tip.style.left=Math.min(innerWidth-tip.offsetWidth-12,Math.max(12,r.left-20))+"px";tip.style.top=Math.max(12,r.top-tip.offsetHeight-10)+"px"});
+    a.addEventListener("mouseleave",function(){tip.style.display="none"});
+  });
+})();
+</script>
+</body></html>

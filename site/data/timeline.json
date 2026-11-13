@@ -1,0 +1,546 @@
+[
+{
+"d": "1997-05",
+"b": "3dmark",
+"ty": "company",
+"t": "Final Reality",
+"x": "Remedy Entertainment's benchmark, made with VNU European Labs and given away on magazine cover discs. The team behind it would go on to found Futuremark.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "1997-11",
+"b": "3dmark",
+"ty": "company",
+"t": "Futuremark is born",
+"x": "The founding team sets up in Espoo, Finland. UL's own timeline says the official company papers arrived on New Year's Eve 1997.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "1998-02-27",
+"b": "3dmark",
+"ty": "company",
+"t": "Company launches",
+"x": "Futuremark formally launches.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "1998-10-26",
+"b": "3dmark",
+"ty": "release",
+"t": "3DMark99",
+"x": "Futuremark's own press release: \"the world's first 3D benchmark aimed directly at the 3D gaming community\". DirectX 6, on Remedy's MAX-FX engine.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "1999-12-06",
+"b": "3dmark",
+"ty": "release",
+"t": "3DMark2000",
+"x": "DirectX 7 and hardware transform and lighting. UL's timeline says it arrived \"just in time for Christmas\".",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2001-03-13",
+"b": "3dmark",
+"ty": "release",
+"t": "3DMark2001",
+"x": "First benchmark with vertex and pixel shaders; the last to use Remedy's MAX-FX engine.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2002-12-11",
+"b": "3dmark",
+"ty": "company",
+"t": "MadOnion becomes Futuremark",
+"x": "The company that traded as MadOnion.com settles on the name Futuremark Corporation.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2003-02-11",
+"b": "3dmark",
+"ty": "release",
+"t": "3DMark03",
+"x": "First DirectX 9 3DMark and the first to include CPU tests.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2003-05-23",
+"b": "3dmark",
+"ty": "controversy",
+"t": "The 3DMark03 audit",
+"x": "Futuremark publishes an audit listing eight places where Nvidia's Detonator FX drivers behaved differently when the benchmark was recognised. ATI admits a smaller tweak. Weeks later Futuremark softens its verdict to 'application specific optimization' while saying rules were broken.",
+"doc": "qa-3dmark-supplement"
+},
+{
+"d": "2004-09-29",
+"b": "3dmark",
+"ty": "release",
+"t": "3DMark05",
+"x": "DirectX 9 with Shader Model 2 required for every graphics test.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2005-05-04",
+"b": "superposition",
+"ty": "company",
+"t": "UNIGINE engine 0.3",
+"x": "The engine's first public version; UNIGINE gives 2005 as its founding year. Its roots are Alexander Zapryagaev's open-source frustum.org project, begun in 2002.",
+"doc": "qa-superposition"
+},
+{
+"d": "2006-01-18",
+"b": "3dmark",
+"ty": "release",
+"t": "3DMark06",
+"x": "The first 3DMark where the CPU result affects the final score.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2007-08",
+"b": "furmark",
+"ty": "release",
+"t": "FurMark 1 appears",
+"x": "JeGX of Geeks3D and oZone3D releases a fur-rendering OpenGL benchmark. The developer's own later statement: first released in 2007.",
+"doc": "history"
+},
+{
+"d": "2007-12",
+"b": "superposition",
+"ty": "release",
+"t": "Sanctuary",
+"x": "UNIGINE's first benchmark. The company dates it only to 2007.",
+"doc": "superposition"
+},
+{
+"d": "2008-04-28",
+"b": "3dmark",
+"ty": "release",
+"t": "3DMark Vantage",
+"x": "DirectX 10. Its physics test later becomes a dispute over GPU PhysX.",
+"doc": "qa-3dmark-supplement"
+},
+{
+"d": "2008-08",
+"b": "furmark",
+"ty": "controversy",
+"t": "Catalyst 8.8 detects FurMark.exe",
+"x": "AMD adds a driver protection keyed on the file name, per Geeks3D, to protect Radeon HD 4850/4870 VRMs.",
+"doc": "history"
+},
+{
+"d": "2008-11-23",
+"b": "furmark",
+"ty": "milestone",
+"t": "Xtreme burning mode documented",
+"x": "FurMark's command-line reference already lists /xtreme_burning, 'a mode that overburns the GPU'.",
+"doc": "qa-furmark"
+},
+{
+"d": "2008-12",
+"b": "superposition",
+"ty": "release",
+"t": "Tropics",
+"x": "UNIGINE's second benchmark (2008).",
+"doc": "superposition"
+},
+{
+"d": "2009-01-07",
+"b": "furmark",
+"ty": "milestone",
+"t": "FurMark 1.6.0 ships a renamed copy",
+"x": "The package includes etqw.exe, a copy named after Enemy Territory: Quake Wars, to bypass Catalyst's FurMark detection and get SLI/CrossFire profiles.",
+"doc": "qa-furmark"
+},
+{
+"d": "2009-03",
+"b": "3dmark",
+"ty": "company",
+"t": "Peacekeeper goes live",
+"x": "Futuremark's free browser benchmark launches. Support ends in July 2015.",
+"doc": "qa-3dmark-supplement"
+},
+{
+"d": "2009-09-25",
+"b": "furmark",
+"ty": "hardware",
+"t": "Radeon HD 5870 hardware protection",
+"x": "Geeks3D reports a monitoring chip that throttles one PowerPlay level when the voltage regulators are overloaded.",
+"doc": "history"
+},
+{
+"d": "2009-10-22",
+"b": "superposition",
+"ty": "release",
+"t": "Heaven",
+"x": "UNIGINE announces it as the world's first true DirectX 11 benchmark: tessellated cobblestones, a steampunk village and a dragon.",
+"doc": "qa-superposition"
+},
+{
+"d": "2009-12",
+"b": "3dmark",
+"ty": "company",
+"t": "Rightware spin-off",
+"x": "Futuremark's mobile and embedded unit becomes Rightware.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2010-02-02",
+"b": "furmark",
+"ty": "release",
+"t": "FurMark 1.8.0 'Hot Like Hell'",
+"x": "Heat post-effect, vertex-displacement fur, XML localization. Scores drop because the load is heavier.",
+"doc": "history"
+},
+{
+"d": "2010-11-09",
+"b": "furmark",
+"ty": "hardware",
+"t": "GeForce GTX 580: the 'Anti-FurMark' card",
+"x": "Power sensors plus driver detection of FurMark and OCCT. TechPowerUp measures 153 W limited versus 304 W unlimited.",
+"doc": "history"
+},
+{
+"d": "2010-12-07",
+"b": "3dmark",
+"ty": "release",
+"t": "3DMark 11",
+"x": "DirectX 11 with tessellation and compute shaders.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2011-01-27",
+"b": "furmark",
+"ty": "controversy",
+"t": "JeGX on power limiters",
+"x": "Comments on a TechPowerUp poll: fine if you can disable them, not fine as an application blacklist.",
+"doc": "history"
+},
+{
+"d": "2011-02-25",
+"b": "furmark",
+"ty": "release",
+"t": "FurMark 1.9.0",
+"x": "Heavier load (a GTX 480 falls from 6478 to 1769 points), dynamic background, two online-score presets.",
+"doc": "qa-furmark"
+},
+{
+"d": "2011-03-02",
+"b": "superposition",
+"ty": "release",
+"t": "Heaven 2.5 and a Pro edition",
+"x": "UNIGINE's first paid edition of a benchmark.",
+"doc": "qa-superposition"
+},
+{
+"d": "2012-03",
+"b": "3dmark",
+"ty": "company",
+"t": "Games division sold to Rovio",
+"x": "Futuremark sells its game development division to the Angry Birds company.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2012-03-07",
+"b": "superposition",
+"ty": "release",
+"t": "Heaven 3.0",
+"x": "First version to run on the Mac.",
+"doc": "qa-superposition"
+},
+{
+"d": "2013-02-04",
+"b": "3dmark",
+"ty": "release",
+"t": "3DMark (Fire Strike era)",
+"x": "One app, separate tests, Windows, Android and iOS scores comparable for the first time.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2013-02-12",
+"b": "superposition",
+"ty": "release",
+"t": "Heaven 4.0",
+"x": "Presets, GPU monitoring, improved SSDO and the new Advanced edition.",
+"doc": "qa-superposition"
+},
+{
+"d": "2013-02-14",
+"b": "superposition",
+"ty": "release",
+"t": "Valley",
+"x": "A forest-covered mountain valley. Lead artist Andrey Kushner: \"Living in Siberia, we wanted to show how beautiful the nature is here.\"",
+"doc": "qa-superposition"
+},
+{
+"d": "2013-04",
+"b": "3dmark",
+"ty": "milestone",
+"t": "3DMark comes to Android",
+"x": "More than 100,000 downloads in its first week, per UL.",
+"doc": "qa-3dmark-supplement"
+},
+{
+"d": "2014-10",
+"b": "3dmark",
+"ty": "release",
+"t": "Fire Strike Ultra",
+"x": "Billed as the world's first 4K Ultra HD benchmark.",
+"doc": "qa-3dmark-supplement"
+},
+{
+"d": "2014-10-31",
+"b": "3dmark",
+"ty": "company",
+"t": "UL acquires Futuremark",
+"x": "Underwriters Laboratories buys the company.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2015-03",
+"b": "3dmark",
+"ty": "release",
+"t": "API Overhead test",
+"x": "\"The world's first DirectX 12 API performance test\".",
+"doc": "qa-3dmark-supplement"
+},
+{
+"d": "2015-08-21",
+"b": "furmark",
+"ty": "release",
+"t": "FurMark 1.17.0",
+"x": "The old branch keeps shipping.",
+"doc": "history"
+},
+{
+"d": "2015-10-10",
+"b": "superposition",
+"ty": "milestone",
+"t": "UNIGINE 2 engine",
+"x": "Deferred rendering, PBR, geometry water, volumetric clouds, SSRTGI and voxel lighting.",
+"doc": "qa-superposition"
+},
+{
+"d": "2016-07-14",
+"b": "3dmark",
+"ty": "release",
+"t": "Time Spy",
+"x": "A pure DirectX 12 engine, free for every Windows edition of 3DMark.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2016-07-19",
+"b": "3dmark",
+"ty": "controversy",
+"t": "The async-compute argument",
+"x": "Futuremark answers claims that Time Spy favoured Nvidia: one code path for all vendors, and the driver decides whether queues run in parallel.",
+"doc": "qa-3dmark-supplement"
+},
+{
+"d": "2016-08-24",
+"b": "furmark",
+"ty": "release",
+"t": "FurMark 1.18.0",
+"x": "GTX 1080/1070/1060, RX 480/470/460 and a 5K resolution.",
+"doc": "history"
+},
+{
+"d": "2017-04-11",
+"b": "superposition",
+"ty": "release",
+"t": "Superposition 1.0",
+"x": "A lone professor, an abandoned classroom, SSRTGI lighting and an 8K Optimized preset.",
+"doc": "superposition"
+},
+{
+"d": "2017-10",
+"b": "3dmark",
+"ty": "release",
+"t": "Time Spy Extreme",
+"x": "\"The world's first 4K DirectX 12 benchmark test\".",
+"doc": "qa-3dmark-supplement"
+},
+{
+"d": "2018-04-23",
+"b": "3dmark",
+"ty": "company",
+"t": "Futuremark becomes UL Benchmarks",
+"x": "The Futuremark name is retired; R&D stays in Espoo.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2018-09-07",
+"b": "3dmark",
+"ty": "controversy",
+"t": "Huawei phones delisted",
+"x": "UL finds public-app scores up to 47% higher than a private build: the phones recognised the app by name.",
+"doc": "qa-3dmark-supplement"
+},
+{
+"d": "2019-01-08",
+"b": "3dmark",
+"ty": "release",
+"t": "Port Royal",
+"x": "The first dedicated real-time ray tracing benchmark for gamers, at 2560 x 1440.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2019-04-12",
+"b": "superposition",
+"ty": "release",
+"t": "Superposition 1.1",
+"x": "Free VR in Basic, VR on Linux, 16384 x 16384 maximum resolution. Still the latest version.",
+"doc": "superposition"
+},
+{
+"d": "2020-10",
+"b": "3dmark",
+"ty": "release",
+"t": "Wild Life and the DXR test",
+"x": "Cross-platform Wild Life arrives for Apple, Android and Windows.",
+"doc": "qa-3dmark-supplement"
+},
+{
+"d": "2022-10-10",
+"b": "superposition",
+"ty": "milestone",
+"t": "UNIGINE 2.16: Vulkan and DX12",
+"x": "Experimental renderers arrive in the engine. Superposition itself has no release that uses them.",
+"doc": "qa-superposition"
+},
+{
+"d": "2022-10-12",
+"b": "3dmark",
+"ty": "release",
+"t": "Speed Way",
+"x": "DirectX 12 Ultimate, DXR 1.1 and mesh shaders, sponsored by Lenovo Legion. 3DMark's price becomes $34.99.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2022-12-01",
+"b": "furmark",
+"ty": "release",
+"t": "FurMark 2 begins",
+"x": "First beta on the Geeks3D Discord, rebuilt on GeeXLab.",
+"doc": "history"
+},
+{
+"d": "2023-01-09",
+"b": "furmark",
+"ty": "release",
+"t": "FurMark 2 for Linux",
+"x": "Version 2.0.4.0 adds Linux support.",
+"doc": "history"
+},
+{
+"d": "2023-08",
+"b": "3dmark",
+"ty": "release",
+"t": "Solar Bay",
+"x": "Ray tracing for phones and thin laptops on Vulkan 1.1, with a 20-minute stress test.",
+"doc": "qa-3dmark-supplement"
+},
+{
+"d": "2023-09-18",
+"b": "furmark",
+"ty": "release",
+"t": "ASUS ROG Edition",
+"x": "A first beta of a separate ROG version of FurMark 2.",
+"doc": "history"
+},
+{
+"d": "2024-02-24",
+"b": "furmark",
+"ty": "release",
+"t": "FurMark 2.1 goes public",
+"x": "OpenGL 3.2 and Vulkan 1.1, a GUI plus a command-line tool, a new knot scene and online scores.",
+"doc": "history"
+},
+{
+"d": "2024-05-03",
+"b": "furmark",
+"ty": "milestone",
+"t": "FurMark on Raspberry Pi",
+"x": "2.3.0.0: a Pi 5 manages 4 FPS at 1024 x 640, a Pi 4 about 1.",
+"doc": "qa-furmark"
+},
+{
+"d": "2024-05-21",
+"b": "3dmark",
+"ty": "release",
+"t": "Steel Nomad",
+"x": "Non-ray-traced, cross-platform, native 4K and about three times heavier than Time Spy. Score = average FPS x 100.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2024-12-26",
+"b": "furmark",
+"ty": "hardware",
+"t": "FurMark 2.5 and Arc Battlemage",
+"x": "Support for Intel Arc B580 and B570.",
+"doc": "history"
+},
+{
+"d": "2025-03-13",
+"b": "furmark",
+"ty": "milestone",
+"t": "FurMark 1.39: 'probably the last'",
+"x": "JeGX writes that branch 1.39.x is probably the last, with patches only until a final stop.",
+"doc": "history"
+},
+{
+"d": "2025-06-12",
+"b": "3dmark",
+"ty": "release",
+"t": "3DMark for macOS",
+"x": "A native Mac app with Steel Nomad, Solar Bay and Wild Life Extreme.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2025-08-20",
+"b": "3dmark",
+"ty": "release",
+"t": "Solar Bay Extreme",
+"x": "More ray tracing: reflections on every surface and soft shadows.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2026-04-22",
+"b": "3dmark",
+"ty": "milestone",
+"t": "3DMark macOS standalone",
+"x": "Available directly from UL Solutions.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2026-06-03",
+"b": "3dmark",
+"ty": "milestone",
+"t": "A path-traced 3DMark is announced",
+"x": "Native 4K plus AI upscaling and frame generation from several vendors. No name or date yet.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2026-07-24",
+"b": "3dmark",
+"ty": "milestone",
+"t": "Seasonic joins as sponsor",
+"x": "Its logo will appear inside the upcoming benchmark.",
+"doc": "3dmark-steel-nomad"
+},
+{
+"d": "2026-10-01",
+"b": "furmark",
+"ty": "release",
+"t": "FurMark 1.39.4.0",
+"x": "The 'last' branch is still getting new-GPU support.",
+"doc": "history"
+},
+{
+"d": "2026-10-30",
+"b": "furmark",
+"ty": "release",
+"t": "FurMark 2.11.0.4",
+"x": "Newest Blackwell GPUs; elapsed time shown as days, hours, minutes and seconds.",
+"doc": "history"
+}
+]

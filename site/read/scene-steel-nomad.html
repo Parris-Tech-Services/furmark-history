@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en" data-bench="3dmark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The masked wanderer: scene and lore · GPU Benchmark Lore</title>
+<meta name="description" content="Who is the Nomad, and what is the world?">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));z-index:60}
+.rhero{padding:54px 0 28px;position:relative}
+.rhero::before{content:"";position:absolute;inset:-60px 0 0;background:radial-gradient(60% 80% at 20% 0,color-mix(in srgb,var(--acc) 22%,transparent),transparent 70%);pointer-events:none}
+.rhero h1{font:700 clamp(30px,5vw,54px)/1.08 var(--f-ui);letter-spacing:-.02em;margin:14px 0 10px;max-width:22ch}
+.rhero p{color:var(--mut);font-size:18px;max-width:60ch;margin:0 0 16px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--faint);font:13px var(--f-mono)}
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:48px;align-items:start}
+@media(max-width:960px){.layout{grid-template-columns:1fr;gap:0}}
+aside.toc{position:sticky;top:84px;max-height:calc(100vh - 110px);overflow:auto;font-size:14px;padding-right:6px}
+aside.toc h4{margin:0 0 10px;font:600 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+aside.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:6px 0 6px 14px;color:var(--mut);margin-left:-1px;border-left:2px solid transparent;line-height:1.35}
+aside.toc li a:hover{color:var(--ink);text-decoration:none}
+aside.toc li a.on{color:var(--acc2);border-left-color:var(--acc)}
+@media(max-width:960px){aside.toc{position:static;max-height:none;margin:0 0 22px;border:1px solid var(--line);border-radius:14px;padding:14px}aside.toc ol{border:0}}
+article.prose{font:400 19px/1.72 var(--f-read);color:var(--ink);max-width:70ch}
+article.prose h2{font:700 clamp(24px,3vw,32px)/1.2 var(--f-ui);letter-spacing:-.01em;margin:2.2em 0 .5em;position:relative;padding-top:6px}
+article.prose h2::before{content:"";display:block;width:44px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--acc),var(--acc2));margin-bottom:14px}
+article.prose h3{font:700 21px/1.3 var(--f-ui);margin:1.8em 0 .4em;color:var(--acc2)}
+article.prose p{margin:0 0 1.1em}
+article.prose strong{color:var(--ink)}
+article.prose a{border-bottom:1px solid color-mix(in srgb,var(--acc2) 40%,transparent)}
+article.prose a:hover{text-decoration:none;border-bottom-color:var(--acc2)}
+article.prose blockquote{margin:1.2em 0;padding:4px 0 4px 20px;border-left:3px solid var(--acc);color:var(--mut)}
+article.prose code{font:500 .85em var(--f-mono);background:var(--surface2);padding:2px 6px;border-radius:6px}
+article.prose ul,article.prose ol{padding-left:1.3em}
+article.prose li{margin:.35em 0}
+article.prose li::marker{color:var(--acc2)}
+.tablewrap{overflow-x:auto;margin:1.3em 0;border:1px solid var(--line);border-radius:14px}
+article.prose table{border-collapse:collapse;width:100%;font:15px/1.5 var(--f-ui)}
+article.prose th{background:var(--surface2);text-align:left;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+article.prose th,article.prose td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+article.prose tr:last-child td{border-bottom:0}
+article.prose tbody tr:hover td{background:color-mix(in srgb,var(--acc) 7%,transparent)}
+a.cite{font:600 11px var(--f-mono);vertical-align:super;line-height:0;padding:1px 4px;margin:0 1px;border-radius:5px;background:color-mix(in srgb,var(--acc) 22%,transparent);color:var(--acc2);border:0!important}
+a.cite:hover{background:var(--acc);color:#000}
+#sources+*,h2#sources~ol{font:15px/1.55 var(--f-ui);color:var(--mut)}
+li:target{background:color-mix(in srgb,var(--acc) 20%,transparent);outline:2px solid var(--acc);border-radius:6px}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:70px 0 10px}
+.pager a{display:block;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink)}
+.pager a:hover{border-color:var(--acc);text-decoration:none}
+.pager span{display:block;font:11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.pager b{font-size:17px}
+.pager a:last-child{text-align:right}
+.tip{position:fixed;z-index:80;max-width:420px;background:var(--surface);border:1px solid var(--acc);border-radius:12px;padding:12px 14px;font:13px/1.45 var(--f-ui);color:var(--ink);box-shadow:var(--shadow);pointer-events:none;display:none}
+.hlink{opacity:0;margin-left:8px;color:var(--faint);font-size:.7em;border:0!important}
+h2:hover .hlink,h3:hover .hlink{opacity:1}
+.back{position:fixed;right:18px;bottom:18px;z-index:40}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../index.html"><span class="logo"></span><span class="bt">GPU Benchmark Lore</span></a>
+  <nav class="nav">
+    <a href="../index.html#timeline" class="hide-s">Timeline</a><a href="../index.html#watch" class="hide-s">Watch</a><a href="../index.html#lab" class="hide-s">GPU lab</a><a href="../index.html#library">Library</a>
+    <a href="#" data-open-search>Search <span class="kbd">/</span></a>
+  </nav>
+  <button class="iconbtn" data-theme-toggle title="Toggle light / dark" aria-label="Toggle theme">☾</button>
+</div></header>
+<section class="rhero"><div class="wrap">
+  <span class="tag">Lore</span>
+  <h1>The masked wanderer: scene and lore</h1>
+  <p>Who is the Nomad, and what is the world?</p>
+  <div class="meta"><span>~9 min read</span><span>·</span><a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/SCENE_STEEL_NOMAD.md">view source on GitHub</a></div>
+</div></section>
+<main class="wrap layout">
+  <aside class="toc"><h4>On this page</h4><ol id="tocol"><li><a href="#1-who-is-steel-nomad-is-there-a-named-hero-with-a-backstory">1. Who is &#x27;Steel Nomad&#x27;? Is there a named hero with a backstory?</a></li><li><a href="#2-where-does-the-nomad-come-from-and-what-journey-do-we-see">2. Where does the Nomad come from, and what journey do we see?</a></li><li><a href="#3-is-this-a-post-apocalyptic-earth-distant-alien-planet-or-future-frontier">3. Is this a post-apocalyptic Earth, distant alien planet or future frontier?</a></li><li><a href="#4-is-the-wanderer-a-robot-cyborg-or-human-in-armour">4. Is the wanderer a robot, cyborg or human in armour?</a></li><li><a href="#5-who-lives-here-are-the-caravans-machines-and-town-an-organised-society">5. Who lives here? Are the caravans, machines and town an organised society?</a></li><li><a href="#6-what-is-the-glowing-sphere-or-blue-ringand-what-is-the-nomad-trying-to-do">6. What is the glowing sphere or blue ring—and what is the Nomad trying to do?</a></li><li><a href="#7-why-does-steel-nomad-light-show-the-desert-flooded-at-night-is-it-a-sequel">7. Why does Steel Nomad Light show the desert flooded at night? Is it a sequel?</a></li><li><a href="#8-which-easter-eggs-link-steel-nomad-to-older-3dmark-worlds">8. Which Easter eggs link Steel Nomad to older 3DMark worlds?</a></li><li><a href="#9-why-is-there-sound-again-and-what-extra-story-does-explorer-mode-unlock">9. Why is there sound again, and what extra story does Explorer Mode unlock?</a></li><li><a href="#10-is-there-an-official-novel-like-story-design-rationale-or-confirmed-ending">10. Is there an official novel-like story, design rationale or confirmed ending?</a></li><li><a href="#gallery-and-ways-to-investigate-further">Gallery and ways to investigate further</a></li><li><a href="#sources">Sources</a></li></ol></aside>
+  <article class="prose" id="doc">
+<p><em>Research: 13 November 2026. Additional <strong>scene/lore</strong> research, not a replacement for the <a href="3dmark-steel-nomad.html">3DMark history</a> or <a href="qa-3dmark.html">technical Q&amp;A</a>. Companion to the <a href="scene-story-questions.html">thirty new scene questions</a>.</em></p>
+<p><strong>Evidence convention:</strong> <strong>Canon</strong> = UL Solutions actually publishes it; <strong>observed</strong> = a frame/reviewer description, not necessarily official lore; <strong>interpretation</strong> = a narrative reading of visible design; <strong>unknown</strong> = no dependable source establishes it. No proprietary asset files, developer storyboard, character bible or full interactive playthrough were available for verification.</p>
+<h2 id="1-who-is-steel-nomad-is-there-a-named-hero-with-a-backstory">1. Who is 'Steel Nomad'? Is there a named hero with a backstory?</h2>
+<p><strong>Official designation:</strong> <em>Steel Nomad</em> is the title of UL Solutions' <strong>2024</strong> 3DMark benchmark and its setting, described as a frontier to explore <a class="cite" href="#src-N1">N1</a><a class="cite" href="#src-N2">N2</a>. The image most viewers associate with it is a <strong>lone masked figure</strong> in hard-wearing, red-brown clothing/armour and a broad, Asian-conical-hat-shaped metal helmet. Several launch reviewers describe the glowing blue eyes and its robotic or cyborg appearance <a class="cite" href="#src-N3">N3</a><a class="cite" href="#src-N4">N4</a>. It is reasonable to refer to this figure as <strong>'the Nomad' as shorthand</strong>, but that is not a confirmed legal name.</p>
+<p><strong>What is not established:</strong> No publisher source found here gives the protagonist a personal name, age, maker, faction, species, gender, home planet, origin quest or lines of dialogue. There is no verified character biography, game franchise or tie-in novel. 'A wandering robot seeking X' is tempting but <strong>not official canon</strong>.</p>
+<p><strong>Interpretation:</strong> The anonymous wanderer creates an instantly readable science-fiction western archetype—an outsider entering an unfamiliar settlement. The design tells a visual story without needing dialogue, useful for a short, repeatable benchmark.</p>
+<h2 id="2-where-does-the-nomad-come-from-and-what-journey-do-we-see">2. Where does the Nomad come from, and what journey do we see?</h2>
+<p><strong>Observed scene, not official character script:</strong> Reviews of the benchmark describe a masked rider arriving on a <strong>futuristic hovering motorcycle-like vehicle</strong>, entering a settlement, moving past a bar/other inhabitants and looking towards an overlook with a <strong>caravan</strong> or distant structures <a class="cite" href="#src-N3">N3</a><a class="cite" href="#src-N5">N5</a>. Launch screenshots show a dense industrial town, sunlit rock formations and a panoramic view of distant islands, bridges and structures <a class="cite" href="#src-N3">N3</a><a class="cite" href="#src-N4">N4</a>. In another frame the traveller examines an illuminated circular device <a class="cite" href="#src-N3">N3</a>.</p>
+<p>We should distinguish <em>a visually shown arrival</em> from a documented route map. UL does not publish an in-world starting city, the traveller's home, a journey distance, a quest objective or a guaranteed scene-by-scene plot synopsis <a class="cite" href="#src-N1">N1</a><a class="cite" href="#src-N2">N2</a>. The third-party sequence above describes the reviewer's observations, not an official script.</p>
+<p><strong>Interpretation:</strong> Vehicle arrival → frontier settlement → curious artefact/viewpoint is a classic 'traveller finds a strange civilisation' miniature narrative. Its shape communicates curiosity, not a confirmed mission.</p>
+<h2 id="3-is-this-a-post-apocalyptic-earth-distant-alien-planet-or-future-frontier">3. Is this a post-apocalyptic Earth, distant alien planet or future frontier?</h2>
+<p><strong>Canon:</strong> UL calls the setting a <strong>frontier</strong> and describes the heavy benchmark as taking place in a <strong>sun-scorched</strong> environment <a class="cite" href="#src-N1">N1</a><a class="cite" href="#src-N6">N6</a>. Its landscapes include a desert basin with built structures; Steel Nomad Light's setting is the same basin <strong>at night and flooded by a vast lake</strong>, as publisher and storefront descriptions explicitly state <a class="cite" href="#src-N6">N6</a><a class="cite" href="#src-N7">N7</a>.</p>
+<p><strong>Observed:</strong> Rock formations, makeshift buildings, automated-looking infrastructure, hovering transport, robots or masks, distant metallic structures and spectacular skies make it <em>look</em> like post-apocalyptic or far-future science fiction <a class="cite" href="#src-N3">N3</a><a class="cite" href="#src-N4">N4</a><a class="cite" href="#src-N5">N5</a>.</p>
+<p><strong>Unverified:</strong> No reliable UL source establishes a planet, date, war, collapse, extraterrestrial arrival, resource scarcity, or shared timeline with Time Spy, Port Royal or earlier 3DMark scenes. The correct wording is <strong>science-fiction frontier aesthetic</strong>, <em>not</em> 'canonically post-apocalyptic Earth'.</p>
+<h2 id="4-is-the-wanderer-a-robot-cyborg-or-human-in-armour">4. Is the wanderer a robot, cyborg or human in armour?</h2>
+<p><strong>Observed:</strong> Close-up coverage shows glowing blue eyes behind a metal face covering, a textured hood/helmet, layered protective clothing and mechanical-looking devices at the chest <a class="cite" href="#src-N3">N3</a><a class="cite" href="#src-N4">N4</a>. The movement and environment suggest robots/androids to some reviewers <a class="cite" href="#src-N5">N5</a>. The word 'Steel' and cybernetic/industrial styling strengthen that reading.</p>
+<p><strong>But there is no verified biological reveal.</strong> The helmet could conceal a person; blue lights could be optics in a robotic head or a mask. We cannot reliably choose among <strong>robot, cyborg, humanoid alien or armoured human</strong> from external imagery alone. No maker-supplied character sheet, biography, voice line or anatomical evidence found here settles it.</p>
+<p>The intriguing truth is that the character is visually legible as a wanderer yet <strong>biologically ambiguous</strong>—possibly deliberately, though that intent itself is unconfirmed.</p>
+<h2 id="5-who-lives-here-are-the-caravans-machines-and-town-an-organised-society">5. Who lives here? Are the caravans, machines and town an organised society?</h2>
+<p><strong>Observed:</strong> The benchmark's setting shows a small <strong>settlement</strong>, with signs of commerce, shelters, transport machines, other humanoid/mechanical figures and a <strong>passing caravan</strong> described in contemporary reviews <a class="cite" href="#src-N5">N5</a>. Some accounts mention a <strong>bar</strong> and the traveller parking or charging the transport <a class="cite" href="#src-N5">N5</a>. These details are observations, <strong>not confirmed job assignments or factions</strong>.</p>
+<p><strong>Interpretation:</strong> The bar, transit lanes, public equipment and other travellers suggest a place where people/robots <strong>live and exchange goods</strong> rather than an empty stage. The battered surfaces imply age and use. The scene has enough environmental cues for players to imagine a town's history.</p>
+<p><strong>Unverified:</strong> The settlement's official name, governance, economy, species, language, trading partners, whether the caravan carries goods or refugees, and whether the Nomad knows its residents. Treating every robotic prop as an actual named NPC would overstate the evidence.</p>
+<h2 id="6-what-is-the-glowing-sphere-or-blue-ringand-what-is-the-nomad-trying-to-do">6. What is the glowing sphere or blue ring—and what is the Nomad trying to do?</h2>
+<p><strong>Observed:</strong> 4Gamer's May 2024 visual coverage includes a frame showing the masked figure beside a <strong>circular apparatus projecting an intense blue light</strong>, with mechanical or display components around it <a class="cite" href="#src-N3">N3</a>. Other screenshots show glowing distant objects in the dramatic landscape <a class="cite" href="#src-N4">N4</a>. These are genuine scene elements, not an invented item.</p>
+<p><strong>Unknown:</strong> Public UL launch material does not supply a name, mechanism, function or mission text for this apparatus <a class="cite" href="#src-N1">N1</a><a class="cite" href="#src-N2">N2</a>. It might be a console, communications terminal, transport device, power source, holographic display or simply a scene prop. <strong>None of those hypotheses can be asserted as the true explanation</strong>.</p>
+<p><strong>Interpretation:</strong> The scene uses recognisable science-fiction machinery to create a moment of investigation, just as Superposition uses the professor's apparatus. The difference is that Steel Nomad does not have a similarly explicit official disappearance mystery or objective.</p>
+<h2 id="7-why-does-steel-nomad-light-show-the-desert-flooded-at-night-is-it-a-sequel">7. Why does Steel Nomad Light show the desert flooded at night? Is it a sequel?</h2>
+<p><strong>Canon:</strong> UL and its product listings say <strong>Steel Nomad Light takes place at night</strong>, with the desert basin <strong>flooded by a vast lake</strong>, and uses a lighter <strong>1440p</strong> workload with fewer or reduced demanding techniques. The standard <strong>Steel Nomad</strong> is the sunlit <strong>4K</strong> benchmark <a class="cite" href="#src-N6">N6</a><a class="cite" href="#src-N7">N7</a>. This contrast creates two distinct images of one visual world.</p>
+<p><strong>What we can conclude:</strong> The setting is transformed between two versions, and the change in light, water and atmospheric effects supports different artistic and performance requirements. <strong>What we cannot conclude:</strong> There is <strong>no verified canonical time jump, flood catastrophe, climate story, death or resurrection</strong> explaining why the lake appeared. Light is a workload variant, not an announced narrative sequel.</p>
+<p><strong>Interpretation:</strong> A flooded moonlit frontier makes an evocative alternative state—quiet, eerie and flooded compared with daylight's heat and bustle. It opens up lore questions without proving the answer.</p>
+<h2 id="8-which-easter-eggs-link-steel-nomad-to-older-3dmark-worlds">8. Which Easter eggs link Steel Nomad to older 3DMark worlds?</h2>
+<p><strong>Canon:</strong> UL made Steel Nomad partly as a <strong>25th-anniversary celebration</strong>, previewing the world in <strong>November 2023</strong> and announcing that the environment would contain callbacks to many earlier benchmarks <a class="cite" href="#src-N2">N2</a>. Its May 2024 launch specifically promised <strong>secret locations and Easter eggs</strong> throughout Explorer Mode <a class="cite" href="#src-N1">N1</a>.</p>
+<p><strong>Independent identification:</strong> A PC Gamer reviewer spotted a <strong>flying robot from Port Royal</strong> and <strong>butterflies from 3DMark 2001</strong> <a class="cite" href="#src-N8">N8</a>. Those are <em>named contemporary reviewer observations</em>, not an official exhaustive catalogue. The 3DMark <strong>Steel Explorer</strong> achievement specifically refers to finding <strong>all secret areas and hidden treasures</strong> <a class="cite" href="#src-N9">N9</a>.</p>
+<p><strong>Do not overread:</strong> A returning model or butterfly is evidence of a deliberate tribute, <strong>not</strong> evidence that Steel Nomad, Port Royal and 3DMark 2001 share a canonical timeline or that the same person appears across tests. A full verified Easter-egg catalogue would require an Explorer Mode survey with screenshots and precise locations.</p>
+<h2 id="9-why-is-there-sound-again-and-what-extra-story-does-explorer-mode-unlock">9. Why is there sound again, and what extra story does Explorer Mode unlock?</h2>
+<p><strong>Canon:</strong> UL explicitly announced that it had <strong>brought back sound due to popular demand</strong> <a class="cite" href="#src-N1">N1</a>. Explorer Mode lets a user roam the scene, change rendering settings and camera composition, and find otherwise missed secret locations and references <a class="cite" href="#src-N1">N1</a><a class="cite" href="#src-N7">N7</a>. The official launch recommends playing <strong>with sound</strong>. Demo users can run the test, but <strong>Explorer Mode</strong> is part of the purchased 3DMark experience <a class="cite" href="#src-N1">N1</a>.</p>
+<p><strong>Storytelling benefit (interpretation):</strong> Ambient sounds and a freely moving viewpoint make the settlement feel like a place rather than merely a graphics workload. You can see details a scripted camera passes over and form your own account of the world's inhabitants. It is an example of environmental storytelling alongside benchmark utility.</p>
+<p><strong>Boundary:</strong> UL does not present Explorer Mode as a full role-playing game with NPC conversations, branching quests or a confirmed final story revelation. 'Discover secret locations' is supported; 'complete the Nomad's quest' is not.</p>
+<h2 id="10-is-there-an-official-novel-like-story-design-rationale-or-confirmed-ending">10. Is there an official novel-like story, design rationale or confirmed ending?</h2>
+<p><strong>Based on publisher material reviewed: no fully published character plot was established.</strong> UL advertises the <em>visual frontier</em>, the benchmarks' 25th-anniversary callbacks, gameplay-like rendering techniques and the option to explore <a class="cite" href="#src-N1">N1</a><a class="cite" href="#src-N2">N2</a><a class="cite" href="#src-N6">N6</a>. The promotional copy intentionally invokes western language—'strides into town', 'this town is big enough' and 'explore the frontier'—but does not explain the traveller's name, destination or ultimate fate <a class="cite" href="#src-N1">N1</a>.</p>
+<p><strong>Design context:</strong> Steel Nomad replaced Time Spy as UL's flagship heavy, non-ray-traced test because modern GPUs needed a more demanding, cross-platform scene <a class="cite" href="#src-N1">N1</a>. The art uses volumetric clouds, grass generated by compute shaders, screen-space reflections, fog lighting, elaborate materials and depth-of-field <a class="cite" href="#src-N10">N10</a>. A dry, rugged frontier gives those features rocks, grass, water, buildings, people and changing skies to render. That is a technical rationale for the <em>setting's suitability</em>, not proof of the creator's personal artistic inspiration.</p>
+<p><strong>Open creator questions:</strong> Is the Nomad human? Who built the transport? What is the blue device? Are the ancient structures connected to other 3DMark worlds? Is the Light lake a future, parallel state or simply an alternate scene treatment? These remain <strong>unanswered by trustworthy available official evidence</strong>. Recording that gap is more accurate than fan-fiction presented as fact.</p>
+<h2 id="gallery-and-ways-to-investigate-further">Gallery and ways to investigate further</h2>
+<ul>
+<li><a href="https://benchmarks.ul.com/news/introducing-3dmark-steel-nomad-the-successor-to-3dmark-time-spy">Official Steel Nomad preview images (November 2023)</a></li>
+<li><a href="https://benchmarks.ul.com/news/3dmark-steel-nomad-is-out-now">Official launch description and Explorer Mode instructions</a></li>
+<li><a href="https://store.steampowered.com/app/2695340/3DMark_Steel_Nomad/">3DMark Steel Nomad Steam page</a></li>
+<li><strong>To verify individual Easter eggs:</strong> run a purchased 3DMark copy, enter Explorer Mode and capture screenshots/coordinates of discoveries; cross-check any apparent callback with the older benchmark's actual scene. This was <strong>not executed</strong> in this pass.</li>
+</ul>
+<h2 id="sources">Sources</h2>
+<ul>
+<li id="src-1"><strong>[N1] UL Solutions (21 May 2024), official launch announcement.</strong> Title, anniversary Easter eggs, Explorer Mode and sound. <a href="https://benchmarks.ul.com/news/3dmark-steel-nomad-is-out-now">https://benchmarks.ul.com/news/3dmark-steel-nomad-is-out-now</a></li>
+<li id="src-2"><strong>[N2] UL Solutions (10 November 2023), official Steel Nomad preview.</strong> Anniversary callbacks, screenshots and design goal. <a href="https://benchmarks.ul.com/news/introducing-3dmark-steel-nomad-the-successor-to-3dmark-time-spy">https://benchmarks.ul.com/news/introducing-3dmark-steel-nomad-the-successor-to-3dmark-time-spy</a></li>
+<li id="src-3"><strong>[N3] 4Gamer (20–21 May 2024), launch-day visual analysis and still images.</strong> Japanese-language source; read the visual evidence separately from interpretive descriptions. <a href="https://www.4gamer.net/games/143/G014363/20240520037/">https://www.4gamer.net/games/143/G014363/20240520037/</a></li>
+<li id="src-4"><strong>[N4] ComputerBase (2024), Steel Nomad benchmark visual coverage.</strong> Screenshots of masked character and environment. <a href="https://www.computerbase.de/artikel/apps/3dmark-steel-nomad-test.88100/">https://www.computerbase.de/artikel/apps/3dmark-steel-nomad-test.88100/</a></li>
+<li id="src-5"><strong>[N5] DNS Club, community reviewer (2024), Russian-language benchmark walkthrough.</strong> Traveller/vehicle/settlement/caravan described by reviewer; <strong>not an UL character bible</strong>. <a href="https://club.dns-shop.ru/blog/t-99-videokartyi/121676-3dmark-steel-nomad-razbor-novogo-benchmarka/">https://club.dns-shop.ru/blog/t-99-videokartyi/121676-3dmark-steel-nomad-razbor-novogo-benchmarka/</a></li>
+<li id="src-6"><strong>[N6] UL Solutions, official 3DMark product description.</strong> Sun-scorched 4K world, night lake/Light at 1440p. <a href="https://benchmarks.ul.com/3dmark">https://benchmarks.ul.com/3dmark</a></li>
+<li id="src-7"><strong>[N7] UL Solutions, Steam Steel Nomad product page.</strong> Light's lake, Explorer Mode and requirements. <a href="https://store.steampowered.com/app/2695340/3DMark_Steel_Nomad/">https://store.steampowered.com/app/2695340/3DMark_Steel_Nomad/</a></li>
+<li id="src-8"><strong>[N8] PC Gamer (21 May 2024), launch review.</strong> Port Royal flying robot and 3DMark 2001 butterflies as independently spotted Easter eggs. <a href="https://www.pcgamer.com/hardware/graphics-cards/3dmark-steel-nomad-is-now-available-to-give-your-gpu-an-inferiority-complex/">https://www.pcgamer.com/hardware/graphics-cards/3dmark-steel-nomad-is-now-available-to-give-your-gpu-an-inferiority-complex/</a></li>
+<li id="src-9"><strong>[N9] Steam, 3DMark achievements.</strong> 'Steel Explorer' and 'Sun and Moon' achievement descriptions. <a href="https://steamcommunity.com/stats/223850/achievements">https://steamcommunity.com/stats/223850/achievements</a></li>
+<li id="src-10"><strong>[N10] UL Solutions, <em>Steel Nomad Engine</em> documentation.</strong> Clouds, grass, volume lighting, reflections and post-processing. <a href="https://support.benchmarks.ul.com/support/solutions/articles/44002528067-steel-nomad-engine">https://support.benchmarks.ul.com/support/solutions/articles/44002528067-steel-nomad-engine</a></li>
+</ul>
+
+    <nav class="pager"><a href="qa-3dmark-supplement.html"><span>Read</span><b>3DMark: supplementary answers</b></a></nav>
+  </article>
+</main>
+<footer class="site"><div class="wrap">
+  <div><h4>GPU Benchmark Lore</h4>Sourced histories of FurMark, UNIGINE Superposition and 3DMark. Every claim carries a numbered source; what could not be confirmed says so. Text is MIT-licensed; quotations stay with their owners.</div>
+  <div><h4>Explore</h4><a href="../index.html#timeline">Timeline</a><a href="../index.html#questions">Question explorer</a><a href="fact-check.html">Fact-check log</a></div>
+  <div><h4>Repo</h4><a href="https://github.com/Parris-Tech-Services/furmark-history">GitHub repository</a><a href="../furmark-history-podcast.pdf">Podcast PDF</a></div>
+</div></footer>
+<div class="tip" id="tip"></div>
+<script src="../assets/app.js" data-base="../"></script>
+<script>
+(function(){
+  // wrap tables for horizontal scroll, add heading links
+  document.querySelectorAll("article table").forEach(function(t){var w=document.createElement("div");w.className="tablewrap";t.parentNode.insertBefore(w,t);w.appendChild(t)});
+  document.querySelectorAll("article h2[id],article h3[id]").forEach(function(h){var a=document.createElement("a");a.className="hlink";a.href="#"+h.id;a.textContent="#";a.title="Link to this section";h.appendChild(a)});
+  // external links open in new tab
+  document.querySelectorAll("article a[href^=http]").forEach(function(a){a.target="_blank";a.rel="noopener"});
+  // progress
+  var prog=document.getElementById("prog");
+  function sp(){var h=document.documentElement;var m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?h.scrollTop/m*100:0)+"%"}
+  addEventListener("scroll",sp,{passive:true});sp();
+  // scrollspy
+  var links=[].slice.call(document.querySelectorAll("#tocol a")),map={};
+  links.forEach(function(a){map[a.getAttribute("href").slice(1)]=a});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.remove("on")});var l=map[e.target.id];if(l)l.classList.add("on")}})},{rootMargin:"-80px 0px -70% 0px"});
+  document.querySelectorAll("article h2[id]").forEach(function(h){io.observe(h)});
+  // citation tooltips
+  var tip=document.getElementById("tip");
+  document.querySelectorAll("a.cite").forEach(function(a){
+    var id=a.getAttribute("href").slice(1);
+    a.addEventListener("mouseenter",function(){var li=document.getElementById(id);if(!li)return;tip.textContent=li.textContent.trim().slice(0,320);tip.style.display="block";var r=a.getBoundingClientRect();tip.style.left=Math.min(innerWidth-tip.offsetWidth-12,Math.max(12,r.left-20))+"px";tip.style.top=Math.max(12,r.top-tip.offsetHeight-10)+"px"});
+    a.addEventListener("mouseleave",function(){tip.style.display="none"});
+  });
+})();
+</script>
+</body></html>

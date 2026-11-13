@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GPU Benchmark Lore</title>
+    <link>https://parris-tech-services.github.io/furmark-history/</link>
+    <atom:link href="https://parris-tech-services.github.io/furmark-history/podcast.xml" rel="self" type="application/rss+xml"/>
+    <language>en</language>
+    <description>Short two-host histories of FurMark, UNIGINE Superposition and 3DMark: the companies, the scenes and the scandals. Voices are synthetic; every episode is built from the sourced research at https://parris-tech-services.github.io/furmark-history/.</description>
+    <itunes:author>Parris Tech Services</itunes:author>
+    <itunes:summary>Short two-host histories of FurMark, UNIGINE Superposition and 3DMark. Synthetic voices, sourced scripts.</itunes:summary>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:type>episodic</itunes:type>
+    <itunes:image href="https://parris-tech-services.github.io/furmark-history/assets/podcast-cover.jpg"/>
+    <itunes:category text="Technology"/>
+    <itunes:owner><itunes:name>Parris Tech Services</itunes:name></itunes:owner>
+    <item>
+      <title>The Donut That Cooks GPUs: the story of FurMark</title>
+      <description>How a furry OpenGL donut became the program GPU makers built protections against: Catalyst name checks, the GTX 580 limiter, and FurMark 2. Two synthetic hosts, sourced from Geeks3D&#x27;s own posts and changelog. Transcript and sources: https://parris-tech-services.github.io/furmark-history/read/history.html</description>
+      <enclosure url="https://parris-tech-services.github.io/furmark-history/furmark-history-podcast.mp3" length="7913375" type="audio/mpeg"/>
+      <guid isPermaLink="false">gpu-benchmark-lore-furmark-history-podcast.mp3</guid>
+      <pubDate>Thu, 12 Nov 2026 12:00:00 +0000</pubDate>
+      <itunes:duration>8:14</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>The Professor&#x27;s Lab: the story of UNIGINE Superposition</title>
+      <description>From Sanctuary and Heaven to Superposition 1.1: UNIGINE&#x27;s benchmarks, the vanished professor, SSRTGI lighting and the editions. Sources: https://parris-tech-services.github.io/furmark-history/read/superposition.html</description>
+      <enclosure url="https://parris-tech-services.github.io/furmark-history/superposition-history-podcast.mp3" length="4729869" type="audio/mpeg"/>
+      <guid isPermaLink="false">gpu-benchmark-lore-superposition-history-podcast.mp3</guid>
+      <pubDate>Fri, 13 Nov 2026 12:00:00 +0000</pubDate>
+      <itunes:duration>6:34</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>From Fire Strike to Steel Nomad: the story of 3DMark</title>
+      <description>Final Reality, 3DMark99, Futuremark&#x27;s owners, one test per DirectX, and Steel Nomad&#x27;s delays and scoring. Sources: https://parris-tech-services.github.io/furmark-history/read/3dmark-steel-nomad.html</description>
+      <enclosure url="https://parris-tech-services.github.io/furmark-history/steelnomad-history-podcast.mp3" length="3824058" type="audio/mpeg"/>
+      <guid isPermaLink="false">gpu-benchmark-lore-steelnomad-history-podcast.mp3</guid>
+      <pubDate>Fri, 13 Nov 2026 12:00:00 +0000</pubDate>
+      <itunes:duration>5:18</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+  </channel>
+</rss>

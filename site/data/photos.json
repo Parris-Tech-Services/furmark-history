@@ -1,0 +1,42 @@
+[
+ {
+  "src": "assets/photos/3dmark11-computex.jpg",
+  "t": "3DMark 11 live at Computex",
+  "c": "3DMark 11 running as a live demo on an MSI Big Bang board at Computex Taipei, 3 June 2010.",
+  "alt": "3DMark 11 live at Computex",
+  "credit": "Masaru Kamikura",
+  "lic": "CC BY 2.0",
+  "b": "3dmark",
+  "page": "https://commons.wikimedia.org/wiki/File:3DMark_11_Live_Demo_at_MSI_Big_Bang_System,_Computex_Taipei_20100603.jpg"
+ },
+ {
+  "src": "assets/photos/gf110.jpg",
+  "t": "Inside the GeForce GTX 580",
+  "c": "A die shot of the GF110 chip from the 'Anti-FurMark' card, with its limiter that spotted FurMark and OCCT.",
+  "alt": "Inside the GeForce GTX 580",
+  "credit": "Fritzchens Fritz from Berlin",
+  "lic": "CC0",
+  "b": "furmark",
+  "page": "https://commons.wikimedia.org/wiki/File:NVIDIA@40nm@Fermi@GF110@GeForce_GTX_580@UA10B338_1041A1_N2Y540.000_GF110-375-A1_DSC04152_(27576804994).jpg"
+ },
+ {
+  "src": "assets/photos/rx7900.jpg",
+  "t": "Radeon RX 7900 XTX",
+  "c": "A Sapphire card. Tom's Hardware measured it at 366 W in FurMark and called its throttling unusually strong.",
+  "alt": "Radeon RX 7900 XTX",
+  "credit": "Fritzchens Fritz",
+  "lic": "CC0",
+  "b": "furmark",
+  "page": "https://commons.wikimedia.org/wiki/File:Sapphire_AMD_Radeon_RX_7900_XTX.jpg"
+ },
+ {
+  "src": "assets/photos/tomsk.jpg",
+  "t": "Tomsk, Siberia",
+  "c": "UNIGINE's development office city; Valley's lead artist said 'Living in Siberia, we wanted to show how beautiful the nature is here.'",
+  "alt": "Tomsk, Siberia",
+  "credit": "Geni",
+  "lic": "CC BY-SA 4.0",
+  "b": "superposition",
+  "page": "https://commons.wikimedia.org/wiki/File:Tomsk,_view_from_the_fire-observation_tower.jpg"
+ }
+]

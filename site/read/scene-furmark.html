@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en" data-bench="furmark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The furry doughnut: scene and lore · GPU Benchmark Lore</title>
+<meta name="description" content="Why fur, why a torus, what the knot means.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));z-index:60}
+.rhero{padding:54px 0 28px;position:relative}
+.rhero::before{content:"";position:absolute;inset:-60px 0 0;background:radial-gradient(60% 80% at 20% 0,color-mix(in srgb,var(--acc) 22%,transparent),transparent 70%);pointer-events:none}
+.rhero h1{font:700 clamp(30px,5vw,54px)/1.08 var(--f-ui);letter-spacing:-.02em;margin:14px 0 10px;max-width:22ch}
+.rhero p{color:var(--mut);font-size:18px;max-width:60ch;margin:0 0 16px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--faint);font:13px var(--f-mono)}
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:48px;align-items:start}
+@media(max-width:960px){.layout{grid-template-columns:1fr;gap:0}}
+aside.toc{position:sticky;top:84px;max-height:calc(100vh - 110px);overflow:auto;font-size:14px;padding-right:6px}
+aside.toc h4{margin:0 0 10px;font:600 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+aside.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:6px 0 6px 14px;color:var(--mut);margin-left:-1px;border-left:2px solid transparent;line-height:1.35}
+aside.toc li a:hover{color:var(--ink);text-decoration:none}
+aside.toc li a.on{color:var(--acc2);border-left-color:var(--acc)}
+@media(max-width:960px){aside.toc{position:static;max-height:none;margin:0 0 22px;border:1px solid var(--line);border-radius:14px;padding:14px}aside.toc ol{border:0}}
+article.prose{font:400 19px/1.72 var(--f-read);color:var(--ink);max-width:70ch}
+article.prose h2{font:700 clamp(24px,3vw,32px)/1.2 var(--f-ui);letter-spacing:-.01em;margin:2.2em 0 .5em;position:relative;padding-top:6px}
+article.prose h2::before{content:"";display:block;width:44px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--acc),var(--acc2));margin-bottom:14px}
+article.prose h3{font:700 21px/1.3 var(--f-ui);margin:1.8em 0 .4em;color:var(--acc2)}
+article.prose p{margin:0 0 1.1em}
+article.prose strong{color:var(--ink)}
+article.prose a{border-bottom:1px solid color-mix(in srgb,var(--acc2) 40%,transparent)}
+article.prose a:hover{text-decoration:none;border-bottom-color:var(--acc2)}
+article.prose blockquote{margin:1.2em 0;padding:4px 0 4px 20px;border-left:3px solid var(--acc);color:var(--mut)}
+article.prose code{font:500 .85em var(--f-mono);background:var(--surface2);padding:2px 6px;border-radius:6px}
+article.prose ul,article.prose ol{padding-left:1.3em}
+article.prose li{margin:.35em 0}
+article.prose li::marker{color:var(--acc2)}
+.tablewrap{overflow-x:auto;margin:1.3em 0;border:1px solid var(--line);border-radius:14px}
+article.prose table{border-collapse:collapse;width:100%;font:15px/1.5 var(--f-ui)}
+article.prose th{background:var(--surface2);text-align:left;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+article.prose th,article.prose td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+article.prose tr:last-child td{border-bottom:0}
+article.prose tbody tr:hover td{background:color-mix(in srgb,var(--acc) 7%,transparent)}
+a.cite{font:600 11px var(--f-mono);vertical-align:super;line-height:0;padding:1px 4px;margin:0 1px;border-radius:5px;background:color-mix(in srgb,var(--acc) 22%,transparent);color:var(--acc2);border:0!important}
+a.cite:hover{background:var(--acc);color:#000}
+#sources+*,h2#sources~ol{font:15px/1.55 var(--f-ui);color:var(--mut)}
+li:target{background:color-mix(in srgb,var(--acc) 20%,transparent);outline:2px solid var(--acc);border-radius:6px}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:70px 0 10px}
+.pager a{display:block;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink)}
+.pager a:hover{border-color:var(--acc);text-decoration:none}
+.pager span{display:block;font:11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.pager b{font-size:17px}
+.pager a:last-child{text-align:right}
+.tip{position:fixed;z-index:80;max-width:420px;background:var(--surface);border:1px solid var(--acc);border-radius:12px;padding:12px 14px;font:13px/1.45 var(--f-ui);color:var(--ink);box-shadow:var(--shadow);pointer-events:none;display:none}
+.hlink{opacity:0;margin-left:8px;color:var(--faint);font-size:.7em;border:0!important}
+h2:hover .hlink,h3:hover .hlink{opacity:1}
+.back{position:fixed;right:18px;bottom:18px;z-index:40}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../index.html"><span class="logo"></span><span class="bt">GPU Benchmark Lore</span></a>
+  <nav class="nav">
+    <a href="../index.html#timeline" class="hide-s">Timeline</a><a href="../index.html#watch" class="hide-s">Watch</a><a href="../index.html#lab" class="hide-s">GPU lab</a><a href="../index.html#library">Library</a>
+    <a href="#" data-open-search>Search <span class="kbd">/</span></a>
+  </nav>
+  <button class="iconbtn" data-theme-toggle title="Toggle light / dark" aria-label="Toggle theme">☾</button>
+</div></header>
+<section class="rhero"><div class="wrap">
+  <span class="tag">Lore</span>
+  <h1>The furry doughnut: scene and lore</h1>
+  <p>Why fur, why a torus, what the knot means.</p>
+  <div class="meta"><span>~8 min read</span><span>·</span><a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/SCENE_FURMARK.md">view source on GitHub</a></div>
+</div></section>
+<main class="wrap layout">
+  <aside class="toc"><h4>On this page</h4><ol id="tocol"><li><a href="#1-why-fur-rather-than-explosions-fire-or-a-game-level">1. Why fur, rather than explosions, fire or a game level?</a></li><li><a href="#2-why-a-torusdoughnut-rather-than-a-furry-animaland-did-furry-doughnuts-already-exist">2. Why a torus/doughnut rather than a furry animal—and did furry doughnuts already exist?</a></li><li><a href="#3-what-did-the-earliest-doughnut-look-like-and-how-has-it-changed">3. What did the earliest doughnut look like, and how has it changed?</a></li><li><a href="#4-are-those-hairs-actual-polygons-or-a-shader-trick">4. Are those hairs actual polygons or a shader trick?</a></li><li><a href="#5-why-does-it-just-rotate-instead-of-moving-through-a-fictional-world">5. Why does it just rotate, instead of moving through a fictional world?</a></li><li><a href="#6-why-is-it-orange-fiery-and-set-against-checkerboards-dragons-or-flames">6. Why is it orange, fiery and set against checkerboards, dragons or flames?</a></li><li><a href="#7-how-did-this-almost-silly-object-become-the-power-virus">7. How did this almost silly object become the &#x27;power virus&#x27;?</a></li><li><a href="#8-what-do-the-two-interlaced-tori-and-furmark-2-knot-represent">8. What do the two interlaced tori and FurMark 2 &#x27;knot&#x27; represent?</a></li><li><a href="#9-what-was-the-artistic-point-of-hot-like-hell-and-its-uneven-fur">9. What was the artistic point of &#x27;Hot Like Hell&#x27; and its uneven fur?</a></li><li><a href="#10-is-there-hidden-lore-behind-the-doughnut-and-why-is-it-still-iconic">10. Is there hidden lore behind the doughnut, and why is it still iconic?</a></li><li><a href="#sources">Sources</a></li></ol></aside>
+  <article class="prose" id="doc">
+<p><em>Research: 13 November 2026. Companion to the <a href="scene-story-questions.html">30 new scene questions</a>, <a href="history.html">historical timeline</a> and <a href="qa-furmark.html">technical questions</a>. This asks a different question from 'is it an effective stress test?': why this particular <strong>thing</strong> on the screen?</em></p>
+<p><strong>Evidence convention:</strong> <strong>Confirmed</strong> = explicitly documented; <strong>interpretation</strong> = plausible artistic/technical reasoning, not attributed to JeGX; <strong>unknown</strong> = no source establishes it. 'Donut' describes the shape, not edible food; a <strong>torus</strong> is the technical name of the ring-shaped geometric surface.</p>
+<h2 id="1-why-fur-rather-than-explosions-fire-or-a-game-level">1. Why fur, rather than explosions, fire or a game level?</h2>
+<p><strong>Confirmed:</strong> FurMark began as a <em>fur-rendering</em> benchmark. On 26 August 2007 creator <strong>JeGX</strong> wrote that he had released it four days earlier and highlighted how little the measured performance depended on CPU speed, and how much it loaded GPUs <a class="cite" href="#src-F1">F1</a>. Its name openly combines 'fur' and 'mark' (a benchmark mark). Later descriptions explain that its synthetic fur algorithm deliberately applies an unusually intensive graphics workload <a class="cite" href="#src-F2">F2</a><a class="cite" href="#src-F3">F3</a>.</p>
+<p><strong>What makes fur an attractive technical showcase?</strong> A furry surface is not simply a flat material: it has thousands of visible tips or layers, translucency, directional shading and silhouette complexity. Classic real-time approaches can require repeated geometry draws, texture lookups and alpha blending. NVIDIA's February 2007 developer white paper explains the <em>general</em> graphics challenge and the shells-and-fins family of solutions <a class="cite" href="#src-F4">F4</a>. This explains how fur <strong>could</strong> make a stress-test subject, but does <strong>not</strong> independently prove every internal technique used by FurMark.</p>
+<p><strong>Why this exact creative choice? Unknown.</strong> I found no JeGX interview saying 'I chose fur instead of fire because …'. The documented goal was GPU-dominant stress, not an action scene; claiming a personal inspiration would be invention. Some versions later added fire-like visual effects, but fur remained the named workload.</p>
+<h2 id="2-why-a-torusdoughnut-rather-than-a-furry-animaland-did-furry-doughnuts-already-exist">2. Why a torus/doughnut rather than a furry animal—and did furry doughnuts already exist?</h2>
+<p><strong>Confirmed:</strong> The main object is a hair-covered <strong>torus</strong>, an endlessly continuous ring. A torus is a conventional procedural graphics test object because its curved inside, outside and silhouette show effects from many angles without requiring an animated character rig. That is a <em>technical interpretation</em>, not a direct quote from JeGX.</p>
+<p>Importantly, FurMark did <strong>not</strong> invent the idea of the <strong>furry doughnut</strong>. A Stanford computer-graphics project from <strong>2001</strong> contains an explicitly labelled 'Furry Donut' example made with fur shaders <a class="cite" href="#src-F5">F5</a>. Earlier fur-rendering research also used torus-shaped models. This is evidence of a pre-existing <strong>graphics-demo motif</strong>, <strong>not</strong> proof JeGX saw or borrowed that particular project. The answer to 'which illustration or artist directly inspired JeGX?' is <strong>not established</strong>.</p>
+<p>The ring makes the image striking and readable. Its memorable absurdity—the contrast between a fluffy toy-like shape and a stressed graphics card—is an interpretation of how its iconography works, rather than official lore.</p>
+<h2 id="3-what-did-the-earliest-doughnut-look-like-and-how-has-it-changed">3. What did the earliest doughnut look like, and how has it changed?</h2>
+<p><strong>Confirmed historical arc:</strong> The August 2007 report already presented this as a fur demo, with contemporary screenshot(s) and 8800 GTX temperature measurements <a class="cite" href="#src-F1">F1</a>. A <strong>2 December 2008</strong> illustrated contemporary article shows the familiar ring as the benchmark's visual centre, well before FurMark 2 <a class="cite" href="#src-F6">F6</a>. Early FurMark was fundamentally an OpenGL 2-era repeating fur scene.</p>
+<p>Later releases changed more than hardware support. FurMark 1.8.0 (February 2010) introduced a post-process heat effect and displacement controlling fur height <a class="cite" href="#src-F7">F7</a>. FurMark 1.9.0 (February 2011) introduced an animated background, camera movement and a mode with <strong>two interlaced furry tori</strong> <a class="cite" href="#src-F8">F8</a>. FurMark 2 (public in February 2024) retained the iconic <strong>donut</strong> and added the <strong>knot</strong> scene <a class="cite" href="#src-F9">F9</a>. The continuity of the central fur-covered shape is documented, though exact colours and decorations vary by release, API, settings and screenshots.</p>
+<p>Do not treat an image of today's FurMark 2 as a perfect reconstruction of the 2007 scene.</p>
+<h2 id="4-are-those-hairs-actual-polygons-or-a-shader-trick">4. Are those hairs actual polygons or a shader trick?</h2>
+<p><strong>Partially established.</strong> Independent technical descriptions of classic FurMark refer to many shader passes and layered fur, sometimes characterised as roughly a hundred passes <a class="cite" href="#src-F10">F10</a>. There is <strong>not</strong> a publicly audited primary-source FurMark shader breakdown here proving that exact pass count, the shape of every strand or the implementation in <strong>FurMark 2</strong>. The previous technical Q&amp;A makes that limitation explicit <a class="cite" href="#src-F11">F11</a>.</p>
+<p>In the general <em>shells and fins</em> approach, a base shape is repeatedly drawn with increasingly displaced, partly transparent layers, sometimes augmented by fins at its outer edge; blending produces the impression of countless hairs without simulating every strand independently <a class="cite" href="#src-F4">F4</a>. Other graphics research used volumetric textures to avoid individually modelling hair <a class="cite" href="#src-F5">F5</a>. <strong>Explanation of the method is not proof of FurMark's proprietary shader.</strong></p>
+<p>What JeGX definitely documented was changing fur length by vertex displacement in 1.8.0 <a class="cite" href="#src-F7">F7</a>. Saying 'the doughnut contains millions of physically simulated individual hairs' would be unjustified.</p>
+<h2 id="5-why-does-it-just-rotate-instead-of-moving-through-a-fictional-world">5. Why does it just rotate, instead of moving through a fictional world?</h2>
+<p><strong>Confirmed:</strong> The original benchmark's purpose was repeatable, GPU-centred workload and temperature testing, not a playable environment <a class="cite" href="#src-F1">F1</a><a class="cite" href="#src-F3">F3</a>. The looping torus offers a largely consistent object and camera workload; FurMark can keep rendering until the chosen duration or stability test ends.</p>
+<p><strong>Interpretation:</strong> Rotation reveals lighting and the interior of the furred ring while continuously exercising the GPU without random gameplay, camera controls, scripted NPCs or CPU-heavy world simulation. Constant movement can also make flickering, aliasing and texture issues more visible. These are sensible design consequences but no source located states them as JeGX's artistic rationale.</p>
+<p>FurMark's 'story' is therefore mainly a <strong>performance test happening to the machine</strong>, not a drama happening to the object.</p>
+<h2 id="6-why-is-it-orange-fiery-and-set-against-checkerboards-dragons-or-flames">6. Why is it orange, fiery and set against checkerboards, dragons or flames?</h2>
+<p><strong>Confirmed:</strong> Screenshots and versions are not identical. A 2011 release description from JeGX explicitly mentions replacing a static background with an <strong>optional dynamic background</strong> and says those who wanted to keep their 'favourite dragon' could disable it <a class="cite" href="#src-F8">F8</a>. FurMark 1.8.0 had already added a <strong>heat-shimmer post-effect</strong> <a class="cite" href="#src-F7">F7</a>. The checkerboard and fiery backgrounds visible in different screenshots are graphic presentation, not evidence of a dragon character or a fictional volcanic location. More recent FurMark 2 presentations use an animated background; the appearance depends on test settings <a class="cite" href="#src-F2">F2</a><a class="cite" href="#src-F9">F9</a>.</p>
+<p><strong>Interpretation:</strong> Hot orange/red colours visually reinforce the intense thermal test, and a patterned background supplies contrast and motion. There is no identified designer statement establishing the original colour palette's symbolism. We should not attribute every screenshot's orange tint to a precise rendering mode without identifying that version.</p>
+<h2 id="7-how-did-this-almost-silly-object-become-the-power-virus">7. How did this almost silly object become the 'power virus'?</h2>
+<p>That contrast <em>is</em> the unusual history. JeGX's 2007 note described a test that could overwhelm a GPU and quoted reports of exceptionally high temperatures and a PSU shutdown <a class="cite" href="#src-F1">F1</a>. By August 2008, independent reviewers reported AMD Catalyst driver behaviour that slowed FurMark under its original executable name, with different figures after renaming <a class="cite" href="#src-F12">F12</a>. Later GPU vendors added and described protective throttling, rather than treating the graphical scene as a typical game <a class="cite" href="#src-F13">F13</a>.</p>
+<p>NVIDIA explicitly warned in support documentation that FurMark aims to maximise power draw well beyond real-world applications and that <strong>disabling protection mechanisms can permanently damage hardware</strong> <a class="cite" href="#src-F13">F13</a>. FurMark's fluffy appearance is not a safety indicator. The 'power virus' label refers to sustained workload/power behaviour; FurMark is not thereby being alleged to be malicious computer malware.</p>
+<h2 id="8-what-do-the-two-interlaced-tori-and-furmark-2-knot-represent">8. What do the two interlaced tori and FurMark 2 'knot' represent?</h2>
+<p><strong>Confirmed:</strong> JeGX's 1.9.0 notes introduced an optional two-torus scene with a moving camera <a class="cite" href="#src-F8">F8</a>. FurMark 2 adds the separate <strong>knot</strong> test alongside the familiar doughnut, with score results that should be compared within the <strong>same test</strong> rather than against donut scores <a class="cite" href="#src-F9">F9</a><a class="cite" href="#src-F14">F14</a>.</p>
+<p><strong>Interpretation:</strong> Both increase visual/geometric complexity while preserving FurMark's recognisably abstract 'strange fuzzy object' identity. Torus knots are also a familiar procedural modelling subject, just as a single torus is. No source reviewed establishes a canonical story in which two doughnuts collide, the knot is a monster, or the shapes have a personality. These are <em>alternative workloads and demo shapes</em>, not known named characters.</p>
+<h2 id="9-what-was-the-artistic-point-of-hot-like-hell-and-its-uneven-fur">9. What was the artistic point of 'Hot Like Hell' and its uneven fur?</h2>
+<p>JeGX released FurMark <strong>1.8.0 'Hot Like Hell Edition'</strong> on 2 February 2010 <a class="cite" href="#src-F7">F7</a>. Two striking additions were a <strong>heat post-effect</strong> and <strong>vertex displacement</strong> that allowed the fur height to change across the object (some parts could have much shorter fur). Those effects deliberately change the <em>appearance</em> of the object and the amount/type of shader work.</p>
+<p><strong>Confirmed purpose:</strong> The official release phrasing celebrated a hotter/heavier workload. <strong>Interpretation:</strong> Uneven tufts make the synthetic ring less like a uniform carpet and more like something tactile or scorched; heat haze turns a diagnostic image into a comic visual metaphor for GPU heat. There is no developer statement saying the torus itself is literally burning in a story.</p>
+<p>It also marks a useful cultural difference from modern cinematic benchmarks: FurMark's visual polish serves its stress-test identity rather than trying to simulate a believable world.</p>
+<h2 id="10-is-there-hidden-lore-behind-the-doughnut-and-why-is-it-still-iconic">10. Is there hidden lore behind the doughnut, and why is it still iconic?</h2>
+<p><strong>No verifiable fictional canon was found.</strong> No named protagonist, dialogue, location, motivation or ending appears in JeGX's release material reviewed here. The 'furry donut' is a distinctive benchmark object, not an edible object in a fictional story. Its enduring appeal is an <em>interpretation</em>: absurd visual simplicity, immediate recognisability, history with overclockers, and real effects on GPU thermals.</p>
+<p>JeGX's 2007 writing places the purpose in the context of testing Radeon/GeForce GPUs and power supplies, not building a narrative <a class="cite" href="#src-F1">F1</a>. FurMark 2's decision to keep the classic doughnut while adding another geometry <a class="cite" href="#src-F9">F9</a> supports its status as a project identity.</p>
+<p><strong>The remaining unanswered creator questions:</strong> Why did JeGX personally choose fur? Why precisely a torus? Who picked the original palette? Was the 2001 Stanford furry doughnut known to him? A dated creator interview, original source code, contemporaneous design notes or direct developer explanation would be needed. None is asserted here.</p>
+<h2 id="sources">Sources</h2>
+<ul>
+<li id="src-1"><strong>[F1] Primary, JeGX (26 August 2007).</strong> 'Fur Rendering Benchmark', original first-feedback post. <a href="https://www.ozone3d.net/blogs/lab/tag/gpu/">https://www.ozone3d.net/blogs/lab/tag/gpu/</a> (entry dated 26 Aug; states release four days earlier).</li>
+<li id="src-2"><strong>[F2] Primary software description, Geeks3D.</strong> FurMark project homepage. <a href="https://geeks3d.com/furmark/">https://geeks3d.com/furmark/</a></li>
+<li id="src-3"><strong>[F3] Contemporary first-hand account, Geeks3D mirror.</strong> FurMark's purpose, burn-in and 1.9.0 highlights. <a href="https://marginicidal20.rssing.com/chan-11056000/all_p1.html">https://marginicidal20.rssing.com/chan-11056000/all_p1.html</a> (archived third-party mirror: verify any quote against origin when available).</li>
+<li id="src-4"><strong>[F4] NVIDIA Developer (20 February 2007).</strong> <em>Fur Shells and Fins</em>, technical white paper describing generic real-time fur rendering. <a href="https://developer.download.nvidia.com/SDK/10/direct3d/Source/Fur/doc/FurShellsAndFins.pdf">https://developer.download.nvidia.com/SDK/10/direct3d/Source/Fur/doc/FurShellsAndFins.pdf</a></li>
+<li id="src-5"><strong>[F5] Stanford computer graphics project (2001).</strong> <em>CS 348B Fur</em>, includes a labelled 'Furry Donut'. <a href="https://www.graphics.stanford.edu/courses/cs348b-competition/cs348b-01/fur/">https://www.graphics.stanford.edu/courses/cs348b-competition/cs348b-01/fur/</a></li>
+<li id="src-6"><strong>[F6] GIGAZINE (2 December 2008).</strong> Screenshots of FurMark. <a href="https://www.gigazine.net/gsc_news/en/20081202_furmark/">https://www.gigazine.net/gsc_news/en/20081202_furmark/</a></li>
+<li id="src-7"><strong>[F7] Primary, Geeks3D (2 February 2010).</strong> <em>FurMark 1.8.0 Hot Like Hell Edition Available</em>. <a href="https://www.geeks3d.com/20100202/furmark-1-8-0-hot-like-hell-edition-available/">https://www.geeks3d.com/20100202/furmark-1-8-0-hot-like-hell-edition-available/</a></li>
+<li id="src-8"><strong>[F8] JeGX, reprinted in KitGuru (25 February 2011).</strong> <em>FurMark 1.9.0 released with even heavier GPU load</em>, including author's notes about background, dragon, two tori. <a href="https://www.kitguru.net/channel/generaltech/carl/furmark-1-9-0-released-with-even-heavier-gpu-load/">https://www.kitguru.net/channel/generaltech/carl/furmark-1-9-0-released-with-even-heavier-gpu-load/</a></li>
+<li id="src-9"><strong>[F9] TechPowerUp (27 February 2024).</strong> FurMark 2 launch and JeGX's commentary; see also project changelog. <a href="https://www.techpowerup.com/319672/furmark-2-1-gets-public-release">https://www.techpowerup.com/319672/furmark-2-1-gets-public-release</a></li>
+<li id="src-10"><strong>[F10] TechPowerUp forums.</strong> Contemporary account of FurMark's multipass fur; treat as secondary/partly unverified. <a href="https://www.techpowerup.com/forums/threads/furmark-opengl-benchmark-now-available.54248/">https://www.techpowerup.com/forums/threads/furmark-opengl-benchmark-now-available.54248/</a></li>
+<li id="src-11"><strong>[F11] This project's earlier research.</strong> <a href="qa-furmark.html">FurMark technical Q&amp;A</a>, especially question 1's uncertainty about the exact shader.</li>
+<li id="src-12"><strong>[F12] DVHardware (29 August 2008).</strong> <em>ATI makes FurMark run slower</em> quoting experimental renaming results. <a href="https://www.dvhardware.net/news/29503/ati-makes-furmark-run-slower">https://www.dvhardware.net/news/29503/ati-makes-furmark-run-slower</a></li>
+<li id="src-13"><strong>[F13] NVIDIA Support (2021).</strong> <em>Using FurMark and other Stress Tests with GeForce graphics cards</em>. <a href="https://nvidia.custhelp.com/app/answers/detail/a_id/2603/">https://nvidia.custhelp.com/app/answers/detail/a_id/2603/</a></li>
+<li id="src-14"><strong>[F14] OC3D (26 February 2024).</strong> FurMark 2: donut and knot workloads. <a href="https://overclock3d.net/news/software/furmark-2-is-now-available-to-download-cross-platform-benchmarking-and-stress-testing/">https://overclock3d.net/news/software/furmark-2-is-now-available-to-download-cross-platform-benchmarking-and-stress-testing/</a></li>
+</ul>
+
+    <nav class="pager"><a href="qa-furmark.html"><span>Read</span><b>FurMark: ten questions answered</b></a></nav>
+  </article>
+</main>
+<footer class="site"><div class="wrap">
+  <div><h4>GPU Benchmark Lore</h4>Sourced histories of FurMark, UNIGINE Superposition and 3DMark. Every claim carries a numbered source; what could not be confirmed says so. Text is MIT-licensed; quotations stay with their owners.</div>
+  <div><h4>Explore</h4><a href="../index.html#timeline">Timeline</a><a href="../index.html#questions">Question explorer</a><a href="fact-check.html">Fact-check log</a></div>
+  <div><h4>Repo</h4><a href="https://github.com/Parris-Tech-Services/furmark-history">GitHub repository</a><a href="../furmark-history-podcast.pdf">Podcast PDF</a></div>
+</div></footer>
+<div class="tip" id="tip"></div>
+<script src="../assets/app.js" data-base="../"></script>
+<script>
+(function(){
+  // wrap tables for horizontal scroll, add heading links
+  document.querySelectorAll("article table").forEach(function(t){var w=document.createElement("div");w.className="tablewrap";t.parentNode.insertBefore(w,t);w.appendChild(t)});
+  document.querySelectorAll("article h2[id],article h3[id]").forEach(function(h){var a=document.createElement("a");a.className="hlink";a.href="#"+h.id;a.textContent="#";a.title="Link to this section";h.appendChild(a)});
+  // external links open in new tab
+  document.querySelectorAll("article a[href^=http]").forEach(function(a){a.target="_blank";a.rel="noopener"});
+  // progress
+  var prog=document.getElementById("prog");
+  function sp(){var h=document.documentElement;var m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?h.scrollTop/m*100:0)+"%"}
+  addEventListener("scroll",sp,{passive:true});sp();
+  // scrollspy
+  var links=[].slice.call(document.querySelectorAll("#tocol a")),map={};
+  links.forEach(function(a){map[a.getAttribute("href").slice(1)]=a});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.remove("on")});var l=map[e.target.id];if(l)l.classList.add("on")}})},{rootMargin:"-80px 0px -70% 0px"});
+  document.querySelectorAll("article h2[id]").forEach(function(h){io.observe(h)});
+  // citation tooltips
+  var tip=document.getElementById("tip");
+  document.querySelectorAll("a.cite").forEach(function(a){
+    var id=a.getAttribute("href").slice(1);
+    a.addEventListener("mouseenter",function(){var li=document.getElementById(id);if(!li)return;tip.textContent=li.textContent.trim().slice(0,320);tip.style.display="block";var r=a.getBoundingClientRect();tip.style.left=Math.min(innerWidth-tip.offsetWidth-12,Math.max(12,r.left-20))+"px";tip.style.top=Math.max(12,r.top-tip.offsetHeight-10)+"px"});
+    a.addEventListener("mouseleave",function(){tip.style.display="none"});
+  });
+})();
+</script>
+</body></html>

@@ -1,0 +1,164 @@
+[
+ {
+  "g": "Official trailers & benchmark videos",
+  "items": [
+   {
+    "id": "WWJJcZ4IGXM",
+    "t": "3DMark Steel Nomad – Official Trailer",
+    "by": "3DMark – The Gamer's Benchmark",
+    "b": "3dmark",
+    "n": "The masked wanderer arrives."
+   },
+   {
+    "id": "LQWH8o6kwMI",
+    "t": "3DMark Steel Nomad – Official Benchmark Video",
+    "by": "3DMark – The Gamer's Benchmark",
+    "b": "3dmark",
+    "n": "The full test run."
+   },
+   {
+    "id": "9_g955f442Q",
+    "t": "Steel Nomad Light – Official Benchmark Video",
+    "by": "3DMark – The Gamer's Benchmark",
+    "b": "3dmark",
+    "n": "The 1440p sibling for lighter devices."
+   },
+   {
+    "id": "boaptszmSOI",
+    "t": "3DMark Speed Way – Official Trailer",
+    "by": "3DMark – The Gamer's Benchmark",
+    "b": "3dmark",
+    "n": "DirectX 12 Ultimate ray tracing."
+   },
+   {
+    "id": "ihXYApzI2FM",
+    "t": "3DMark Speed Way – Official Benchmark Video",
+    "by": "3DMark – The Gamer's Benchmark",
+    "b": "3dmark",
+    "n": ""
+   },
+   {
+    "id": "Yhi2h8DnECk",
+    "t": "3DMark Port Royal – Official Benchmark Video",
+    "by": "3DMark – The Gamer's Benchmark",
+    "b": "3dmark",
+    "n": "The first dedicated ray tracing benchmark for gamers."
+   },
+   {
+    "id": "I_BzPOttGwg",
+    "t": "3DMark Wild Life – Official Benchmark Video",
+    "by": "3DMark – The Gamer's Benchmark",
+    "b": "3dmark",
+    "n": "Cross-platform Wild Life."
+   },
+   {
+    "id": "sfV9Rb4Vcqo",
+    "t": "3DMark Time Spy – DirectX 12 Benchmark Teaser Trailer",
+    "by": "ePlay4 (re-upload)",
+    "b": "3dmark",
+    "n": "Not an official channel; the only Time Spy trailer I could verify."
+   },
+   {
+    "id": "fpUf60RuVI8",
+    "t": "UNIGINE Superposition – Teaser [4K, 60 FPS]",
+    "by": "UNIGINE",
+    "b": "superposition",
+    "n": "The professor's laboratory."
+   },
+   {
+    "id": "Ya4Z-obAkWA",
+    "t": "UNIGINE Superposition [8K 60 FPS]",
+    "by": "UNIGINE",
+    "b": "superposition",
+    "n": "The 8K clip UNIGINE released at launch."
+   },
+   {
+    "id": "Ov-Vsl7UAkM",
+    "t": "UNIGINE Superposition – Dynamic Action Teaser",
+    "by": "UNIGINE",
+    "b": "superposition",
+    "n": ""
+   },
+   {
+    "id": "8jyd477-SL0",
+    "t": "Superposition Benchmark – Making Release Happen!",
+    "by": "UNIGINE",
+    "b": "superposition",
+    "n": "Behind the scenes of the 1.0 release."
+   },
+   {
+    "id": "uEXv8A0-_KU",
+    "t": "Unigine Heaven Benchmark 4.0 (originally released in 2009)",
+    "by": "UNIGINE",
+    "b": "superposition",
+    "n": "The steampunk village and dragon."
+   }
+  ]
+ },
+ {
+  "g": "Interviews & talks",
+  "items": [
+   {
+    "id": "zkRfuBRo-K0",
+    "t": "Futuremark's Oliver Baltuch Interview on the new 3DMark",
+    "by": "PC Perspective",
+    "b": "3dmark",
+    "n": "Futuremark's then-president on the 2013 relaunch of 3DMark."
+   },
+   {
+    "id": "XiMnAKyUHkk",
+    "t": "In The Tech – Ep. 2 – Oliver Baltuch – Futuremark",
+    "by": "OverClocking-TV",
+    "b": "3dmark",
+    "n": ""
+   },
+   {
+    "id": "obSM1Rr0TSw",
+    "t": "Futuremark and the Future of 3DMark",
+    "by": "WccftechTV",
+    "b": "3dmark",
+    "n": ""
+   },
+   {
+    "id": "1T8oRxsdWSU",
+    "t": "10 years Futuremark 3D Mark",
+    "by": "SpencerMancer",
+    "b": "3dmark",
+    "n": "A fan retrospective, not an official piece."
+   },
+   {
+    "id": "iH348DSIO4o",
+    "t": "Business Under the Microscope: Denis Shergin, CEO of UNIGINE",
+    "by": "Живое ТВ",
+    "b": "superposition",
+    "n": "In Russian."
+   },
+   {
+    "id": "s-BiB8EHUEI",
+    "t": "Денис Шергин – Unigine",
+    "by": "CG Allies",
+    "b": "superposition",
+    "n": "In Russian."
+   }
+  ]
+ },
+ {
+  "g": "How-to & stress-test walkthroughs",
+  "items": [
+   {
+    "id": "tufWI5iAmDU",
+    "t": "How to Use Furmark",
+    "by": "GamerTechToronto",
+    "b": "furmark",
+    "n": "A beginner walkthrough."
+   },
+   {
+    "id": "oif9DfK03T0",
+    "t": "How To Use FurMark 2 to Test Your GPU",
+    "by": "Guidify",
+    "b": "furmark",
+    "n": "FurMark 2 settings and presets."
+   }
+  ]
+ }
+]

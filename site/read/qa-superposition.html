@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en" data-bench="superposition">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Superposition: ten questions answered · GPU Benchmark Lore</title>
+<meta name="description" content="UNIGINE, scores, SSRTGI, editions, records.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));z-index:60}
+.rhero{padding:54px 0 28px;position:relative}
+.rhero::before{content:"";position:absolute;inset:-60px 0 0;background:radial-gradient(60% 80% at 20% 0,color-mix(in srgb,var(--acc) 22%,transparent),transparent 70%);pointer-events:none}
+.rhero h1{font:700 clamp(30px,5vw,54px)/1.08 var(--f-ui);letter-spacing:-.02em;margin:14px 0 10px;max-width:22ch}
+.rhero p{color:var(--mut);font-size:18px;max-width:60ch;margin:0 0 16px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--faint);font:13px var(--f-mono)}
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:48px;align-items:start}
+@media(max-width:960px){.layout{grid-template-columns:1fr;gap:0}}
+aside.toc{position:sticky;top:84px;max-height:calc(100vh - 110px);overflow:auto;font-size:14px;padding-right:6px}
+aside.toc h4{margin:0 0 10px;font:600 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+aside.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:6px 0 6px 14px;color:var(--mut);margin-left:-1px;border-left:2px solid transparent;line-height:1.35}
+aside.toc li a:hover{color:var(--ink);text-decoration:none}
+aside.toc li a.on{color:var(--acc2);border-left-color:var(--acc)}
+@media(max-width:960px){aside.toc{position:static;max-height:none;margin:0 0 22px;border:1px solid var(--line);border-radius:14px;padding:14px}aside.toc ol{border:0}}
+article.prose{font:400 19px/1.72 var(--f-read);color:var(--ink);max-width:70ch}
+article.prose h2{font:700 clamp(24px,3vw,32px)/1.2 var(--f-ui);letter-spacing:-.01em;margin:2.2em 0 .5em;position:relative;padding-top:6px}
+article.prose h2::before{content:"";display:block;width:44px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--acc),var(--acc2));margin-bottom:14px}
+article.prose h3{font:700 21px/1.3 var(--f-ui);margin:1.8em 0 .4em;color:var(--acc2)}
+article.prose p{margin:0 0 1.1em}
+article.prose strong{color:var(--ink)}
+article.prose a{border-bottom:1px solid color-mix(in srgb,var(--acc2) 40%,transparent)}
+article.prose a:hover{text-decoration:none;border-bottom-color:var(--acc2)}
+article.prose blockquote{margin:1.2em 0;padding:4px 0 4px 20px;border-left:3px solid var(--acc);color:var(--mut)}
+article.prose code{font:500 .85em var(--f-mono);background:var(--surface2);padding:2px 6px;border-radius:6px}
+article.prose ul,article.prose ol{padding-left:1.3em}
+article.prose li{margin:.35em 0}
+article.prose li::marker{color:var(--acc2)}
+.tablewrap{overflow-x:auto;margin:1.3em 0;border:1px solid var(--line);border-radius:14px}
+article.prose table{border-collapse:collapse;width:100%;font:15px/1.5 var(--f-ui)}
+article.prose th{background:var(--surface2);text-align:left;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+article.prose th,article.prose td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+article.prose tr:last-child td{border-bottom:0}
+article.prose tbody tr:hover td{background:color-mix(in srgb,var(--acc) 7%,transparent)}
+a.cite{font:600 11px var(--f-mono);vertical-align:super;line-height:0;padding:1px 4px;margin:0 1px;border-radius:5px;background:color-mix(in srgb,var(--acc) 22%,transparent);color:var(--acc2);border:0!important}
+a.cite:hover{background:var(--acc);color:#000}
+#sources+*,h2#sources~ol{font:15px/1.55 var(--f-ui);color:var(--mut)}
+li:target{background:color-mix(in srgb,var(--acc) 20%,transparent);outline:2px solid var(--acc);border-radius:6px}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:70px 0 10px}
+.pager a{display:block;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink)}
+.pager a:hover{border-color:var(--acc);text-decoration:none}
+.pager span{display:block;font:11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.pager b{font-size:17px}
+.pager a:last-child{text-align:right}
+.tip{position:fixed;z-index:80;max-width:420px;background:var(--surface);border:1px solid var(--acc);border-radius:12px;padding:12px 14px;font:13px/1.45 var(--f-ui);color:var(--ink);box-shadow:var(--shadow);pointer-events:none;display:none}
+.hlink{opacity:0;margin-left:8px;color:var(--faint);font-size:.7em;border:0!important}
+h2:hover .hlink,h3:hover .hlink{opacity:1}
+.back{position:fixed;right:18px;bottom:18px;z-index:40}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../index.html"><span class="logo"></span><span class="bt">GPU Benchmark Lore</span></a>
+  <nav class="nav">
+    <a href="../index.html#timeline" class="hide-s">Timeline</a><a href="../index.html#watch" class="hide-s">Watch</a><a href="../index.html#lab" class="hide-s">GPU lab</a><a href="../index.html#library">Library</a>
+    <a href="#" data-open-search>Search <span class="kbd">/</span></a>
+  </nav>
+  <button class="iconbtn" data-theme-toggle title="Toggle light / dark" aria-label="Toggle theme">☾</button>
+</div></header>
+<section class="rhero"><div class="wrap">
+  <span class="tag">Deep dive</span>
+  <h1>Superposition: ten questions answered</h1>
+  <p>UNIGINE, scores, SSRTGI, editions, records.</p>
+  <div class="meta"><span>~10 min read</span><span>·</span><a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/QA_SUPERPOSITION.md">view source on GitHub</a></div>
+</div></section>
+<main class="wrap layout">
+  <aside class="toc"><h4>On this page</h4><ol id="tocol"><li><a href="#1-who-is-unigine-and-what-is-the-unigine-2-engine">1. Who is UNIGINE, and what is the UNIGINE 2 engine?</a></li><li><a href="#2-what-do-typical-superposition-scores-look-like-and-who-holds-records">2. What do typical Superposition scores look like, and who holds records?</a></li><li><a href="#3-how-do-the-stress-test-and-vr-ready-test-work">3. How do the stress test and VR-ready test work?</a></li><li><a href="#4-why-directx-11-and-opengl-not-vulkan-or-dx12">4. Why DirectX 11 and OpenGL, not Vulkan or DX12?</a></li><li><a href="#5-what-are-the-histories-of-heaven-and-valley-and-are-they-still-used">5. What are the histories of Heaven and Valley, and are they still used?</a></li><li><a href="#6-what-about-the-8k-demo-broadcast-from-space">6. What about the 8K demo broadcast from space?</a></li><li><a href="#7-which-sites-and-test-suites-adopted-superposition">7. Which sites and test suites adopted Superposition?</a></li><li><a href="#8-how-does-ssrtgi-work-per-unigine">8. How does SSRTGI work, per UNIGINE?</a></li><li><a href="#9-what-do-the-editions-cost">9. What do the editions cost?</a></li><li><a href="#10-how-does-superposition-rank-among-competing-benchmarks-in-overclocking">10. How does Superposition rank among competing benchmarks in overclocking?</a></li><li><a href="#sources">Sources</a></li></ol></aside>
+  <article class="prose" id="doc">
+<p><em>Researched 13 November 2026. UNIGINE's own pages and manual were read directly; hardware-review sites and forums are labelled. Claims I could not confirm are marked "not confirmed". Sources are numbered at the end.</em></p>
+<h2 id="1-who-is-unigine-and-what-is-the-unigine-2-engine">1. Who is UNIGINE, and what is the UNIGINE 2 engine?</h2>
+<p>UNIGINE is a real-time 3D engine company. Its engine's roots are the open-source "frustum.org" project, started in 2002 by Alexander "Frustum" Zapryagaev, who co-founded the company with Denis Shergin (CEO) <a class="cite" href="#src-1">1</a>. The engine's first public version is listed as 0.3 on 4 May 2005, and UNIGINE's own About page says the company was established in 2005 <a class="cite" href="#src-1">1</a><a class="cite" href="#src-2">2</a>. In 2021 it claimed more than 250 business customers <a class="cite" href="#src-1">1</a>.</p>
+<p>Where it is based: after a restructuring completed on 30 October 2020, UNIGINE Holding S.à r.l. in Luxembourg is the 100% parent of UNIGINE LLC (Russia). Denis Shergin is the main shareholder, and the venture firm LETA Capital is a minority shareholder. The old entity, UNIGINE Corp., was liquidated. The company then listed three offices (the Luxembourg headquarters, Tomsk and Saint Petersburg) plus remote staff across Europe and Russia <a class="cite" href="#src-3">3</a>. So Tomsk is a development office, not the headquarters. The 2013 Valley announcement quotes lead technical artist Andrey Kushner: "Living in Siberia, we wanted to show how beautiful the nature is here" <a class="cite" href="#src-4">4</a>. UNIGINE's About page says it has "more than 80" staff and that its benchmarks have "over 40 million active users" (company figures) <a class="cite" href="#src-2">2</a>.</p>
+<p><strong>UNIGINE 2</strong> was released on 10 October 2015. It kept UNIGINE 1's features and moved from forward to deferred rendering, added physically based shading, geometry water, multi-layered volumetric clouds, SSRTGI and voxel-based lighting <a class="cite" href="#src-1">1</a>. The engine is C++ with C# and UnigineScript scripting <a class="cite" href="#src-1">1</a>.</p>
+<h2 id="2-what-do-typical-superposition-scores-look-like-and-who-holds-records">2. What do typical Superposition scores look like, and who holds records?</h2>
+<p>Scores depend on preset, and UNIGINE's manual says scores from different presets are not comparable and there is no overall score <a class="cite" href="#src-5">5</a>. Collected data points (all from third parties; systems differ):</p>
+<ul>
+<li><strong>RTX 4090, 4K Optimized:</strong> a forum user reports 39,406 on a Core i9-13900K, and 37,616 with ECC memory on <a class="cite" href="#src-6">6</a>. A Micro Center article reports 33,744 for a 4090 (its settings were not clear in the summary I saw) <a class="cite" href="#src-7">7</a>.</li>
+<li><strong>RTX 3080 Ti, 4K Optimized:</strong> forum users report 15,723 to 17,826 <a class="cite" href="#src-8">8</a><a class="cite" href="#src-6">6</a>.</li>
+<li><strong>Overclocking records (HWBot):</strong> on the 8K Optimized list, LN2 runs on RTX 4090 cards reach 17,657 (3885/1563 MHz) and 17,613; air and water submissions sit lower, around 15,900 to 16,800. On the 1080p Xtreme list, LN2 4090 runs reach 30,635 to 30,724 <a class="cite" href="#src-9">9</a>. Tom's Hardware reported that the overclocker CENS ran an RTX 4090 at 3.825 GHz with 3D stability, validated with Superposition 8K Optimized, scoring 18,701 (his own tweet is dated 9 May 2023) <a class="cite" href="#src-10">10</a>.</li>
+</ul>
+<p>HWBot standings change constantly and its pages blocked my automated fetch, so treat the figures as a snapshot from search results. A "good" score for a given card is best found in the UNIGINE global leaderboard <a class="cite" href="#src-5">5</a>. I found no authoritative GTX 1080 Ti 4K score. Not confirmed.</p>
+<h2 id="3-how-do-the-stress-test-and-vr-ready-test-work">3. How do the stress test and VR-ready test work?</h2>
+<p>UNIGINE's manual lists three test types in benchmark mode: Performance, VR Ready, and Stress <a class="cite" href="#src-5">5</a>.</p>
+<ul>
+<li><strong>Performance</strong> gives the actual game-like score for a preset (1080p Medium, 1080p High, 1080p Extreme, 4K Optimized, 8K Optimized, or Custom) <a class="cite" href="#src-5">5</a>.</li>
+<li><strong>VR Ready</strong> reports whether the system can run VR at the chosen quality. Its score is capped at 10,000, used only to judge VR capability, and not submitted to the leaderboards <a class="cite" href="#src-5">5</a>. Version 1.1 added a Vive Pro preset to it <a class="cite" href="#src-5">5</a>.</li>
+<li><strong>Stress</strong> is a loop over a specific time interval to check stability, available only in the Advanced and Pro editions <a class="cite" href="#src-5">5</a>.</li>
+</ul>
+<p>UNIGINE describes the stress mode as "putting the GPU under a stress workload to determine the system's reliability" <a class="cite" href="#src-5">5</a>. Reviewers mostly use the Performance test: Phoronix runs the Linux OpenGL build in its test suite at 1080p High as a default profile <a class="cite" href="#src-11">11</a>.</p>
+<h2 id="4-why-directx-11-and-opengl-not-vulkan-or-dx12">4. Why DirectX 11 and OpenGL, not Vulkan or DX12?</h2>
+<p>On Windows, Superposition offers Direct3D 11 and OpenGL; on Linux, OpenGL only (it requires OpenGL 4.5) <a class="cite" href="#src-12">12</a><a class="cite" href="#src-13">13</a>. The Linux launch reviewer hoped Vulkan would come later and a tweet suggested it was not certain <a class="cite" href="#src-13">13</a>. A 2019 reader reply confirms Linux is still OpenGL only <a class="cite" href="#src-14">14</a>.</p>
+<p>The reason is timing. UNIGINE built Superposition on UNIGINE 2.x, whose supported APIs were DirectX 11 and OpenGL 4 <a class="cite" href="#src-1">1</a>. UNIGINE 2.16 (10 October 2022) added experimental DirectX 12 and Vulkan renderers. UNIGINE wrote that "it took a while" because of "low quality of drivers and poor support from vendors at early stages" and the "industry's negative experience of porting AAA games" <a class="cite" href="#src-15">15</a>. Phoronix and 80.lv reported some features missing in that first build, and UNIGINE 2.17 lists both APIs as production-ready <a class="cite" href="#src-16">16</a>. So the engine now has newer APIs, but I found no Superposition release that uses them: version 1.1 (April 2019) is still the latest in UNIGINE's version history <a class="cite" href="#src-5">5</a>. UNIGINE has not said why. Not confirmed.</p>
+<h2 id="5-what-are-the-histories-of-heaven-and-valley-and-are-they-still-used">5. What are the histories of Heaven and Valley, and are they still used?</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Date</th>
+<th>Event</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>22 Oct 2009</td>
+<td>Heaven 1.0 announced as the first true DX11 benchmark</td>
+<td><a class="cite" href="#src-17">17</a></td>
+</tr>
+<tr class="even">
+<td>2 Mar 2011</td>
+<td>Heaven 2.5, plus a Professional edition</td>
+<td><a class="cite" href="#src-18">18</a></td>
+</tr>
+<tr class="odd">
+<td>7 Mar 2012</td>
+<td>Heaven 3.0, first to run on Mac</td>
+<td><a class="cite" href="#src-19">19</a></td>
+</tr>
+<tr class="even">
+<td>12 Feb 2013</td>
+<td>Heaven 4.0: presets, GPU temperature and clock monitoring, improved SSDO, multi-GPU detection, new Advanced edition</td>
+<td><a class="cite" href="#src-20">20</a></td>
+</tr>
+<tr class="odd">
+<td>14 Feb 2013</td>
+<td>Valley 1.0, set in a forest-covered mountain valley, for Windows, Linux and OS X</td>
+<td><a class="cite" href="#src-4">4</a><a class="cite" href="#src-21">21</a></td>
+</tr>
+</tbody>
+</table>
+<p>Heaven's scene is a steampunk village on flying islands with a dragon on the central square <a class="cite" href="#src-20">20</a>. Heaven 4.0 is still the latest on UNIGINE's page, and OpenBenchmarking lists Valley profile 1.1.7 from July 2018 <a class="cite" href="#src-22">22</a>. HWBot still has Heaven categories <a class="cite" href="#src-23">23</a>. Are they "still used"? Reviewers and overclockers still reference them; Wikipedia says UNIGINE benchmarks are used by Tom's Hardware, Linus Tech Tips, PC Gamer and JayzTwoCents and are part of the Phoronix Test Suite <a class="cite" href="#src-1">1</a>. I did not count current usage.</p>
+<h2 id="6-what-about-the-8k-demo-broadcast-from-space">6. What about the 8K demo broadcast from space?</h2>
+<p>The only source is UNIGINE itself. Its 1.1 release post (12 April 2019) lists, among two years of statistics, that "the Superposition 8K demo was broadcasted from space via satellite system" <a class="cite" href="#src-24">24</a>. 80.lv repeats the sentence <a class="cite" href="#src-25">25</a>. I found no mission name, date, broadcaster or receiving network, and nothing independent. The launch coverage does confirm that UNIGINE published a 4320p (8K) 60 FPS video clip of the benchmark at release, and that 8K Optimized is a real preset <a class="cite" href="#src-26">26</a><a class="cite" href="#src-5">5</a>. Whether the satellite claim means a downlink test, a trade-show feed or something else is not confirmed.</p>
+<h2 id="7-which-sites-and-test-suites-adopted-superposition">7. Which sites and test suites adopted Superposition?</h2>
+<ul>
+<li><strong>Phoronix and the Phoronix Test Suite.</strong> The test profile <code>unigine-super</code> was created on 11 April 2017, the launch day, and the latest version listed is 1.0.8; the default configuration is 1920x1080, fullscreen, High quality, OpenGL <a class="cite" href="#src-11">11</a><a class="cite" href="#src-12">12</a>. Phoronix published a 17-card comparison the same day <a class="cite" href="#src-12">12</a>.</li>
+<li><strong>Launch coverage:</strong> Tom's Hardware, Legit Reviews, TechSpot, PC Perspective, Digital Trends, GamingOnLinux and others covered the launch <a class="cite" href="#src-26">26</a><a class="cite" href="#src-27">27</a>.</li>
+<li><strong>Ongoing use:</strong> UNIGINE's 1.1 post says Tom's Hardware, Linus Tech Tips, PC Magazine and Phoronix "use Superposition on a regular basis" <a class="cite" href="#src-24">24</a>; Wikipedia adds PC Gamer and JayzTwoCents for UNIGINE benchmarks in general <a class="cite" href="#src-1">1</a>. PC Magazine's reviews do cite it <a class="cite" href="#src-28">28</a>.</li>
+<li><strong>Overclocking:</strong> HWBot hosts Superposition leaderboards (8K Optimized, 1080p Xtreme) <a class="cite" href="#src-9">9</a>.</li>
+</ul>
+<h2 id="8-how-does-ssrtgi-work-per-unigine">8. How does SSRTGI work, per UNIGINE?</h2>
+<p>UNIGINE describes SSRTGI (Screen-Space Ray-Traced Global Illumination) as a set of screen-space ray tracing techniques giving real-time global illumination. It incorporates screen-space ambient occlusion, screen-space global illumination and bent normals <a class="cite" href="#src-29">29</a><a class="cite" href="#src-30">30</a>. Ordinary screen-space effects "do not treat objects as obstacles for light rays"; SSRTGI instead "provides real 180° ray tracing for each pixel in the scene with a fixed number of steps per ray to define occlusions" <a class="cite" href="#src-30">30</a>. Bent normals reduce noise and smooth shadow borders <a class="cite" href="#src-30">30</a>. The engine exposes settings for the number of rays per pixel, steps per ray, resolution and noise <a class="cite" href="#src-29">29</a>. UNIGINE's 2.5 devlog is dated 31 May 2017, and UNIGINE presented it at SIGGRAPH 2017 Real-Time Live! (post dated 1 August 2017), saying the technique was "created for Superposition Benchmark" <a class="cite" href="#src-30">30</a><a class="cite" href="#src-31">31</a>. In SDK 2.19.1 the ray distribution across the hemisphere was redesigned <a class="cite" href="#src-32">32</a>.</p>
+<p>It is not hardware ray tracing. As a general property of screen-space methods (not a UNIGINE statement), it can only see what is on screen. I found no UNIGINE slide deck or paper with the exact sampling and denoising steps. Not confirmed.</p>
+<h2 id="9-what-do-the-editions-cost">9. What do the editions cost?</h2>
+<p>From UNIGINE's current Superposition page (price table, tax not included) <a class="cite" href="#src-33">33</a>:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Edition</th>
+<th>For</th>
+<th>Price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Basic</td>
+<td>Gamer / VR user</td>
+<td>Free</td>
+</tr>
+<tr class="even">
+<td>Advanced</td>
+<td>Overclocker / VR user</td>
+<td>$19.95</td>
+</tr>
+<tr class="odd">
+<td>Professional</td>
+<td>Assembly or repair shop, hardware manufacturer</td>
+<td>$495</td>
+</tr>
+<tr class="even">
+<td>Enterprise</td>
+<td>Company with multiple installations (unlimited seats)</td>
+<td>$7,500</td>
+</tr>
+</tbody>
+</table>
+<p>Bundles including Superposition, Valley and Heaven are $29.95 (Advanced), $995 (Professional) and $14,495 (Enterprise) <a class="cite" href="#src-33">33</a>. At launch, Legit Reviews reported the Advanced edition at $19.95 <a class="cite" href="#src-26">26</a>. A search summary of launch coverage suggested a $995 Professional price, which equals today's Professional bundle; I could not open that article, so I treat it as unconfirmed. The feature split (leaderboards and loop stress test from Advanced; command-line automation, CSV reports, commercial use and support from Professional) is in the manual <a class="cite" href="#src-5">5</a>.</p>
+<h2 id="10-how-does-superposition-rank-among-competing-benchmarks-in-overclocking">10. How does Superposition rank among competing benchmarks in overclocking?</h2>
+<p>I found no ranking or participation figures that compare benchmarks, and HWBot blocked automated fetching. What the evidence does show: HWBot hosts separate Superposition categories (8K Optimized and 1080p Xtreme appear in the search results) with record-holders running RTX 4090s on liquid nitrogen <a class="cite" href="#src-9">9</a>. Tom's Hardware's coverage of the 3.825 GHz record used Superposition 8K as the 3D stability test, noting that frequency records are normally set with lighter loads like GPUPI, and that a full 3D stress test is harder <a class="cite" href="#src-10">10</a>. That implies Superposition is accepted as a demanding validation load, not that it is the most popular one. How it compares with 3DMark Time Spy or Port Royal in HWBot participation: not confirmed.</p>
+<h2 id="sources">Sources</h2>
+<ol type="1">
+<li id="src-1">Wikipedia, "Unigine" (raw page, fetched 13 Nov 2026). <a href="https://en.wikipedia.org/wiki/Unigine">https://en.wikipedia.org/wiki/Unigine</a></li>
+<li id="src-2">UNIGINE Benchmarks, "About us". <a href="https://benchmark.unigine.com/about">https://benchmark.unigine.com/about</a></li>
+<li id="src-3">UNIGINE, "Company Restructuring Completed", 30 Oct 2020. <a href="https://unigine.com/news/2020/company-restructuring-completed">https://unigine.com/news/2020/company-restructuring-completed</a></li>
+<li id="src-4">UNIGINE, "UNIGINE's Newest Valley Benchmark Features Huge, Open-Space Expanses", 14 Feb 2013. <a href="https://unigine.com/news/2013/unigines-newest-valley-benchmark">https://unigine.com/news/2013/unigines-newest-valley-benchmark</a></li>
+<li id="src-5">UNIGINE, "Superposition Benchmark 1.1 User Manual". <a href="https://benchmark.unigine.com/docs/superposition/Superposition_Benchmark_User_Manual.pdf">https://benchmark.unigine.com/docs/superposition/Superposition_Benchmark_User_Manual.pdf</a></li>
+<li id="src-6">ExtremeHW forum, "Benchmarking: Superposition 4K and 8K" (via search summary; user-submitted). <a href="https://extremehw.net/topic/2646-benchmarking-superposition-4k-and-8k/">https://extremehw.net/topic/2646-benchmarking-superposition-4k-and-8k/</a></li>
+<li id="src-7">Micro Center, "GeForce RTX 4090 Benchmarks" (via search summary; page blocked). <a href="https://www.microcenter.com/site/mc-news/article/geforce-rtx-4090-benchmarks.aspx">https://www.microcenter.com/site/mc-news/article/geforce-rtx-4090-benchmarks.aspx</a></li>
+<li id="src-8">Tom's Hardware forum, "Good Unigine Superposition score for a 3080Ti?" (user-submitted). <a href="https://forums.tomshardware.com/threads/good-unigine-superposition-score-for-a-3080ti.3771360/">https://forums.tomshardware.com/threads/good-unigine-superposition-score-for-a-3080ti.3771360/</a></li>
+<li id="src-9">HWBot, Unigine Superposition 8K Optimized and 1080P Xtreme hall-of-fame pages (via search summaries; the site blocked my fetch). <a href="https://hwbot.org/benchmark/unigine_superposition_-_8k_optimized/halloffame">https://hwbot.org/benchmark/unigine_superposition_-_8k_optimized/halloffame</a></li>
+<li id="src-10">Tom's Hardware, "RTX 4090 Breaks World Record, Pushing Over 3.8GHz in Full-Blown 3D Benchmark". <a href="https://www.tomshardware.com/news/rtx-4090-3d-benchmark-world-record-3-8ghz-oc">https://www.tomshardware.com/news/rtx-4090-3d-benchmark-world-record-3-8ghz-oc</a></li>
+<li id="src-11">OpenBenchmarking.org, Phoronix Test Suite profile unigine-super 1.0.8. <a href="https://mail.openbenchmarking.org/test/pts/unigine-super-1.0.8">https://mail.openbenchmarking.org/test/pts/unigine-super-1.0.8</a></li>
+<li id="src-12">Phoronix, "Unigine Superposition Is A Beautiful Way To Stress Your GPU In 2017, 17-Way Graphics Card Comparison", 11 Apr 2017 (via search summary). <a href="https://www.phoronix.com/review/unigine-super-benchmark">https://www.phoronix.com/review/unigine-super-benchmark</a></li>
+<li id="src-13">GamingOnLinux, "Superposition, the latest benchmark by Unigine, has been released", 12 Apr 2017. <a href="https://gamingonlinux.com/2017/04/superposition-the-latest-benchmark-by-unigine-has-been-released/">https://gamingonlinux.com/2017/04/superposition-the-latest-benchmark-by-unigine-has-been-released/</a></li>
+<li id="src-14">GamingOnLinux, "UNIGINE recently updated the Superposition benchmark tool with free VR support, Linux VR supported", Apr 2019 (reader comment: Linux is OpenGL only). <a href="https://www.gamingonlinux.com/2019/04/unigine-recently-updated-the-superposition-benchmark-tool-with-free-vr-support-linux-vr-supported">https://www.gamingonlinux.com/2019/04/unigine-recently-updated-the-superposition-benchmark-tool-with-free-vr-support-linux-vr-supported</a></li>
+<li id="src-15">UNIGINE, "UNIGINE 2.16 - Asset Store, Vulkan &amp; DirectX 12, ROS Integration, New Window Manager", 10 Oct 2022. <a href="https://unigine.com/news/2022/unigine-2-16-asset-store-vulkan-directx-12-ros-integration-new-window-manager">https://unigine.com/news/2022/unigine-2-16-asset-store-vulkan-directx-12-ros-integration-new-window-manager</a></li>
+<li id="src-16">Phoronix, "Unigine 2.16 Released With Experimental Vulkan Support" <a href="https://www.phoronix.com/news/Unigine-2.16-Vulkan">https://www.phoronix.com/news/Unigine-2.16-Vulkan</a> ; 80.lv, "UNIGINE Engine 2.16 Released" <a href="https://80.lv/articles/unigine-engine-2-16-released">https://80.lv/articles/unigine-engine-2-16-released</a> ; UNIGINE 2.17 highlights (via search summary).</li>
+<li id="src-17">Legit Reviews, "Unigine 'Heaven' - The First DirectX 11 Benchmark", 31 Oct 2009. <a href="https://www.legitreviews.com/unigine-heaven-the-first-directx-11-benchmark_1117">https://www.legitreviews.com/unigine-heaven-the-first-directx-11-benchmark_1117</a></li>
+<li id="src-18">UNIGINE, "Introducing Heaven DX11 Benchmark 2.5 and its Professional edition", 2 Mar 2011. <a href="https://unigine.com/ru/news/2011/introducing-heaven-dx11-benchmark-2-5-and-its-professional-edition/">https://unigine.com/ru/news/2011/introducing-heaven-dx11-benchmark-2-5-and-its-professional-edition/</a></li>
+<li id="src-19">UNIGINE, "Heaven DX11 Benchmark is Back with Version 3.0", 7 Mar 2012. <a href="https://unigine.com/news/2012/heaven-dx11-benchmark">https://unigine.com/news/2012/heaven-dx11-benchmark</a></li>
+<li id="src-20">UNIGINE, "UNIGINE's Heaven Benchmark Releases Version 4.0 and Extended Editions", 12 Feb 2013. <a href="https://unigine.com/news/2013/unigines-heaven-benchmark-releases-version-4-0-and-extended-editions">https://unigine.com/news/2013/unigines-heaven-benchmark-releases-version-4-0-and-extended-editions</a></li>
+<li id="src-21">Geeks3D, "Unigine Valley 1.0 Graphics Benchmark Released", 15 Feb 2013. <a href="https://www.geeks3d.com/20130215/unigine-valley-1-0-graphics-benchmark-released/">https://www.geeks3d.com/20130215/unigine-valley-1-0-graphics-benchmark-released/</a></li>
+<li id="src-22">OpenBenchmarking.org, Unigine Valley profile (via search summary). <a href="https://openbenchmarking.org/test/pts/unigine-valley&amp;search">https://openbenchmarking.org/test/pts/unigine-valley&amp;search</a></li>
+<li id="src-23">HWBot, Unigine Heaven Xtreme rules page (via search summary). <a href="https://hwbot.org/benchmarks/unigine_heaven_-_xtreme/rules/5283">https://hwbot.org/benchmarks/unigine_heaven_-_xtreme/rules/5283</a></li>
+<li id="src-24">UNIGINE, "Superposition Benchmark 1.1: Free VR to Everyone", 12 Apr 2019. <a href="https://unigine.com/news/2019/superposition-benchmark-1-1-free-vr-to-everyone">https://unigine.com/news/2019/superposition-benchmark-1-1-free-vr-to-everyone</a></li>
+<li id="src-25">80.lv, "UNIGINE Superposition Benchmark 1.1 with Free VR". <a href="https://80.lv/articles/unigine-superposition-benchmark-1-1-with-free-vr">https://80.lv/articles/unigine-superposition-benchmark-1-1-with-free-vr</a></li>
+<li id="src-26">Legit Reviews, "UNIGINE Superposition Benchmark - New Stress Test For Video Cards" (launch: "more than half a year of teasing"; 8K 60 FPS clip; Advanced $19.95). <a href="https://www.legitreviews.com/?p=193529">https://www.legitreviews.com/?p=193529</a></li>
+<li id="src-27">TechSpot <a href="https://www.techspot.com/news/68925-unigine-launches-superposition-benchmark-application.html">https://www.techspot.com/news/68925-unigine-launches-superposition-benchmark-application.html</a> ; PC Perspective <a href="https://pcper.com/2017/04/unigine-superposition-gpu-stress-test-released/">https://pcper.com/2017/04/unigine-superposition-gpu-stress-test-released/</a> ; Digital Trends <a href="https://www.digitaltrends.com/computing/unigine-superposition-8k-vr/">https://www.digitaltrends.com/computing/unigine-superposition-8k-vr/</a> (launch coverage; bodies partly blocked)</li>
+<li id="src-28">Wikipedia, "Superposition Benchmark" (cites PC Magazine reviews). <a href="https://en.wikipedia.org/wiki/Superposition_Benchmark">https://en.wikipedia.org/wiki/Superposition_Benchmark</a></li>
+<li id="src-29">UNIGINE Developer, "Global Illumination" documentation. <a href="https://developer.unigine.com/en/docs/latest/editor2/lighting/gi/">https://developer.unigine.com/en/docs/latest/editor2/lighting/gi/</a></li>
+<li id="src-30">UNIGINE, "SIGGRAPH 2017: UNIGINE at Real Time Live!", 1 Aug 2017. <a href="https://unigine.com/news/2017/siggraph-2017-unigine-at-real-time-live">https://unigine.com/news/2017/siggraph-2017-unigine-at-real-time-live</a></li>
+<li id="src-31">UNIGINE Developer, "UNIGINE 2.5: Screen-Space Ray-Traced Global Illumination..." devlog, 31 May 2017. <a href="https://developer.unigine.com/devlog/20170531-unigine-2.5">https://developer.unigine.com/devlog/20170531-unigine-2.5</a></li>
+<li id="src-32">UNIGINE, "UNIGINE SDK 2.19.1 Release", 2024 (via search summary). <a href="https://unigine.com/news/2024/unigine-sdk-2-19-1-release/">https://unigine.com/news/2024/unigine-sdk-2-19-1-release/</a></li>
+<li id="src-33">UNIGINE Benchmarks, Superposition product page, editions and prices table. <a href="https://benchmark.unigine.com/superposition">https://benchmark.unigine.com/superposition</a></li>
+</ol>
+
+    <nav class="pager"><a href="superposition.html"><span>Read</span><b>UNIGINE Superposition: a history</b></a><a href="scene-superposition.html"><span>Read</span><b>The vanished professor: scene and lore</b></a></nav>
+  </article>
+</main>
+<footer class="site"><div class="wrap">
+  <div><h4>GPU Benchmark Lore</h4>Sourced histories of FurMark, UNIGINE Superposition and 3DMark. Every claim carries a numbered source; what could not be confirmed says so. Text is MIT-licensed; quotations stay with their owners.</div>
+  <div><h4>Explore</h4><a href="../index.html#timeline">Timeline</a><a href="../index.html#questions">Question explorer</a><a href="fact-check.html">Fact-check log</a></div>
+  <div><h4>Repo</h4><a href="https://github.com/Parris-Tech-Services/furmark-history">GitHub repository</a><a href="../furmark-history-podcast.pdf">Podcast PDF</a></div>
+</div></footer>
+<div class="tip" id="tip"></div>
+<script src="../assets/app.js" data-base="../"></script>
+<script>
+(function(){
+  // wrap tables for horizontal scroll, add heading links
+  document.querySelectorAll("article table").forEach(function(t){var w=document.createElement("div");w.className="tablewrap";t.parentNode.insertBefore(w,t);w.appendChild(t)});
+  document.querySelectorAll("article h2[id],article h3[id]").forEach(function(h){var a=document.createElement("a");a.className="hlink";a.href="#"+h.id;a.textContent="#";a.title="Link to this section";h.appendChild(a)});
+  // external links open in new tab
+  document.querySelectorAll("article a[href^=http]").forEach(function(a){a.target="_blank";a.rel="noopener"});
+  // progress
+  var prog=document.getElementById("prog");
+  function sp(){var h=document.documentElement;var m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?h.scrollTop/m*100:0)+"%"}
+  addEventListener("scroll",sp,{passive:true});sp();
+  // scrollspy
+  var links=[].slice.call(document.querySelectorAll("#tocol a")),map={};
+  links.forEach(function(a){map[a.getAttribute("href").slice(1)]=a});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.remove("on")});var l=map[e.target.id];if(l)l.classList.add("on")}})},{rootMargin:"-80px 0px -70% 0px"});
+  document.querySelectorAll("article h2[id]").forEach(function(h){io.observe(h)});
+  // citation tooltips
+  var tip=document.getElementById("tip");
+  document.querySelectorAll("a.cite").forEach(function(a){
+    var id=a.getAttribute("href").slice(1);
+    a.addEventListener("mouseenter",function(){var li=document.getElementById(id);if(!li)return;tip.textContent=li.textContent.trim().slice(0,320);tip.style.display="block";var r=a.getBoundingClientRect();tip.style.left=Math.min(innerWidth-tip.offsetWidth-12,Math.max(12,r.left-20))+"px";tip.style.top=Math.max(12,r.top-tip.offsetHeight-10)+"px"});
+    a.addEventListener("mouseleave",function(){tip.style.display="none"});
+  });
+})();
+</script>
+</body></html>

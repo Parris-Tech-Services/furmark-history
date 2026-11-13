@@ -1,0 +1,168 @@
+[
+ {
+  "n": "Radeon HD 4850 / 4870",
+  "y": 2008,
+  "v": "AMD",
+  "b": [
+   "furmark"
+  ],
+  "h": "The first card FurMark famously frightened",
+  "f": [
+   "Geeks3D says its VRM was undersized for FurMark and OCCT loads.",
+   "AMD added a Catalyst 8.8 check keyed on the file name FurMark.exe, then a texture-to-ALU ratio check in 9.8."
+  ],
+  "doc": "history"
+ },
+ {
+  "n": "Radeon HD 5870 'Cypress'",
+  "y": 2009,
+  "v": "AMD",
+  "b": [
+   "furmark"
+  ],
+  "h": "Protection moves into silicon",
+  "f": [
+   "A small monitoring chip watches the voltage regulators and throttles one PowerPlay level when they overload."
+  ],
+  "doc": "history"
+ },
+ {
+  "n": "GeForce GTX 480",
+  "y": 2010,
+  "v": "NVIDIA",
+  "b": [
+   "furmark"
+  ],
+  "h": "Why FurMark 1.9.0 got harder",
+  "f": [
+   "FurMark 1.8.2 at 1080p: 6478 points (108 FPS).",
+   "FurMark 1.9.0 at 1080p: 1769 points (29 FPS) on the same card."
+  ],
+  "doc": "qa-furmark"
+ },
+ {
+  "n": "GeForce GTX 580",
+  "y": 2010,
+  "v": "NVIDIA",
+  "b": [
+   "furmark"
+  ],
+  "h": "The 'Anti-FurMark' card",
+  "f": [
+   "In FurMark: 153 W with the limiter, 304 W without (TechPowerUp, quoted by Geeks3D).",
+   "The limiter engaged only when the driver detected FurMark or OCCT."
+  ],
+  "doc": "history"
+ },
+ {
+  "n": "GeForce GTX 560 Ti",
+  "y": 2011,
+  "v": "NVIDIA",
+  "b": [
+   "furmark"
+  ],
+  "h": "The limiter made optional",
+  "f": [
+   "ASUS left the power limiter off its card, so FurMark ran at full speed in JeGX's review."
+  ],
+  "doc": "history"
+ },
+ {
+  "n": "GeForce RTX 3080 Ti",
+  "y": 2021,
+  "v": "NVIDIA",
+  "b": [
+   "superposition"
+  ],
+  "h": "A typical Superposition 4K card",
+  "f": [
+   "Forum users report 15,723 to 17,826 points at 4K Optimized (different systems)."
+  ],
+  "doc": "qa-superposition"
+ },
+ {
+  "n": "Radeon RX 6800 XT",
+  "y": 2020,
+  "v": "AMD",
+  "b": [
+   "furmark"
+  ],
+  "h": "Mid-table on the FurMark chart",
+  "f": [
+   "A third-party listing shows 18,035 points (301 FPS) at the 1080p preset.",
+   "Both fit roughly 60 points per FPS: the score is frames rendered in a 60-second run."
+  ],
+  "doc": "qa-furmark"
+ },
+ {
+  "n": "Radeon RX 7900 XTX",
+  "y": 2022,
+  "v": "AMD",
+  "b": [
+   "furmark"
+  ],
+  "h": "Throttles harder than almost anything",
+  "f": [
+   "366 W in FurMark at 1440p, and Tom's Hardware said AMD's new cards 'throttle more than just about any other GPU we've tested recently'."
+  ],
+  "doc": "qa-furmark"
+ },
+ {
+  "n": "GeForce RTX 4090",
+  "y": 2022,
+  "v": "NVIDIA",
+  "b": [
+   "furmark",
+   "superposition",
+   "3dmark"
+  ],
+  "h": "The overclocker's canvas",
+  "f": [
+   "Superposition 4K Optimized: 39,406 on a Core i9-13900K (forum report).",
+   "Superposition 8K Optimized on liquid nitrogen: 17,657 (HWBot snapshot).",
+   "CENS: 3.825 GHz with 3D stability, validated in Superposition 8K, 18,701 points.",
+   "FurMark 1080p preset: 37,387 points (623 FPS), third-party listing."
+  ],
+  "doc": "qa-superposition"
+ },
+ {
+  "n": "Intel Arc B580 / B570",
+  "y": 2024,
+  "v": "Intel",
+  "b": [
+   "furmark"
+  ],
+  "h": "Battlemage joins the changelog",
+  "f": [
+   "FurMark 2.5.0.0 (26 Dec 2024) added support for both cards."
+  ],
+  "doc": "history"
+ },
+ {
+  "n": "GeForce RTX 5090",
+  "y": 2025,
+  "v": "NVIDIA",
+  "b": [
+   "3dmark"
+  ],
+  "h": "Port Royal's high 40,000s",
+  "f": [
+   "Cached Hall of Fame pages show RTX 5090 systems in the high 40,000s; one snapshot lists 47,311 with a Core i9-14900KS at rank 85. Standings change constantly."
+  ],
+  "doc": "qa-3dmark-supplement"
+ },
+ {
+  "n": "Raspberry Pi 5 / Pi 4",
+  "y": 2023,
+  "v": "Broadcom",
+  "b": [
+   "furmark"
+  ],
+  "h": "A donut at four frames per second",
+  "f": [
+   "FurMark 2.3 on a Pi 5: 4 FPS at 1024 x 640. On a Pi 4: about 1 FPS.",
+   "Preset benchmarks are disabled because the score box is unusable at that frame rate."
+  ],
+  "doc": "qa-furmark"
+ }
+]

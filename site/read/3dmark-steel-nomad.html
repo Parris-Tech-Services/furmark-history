@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en" data-bench="3dmark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3DMark and Steel Nomad: a history · GPU Benchmark Lore</title>
+<meta name="description" content="Final Reality to the path-traced future.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));z-index:60}
+.rhero{padding:54px 0 28px;position:relative}
+.rhero::before{content:"";position:absolute;inset:-60px 0 0;background:radial-gradient(60% 80% at 20% 0,color-mix(in srgb,var(--acc) 22%,transparent),transparent 70%);pointer-events:none}
+.rhero h1{font:700 clamp(30px,5vw,54px)/1.08 var(--f-ui);letter-spacing:-.02em;margin:14px 0 10px;max-width:22ch}
+.rhero p{color:var(--mut);font-size:18px;max-width:60ch;margin:0 0 16px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--faint);font:13px var(--f-mono)}
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:48px;align-items:start}
+@media(max-width:960px){.layout{grid-template-columns:1fr;gap:0}}
+aside.toc{position:sticky;top:84px;max-height:calc(100vh - 110px);overflow:auto;font-size:14px;padding-right:6px}
+aside.toc h4{margin:0 0 10px;font:600 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+aside.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:6px 0 6px 14px;color:var(--mut);margin-left:-1px;border-left:2px solid transparent;line-height:1.35}
+aside.toc li a:hover{color:var(--ink);text-decoration:none}
+aside.toc li a.on{color:var(--acc2);border-left-color:var(--acc)}
+@media(max-width:960px){aside.toc{position:static;max-height:none;margin:0 0 22px;border:1px solid var(--line);border-radius:14px;padding:14px}aside.toc ol{border:0}}
+article.prose{font:400 19px/1.72 var(--f-read);color:var(--ink);max-width:70ch}
+article.prose h2{font:700 clamp(24px,3vw,32px)/1.2 var(--f-ui);letter-spacing:-.01em;margin:2.2em 0 .5em;position:relative;padding-top:6px}
+article.prose h2::before{content:"";display:block;width:44px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--acc),var(--acc2));margin-bottom:14px}
+article.prose h3{font:700 21px/1.3 var(--f-ui);margin:1.8em 0 .4em;color:var(--acc2)}
+article.prose p{margin:0 0 1.1em}
+article.prose strong{color:var(--ink)}
+article.prose a{border-bottom:1px solid color-mix(in srgb,var(--acc2) 40%,transparent)}
+article.prose a:hover{text-decoration:none;border-bottom-color:var(--acc2)}
+article.prose blockquote{margin:1.2em 0;padding:4px 0 4px 20px;border-left:3px solid var(--acc);color:var(--mut)}
+article.prose code{font:500 .85em var(--f-mono);background:var(--surface2);padding:2px 6px;border-radius:6px}
+article.prose ul,article.prose ol{padding-left:1.3em}
+article.prose li{margin:.35em 0}
+article.prose li::marker{color:var(--acc2)}
+.tablewrap{overflow-x:auto;margin:1.3em 0;border:1px solid var(--line);border-radius:14px}
+article.prose table{border-collapse:collapse;width:100%;font:15px/1.5 var(--f-ui)}
+article.prose th{background:var(--surface2);text-align:left;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+article.prose th,article.prose td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+article.prose tr:last-child td{border-bottom:0}
+article.prose tbody tr:hover td{background:color-mix(in srgb,var(--acc) 7%,transparent)}
+a.cite{font:600 11px var(--f-mono);vertical-align:super;line-height:0;padding:1px 4px;margin:0 1px;border-radius:5px;background:color-mix(in srgb,var(--acc) 22%,transparent);color:var(--acc2);border:0!important}
+a.cite:hover{background:var(--acc);color:#000}
+#sources+*,h2#sources~ol{font:15px/1.55 var(--f-ui);color:var(--mut)}
+li:target{background:color-mix(in srgb,var(--acc) 20%,transparent);outline:2px solid var(--acc);border-radius:6px}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:70px 0 10px}
+.pager a{display:block;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink)}
+.pager a:hover{border-color:var(--acc);text-decoration:none}
+.pager span{display:block;font:11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.pager b{font-size:17px}
+.pager a:last-child{text-align:right}
+.tip{position:fixed;z-index:80;max-width:420px;background:var(--surface);border:1px solid var(--acc);border-radius:12px;padding:12px 14px;font:13px/1.45 var(--f-ui);color:var(--ink);box-shadow:var(--shadow);pointer-events:none;display:none}
+.hlink{opacity:0;margin-left:8px;color:var(--faint);font-size:.7em;border:0!important}
+h2:hover .hlink,h3:hover .hlink{opacity:1}
+.back{position:fixed;right:18px;bottom:18px;z-index:40}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../index.html"><span class="logo"></span><span class="bt">GPU Benchmark Lore</span></a>
+  <nav class="nav">
+    <a href="../index.html#timeline" class="hide-s">Timeline</a><a href="../index.html#watch" class="hide-s">Watch</a><a href="../index.html#lab" class="hide-s">GPU lab</a><a href="../index.html#library">Library</a>
+    <a href="#" data-open-search>Search <span class="kbd">/</span></a>
+  </nav>
+  <button class="iconbtn" data-theme-toggle title="Toggle light / dark" aria-label="Toggle theme">☾</button>
+</div></header>
+<section class="rhero"><div class="wrap">
+  <span class="tag">History</span>
+  <h1>3DMark and Steel Nomad: a history</h1>
+  <p>Final Reality to the path-traced future.</p>
+  <div class="meta"><span>~7 min read</span><span>·</span><a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/3DMARK_STEEL_NOMAD.md">view source on GitHub</a></div>
+</div></section>
+<main class="wrap layout">
+  <aside class="toc"><h4>On this page</h4><ol id="tocol"><li><a href="#the-short-version">The short version</a></li><li><a href="#company-timeline">Company timeline</a></li><li><a href="#3dmark-by-generation">3DMark by generation</a></li><li><a href="#steel-nomad">Steel Nomad</a></li><li><a href="#settled-in-the-second-research-pass">Settled in the second research pass</a></li><li><a href="#still-open">Still open</a></li><li><a href="#sources">Sources</a></li></ol></aside>
+  <article class="prose" id="doc">
+<p><strong>Scene deep dive:</strong> <a href="scene-steel-nomad.html">Who is Steel Nomad? Ten questions about the masked wanderer and the frontier</a>.</p>
+<p>For additional technical detail beyond this timeline, see <a href="qa-3dmark.html">10 researched 3DMark questions, 56 source references</a>.</p>
+<p><em>Compiled 13 November 2026. UL's own news posts are the primary sources; the version table comes from Wikipedia and is labelled as such. A second research pass resolved the first draft's conflicts; what is still open is listed at the end. Source numbers in brackets point to the list at the bottom.</em></p>
+<h2 id="the-short-version">The short version</h2>
+<p>3DMark grew out of Final Reality, a 1997 benchmark made at Remedy Entertainment. The same team left to form Futuremark, which released 3DMark99 on 26 October 1998. Futuremark changed names, spun off a business, was sold twice, and since 2014 has belonged to UL, which rebranded the products "UL Benchmarks" in 2018. 3DMark has been rebuilt for each major DirectX generation. Steel Nomad, launched on 21 May 2024 after two delays, is the official successor to Time Spy: a non-ray-traced, cross-platform test at native 4K, about three times heavier than Time Spy. UL announced a fully path-traced successor in June 2026. <a class="cite" href="#src-1">1</a><a class="cite" href="#src-2">2</a><a class="cite" href="#src-3">3</a><a class="cite" href="#src-5">5</a><a class="cite" href="#src-10">10</a></p>
+<h2 id="company-timeline">Company timeline</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Date</th>
+<th>Event</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>May 1997</td>
+<td>Final Reality, made by the founding team at Remedy Entertainment with VNU Labs</td>
+<td><a class="cite" href="#src-2">2</a><a class="cite" href="#src-11">11</a></td>
+</tr>
+<tr class="even">
+<td>Nov 1997</td>
+<td>Company founded in Espoo, Finland</td>
+<td><a class="cite" href="#src-2">2</a></td>
+</tr>
+<tr class="odd">
+<td>31 Dec 1997</td>
+<td>Official company papers received (UL's timeline: "On New Year's Eve we receive our official company papers. Futuremark is born!"); Wikipedia gives November 1997 for the founding</td>
+<td><a class="cite" href="#src-2">2</a><a class="cite" href="#src-16">16</a></td>
+</tr>
+<tr class="even">
+<td>27 Feb 1998</td>
+<td>Company launched</td>
+<td><a class="cite" href="#src-2">2</a></td>
+</tr>
+<tr class="odd">
+<td>26 Oct 1998</td>
+<td>3DMark99 released, "the world's first 3D benchmark aimed directly at the 3D gaming community"</td>
+<td><a class="cite" href="#src-10">10</a></td>
+</tr>
+<tr class="even">
+<td>By Nov 1999</td>
+<td>Trading name changed to MadOnion.com (Futuremark press release dated 9 Nov 1999)</td>
+<td><a class="cite" href="#src-2">2</a></td>
+</tr>
+<tr class="odd">
+<td>2002</td>
+<td>Renamed Futuremark</td>
+<td><a class="cite" href="#src-2">2</a></td>
+</tr>
+<tr class="even">
+<td>Dec 2009</td>
+<td>Mobile and embedded unit spun off as Rightware</td>
+<td><a class="cite" href="#src-2">2</a></td>
+</tr>
+<tr class="odd">
+<td>Mar 2012</td>
+<td>Games division sold to Rovio</td>
+<td><a class="cite" href="#src-2">2</a></td>
+</tr>
+<tr class="even">
+<td>31 Oct 2014</td>
+<td>Futuremark acquired by UL</td>
+<td><a class="cite" href="#src-2">2</a></td>
+</tr>
+<tr class="odd">
+<td>23 Apr 2018</td>
+<td>Rebranded UL Benchmarks; the Futuremark website closed</td>
+<td><a class="cite" href="#src-2">2</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="3dmark-by-generation">3DMark by generation</h2>
+<p>Scores are not comparable across versions, because each is tied to a DirectX generation. <a class="cite" href="#src-3">3</a></p>
+<table>
+<thead>
+<tr class="header">
+<th>Version</th>
+<th>Released</th>
+<th>API / focus</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3DMark99</td>
+<td>26 Oct 1998</td>
+<td>DirectX 6, Remedy's MAX-FX engine</td>
+<td><a class="cite" href="#src-10">10</a><a class="cite" href="#src-11">11</a></td>
+</tr>
+<tr class="even">
+<td>3DMark99 MAX</td>
+<td>8 Mar 1999</td>
+<td>content update</td>
+<td><a class="cite" href="#src-3">3</a></td>
+</tr>
+<tr class="odd">
+<td>3DMark2000</td>
+<td>6 Dec 1999</td>
+<td>DirectX 7, hardware transform and lighting</td>
+<td><a class="cite" href="#src-3">3</a></td>
+</tr>
+<tr class="even">
+<td>3DMark2001</td>
+<td>13 Mar 2001</td>
+<td>DirectX 8; first with vertex and pixel shaders; last on MAX-FX</td>
+<td><a class="cite" href="#src-3">3</a><a class="cite" href="#src-11">11</a></td>
+</tr>
+<tr class="odd">
+<td>3DMark2001 SE</td>
+<td>12 Feb 2002</td>
+<td>DirectX 8.1</td>
+<td><a class="cite" href="#src-3">3</a></td>
+</tr>
+<tr class="even">
+<td>3DMark03</td>
+<td>11 Feb 2003</td>
+<td>DirectX 9; no third-party engine; first to include CPU tests</td>
+<td><a class="cite" href="#src-3">3</a><a class="cite" href="#src-11">11</a></td>
+</tr>
+<tr class="odd">
+<td>3DMark05</td>
+<td>29 Sep 2004</td>
+<td>DirectX 9, Shader Model 2</td>
+<td><a class="cite" href="#src-3">3</a></td>
+</tr>
+<tr class="even">
+<td>3DMark06</td>
+<td>18 Jan 2006</td>
+<td>first to fold the CPU result into the score</td>
+<td><a class="cite" href="#src-3">3</a></td>
+</tr>
+<tr class="odd">
+<td>3DMark Vantage</td>
+<td>28 Apr 2008</td>
+<td>DirectX 10</td>
+<td><a class="cite" href="#src-3">3</a></td>
+</tr>
+<tr class="even">
+<td>3DMark 11</td>
+<td>7 Dec 2010</td>
+<td>DirectX 11: tessellation, compute shaders</td>
+<td><a class="cite" href="#src-3">3</a></td>
+</tr>
+<tr class="odd">
+<td>3DMark (Fire Strike era)</td>
+<td>4 Feb 2013</td>
+<td>one app with separate tests; Windows, Android and iOS scores comparable for the first time</td>
+<td><a class="cite" href="#src-3">3</a><a class="cite" href="#src-11">11</a></td>
+</tr>
+<tr class="even">
+<td>Time Spy</td>
+<td>14 Jul 2016</td>
+<td>DirectX 12; trailer shown 23 Jun 2016</td>
+<td><a class="cite" href="#src-12">12</a><a class="cite" href="#src-13">13</a></td>
+</tr>
+<tr class="odd">
+<td>Port Royal</td>
+<td>8 Jan 2019</td>
+<td>"world's first dedicated real-time ray tracing benchmark for gamers"; DXR; 2560 x 1440</td>
+<td><a class="cite" href="#src-14">14</a></td>
+</tr>
+<tr class="even">
+<td>Speed Way</td>
+<td>12 Oct 2022</td>
+<td>DirectX 12 Ultimate, DXR 1.1, mesh shaders; sponsored by Lenovo Legion</td>
+<td><a class="cite" href="#src-4">4</a></td>
+</tr>
+<tr class="odd">
+<td>Steel Nomad</td>
+<td>21 May 2024</td>
+<td>non-ray-traced, cross-platform</td>
+<td><a class="cite" href="#src-1">1</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="time-spy">Time Spy</h3>
+<p>Futuremark announced Time Spy on 23 June 2016 with a trailer that revisits classic 3DMark scenes. It went on sale on 14 July 2016 as a free update to every Windows edition of 3DMark, the free Basic edition and the Steam demo included. Futuremark pitched it as a "pure DirectX 12 engine" with asynchronous compute, explicit multi-adapter and multi-threading, built with input from AMD, Intel, Microsoft, NVIDIA and others. <a class="cite" href="#src-12">12</a><a class="cite" href="#src-13">13</a></p>
+<h2 id="steel-nomad">Steel Nomad</h2>
+<p>UL's launch post, dated 21 May 2024, says: <a class="cite" href="#src-1">1</a></p>
+<ul>
+<li><strong>Why.</strong> Time Spy had gathered "almost 48 million" results since 2016, and the average Time Spy score had roughly tripled, so a new non-ray-traced test was needed. Time Spy is "not fully retired".</li>
+<li><strong>What.</strong> A non-ray-traced, cross-platform GPU benchmark running at "a native 4k resolution", about <strong>three times heavier than Time Spy</strong> and almost <strong>seven times heavier than Fire Strike</strong>. UL notes that CPU bottlenecking can flatten Fire Strike and Time Spy results on a high-end 2024 GPU.</li>
+<li><strong>Where.</strong> Windows and Windows-on-Arm via DirectX 12 and Vulkan; Android via Vulkan; iOS via Metal.</li>
+<li><strong>Editions.</strong> Steel Nomad and a lighter Steel Nomad Light, both free for existing 3DMark users. On Steam, Steel Nomad cost US$34.99 for people who did not own 3DMark, with a launch-week 75% discount. <a class="cite" href="#src-1">1</a><a class="cite" href="#src-15">15</a></li>
+</ul>
+<h3 id="why-the-resolution-is-reported-two-ways">Why the resolution is reported two ways</h3>
+<p>UL's support page for Steel Nomad <strong>Light</strong> says its rendering resolution is 2560 x 1440. PC Gamer describes Light as designed for integrated graphics, tablets and phones, running at 1440p. The standard Steel Nomad is the 4K test, and Light is the 1440p one. The "1440p" claim in some coverage is Light's, not the standard test's. <a class="cite" href="#src-1">1</a><a class="cite" href="#src-15">15</a><a class="cite" href="#src-16">16</a></p>
+<h3 id="the-delays">The delays</h3>
+<p>UL first planned Steel Nomad for the end of Q1 2024. A Steam message then moved it to the start of Q2, probably April; later statements said it would slip past April, with a release candidate ready but a final round of partner feedback and the Windows UI still being finished. It launched 21 May 2024. The sources give partner feedback and UI work as the reasons and nothing more. <a class="cite" href="#src-17">17</a></p>
+<h3 id="after-launch">After launch</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Date</th>
+<th>Event</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>12 Jun 2025</td>
+<td>3DMark for macOS (native app). UL says roughly 1 in 6 iOS submissions came from Macs, and that running the iOS build on a Mac can lower scores. Brings Steel Nomad to macOS</td>
+<td><a class="cite" href="#src-5">5</a></td>
+</tr>
+<tr class="even">
+<td>20 Aug 2025</td>
+<td>Solar Bay Extreme: more ray-tracing workload (specular and glass reflections, soft shadows)</td>
+<td><a class="cite" href="#src-6">6</a></td>
+</tr>
+<tr class="odd">
+<td>22 Apr 2026</td>
+<td>3DMark macOS available as a standalone download direct from UL Solutions</td>
+<td><a class="cite" href="#src-7">7</a></td>
+</tr>
+<tr class="even">
+<td>3 Jun 2026</td>
+<td>UL announces a new fully path-traced 3DMark benchmark, running at native 4K and with AI upscaling and frame generation from several vendors; first sponsor named</td>
+<td><a class="cite" href="#src-8">8</a></td>
+</tr>
+<tr class="odd">
+<td>24 Jul 2026</td>
+<td>Seasonic added as sponsor of the upcoming benchmark; UL gives no date, only that it will share it "when it is ready"</td>
+<td><a class="cite" href="#src-9">9</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="linux">Linux</h3>
+<p>UL promised Linux support in May 2024 and at one point said macOS and Linux would follow later in 2024. macOS arrived in June 2025; Linux has not shipped. GamingOnLinux reported in June 2025 that a Linux version was planned but undated, and a Russian-language article from about June 2026 says the developers still have no date. UL has described a Vulkan-based Linux build for enterprise customers and reviewers. <a class="cite" href="#src-18">18</a></p>
+<h2 id="settled-in-the-second-research-pass">Settled in the second research pass</h2>
+<ul>
+<li><strong>Steel Nomad launch day:</strong> 21 May 2024. UL's post and the Steam listing agree; the "25 May" figure from one outlet is wrong. <a class="cite" href="#src-1">1</a><a class="cite" href="#src-17">17</a></li>
+<li><strong>Steel Nomad resolution:</strong> native 4K for the standard test; 2560 x 1440 is Steel Nomad Light. <a class="cite" href="#src-1">1</a><a class="cite" href="#src-16">16</a></li>
+<li><strong>Time Spy:</strong> 14 July 2016. <a class="cite" href="#src-12">12</a></li>
+<li><strong>3DMark99:</strong> 26 October 1998, from Futuremark's own press release, which says "today, 26th of October 1998". Wikipedia's 28 October infobox date disagrees. <a class="cite" href="#src-10">10</a></li>
+<li><strong>The delay:</strong> Q1 2024, then April, then 21 May. <a class="cite" href="#src-17">17</a></li>
+</ul>
+<h2 id="still-open">Still open</h2>
+<ul>
+<li>UL's next-generation benchmark has no name or release date in its posts.</li>
+<li>Whether and when Steel Nomad reaches Linux publicly.</li>
+<li>3DMark2000's date (6 December 1999) comes from Wikipedia's table; a hobbyist history says December 2000, which conflicts with it. I did not retrieve Futuremark's press release.</li>
+<li>The Steel Nomad delay articles (VideoCardz, Overclock3D, TweakTown) are cited from search summaries; some of those pages blocked my fetches.</li>
+</ul>
+<h2 id="sources">Sources</h2>
+<ol type="1">
+<li id="src-1">UL Benchmarks, "3DMark Steel Nomad is out now!", 21 May 2024. <a href="https://benchmarks.ul.com/news/3dmark-steel-nomad-is-out-now">https://benchmarks.ul.com/news/3dmark-steel-nomad-is-out-now</a></li>
+<li id="src-2">Wikipedia, "Futuremark" (raw page). <a href="https://en.wikipedia.org/wiki/Futuremark">https://en.wikipedia.org/wiki/Futuremark</a></li>
+<li id="src-3">Wikipedia, "3DMark" (raw page, version table). <a href="https://en.wikipedia.org/wiki/3DMark">https://en.wikipedia.org/wiki/3DMark</a></li>
+<li id="src-4">UL Benchmarks, "3DMark Speed Way is now available", 12 Oct 2022. <a href="https://benchmarks.ul.com/news/3dmark-speed-way-is-now-available">https://benchmarks.ul.com/news/3dmark-speed-way-is-now-available</a></li>
+<li id="src-5">UL Benchmarks, "3DMark for macOS available now!", 12 Jun 2025. <a href="https://benchmarks.ul.com/news/3dmark-for-macos-available-now">https://benchmarks.ul.com/news/3dmark-for-macos-available-now</a></li>
+<li id="src-6">UL Benchmarks, "3DMark Solar Bay Extreme is available now!", 20 Aug 2025. <a href="https://benchmarks.ul.com/news">https://benchmarks.ul.com/news</a></li>
+<li id="src-7">UL Benchmarks, "3DMark on macOS now available directly from UL Solutions", Apr 2026. <a href="https://benchmarks.ul.com/news">https://benchmarks.ul.com/news</a></li>
+<li id="src-8">UL Benchmarks, "Announcing our next generation 3DMark GPU Benchmark and its first sponsor", 3 Jun 2026. <a href="https://benchmarks.ul.com/news">https://benchmarks.ul.com/news</a></li>
+<li id="src-9">UL Benchmarks, "Seasonic joins as a sponsor of the next 3DMark GPU Benchmark", 24 Jul 2026. <a href="https://benchmarks.ul.com/news">https://benchmarks.ul.com/news</a></li>
+<li id="src-10">Futuremark, "Futuremark Corporation Releases 3DMark 99 - The Gamers' Benchmark", 26 Oct 1998. <a href="https://www.futuremark.com/pressreleases/20408/">https://www.futuremark.com/pressreleases/20408/</a></li>
+<li id="src-11">James Mackenzie, "The History of (and Nostalgia for) 3DMark", 21 Apr 2023. <a href="https://www.jamesfmackenzie.com/2023/04/21/the-history-of-and-nostalgia-for-futuremark-3dmark/">https://www.jamesfmackenzie.com/2023/04/21/the-history-of-and-nostalgia-for-futuremark-3dmark/</a></li>
+<li id="src-12">Futuremark, "3DMark Time Spy - DirectX 12 benchmark test available now", 14 Jul 2016. <a href="https://aws.futuremark.com/en/news/3dmark-time-spy-directx-12-benchmark-test-available-now">https://aws.futuremark.com/en/news/3dmark-time-spy-directx-12-benchmark-test-available-now</a></li>
+<li id="src-13">Futuremark, "Introducing 3DMark Time Spy DirectX 12 benchmark test", 23 Jun 2016. <a href="https://aws.futuremark.com/en/news/introducing-3dmark-time-spy-directx-12-benchmark-test">https://aws.futuremark.com/en/news/introducing-3dmark-time-spy-directx-12-benchmark-test</a></li>
+<li id="src-14">UL Benchmarks, "3DMark Port Royal ray tracing benchmark now available", 8 Jan 2019. <a href="https://benchmarks.ul.com/news/3dmark-port-royal-ray-tracing-benchmark-now-available">https://benchmarks.ul.com/news/3dmark-port-royal-ray-tracing-benchmark-now-available</a></li>
+<li id="src-15">PC Gamer, "3DMark Steel Nomad is now available to give your GPU an inferiority complex". <a href="https://www.pcgamer.com/hardware/graphics-cards/3dmark-steel-nomad-is-now-available-to-give-your-gpu-an-inferiority-complex/">https://www.pcgamer.com/hardware/graphics-cards/3dmark-steel-nomad-is-now-available-to-give-your-gpu-an-inferiority-complex/</a></li>
+<li id="src-16">UL Benchmarks support, "Steel Nomad Graphics Test" and "Overview of Steel Nomad Light" (both give 2560 x 1440 for Light). <a href="https://support.benchmarks.ul.com/support/solutions/articles/44002528070-overview-of-steel-nomad-light">https://support.benchmarks.ul.com/support/solutions/articles/44002528070-overview-of-steel-nomad-light</a></li>
+<li id="src-17">VideoCardz, "3DMark Steel Nomad non-raytraced benchmark has been delayed to April"; Overclock3D delay stories; Steam store page (release date 21 May 2024). <a href="https://store.steampowered.com/app/2695340/3DMark_Steel_Nomad/">https://store.steampowered.com/app/2695340/3DMark_Steel_Nomad/</a></li>
+<li id="src-18">GamingOnLinux, "3DMark are planning a Linux version but no date for it yet", June 2025. <a href="https://www.gamingonlinux.com/2025/06/3dmark-are-planning-a-linux-version-but-no-date-for-it-yet">https://www.gamingonlinux.com/2025/06/3dmark-are-planning-a-linux-version-but-no-date-for-it-yet</a></li>
+<li id="src-19">UL Benchmarks, "About us" (company timeline from 1997 to 2025). <a href="https://benchmarks.ul.com/about">https://benchmarks.ul.com/about</a></li>
+</ol>
+
+    <nav class="pager"><a href="qa-3dmark.html"><span>Read</span><b>3DMark: ten questions answered</b></a></nav>
+  </article>
+</main>
+<footer class="site"><div class="wrap">
+  <div><h4>GPU Benchmark Lore</h4>Sourced histories of FurMark, UNIGINE Superposition and 3DMark. Every claim carries a numbered source; what could not be confirmed says so. Text is MIT-licensed; quotations stay with their owners.</div>
+  <div><h4>Explore</h4><a href="../index.html#timeline">Timeline</a><a href="../index.html#questions">Question explorer</a><a href="fact-check.html">Fact-check log</a></div>
+  <div><h4>Repo</h4><a href="https://github.com/Parris-Tech-Services/furmark-history">GitHub repository</a><a href="../furmark-history-podcast.pdf">Podcast PDF</a></div>
+</div></footer>
+<div class="tip" id="tip"></div>
+<script src="../assets/app.js" data-base="../"></script>
+<script>
+(function(){
+  // wrap tables for horizontal scroll, add heading links
+  document.querySelectorAll("article table").forEach(function(t){var w=document.createElement("div");w.className="tablewrap";t.parentNode.insertBefore(w,t);w.appendChild(t)});
+  document.querySelectorAll("article h2[id],article h3[id]").forEach(function(h){var a=document.createElement("a");a.className="hlink";a.href="#"+h.id;a.textContent="#";a.title="Link to this section";h.appendChild(a)});
+  // external links open in new tab
+  document.querySelectorAll("article a[href^=http]").forEach(function(a){a.target="_blank";a.rel="noopener"});
+  // progress
+  var prog=document.getElementById("prog");
+  function sp(){var h=document.documentElement;var m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?h.scrollTop/m*100:0)+"%"}
+  addEventListener("scroll",sp,{passive:true});sp();
+  // scrollspy
+  var links=[].slice.call(document.querySelectorAll("#tocol a")),map={};
+  links.forEach(function(a){map[a.getAttribute("href").slice(1)]=a});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.remove("on")});var l=map[e.target.id];if(l)l.classList.add("on")}})},{rootMargin:"-80px 0px -70% 0px"});
+  document.querySelectorAll("article h2[id]").forEach(function(h){io.observe(h)});
+  // citation tooltips
+  var tip=document.getElementById("tip");
+  document.querySelectorAll("a.cite").forEach(function(a){
+    var id=a.getAttribute("href").slice(1);
+    a.addEventListener("mouseenter",function(){var li=document.getElementById(id);if(!li)return;tip.textContent=li.textContent.trim().slice(0,320);tip.style.display="block";var r=a.getBoundingClientRect();tip.style.left=Math.min(innerWidth-tip.offsetWidth-12,Math.max(12,r.left-20))+"px";tip.style.top=Math.max(12,r.top-tip.offsetHeight-10)+"px"});
+    a.addEventListener("mouseleave",function(){tip.style.display="none"});
+  });
+})();
+</script>
+</body></html>

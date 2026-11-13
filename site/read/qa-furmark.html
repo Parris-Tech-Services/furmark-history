@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en" data-bench="furmark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FurMark: ten questions answered · GPU Benchmark Lore</title>
+<meta name="description" content="Fur technique, scoring, GeeXLab, damage myths, modern throttling.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));z-index:60}
+.rhero{padding:54px 0 28px;position:relative}
+.rhero::before{content:"";position:absolute;inset:-60px 0 0;background:radial-gradient(60% 80% at 20% 0,color-mix(in srgb,var(--acc) 22%,transparent),transparent 70%);pointer-events:none}
+.rhero h1{font:700 clamp(30px,5vw,54px)/1.08 var(--f-ui);letter-spacing:-.02em;margin:14px 0 10px;max-width:22ch}
+.rhero p{color:var(--mut);font-size:18px;max-width:60ch;margin:0 0 16px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--faint);font:13px var(--f-mono)}
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:48px;align-items:start}
+@media(max-width:960px){.layout{grid-template-columns:1fr;gap:0}}
+aside.toc{position:sticky;top:84px;max-height:calc(100vh - 110px);overflow:auto;font-size:14px;padding-right:6px}
+aside.toc h4{margin:0 0 10px;font:600 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+aside.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:6px 0 6px 14px;color:var(--mut);margin-left:-1px;border-left:2px solid transparent;line-height:1.35}
+aside.toc li a:hover{color:var(--ink);text-decoration:none}
+aside.toc li a.on{color:var(--acc2);border-left-color:var(--acc)}
+@media(max-width:960px){aside.toc{position:static;max-height:none;margin:0 0 22px;border:1px solid var(--line);border-radius:14px;padding:14px}aside.toc ol{border:0}}
+article.prose{font:400 19px/1.72 var(--f-read);color:var(--ink);max-width:70ch}
+article.prose h2{font:700 clamp(24px,3vw,32px)/1.2 var(--f-ui);letter-spacing:-.01em;margin:2.2em 0 .5em;position:relative;padding-top:6px}
+article.prose h2::before{content:"";display:block;width:44px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--acc),var(--acc2));margin-bottom:14px}
+article.prose h3{font:700 21px/1.3 var(--f-ui);margin:1.8em 0 .4em;color:var(--acc2)}
+article.prose p{margin:0 0 1.1em}
+article.prose strong{color:var(--ink)}
+article.prose a{border-bottom:1px solid color-mix(in srgb,var(--acc2) 40%,transparent)}
+article.prose a:hover{text-decoration:none;border-bottom-color:var(--acc2)}
+article.prose blockquote{margin:1.2em 0;padding:4px 0 4px 20px;border-left:3px solid var(--acc);color:var(--mut)}
+article.prose code{font:500 .85em var(--f-mono);background:var(--surface2);padding:2px 6px;border-radius:6px}
+article.prose ul,article.prose ol{padding-left:1.3em}
+article.prose li{margin:.35em 0}
+article.prose li::marker{color:var(--acc2)}
+.tablewrap{overflow-x:auto;margin:1.3em 0;border:1px solid var(--line);border-radius:14px}
+article.prose table{border-collapse:collapse;width:100%;font:15px/1.5 var(--f-ui)}
+article.prose th{background:var(--surface2);text-align:left;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+article.prose th,article.prose td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+article.prose tr:last-child td{border-bottom:0}
+article.prose tbody tr:hover td{background:color-mix(in srgb,var(--acc) 7%,transparent)}
+a.cite{font:600 11px var(--f-mono);vertical-align:super;line-height:0;padding:1px 4px;margin:0 1px;border-radius:5px;background:color-mix(in srgb,var(--acc) 22%,transparent);color:var(--acc2);border:0!important}
+a.cite:hover{background:var(--acc);color:#000}
+#sources+*,h2#sources~ol{font:15px/1.55 var(--f-ui);color:var(--mut)}
+li:target{background:color-mix(in srgb,var(--acc) 20%,transparent);outline:2px solid var(--acc);border-radius:6px}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:70px 0 10px}
+.pager a{display:block;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink)}
+.pager a:hover{border-color:var(--acc);text-decoration:none}
+.pager span{display:block;font:11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.pager b{font-size:17px}
+.pager a:last-child{text-align:right}
+.tip{position:fixed;z-index:80;max-width:420px;background:var(--surface);border:1px solid var(--acc);border-radius:12px;padding:12px 14px;font:13px/1.45 var(--f-ui);color:var(--ink);box-shadow:var(--shadow);pointer-events:none;display:none}
+.hlink{opacity:0;margin-left:8px;color:var(--faint);font-size:.7em;border:0!important}
+h2:hover .hlink,h3:hover .hlink{opacity:1}
+.back{position:fixed;right:18px;bottom:18px;z-index:40}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../index.html"><span class="logo"></span><span class="bt">GPU Benchmark Lore</span></a>
+  <nav class="nav">
+    <a href="../index.html#timeline" class="hide-s">Timeline</a><a href="../index.html#watch" class="hide-s">Watch</a><a href="../index.html#lab" class="hide-s">GPU lab</a><a href="../index.html#library">Library</a>
+    <a href="#" data-open-search>Search <span class="kbd">/</span></a>
+  </nav>
+  <button class="iconbtn" data-theme-toggle title="Toggle light / dark" aria-label="Toggle theme">☾</button>
+</div></header>
+<section class="rhero"><div class="wrap">
+  <span class="tag">Deep dive</span>
+  <h1>FurMark: ten questions answered</h1>
+  <p>Fur technique, scoring, GeeXLab, damage myths, modern throttling.</p>
+  <div class="meta"><span>~11 min read</span><span>·</span><a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/QA_FURMARK.md">view source on GitHub</a></div>
+</div></section>
+<main class="wrap layout">
+  <aside class="toc"><h4>On this page</h4><ol id="tocol"><li><a href="#1-how-is-the-fur-actually-rendered">1. How is the fur actually rendered?</a></li><li><a href="#2-what-are-the-presets-and-burn-in-modes-and-how-is-the-score-calculated">2. What are the presets and burn-in modes, and how is the score calculated?</a></li><li><a href="#3-what-is-geexlab-and-how-did-it-shape-furmark-2">3. What is GeeXLab, and how did it shape FurMark 2?</a></li><li><a href="#4-has-furmark-verifiably-damaged-a-graphics-card">4. Has FurMark verifiably damaged a graphics card?</a></li><li><a href="#5-do-modern-gpus-still-detect-or-limit-furmark">5. Do modern GPUs still detect or limit FurMark?</a></li><li><a href="#6-what-did-furmark-190-and-the-xtreme-burning-mode-change">6. What did FurMark 1.9.0 and the Xtreme burning mode change?</a></li><li><a href="#7-who-is-jegx-and-what-else-did-geeks3d-and-ozone3d-build">7. Who is JeGX, and what else did Geeks3D and oZone3D build?</a></li><li><a href="#8-how-does-furmark-behave-on-raspberry-pi-and-arm">8. How does FurMark behave on Raspberry Pi and Arm?</a></li><li><a href="#9-how-does-furmark-compare-with-other-stress-tools">9. How does FurMark compare with other stress tools?</a></li><li><a href="#10-what-do-the-online-scores-and-comparative-tables-show">10. What do the online scores and comparative tables show?</a></li><li><a href="#sources">Sources</a></li></ol></aside>
+  <article class="prose" id="doc">
+<p><em>Researched 13 November 2026. Primary pages (Geeks3D, oZone3D, KitGuru, Tom's Hardware) were read directly. Forum posts are labelled as such. Numbered sources are at the end; claims I could not confirm are marked "not confirmed".</em></p>
+<h2 id="1-how-is-the-fur-actually-rendered">1. How is the fur actually rendered?</h2>
+<p>The best primary evidence is a description of FurMark's rendering as heavily multipass, with about 100 passes, where each pass runs a GLSL vertex and pixel shader that makes the hairs progressively finer, with two dynamic lights giving self-shadowing <a class="cite" href="#src-1">1</a><a class="cite" href="#src-2">2</a>. That is the classic "shell" or layered fur method: draw the mesh repeatedly, pushing each shell outward by a growing fur length. A well-known general write-up of shell texturing describes exactly that approach, though it uses HLSL, not GLSL <a class="cite" href="#src-3">3</a>.</p>
+<p>What I could not find is a dedicated oZone3D or Geeks3D tutorial for FurMark's fur shader. oZone3D's tutorial index lists GLSL topics such as fog and texturing but nothing on fur <a class="cite" href="#src-4">4</a>. So the "100 passes" and "shell" wording rests on a secondary description of FurMark, not on a JeGX source; it is consistent with, but not proven by, the developer's own text. Not confirmed from a primary source.</p>
+<p>What the developer does say: version 1.8.0 added a vertex displacement mapping effect that "controls the height of fur", so some parts of the torus have very short fur <a class="cite" href="#src-5">5</a>. Version 1.9.0 (25 Feb 2011) added a dynamic background and a mode with two interlaced furry tori and a moving camera <a class="cite" href="#src-6">6</a>. The 1.6.0 post (7 Jan 2009) added a post-processing pass whose shader loads from <code>post-processing-fx.xml</code> so users could write their own effect in GLSL <a class="cite" href="#src-7">7</a>.</p>
+<h2 id="2-what-are-the-presets-and-burn-in-modes-and-how-is-the-score-calculated">2. What are the presets and burn-in modes, and how is the score calculated?</h2>
+<p><strong>Presets.</strong> Version 1.9.0 introduced two presets that can submit online scores: Preset:1080 (1920x1080 fullscreen, no AA, post FX off, dynamic background, burn-in on) and Preset:720 (1280x720, same settings) <a class="cite" href="#src-6">6</a>. Version 1.16.0 (the changelog dates it 2014-06-25; the post is 26 June 2015) added P1440 (QHD) and P2160 (4K/UHD) presets, with Top-20 tables for 1080, 1440 and 2160 <a class="cite" href="#src-8">8</a>.</p>
+<p><strong>Modes.</strong> The command-line reference from November 2008 already documents a "run_mode": 1 for benchmark and 2 for stability test, a default benchmark length of 60,000 ms (<code>/max_time</code>), a frame cap (<code>/max_frames</code>) and <code>/xtreme_burning</code>, "a mode that overburns the GPU" <a class="cite" href="#src-9">9</a>. So Xtreme burn-in predates 1.9.0 by more than two years. (I had said earlier that 1.9.0 introduced it; the 2008 reference shows that is wrong.)</p>
+<p><strong>The score.</strong> The developer gives paired numbers: a GTX 480 scored 6478 points (108 FPS) in FurMark 1.8.2 at 1080p, and 1769 points (29 FPS) in 1.9.0 <a class="cite" href="#src-6">6</a>. Dividing, 6478 / 108 = 60.0 and 1769 / 29 = 61.0, matching the 60-second default run. So the score is, to rounding, the number of frames rendered during the 60-second benchmark, i.e. average FPS x 60. That is my inference from the developer's own figures, not a stated formula; no document I found spells it out. It also explains why 1.9.0 scores are far lower than 1.8.2 scores: the heavier workload cut FPS by about 3.7x <a class="cite" href="#src-6">6</a>.</p>
+<h2 id="3-what-is-geexlab-and-how-did-it-shape-furmark-2">3. What is GeeXLab, and how did it shape FurMark 2?</h2>
+<p>GeeXLab is Geeks3D's cross-platform scripting tool for 3D programming, demos and creative coding, with Lua and Python as main languages and GLSL for OpenGL and Vulkan <a class="cite" href="#src-10">10</a>. Its lineage is documented by JeGX himself in December 2015: the first public GeeXLab appeared "around 6 years" earlier (so about 2009); GLSL Hacker, "a heavily revamped version", had its first public version in January 2013; and in December 2015 GLSL Hacker was renamed back to GeeXLab when Direct3D 12 support arrived <a class="cite" href="#src-11">11</a>. The current release in my sources is 0.67.0 (5 October 2026), for Windows and Linux on x86-64 and arm64 <a class="cite" href="#src-10">10</a>.</p>
+<p>FurMark 2 is built on it. The 24 Feb 2024 release post says FurMark 2 is built with GeeXLab: the GUI is a pure GeeXLab application and the <code>furmark</code> command-line tool is built with the GeeXLab SDK, which is why it is cross-platform <a class="cite" href="#src-12">12</a>. The changelog repeatedly lists "updated with GeeXLab" library versions (for example 0.49.3 in FurMark 2.0.4.0 and 0.60.x in 2.3.0.0) <a class="cite" href="#src-13">13</a>. The exact first-release date of the original GeeXLab is "about 2009" by the author's own estimate; I found no dated release post.</p>
+<h2 id="4-has-furmark-verifiably-damaged-a-graphics-card">4. Has FurMark verifiably damaged a graphics card?</h2>
+<p>I found no controlled test, teardown or RMA confirmation proving FurMark alone killed a card. What exists:</p>
+<ul>
+<li><strong>A documented hardware weakness.</strong> Geeks3D's own 2009 post says the Radeon HD 4850/4870 VRM was undersized for FurMark/OCCT loads, which is why AMD added driver protection <a class="cite" href="#src-14">14</a>. That is the developer admitting the risk was real for that generation.</li>
+<li><strong>A vendor-acknowledged risk for other parts.</strong> A review quoted by Geeks3D said that, at an end-user level, FurMark and OCCT "really can be dangerous" because they can draw too much power from the PSU, even though cards can no longer be toasted by them <a class="cite" href="#src-15">15</a>.</li>
+<li><strong>Forum anecdotes, not proof.</strong> HardForum and Overclock.net threads describe dead HD 4870-class cards after FurMark; the same threads include replies attributing the failures to overclocking, poor cooling, or a card that was already failing <a class="cite" href="#src-16">16</a>.</li>
+</ul>
+<p>Conclusion: plausible on old, undersized VRMs, not demonstrated as a verified cause. Practical third-party guides recommend conservative run lengths and temperature monitoring <a class="cite" href="#src-17">17</a>; I did not establish a specific run-length recommendation directly from the developer.</p>
+<h2 id="5-do-modern-gpus-still-detect-or-limit-furmark">5. Do modern GPUs still detect or limit FurMark?</h2>
+<p>Power limiting is now routine, but whether drivers still detect FurMark by name is not established.</p>
+<ul>
+<li><strong>Hardware and BIOS limits are real.</strong> Tom's Hardware measured the RX 7900 XTX at 366 W in FurMark at 1440p and wrote that "AMD's new cards throttle more than just about any other GPU we've tested recently", calling FurMark an atypical worst-case load <a class="cite" href="#src-18">18</a>.</li>
+<li><strong>Name detection.</strong> In 2009 the developer shipped a copy of FurMark renamed <code>etqw.exe</code> (Enemy Territory: Quake Wars) specifically to get game profiles and to bypass "the FurMark detection included in the Catalyst graphics driver" <a class="cite" href="#src-7">7</a>. That is first-party confirmation of the early check, and of the rename trick, from FurMark's own author.</li>
+<li><strong>Today.</strong> Forum posts disagree: one says Nvidia detects FurMark, a reply says it does not and that the lower state comes from a power-limit "perf cap" reason; another says the card BIOS does the throttling <a class="cite" href="#src-19">19</a>. I found no Nvidia or AMD document stating that a current driver detects FurMark. Not confirmed.</li>
+<li><strong>An RTX 4090 anecdote:</strong> a Linus Tech Tips post reports FurMark staying near 67% of TDP, while a reply says a power virus should still push over 400 W <a class="cite" href="#src-19">19</a>. Treat as anecdote.</li>
+</ul>
+<h2 id="6-what-did-furmark-190-and-the-xtreme-burning-mode-change">6. What did FurMark 1.9.0 and the Xtreme burning mode change?</h2>
+<p>1.9.0 (25 February 2011, per KitGuru quoting JeGX) kept FurMark an OpenGL 2.0 stress test covering GeForce 6 to GTX 500, Radeon HD 2000 to HD 6000 and Intel HD 2000/3000. It made the workload heavier to track recent cards (GTX 480: 6478 points at 108 FPS in 1.8.2, 1769 points at 29 FPS in 1.9.0), added a dynamic background (optional), a two-torus mode, and the two online-score presets <a class="cite" href="#src-6">6</a>. The timing matters: it arrived weeks after the January 2011 limiter debate <a class="cite" href="#src-20">20</a>.</p>
+<p>Xtreme burning is older (see Q2). The overclockers.com thread title for 1.9.0 is "The Return of the Furry Donut" <a class="cite" href="#src-21">21</a>. A forum poster in my sources says a good FPS without Xtreme burn-in is around 30, and around 15 with it, depending on the card. That is one user, not a developer figure <a class="cite" href="#src-22">22</a>.</p>
+<h2 id="7-who-is-jegx-and-what-else-did-geeks3d-and-ozone3d-build">7. Who is JeGX, and what else did Geeks3D and oZone3D build?</h2>
+<p>A 2012 article says GPU Caps Viewer is developed by Jérôme "JeGX" Guinot, based in Switzerland, who calls himself an "OpenGL developer and GPU torturer"; it also says he owns Geeks3D and founded oZone3D.Net, and lists his creations as GeeXLab, FurMark, TessMark, FluidMark, ShaderToyMark, GPU Shark, GLinspector, EVGA OC Scanner and MSI Kombustor <a class="cite" href="#src-23">23</a>. That is secondary; I found no formal biography or interview.</p>
+<p>Primary traces: JeGX's 2007 post on oZone3D announces GPU Caps Viewer, describing a "GPU-Burner" that opens many 3D windows, each rendering a GLSL toon-shaded object (the forerunner of FurMark-style burning) <a class="cite" href="#src-24">24</a>. A 2008 release note credits the GPU burner to the FurMark engine <a class="cite" href="#src-25">25</a>. He is still updating GPU Caps Viewer: version 1.64 appeared in March 2025 and he wrote there is no 2.0 planned but he will "try to update GPU Caps Viewer 1.64.x as long as I can" <a class="cite" href="#src-25">25</a>. GPU Shark 2.11 appeared in the recent-posts list of Geeks3D in November 2026 <a class="cite" href="#src-26">26</a>.</p>
+<h2 id="8-how-does-furmark-behave-on-raspberry-pi-and-arm">8. How does FurMark behave on Raspberry Pi and Arm?</h2>
+<p>FurMark 2.3 (6 May 2024) added Raspberry Pi OS 64-bit (arm64/aarch64) support. JeGX wrote that on a Raspberry Pi 4 it runs at 1 FPS at 1024x640, and on the "a lot faster" Raspberry Pi 5 it reaches 4 FPS at that resolution. He disabled the preset benchmarks because the score-submission interface is not usable at those frame rates, and said he removed Raspberry Pi dependencies, hoping it works on other arm64 platforms <a class="cite" href="#src-26">26</a>. Later changelog entries monitor the Pi 5 GPU and fix the donut's colour in Vulkan on arm64 "visible on raspberry pi 5" <a class="cite" href="#src-13">13</a>. A Geeks3D forum thread reports flickering in the Vulkan arm build, which the developer attributes to rendering only the first two swapchain images <a class="cite" href="#src-27">27</a>.</p>
+<p>Why was it added? The post gives no reason beyond cross-platform coverage; it follows from the GeeXLab engine already running on Raspberry Pi OS (GeeXLab 0.59 was released for Raspberry Pi OS) <a class="cite" href="#src-26">26</a>. The reason is inferred, not stated. I could not find Pi GPU temperature results.</p>
+<h2 id="9-how-does-furmark-compare-with-other-stress-tools">9. How does FurMark compare with other stress tools?</h2>
+<p>No independent lab comparison turned up; the guides I found are secondary, SEO-heavy and not consistent on numbers. Several guides <em>characterise</em> FurMark as an atypically intense thermal/power workload, OCCT as useful for error detection, and looped game-like benchmarks such as Heaven or Time Spy as complementary stability checks <a class="cite" href="#src-28">28</a>. Those descriptions do not establish a universal temperature or wattage ranking against every OCCT mode on every GPU. Tom's Hardware's choice is instructive: it measures real-world power with a looped game (Metro Exodus) and a FurMark run as a deliberate worst-case bracket <a class="cite" href="#src-18">18</a>.</p>
+<p>The developer's own positioning is consistent: FurMark 2 is "a very intensive GPU stress test" and "also a graphics benchmark" <a class="cite" href="#src-29">29</a>. Specific heat and wattage comparisons would need a controlled test on one card; I did not find one and did not run one.</p>
+<h2 id="10-what-do-the-online-scores-and-comparative-tables-show">10. What do the online scores and comparative tables show?</h2>
+<p>Geeks3D keeps a comparative score table (pages for 1920x1080, 1280x720, 1280x1024 and 3840x2160) with update entries as recent as 18 Nov 2022 for the RTX 4090 and Intel Arc A750/A380 <a class="cite" href="#src-30">30</a>. For FurMark 2, Geeks3D publishes charts per preset and API (OpenGL and Vulkan): each GPU's score is the mean of all submitted scores with some outliers removed, only scores from FurMark 2.0.8 or later are used, GPUs with fewer than five unique scores get a grey bar, and the charts were last updated 10 November 2026 against a database version of 9 November 2026 <a class="cite" href="#src-31">31</a>. There is also a 3440x1440 chart updated the same day <a class="cite" href="#src-26">26</a>.</p>
+<p>How large the database is: I found no total submission count. Not confirmed. One third-party listing suggests an RTX 4090 result of 37,387 points (623 FPS) and an RX 6800 XT result of 18,035 points (301 FPS); both fit the roughly 60 points per FPS I derived in Q2, but that comes from a third-party score site and not Geeks3D <a class="cite" href="#src-32">32</a>.</p>
+<h2 id="sources">Sources</h2>
+<ol type="1">
+<li id="src-1">Third-party description of FurMark's multipass rendering (100 passes, GLSL vertex and pixel shaders, two dynamic lights), via search results; TechPowerUp forum, "FurMark-OpenGL benchmark now available". <a href="https://www.techpowerup.com/forums/threads/furmark-opengl-benchmark-now-available.54248/">https://www.techpowerup.com/forums/threads/furmark-opengl-benchmark-now-available.54248/</a></li>
+<li id="src-2">Geeks3D, "FurMark 1.6.0 Available NOW!", 7 Jan 2009. <a href="https://www.geeks3d.com/20090107/furmark-160-available-now/">https://www.geeks3d.com/20090107/furmark-160-available-now/</a></li>
+<li id="src-3">xbdev.net, "Generating Fur in DirectX or OpenGL Easily" (shell texturing). <a href="https://xbdev.net/directx3dx/specialX/Fur/index.php">https://xbdev.net/directx3dx/specialX/Fur/index.php</a></li>
+<li id="src-4">oZone3D.Net tutorials index. <a href="https://www.ozone3d.net/tutorials/">https://www.ozone3d.net/tutorials/</a></li>
+<li id="src-5">Geeks3D, "FurMark 1.8.0 Hot Like Hell Edition Available", 2 Feb 2010. <a href="https://www.geeks3d.com/20100202/furmark-1-8-0-hot-like-hell-edition-available/">https://www.geeks3d.com/20100202/furmark-1-8-0-hot-like-hell-edition-available/</a></li>
+<li id="src-6">KitGuru, "Furmark 1.9.0 released with even heavier GPU load", 25 Feb 2011 (quoting Geeks3D). <a href="https://www.kitguru.net/channel/generaltech/carl/furmark-1-9-0-released-with-even-heavier-gpu-load/">https://www.kitguru.net/channel/generaltech/carl/furmark-1-9-0-released-with-even-heavier-gpu-load/</a></li>
+<li id="src-7">Geeks3D, "FurMark 1.6.0 Available NOW!" (etqw.exe note, post-processing). <a href="https://www.geeks3d.com/20090107/furmark-160-available-now/">https://www.geeks3d.com/20090107/furmark-160-available-now/</a></li>
+<li id="src-8">Geeks3D, "FurMark 1.16.0 Released, 4K (P2160) Preset Added", 26 Jun 2015. <a href="https://www.geeks3d.com/20150626/furmark-1-16-0-download-gpu-stress-test-opengl-benchmark/">https://www.geeks3d.com/20150626/furmark-1-16-0-download-gpu-stress-test-opengl-benchmark/</a></li>
+<li id="src-9">Geeks3D, "Geeks3D HowTo: Know FurMark's Command Line Parameters", 23 Nov 2008. <a href="https://www.geeks3d.com/20081123/geeks3d-howto-know-furmarks-command-line-parameters/">https://www.geeks3d.com/20081123/geeks3d-howto-know-furmarks-command-line-parameters/</a></li>
+<li id="src-10">Geeks3D, "GeeXLab 0.67 Prototyping Engine Released", 5 Oct 2026, and GeeXLab download page. <a href="https://www.geeks3d.com/hacklab/20261005/geexlab-0-67-released/">https://www.geeks3d.com/hacklab/20261005/geexlab-0-67-released/</a></li>
+<li id="src-11">Geeks3D, "Say Goodbye to GLSL Hacker and Welcome Back GeeXLab", 3 Dec 2015. <a href="https://www.geeks3d.com/hacklab/20151203/goodbye-glsl-hacker-welcome-back-geexlab">https://www.geeks3d.com/hacklab/20151203/goodbye-glsl-hacker-welcome-back-geexlab</a></li>
+<li id="src-12">Geeks3D, "FurMark 2.1.0 Released", 24 Feb 2024. <a href="https://www.geeks3d.com/20240224/furmark-2-1-0-released/">https://www.geeks3d.com/20240224/furmark-2-1-0-released/</a></li>
+<li id="src-13">FurMark changelog. <a href="https://glslhacker.geeks3d.com/furmark/changelog">https://glslhacker.geeks3d.com/furmark/changelog</a></li>
+<li id="src-14">Geeks3D, "ATI Cypress (Radeon HD 5870) Cards Have Hardware Protection...", 25 Sep 2009. <a href="https://www.geeks3d.com/20090925/ati-cypress-radeon-hd-5870-cards-have-hardware-protection-against-power-virus-like-furmark-and-occt/">https://www.geeks3d.com/20090925/ati-cypress-radeon-hd-5870-cards-have-hardware-protection-against-power-virus-like-furmark-and-occt/</a></li>
+<li id="src-15">Geeks3D, "NVIDIA GeForce GTX 580: The Anti-FurMark DX11 Card", 9 Nov 2010. <a href="https://www.geeks3d.com/20101109/nvidia-geforce-gtx-580-the-anti-furmark-dx11-card/">https://www.geeks3d.com/20101109/nvidia-geforce-gtx-580-the-anti-furmark-dx11-card/</a></li>
+<li id="src-16">HardForum, "Did Furmark kill my 4870x2?" <a href="https://hardforum.com/threads/did-furmark-kill-my-4870x2.1431399/">https://hardforum.com/threads/did-furmark-kill-my-4870x2.1431399/</a> ; Overclock.net, "Can FurMark kill your GPU? Actually, yes..." <a href="https://www.overclock.net/threads/can-furmark-kill-your-gpu-actually-yes.1360263/">https://www.overclock.net/threads/can-furmark-kill-your-gpu-actually-yes.1360263/</a> ; HardForum, "Did I kill my graphics card?" <a href="https://hardforum.com/threads/did-i-kill-my-graphics-card.1736116/">https://hardforum.com/threads/did-i-kill-my-graphics-card.1736116/</a> (all anecdotal)</li>
+<li id="src-17">Guides recommending short runs, e.g. Windows 10 Forums, "FurMark - GPU Stress Test". <a href="https://www.tenforums.com/tutorials/13081-furmark-gpu-stress-test.html">https://www.tenforums.com/tutorials/13081-furmark-gpu-stress-test.html</a></li>
+<li id="src-18">Tom's Hardware, "AMD Radeon RX 7900 XTX and XT Review", page 8 (power). <a href="https://www.tomshardware.com/reviews/amd-radeon-rx-7900-xtx-and-xt-review-shooting-for-the-top/8">https://www.tomshardware.com/reviews/amd-radeon-rx-7900-xtx-and-xt-review-shooting-for-the-top/8</a></li>
+<li id="src-19">Forum threads: Tom's Hardware, "Furmark burnin not pushing GPU clock speeds" <a href="https://forums.tomshardware.com/threads/furmark-burnin-not-pushing-gpu-clock-speeds.2726431/">https://forums.tomshardware.com/threads/furmark-burnin-not-pushing-gpu-clock-speeds.2726431/</a> ; Linus Tech Tips, "4090 Power Draw Question" <a href="https://linustechtips.com/topic/1592748-4090-power-draw-question/">https://linustechtips.com/topic/1592748-4090-power-draw-question/</a> ; TechPowerUp comments under "FurMark 2.0 Launching This Month" <a href="https://www.techpowerup.com/313786/furmark-2-0-launching-this-month">https://www.techpowerup.com/313786/furmark-2-0-launching-this-month</a> (anecdotal)</li>
+<li id="src-20">Geeks3D, "Are you Ok with Power Limiter...", 27 Jan 2011. <a href="https://www.geeks3d.com/20110127/are-you-ok-with-power-limiter-gpu-throttling-on-recent-graphics-cards/">https://www.geeks3d.com/20110127/are-you-ok-with-power-limiter-gpu-throttling-on-recent-graphics-cards/</a></li>
+<li id="src-21">Overclockers.com forum, "FurMark 1.9.0: The Return of the Furry Donut". <a href="https://www.overclockers.com/forums/threads/furmark-1-9-0-the-return-of-the-furry-donut.670211/">https://www.overclockers.com/forums/threads/furmark-1-9-0-the-return-of-the-furry-donut.670211/</a> (title only; page blocked)</li>
+<li id="src-22">SimHQ forum, "New Furmark GPU test" (via search summary; anecdotal). <a href="https://simhq.net/forum/ubbthreads.php/topics/3221204/New_Furmark_GPU_test.html">https://simhq.net/forum/ubbthreads.php/topics/3221204/New_Furmark_GPU_test.html</a></li>
+<li id="src-23">web3.lu, "May 2012" (profile of JeGX; secondary). <a href="https://www.web3.lu/2012/05/">https://www.web3.lu/2012/05/</a></li>
+<li id="src-24">oZone3D blog, "GPU Caps Viewer" quick review, 21 Feb 2007. <a href="https://www.ozone3d.net/blogs/lab/20070221/gpu-caps-viewer/">https://www.ozone3d.net/blogs/lab/20070221/gpu-caps-viewer/</a></li>
+<li id="src-25">Geeks3D, "GPU Caps Viewer 1.64 Released", 13 Mar 2025 (and comments), and "GPU Caps Viewer 1.5.0", 24 Jul 2008. <a href="https://geeks3d.com/20250313/gpu-caps-viewer-1-64-released/">https://geeks3d.com/20250313/gpu-caps-viewer-1-64-released/</a></li>
+<li id="src-26">Geeks3D, "FurMark 2.3 Released", 6 May 2024; Geeks3D recent-posts list, November 2026. <a href="https://www.geeks3d.com/20240506/furmark-2-3-released/">https://www.geeks3d.com/20240506/furmark-2-3-released/</a></li>
+<li id="src-27">Geeks3D forum, "The Vulkan ARM version of Furmark2 has flickering issue". <a href="https://www.geeks3d.com/forums/index.php?topic=8101.0">https://www.geeks3d.com/forums/index.php?topic=8101.0</a></li>
+<li id="src-28">Guides compared (secondary): AIHardware.ai, "How to Stress Test Your GPU" <a href="https://aihardware.ai/how-to-stress-test-your-gpu/">https://aihardware.ai/how-to-stress-test-your-gpu/</a> ; WindowsForum, "6 GPU Stress Test Tools for Windows" <a href="https://windowsforum.com/news/6-gpu-stress-test-tools-for-windows-check-stability-temperatures-and-overclocks.451100/">https://windowsforum.com/news/6-gpu-stress-test-tools-for-windows-check-stability-temperatures-and-overclocks.451100/</a></li>
+<li id="src-29">Geeks3D, FurMark home page. <a href="https://geeks3d.com/furmark/">https://geeks3d.com/furmark/</a></li>
+<li id="src-30">Geeks3D, "FurMark Scores, Comparative Charts (v1.9, 1.10, 1.13, 1.14)". <a href="https://www.geeks3d.com/20120413/furmark-opengl-benchmark-scores-comparative-charts/">https://www.geeks3d.com/20120413/furmark-opengl-benchmark-scores-comparative-charts/</a></li>
+<li id="src-31">Geeks3D, "FurMark 2 Benchmark Charts for Preset 1920x1080 Scores", updated 10 Nov 2026. <a href="https://geeks3d.com/20250113/furmark-2-benchmark-charts-for-p1080-scores/">https://geeks3d.com/20250113/furmark-2-benchmark-charts-for-p1080-scores/</a></li>
+<li id="src-32">GPUScore / third-party FurMark scores (via search summary). <a href="https://gpuscore.top/furmark/">https://gpuscore.top/furmark/</a></li>
+</ol>
+
+    <nav class="pager"><a href="history.html"><span>Read</span><b>FurMark: a history</b></a><a href="scene-furmark.html"><span>Read</span><b>The furry doughnut: scene and lore</b></a></nav>
+  </article>
+</main>
+<footer class="site"><div class="wrap">
+  <div><h4>GPU Benchmark Lore</h4>Sourced histories of FurMark, UNIGINE Superposition and 3DMark. Every claim carries a numbered source; what could not be confirmed says so. Text is MIT-licensed; quotations stay with their owners.</div>
+  <div><h4>Explore</h4><a href="../index.html#timeline">Timeline</a><a href="../index.html#questions">Question explorer</a><a href="fact-check.html">Fact-check log</a></div>
+  <div><h4>Repo</h4><a href="https://github.com/Parris-Tech-Services/furmark-history">GitHub repository</a><a href="../furmark-history-podcast.pdf">Podcast PDF</a></div>
+</div></footer>
+<div class="tip" id="tip"></div>
+<script src="../assets/app.js" data-base="../"></script>
+<script>
+(function(){
+  // wrap tables for horizontal scroll, add heading links
+  document.querySelectorAll("article table").forEach(function(t){var w=document.createElement("div");w.className="tablewrap";t.parentNode.insertBefore(w,t);w.appendChild(t)});
+  document.querySelectorAll("article h2[id],article h3[id]").forEach(function(h){var a=document.createElement("a");a.className="hlink";a.href="#"+h.id;a.textContent="#";a.title="Link to this section";h.appendChild(a)});
+  // external links open in new tab
+  document.querySelectorAll("article a[href^=http]").forEach(function(a){a.target="_blank";a.rel="noopener"});
+  // progress
+  var prog=document.getElementById("prog");
+  function sp(){var h=document.documentElement;var m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?h.scrollTop/m*100:0)+"%"}
+  addEventListener("scroll",sp,{passive:true});sp();
+  // scrollspy
+  var links=[].slice.call(document.querySelectorAll("#tocol a")),map={};
+  links.forEach(function(a){map[a.getAttribute("href").slice(1)]=a});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.remove("on")});var l=map[e.target.id];if(l)l.classList.add("on")}})},{rootMargin:"-80px 0px -70% 0px"});
+  document.querySelectorAll("article h2[id]").forEach(function(h){io.observe(h)});
+  // citation tooltips
+  var tip=document.getElementById("tip");
+  document.querySelectorAll("a.cite").forEach(function(a){
+    var id=a.getAttribute("href").slice(1);
+    a.addEventListener("mouseenter",function(){var li=document.getElementById(id);if(!li)return;tip.textContent=li.textContent.trim().slice(0,320);tip.style.display="block";var r=a.getBoundingClientRect();tip.style.left=Math.min(innerWidth-tip.offsetWidth-12,Math.max(12,r.left-20))+"px";tip.style.top=Math.max(12,r.top-tip.offsetHeight-10)+"px"});
+    a.addEventListener("mouseleave",function(){tip.style.display="none"});
+  });
+})();
+</script>
+</body></html>

@@ -1,0 +1,106 @@
+[
+ {
+  "slug": "history",
+  "title": "FurMark: a history",
+  "bench": "furmark",
+  "kind": "History",
+  "blurb": "Timeline from 2007 to FurMark 2.11, the power-virus years, sources.",
+  "mins": 6
+ },
+ {
+  "slug": "qa-furmark",
+  "title": "FurMark: ten questions answered",
+  "bench": "furmark",
+  "kind": "Deep dive",
+  "blurb": "Fur technique, scoring, GeeXLab, damage myths, modern throttling.",
+  "mins": 11
+ },
+ {
+  "slug": "scene-furmark",
+  "title": "The furry doughnut: scene and lore",
+  "bench": "furmark",
+  "kind": "Lore",
+  "blurb": "Why fur, why a torus, what the knot means.",
+  "mins": 8
+ },
+ {
+  "slug": "superposition",
+  "title": "UNIGINE Superposition: a history",
+  "bench": "superposition",
+  "kind": "History",
+  "blurb": "From Sanctuary to Superposition 1.1.",
+  "mins": 6
+ },
+ {
+  "slug": "qa-superposition",
+  "title": "Superposition: ten questions answered",
+  "bench": "superposition",
+  "kind": "Deep dive",
+  "blurb": "UNIGINE, scores, SSRTGI, editions, records.",
+  "mins": 10
+ },
+ {
+  "slug": "scene-superposition",
+  "title": "The vanished professor: scene and lore",
+  "bench": "superposition",
+  "kind": "Lore",
+  "blurb": "The abandoned classroom and its missing physicist.",
+  "mins": 8
+ },
+ {
+  "slug": "3dmark-steel-nomad",
+  "title": "3DMark and Steel Nomad: a history",
+  "bench": "3dmark",
+  "kind": "History",
+  "blurb": "Final Reality to the path-traced future.",
+  "mins": 7
+ },
+ {
+  "slug": "qa-3dmark",
+  "title": "3DMark: ten questions answered",
+  "bench": "3dmark",
+  "kind": "Deep dive",
+  "blurb": "Scores, records, scandals, feature tests.",
+  "mins": 16
+ },
+ {
+  "slug": "qa-3dmark-supplement",
+  "title": "3DMark: supplementary answers",
+  "bench": "3dmark",
+  "kind": "Deep dive",
+  "blurb": "UL timeline, async compute, audits, pricing.",
+  "mins": 14
+ },
+ {
+  "slug": "scene-steel-nomad",
+  "title": "The masked wanderer: scene and lore",
+  "bench": "3dmark",
+  "kind": "Lore",
+  "blurb": "Who is the Nomad, and what is the world?",
+  "mins": 9
+ },
+ {
+  "slug": "questions",
+  "title": "The thirty technical questions",
+  "bench": "all",
+  "kind": "Index",
+  "blurb": "Every open question and where it is answered.",
+  "mins": 2
+ },
+ {
+  "slug": "scene-story-questions",
+  "title": "The thirty scene questions",
+  "bench": "all",
+  "kind": "Index",
+  "blurb": "Story and visual-lore questions.",
+  "mins": 3
+ },
+ {
+  "slug": "fact-check",
+  "title": "Fact-check log",
+  "bench": "all",
+  "kind": "Method",
+  "blurb": "What was re-checked and corrected.",
+  "mins": 3
+ }
+]

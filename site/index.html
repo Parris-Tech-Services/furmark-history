@@ -1,31 +1,352 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Donut That Cooks GPUs: the story of FurMark</title>
+<!doctype html>
+<html lang="en" data-bench="furmark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GPU Benchmark Lore — FurMark, Superposition, 3DMark</title>
+<meta name="description" content="Sourced histories, stories and lore of FurMark, UNIGINE Superposition and 3DMark: the companies, the scenes, the scandals and the GPUs.">
+<meta property="og:title" content="GPU Benchmark Lore"><meta property="og:description" content="The history, stories and lore of the benchmarks that heat up your GPU.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
 <style>
-:root{--bg:#1c1b22;--ink:#f2eef7;--mut:#b9b2c6;--hot:#ffb347;--acc:#e4572e}
-@media (prefers-color-scheme:light){:root{--bg:#fff8f1;--ink:#1c1b22;--mut:#5d5a6b;--hot:#b03a14;--acc:#e4572e}}
-body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,Segoe UI,Roboto,sans-serif}
-main{max-width:680px;margin:0 auto;padding:40px 16px 60px}
-h1{font-size:2.1rem;line-height:1.15;margin:.2em 0}.kick{letter-spacing:.2em;text-transform:uppercase;font-size:.75rem;color:var(--hot)}
-audio{width:100%;margin:20px 0}a{color:var(--hot)}.mut{color:var(--mut);font-size:.9rem}
-.btn{display:inline-block;background:var(--acc);color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none;margin:4px 8px 4px 0}
-</style></head><body><main>
-<div class="kick">FurMark history · podcast</div>
-<h1>The Donut That Cooks GPUs</h1>
-<p>The story of FurMark: the furry OpenGL donut that stress-tests graphics cards, got treated like a power virus by driver teams, and is still being updated in 2026. About 8 minutes, two hosts.</p>
-<audio controls preload="none" src="furmark-history-podcast.mp3"></audio>
-<p><a class="btn" href="furmark-history-podcast.pdf">Podcast PDF (transcript, timeline, sources)</a>
-<a class="btn" href="furmark-history-podcast.mp3">Download MP3</a></p>
-<p class="mut">Voices are synthetic (ElevenLabs). The script was written from the developer's own posts and release notes; every claim is sourced in the PDF and in <a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/HISTORY.md">docs/HISTORY.md</a>.</p>
-<h2>The stories behind the scenes · 30 new questions</h2>
-<p>Why a furry doughnut? Who is the professor in the abandoned classroom? What is the Steel Nomad's journey? Thirty additional scene and character questions with creator sources, visual clues, and clearly labelled unanswered mysteries.</p>
-<p><a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/SCENE_STORY_QUESTIONS.md">All scene questions</a> · <a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/SCENE_FURMARK.md">The furry doughnut</a> · <a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/SCENE_SUPERPOSITION.md">The missing professor</a> · <a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/SCENE_STEEL_NOMAD.md">The Steel Nomad</a></p>
-<h2>30 more questions answered · technical history</h2>
-<p>Ten extra questions for each benchmark, with dated sources, technical detail and explicit limits on what could be verified.</p>
-<p><a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/QUESTIONS.md">All 30 questions</a> · <a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/QA_FURMARK.md">FurMark answers</a> · <a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/QA_SUPERPOSITION.md">Superposition answers</a> · <a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/QA_3DMARK.md">3DMark answers</a></p>
-<h2>More episodes (free, offline voices)</h2>
-<p><b>The Professor's Lab: UNIGINE Superposition</b> · about 6.5 min · voices: Kokoro-82M</p>
-<audio controls preload="none" src="superposition-history-podcast.mp3"></audio>
-<p><b>From Fire Strike to Steel Nomad: 3DMark</b> · about 5.5 min · voices: Piper</p>
-<audio controls preload="none" src="steelnomad-history-podcast.mp3"></audio>
-<p class="mut">Both were generated locally with free, open-source text-to-speech and no API key. Research: <a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/SUPERPOSITION.md">Superposition</a>, <a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/3DMARK_STEEL_NOMAD.md">3DMark and Steel Nomad</a>.</p>
-</main></body></html>
+section{padding:84px 0 0;position:relative}
+section h2.sec{font:700 clamp(30px,4.4vw,48px)/1.08 var(--f-ui);letter-spacing:-.02em;margin:10px 0 12px}
+section p.lead{color:var(--mut);font-size:18px;max-width:62ch;margin:0 0 26px}
+/* hero */
+.hero{padding:0;min-height:calc(100vh - 62px);display:grid;align-items:center;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:20px;align-items:center;padding-top:30px;padding-bottom:30px}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr}.hero{min-height:0}}
+.hero h1{font:700 clamp(40px,7vw,88px)/.98 var(--f-ui);letter-spacing:-.035em;margin:18px 0 18px}
+.hero h1 em{font-style:normal;background:linear-gradient(95deg,var(--fur),var(--fur2) 28%,var(--sup) 60%,var(--dmk2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mut);font-size:19px;max-width:52ch;margin:0 0 26px}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+.stage{border-radius:26px;overflow:hidden;border:1px solid var(--line);background:radial-gradient(60% 60% at 50% 45%,#1b1020,#07080d 75%);box-shadow:var(--shadow)}
+#furcv{width:100%;aspect-ratio:1/1;max-height:600px;display:block;cursor:grab;touch-action:none}
+.heat{display:flex;align-items:center;gap:14px;margin-top:14px;padding:12px 16px;border:1px solid var(--line);border-radius:14px;background:var(--surface);font:13px var(--f-mono);color:var(--mut)}
+.heat input{flex:1;accent-color:var(--fur)}
+.heat b{color:var(--ink);min-width:52px;text-align:right}
+.bgglow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(40% 50% at 78% 40%,color-mix(in srgb,var(--fur) 20%,transparent),transparent 70%),radial-gradient(34% 40% at 8% 90%,color-mix(in srgb,var(--sup) 14%,transparent),transparent 70%),radial-gradient(30% 40% at 95% 100%,color-mix(in srgb,var(--dmk) 14%,transparent),transparent 70%)}
+.grid-bg{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(70% 70% at 60% 40%,#000,transparent);-webkit-mask-image:radial-gradient(70% 70% at 60% 40%,#000,transparent);opacity:.55}
+.stats{display:flex;gap:26px;flex-wrap:wrap;margin-top:34px;color:var(--mut);font-size:14px}
+.stats b{display:block;font:700 28px var(--f-ui);color:var(--ink)}
+/* worlds */
+.worlds{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:960px){.worlds{grid-template-columns:1fr}}
+.world{padding:26px;display:flex;flex-direction:column;gap:14px;min-height:430px}
+.world .big{font:700 40px/1 var(--f-ui);letter-spacing:-.02em}
+.world .by{color:var(--mut);font-size:14px;margin-top:-8px}
+.world ul{padding:0;margin:0;list-style:none;display:grid;gap:9px;font-size:15px;color:var(--mut)}
+.world li{padding-left:18px;position:relative}
+.world li::before{content:"";position:absolute;left:0;top:.6em;width:8px;height:8px;border-radius:2px;background:var(--acc)}
+.world li b{color:var(--ink)}
+.world .row{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+.world .orb{position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,var(--acc),transparent 68%);opacity:.25;filter:blur(8px)}
+/* timeline */
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 10px}
+.filters .sep{width:1px;height:22px;background:var(--line);margin:0 6px}
+.tsearch{background:var(--surface);border:1px solid var(--line);border-radius:999px;color:var(--ink);padding:8px 14px;font:14px var(--f-ui);min-width:200px;outline:none}
+.tsearch:focus{border-color:var(--acc)}
+.rail{position:relative;margin-top:26px;padding-left:28px}
+.rail::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--fur),var(--sup),var(--dmk));opacity:.5;border-radius:2px}
+.yr{position:sticky;top:70px;z-index:5;margin:26px 0 12px -28px;display:flex;align-items:center;gap:12px}
+.yr span{font:700 26px var(--f-ui);background:var(--bg);padding:2px 12px 2px 0;letter-spacing:-.01em}
+.ev{position:relative;margin:0 0 12px;cursor:pointer}
+.ev::before{content:"";position:absolute;left:-26px;top:20px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:3px solid var(--acc);box-shadow:0 0 14px -2px var(--acc)}
+.ev .card{padding:16px 18px;transition:.2s}
+.ev:hover .card{transform:translateX(4px);border-color:var(--acc)}
+.ev h3{margin:6px 0 4px;font:700 19px/1.25 var(--f-ui)}
+.ev .d{font:12px var(--f-mono);color:var(--faint)}
+.ev .x{color:var(--mut);font-size:15px;max-height:0;overflow:hidden;transition:max-height .35s ease}
+.ev.open .x{max-height:260px}
+.ev .x p{margin:8px 0 6px}
+.ev .head{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ty{font:600 10px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);border:1px solid var(--line);border-radius:6px;padding:3px 6px}
+.ty.controversy{color:#ff6b6b;border-color:#ff6b6b55}.ty.hardware{color:var(--sup2)}.ty.company{color:var(--fur2)}
+/* lore */
+.lore{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:960px){.lore{grid-template-columns:1fr}}
+.lorecard{padding:0;min-height:420px;display:flex;flex-direction:column}
+.lorecard .art{height:190px;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.miniart{width:100%;height:100%;object-fit:cover;display:block}
+.world .tag,.lorecard .tag,.ep .tag{align-self:flex-start}
+.lorecard .body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.lorecard h3{margin:0;font:700 24px/1.15 var(--f-ui)}
+.badge{display:inline-block;font:700 10px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;padding:4px 7px;border-radius:6px;margin-right:6px}
+.b-canon{background:#1f8f5f33;color:#4be0a1}.b-unk{background:#ffb34733;color:#ffc15a}.b-int{background:#8b7bff33;color:#b9afff}
+.lorecard p{margin:0;font-size:15px;color:var(--mut)}
+.lorecard .row{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+/* watch */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+.vcard{display:flex;flex-direction:column;gap:10px}
+.vcard h4{margin:0;font:600 15px/1.3 var(--f-ui)}
+.vcard small{color:var(--faint);font:12px var(--f-mono)}
+.vcard p{margin:0;color:var(--mut);font-size:13px}
+.notice{border:1px dashed var(--line);border-radius:14px;padding:14px 16px;color:var(--mut);font-size:14px;margin-top:20px}
+/* listen */
+.eps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:960px){.eps{grid-template-columns:1fr}}
+.ep{padding:20px;display:flex;flex-direction:column;gap:12px}
+.ep h3{margin:0;font:700 21px/1.2 var(--f-ui)}
+.ep audio{width:100%;height:42px;border-radius:12px}
+.ep .meta{display:flex;gap:10px;color:var(--faint);font:12px var(--f-mono);flex-wrap:wrap}
+.spot{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:960px){.spot{grid-template-columns:1fr}}
+.spot .card{padding:22px}
+.spot input[type=text],.field{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:12px;color:var(--ink);padding:11px 14px;font:15px var(--f-ui);outline:none}
+.spot input:focus,.field:focus{border-color:var(--acc)}
+.spot ol{padding-left:20px;color:var(--mut);font-size:14px}
+#spembeds{display:grid;gap:12px;margin-top:14px}
+#spembeds iframe{width:100%;border:0;border-radius:12px}
+.srow{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+/* photos */
+.photos{columns:3 260px;column-gap:16px}
+.photos figure{margin:0 0 16px;break-inside:avoid;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface);cursor:zoom-in}
+.photos img{width:100%;transition:.4s}
+.photos figure:hover img{transform:scale(1.04)}
+.photos .imgwrap{overflow:hidden}
+.photos figcaption{padding:12px 14px;font-size:13px;color:var(--mut)}
+.photos figcaption b{color:var(--ink);display:block;margin-bottom:2px;font-size:14px}
+#lightbox{position:fixed;inset:0;z-index:120;background:rgba(3,4,8,.9);display:none;place-items:center;padding:24px}
+#lightbox.open{display:grid}
+#lightbox img{max-height:80vh;max-width:92vw;border-radius:12px}
+#lightbox p{color:#cdd3e6;font-size:14px;text-align:center;max-width:80ch}
+/* lab */
+.labtabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.gpugrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.gpu{padding:18px;display:flex;flex-direction:column;gap:8px}
+.gpu .chipface{height:58px;border-radius:10px;border:1px solid var(--line);background:repeating-linear-gradient(90deg,transparent 0 9px,var(--line) 9px 10px),linear-gradient(135deg,color-mix(in srgb,var(--acc) 30%,transparent),transparent);display:flex;align-items:center;justify-content:space-between;padding:0 12px;font:700 11px var(--f-mono);letter-spacing:.08em;color:var(--ink)}
+.gpu h4{margin:6px 0 0;font:700 19px var(--f-ui)}
+.gpu .hh{color:var(--acc2);font-size:14px}
+.gpu ul{margin:0;padding-left:18px;color:var(--mut);font-size:14px;display:grid;gap:5px}
+.v-NVIDIA{--acc:#76d12a;--acc2:#a4f04a}.v-AMD{--acc:#ff5a4d;--acc2:#ff8d82}.v-Intel{--acc:#35a7ff;--acc2:#7cc7ff}.v-Broadcom{--acc:#e0457a;--acc2:#ff86ae}
+.benchform{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;align-items:end}
+.benchform label{font:600 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--faint);display:grid;gap:6px}
+.table{width:100%;border-collapse:collapse;margin-top:18px;font-size:14px}
+.table th{font:600 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:left;padding:8px;border-bottom:1px solid var(--line)}
+.table td{padding:10px 8px;border-bottom:1px solid var(--line)}
+.bars{display:grid;gap:8px;margin-top:20px}
+.bar{display:grid;grid-template-columns:150px 1fr 90px;gap:10px;align-items:center;font-size:13px}
+.bar i{display:block;height:14px;border-radius:7px;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .5s}
+.bar span{color:var(--mut)}
+@media(max-width:600px){.bar{grid-template-columns:100px 1fr 70px}}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.tool{padding:20px}
+.tool h4{margin:0 0 6px;font:700 18px var(--f-ui)}
+.tool p{color:var(--mut);font-size:14px;margin:0 0 12px}
+.out{margin-top:10px;font:700 24px var(--f-ui);color:var(--acc2)}
+.out small{display:block;font:12px var(--f-mono);color:var(--faint);font-weight:400;margin-top:3px}
+.tool label{display:grid;gap:5px;font-size:13px;color:var(--mut);margin-bottom:8px}
+/* qa */
+.qa{display:grid;gap:10px;margin-top:16px}
+.q{border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
+.q button{width:100%;text-align:left;background:none;border:0;color:var(--ink);padding:16px 18px;font:600 16px/1.35 var(--f-ui);cursor:pointer;display:flex;gap:12px;align-items:flex-start}
+.q button .n{font:600 12px var(--f-mono);color:var(--acc2);padding-top:3px;min-width:42px}
+.q button::after{content:"+";margin-left:auto;color:var(--acc2);font-size:22px;line-height:1}
+.q.open button::after{content:"–"}
+.q .a{display:none;padding:0 20px 18px 72px;font:17px/1.65 var(--f-read);color:var(--ink)}
+.q.open .a{display:block}
+.q .a a.cite{font:600 11px var(--f-mono);vertical-align:super;line-height:0;padding:1px 4px;border-radius:5px;background:color-mix(in srgb,var(--acc) 22%,transparent)}
+.q .a p{margin:0 0 .9em}
+.q .a .more{font:14px var(--f-ui)}
+@media(max-width:640px){.q .a{padding-left:20px}}
+/* library */
+.libgroup{margin-top:26px}
+.libgroup h3{font:700 20px var(--f-ui);display:flex;align-items:center;gap:10px;margin:0 0 12px}
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.libcard{padding:16px;display:flex;flex-direction:column;gap:6px;color:var(--ink)}
+.libcard:hover{border-color:var(--acc);text-decoration:none;transform:translateY(-3px)}
+.libcard{transition:.2s}
+.libcard b{font-size:16px;line-height:1.3}
+.libcard span{color:var(--mut);font-size:13px}
+.libcard small{font:11px var(--f-mono);color:var(--faint);margin-top:auto}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="#top"><span class="logo"></span><span class="bt">GPU Benchmark Lore</span></a>
+  <nav class="nav">
+    <a href="#worlds" class="hide-s">The three worlds</a><a href="#timeline">Timeline</a><a href="#lore" class="hide-s">Lore</a><a href="#watch">Watch</a><a href="#listen">Listen</a><a href="#lab">GPU lab</a><a href="#questions" class="hide-s">Questions</a><a href="#library">Library</a>
+    <a href="#" data-open-search>Search <span class="kbd">/</span></a>
+  </nav>
+  <button class="iconbtn" data-theme-toggle title="Toggle light / dark" aria-label="Toggle theme">☾</button>
+</div></header>
+
+<main id="top">
+<section class="hero"><div class="bgglow"></div><div class="grid-bg"></div>
+  <div class="wrap">
+    <div>
+      <span class="kicker">Sourced histories · 1997 → 2026</span>
+      <h1>The stories behind the programs that <em>heat up your GPU</em>.</h1>
+      <p>FurMark’s furry doughnut, UNIGINE’s vanished professor, 3DMark’s masked wanderer: three benchmarks, three companies, thirty years of scandals, records and lore. Every claim is sourced, and what couldn’t be confirmed says so.</p>
+      <div class="cta"><a class="btn" href="#timeline">Explore the timeline</a><a class="btn ghost" href="#watch">Watch the trailers</a><a class="btn ghost" href="#lab">Open the GPU lab</a></div>
+      <div class="stats" id="stats"></div>
+    </div>
+    <div>
+      <div class="stage"><canvas id="furcv" width="900" height="900" aria-label="Interactive rotating furry torus. Drag to rotate; use the slider to heat it up."></canvas></div>
+      <div class="heat"><span>cool</span><input id="heat" type="range" min="0" max="100" value="62" aria-label="Heat"><span>white-hot</span><b id="heatv">—</b></div>
+    </div>
+  </div>
+</section>
+
+<section id="worlds"><div class="wrap">
+  <span class="kicker">Three benchmarks</span>
+  <h2 class="sec reveal">Three worlds, three companies</h2>
+  <p class="lead reveal">One is a one-man tool that frightened GPU makers, one is a game-engine studio’s showpiece, one is Finland’s benchmark empire. Pick a world to dive into.</p>
+  <div class="worlds">
+    <article class="card glow world reveal" data-bench="furmark"><i class="orb"></i>
+      <span class="tag">Geeks3D · oZone3D</span><div class="big">FurMark</div><div class="by">by Jérôme “JeGX” Guinot</div>
+      <ul><li><b>2007</b> first released as a fur-rendering OpenGL benchmark</li><li>Treated as a <b>“power virus”</b>: AMD and Nvidia built protections around it</li><li><b>FurMark 2</b> on GeeXLab: OpenGL, Vulkan, Linux, Raspberry Pi</li><li>Newest build: <b>2.11.0.4</b> (30 Oct 2026)</li></ul>
+      <div class="row"><a class="btn" href="read/history.html">Read the history</a><a class="btn ghost" href="read/scene-furmark.html">The doughnut</a><a class="btn ghost" href="read/qa-furmark.html">Deep dive</a></div></article>
+    <article class="card glow world reveal" data-bench="superposition"><i class="orb"></i>
+      <span class="tag">UNIGINE</span><div class="big">Superposition</div><div class="by">the fifth UNIGINE benchmark</div>
+      <ul><li><b>2005</b> company founded; roots in the frustum.org project of 2002</li><li>Sanctuary → Tropics → <b>Heaven</b> → Valley → Superposition</li><li>A lone professor, an abandoned classroom, <b>SSRTGI</b> lighting</li><li>Version <b>1.1</b> (April 2019) is still the latest</li></ul>
+      <div class="row"><a class="btn" href="read/superposition.html">Read the history</a><a class="btn ghost" href="read/scene-superposition.html">The professor</a><a class="btn ghost" href="read/qa-superposition.html">Deep dive</a></div></article>
+    <article class="card glow world reveal" data-bench="3dmark"><i class="orb"></i>
+      <span class="tag">Futuremark · UL</span><div class="big">3DMark</div><div class="by">from Final Reality to path tracing</div>
+      <ul><li><b>1998</b> 3DMark99, “the world’s first benchmark for gamers”</li><li>One new test per DirectX: Time Spy, Port Royal, Speed Way</li><li><b>Steel Nomad</b> (2024): native 4K, score = average FPS × 100</li><li>A fully <b>path-traced</b> successor announced in June 2026</li></ul>
+      <div class="row"><a class="btn" href="read/3dmark-steel-nomad.html">Read the history</a><a class="btn ghost" href="read/scene-steel-nomad.html">The wanderer</a><a class="btn ghost" href="read/qa-3dmark.html">Deep dive</a></div></article>
+  </div>
+</div></section>
+
+<section id="timeline"><div class="wrap">
+  <span class="kicker">Interactive timeline</span>
+  <h2 class="sec reveal">Thirty years on one rail</h2>
+  <p class="lead reveal">Filter by benchmark or kind of event, search by word, and click an event to open it. Each links to the document with its sources.</p>
+  <div class="filters" id="tf-bench"></div>
+  <div class="filters" id="tf-type"></div>
+  <div class="filters"><input class="tsearch" id="tsearch" placeholder="Search the timeline…" aria-label="Search the timeline"><span id="tcount" class="kicker"></span><a href="#" id="texp" class="chip" style="margin-left:auto">Expand all</a></div>
+  <div class="rail" id="rail"></div>
+</div></section>
+
+<section id="lore"><div class="wrap">
+  <span class="kicker">Scenes &amp; stories</span>
+  <h2 class="sec reveal">The lore, with the receipts</h2>
+  <p class="lead reveal">Benchmarks have characters. Each lore document separates what the maker confirmed, what reviewers observed, what is only interpretation, and what nobody has published.</p>
+  <div class="lore">
+    <article class="card glow lorecard reveal" data-bench="furmark"><div class="art"><canvas class="miniart" data-kind="donut"></canvas></div><div class="body">
+      <span class="tag">FurMark</span><h3>The furry doughnut</h3>
+      <p><span class="badge b-canon">Confirmed</span>It began as a fur-rendering benchmark; the name joins “fur” and “mark”.</p>
+      <p><span class="badge b-unk">Unknown</span>Why fur rather than fire: no JeGX interview says.</p>
+      <p><span class="badge b-int">Reading</span>An endless rotation is the point: no world, no story, only load.</p>
+      <div class="row"><a class="btn" href="read/scene-furmark.html">Read the lore</a></div></div></article>
+    <article class="card glow lorecard reveal" data-bench="superposition"><div class="art"><canvas class="miniart" data-kind="lab"></canvas></div><div class="body">
+      <span class="tag">Superposition</span><h3>The vanished professor</h3>
+      <p><span class="badge b-canon">Canon</span>A lone professor performs dangerous experiments in an abandoned classroom; a bang came from the lab moments ago.</p>
+      <p><span class="badge b-unk">Unverified</span>No name, no biography, no published ending.</p>
+      <p><span class="badge b-int">Reading</span>His absence makes the apparatus the protagonist.</p>
+      <div class="row"><a class="btn" href="read/scene-superposition.html">Read the lore</a></div></div></article>
+    <article class="card glow lorecard reveal" data-bench="3dmark"><div class="art"><canvas class="miniart" data-kind="nomad"></canvas></div><div class="body">
+      <span class="tag">Steel Nomad</span><h3>The masked wanderer</h3>
+      <p><span class="badge b-canon">Official</span>“Steel Nomad” is the title and setting: a frontier to explore.</p>
+      <p><span class="badge b-unk">Not established</span>The masked figure has no published name or backstory.</p>
+      <p><span class="badge b-int">Reading</span>A science-fiction western told without dialogue.</p>
+      <div class="row"><a class="btn" href="read/scene-steel-nomad.html">Read the lore</a></div></div></article>
+  </div>
+</div></section>
+
+<section id="watch"><div class="wrap">
+  <span class="kicker">Embedded video</span>
+  <h2 class="sec reveal">Watch</h2>
+  <p class="lead reveal">Official trailers, interviews with the people behind the benchmarks, and how-to walkthroughs. Videos load only when you press play (privacy-friendly YouTube embeds).</p>
+  <div class="tabs" id="vtabs"></div>
+  <div class="tabs" id="vbench"></div>
+  <div class="vgrid" id="vgrid"></div>
+  <div class="notice">I looked for a video interview with JeGX (FurMark) and for a Superposition or Steel Nomad design interview and found none. The interviews above are Futuremark’s Oliver Baltuch and UNIGINE’s Denis Shergin (in Russian). If you know of one, add it to <code>site/data/media.json</code>.</div>
+</div></section>
+
+<section id="listen"><div class="wrap">
+  <span class="kicker">Podcasts</span>
+  <h2 class="sec reveal">Listen</h2>
+  <p class="lead reveal">Three short two-host episodes built from the research in this repo, with synthetic voices. Each carries its sources in the transcript.</p>
+  <div class="eps">
+    <article class="card ep reveal" data-bench="furmark"><span class="tag">FurMark</span><h3>The Donut That Cooks GPUs</h3><audio controls preload="none" src="furmark-history-podcast.mp3"></audio><div class="meta"><span>~8 min</span><span>voices: ElevenLabs</span></div><div class="srow"><a class="chip" href="furmark-history-podcast.pdf">PDF with transcript</a><a class="chip" href="furmark-history-podcast.mp3" download>MP3</a></div></article>
+    <article class="card ep reveal" data-bench="superposition"><span class="tag">Superposition</span><h3>The Professor’s Lab</h3><audio controls preload="none" src="superposition-history-podcast.mp3"></audio><div class="meta"><span>~6.5 min</span><span>voices: Kokoro-82M</span></div><div class="srow"><a class="chip" href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/podcast/superposition_script.txt">Script</a><a class="chip" href="superposition-history-podcast.mp3" download>MP3</a></div></article>
+    <article class="card ep reveal" data-bench="3dmark"><span class="tag">3DMark</span><h3>From Fire Strike to Steel Nomad</h3><audio controls preload="none" src="steelnomad-history-podcast.mp3"></audio><div class="meta"><span>~5.5 min</span><span>voices: Piper</span></div><div class="srow"><a class="chip" href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/podcast/steelnomad_script.txt">Script</a><a class="chip" href="steelnomad-history-podcast.mp3" download>MP3</a></div></article>
+  </div>
+  <div class="spot">
+    <div class="card" data-bench="superposition"><span class="kicker">Spotify</span><h3 style="margin:8px 0 6px">Your Spotify shelf</h3>
+      <p style="color:var(--mut);font-size:14px;margin:0 0 12px">Paste any Spotify link (episode, show, playlist or album) to pin it here. It is saved in this browser only.</p>
+      <input type="text" id="spurl" placeholder="https://open.spotify.com/episode/…" aria-label="Spotify link">
+      <div class="srow"><button class="btn" id="spadd">Pin to shelf</button><button class="btn ghost" id="spclear">Clear</button></div>
+      <div id="spembeds"></div>
+      <div class="srow" style="margin-top:14px"><span class="kicker" style="width:100%">Find episodes on Spotify</span>
+        <a class="chip" target="_blank" rel="noopener" href="https://open.spotify.com/search/3DMark">3DMark</a><a class="chip" target="_blank" rel="noopener" href="https://open.spotify.com/search/GPU%20benchmark%20podcast">GPU benchmarks</a><a class="chip" target="_blank" rel="noopener" href="https://open.spotify.com/search/hardware%20overclocking%20podcast">overclocking</a><a class="chip" target="_blank" rel="noopener" href="https://open.spotify.com/search/PC%20hardware%20podcast">PC hardware shows</a></div></div>
+    <div class="card" data-bench="3dmark"><span class="kicker">Put these episodes on Spotify</span><h3 style="margin:8px 0 6px">Podcast feed</h3>
+      <p style="color:var(--mut);font-size:14px;margin:0 0 8px">This site publishes a standard podcast RSS feed. Submit it once and the three episodes appear in Spotify, Apple Podcasts and others.</p>
+      <div class="srow"><a class="btn" href="podcast.xml">Open RSS feed</a><button class="btn ghost" id="copyfeed">Copy feed URL</button></div>
+      <ol style="margin-top:14px"><li>Open <a target="_blank" rel="noopener" href="https://creators.spotify.com">creators.spotify.com</a> and sign in.</li><li>Choose “Add a podcast” → “I already have a podcast” and paste the feed URL.</li><li>Verify with the owner email in the feed (add yours to <code>podcast.xml</code> first; I left it blank on purpose).</li><li>After approval, paste the show link into the shelf on the left.</li></ol></div>
+  </div>
+</div></section>
+
+<section id="photos"><div class="wrap">
+  <span class="kicker">Photos</span>
+  <h2 class="sec reveal">The hardware, up close</h2>
+  <p class="lead reveal">Freely licensed photographs from Wikimedia Commons, each with its author and licence. Click to enlarge.</p>
+  <div class="photos" id="photos"></div>
+</div></section>
+
+<section id="lab"><div class="wrap">
+  <span class="kicker">GPU lab</span>
+  <h2 class="sec reveal">The GPUs, and your GPUs</h2>
+  <p class="lead reveal">A hall of the cards that shaped these stories, a bench to log your own cards and scores, and calculators for the scoring rules UL and Geeks3D publish.</p>
+  <div class="labtabs" id="labtabs"><button class="chip on" data-t="hall">Hall of GPUs</button><button class="chip" data-t="bench">My bench</button><button class="chip" data-t="decode">Score decoder</button></div>
+  <div id="lab-hall"><div class="filters" id="gf"></div><div class="gpugrid" id="gpugrid"></div></div>
+  <div id="lab-bench" hidden>
+    <div class="card" data-bench="superposition">
+      <p style="margin:0 0 12px;color:var(--mut);font-size:14px">Log the GPUs you test. Everything stays in this browser; use Export to back it up or Share to send a link. Leave a score blank if you didn’t run it.</p>
+      <form id="benchform" class="benchform">
+        <label>GPU<input class="field" name="gpu" placeholder="e.g. RTX 4070" required></label>
+        <label>FurMark 1080p (points)<input class="field" name="furmark" type="number" min="0" step="any"></label>
+        <label>Superposition 4K Opt.<input class="field" name="sp4k" type="number" min="0" step="any"></label>
+        <label>Steel Nomad<input class="field" name="sn" type="number" min="0" step="any"></label>
+        <label>Time Spy graphics<input class="field" name="ts" type="number" min="0" step="any"></label>
+        <label>Peak temp °C<input class="field" name="temp" type="number" min="0" step="any"></label>
+        <label>Peak power W<input class="field" name="watts" type="number" min="0" step="any"></label>
+        <button class="btn" type="submit">Add GPU</button>
+      </form>
+      <div class="srow"><button class="btn ghost" id="bexport">Export JSON</button><label class="btn ghost" style="cursor:pointer">Import<input type="file" id="bimport" accept=".json" hidden></label><button class="btn ghost" id="bshare">Copy share link</button><button class="btn ghost" id="bclear">Clear all</button></div>
+      <div id="benchout"></div>
+    </div>
+  </div>
+  <div id="lab-decode" hidden>
+    <div class="tools">
+      <div class="card tool" data-bench="furmark"><h4>FurMark points ↔ FPS</h4><p>The developer’s paired numbers (6478 points at 108 FPS) show points are frames rendered in the 60-second benchmark. That is an inference, not a stated formula.</p>
+        <label>Points<input class="field" id="fm-pts" type="number" placeholder="e.g. 18000"></label><label>or average FPS<input class="field" id="fm-fps" type="number" placeholder="e.g. 300"></label><div class="out" id="fm-out">—</div></div>
+      <div class="card tool" data-bench="3dmark"><h4>Steel Nomad / Speed Way score ↔ FPS</h4><p>UL: score = average graphics-test FPS × 100. Steel Nomad renders at 3840 × 2160; Speed Way at 2560 × 1440.</p>
+        <label>Score<input class="field" id="sn-score" type="number" placeholder="e.g. 4500"></label><label>or average FPS<input class="field" id="sn-fps" type="number" placeholder="e.g. 45"></label><div class="out" id="sn-out">—</div></div>
+      <div class="card tool" data-bench="3dmark"><h4>Time Spy overall score</h4><p>A weighted harmonic mean: graphics weight 0.85, CPU weight 0.15. A weak CPU drags the total down more than an average would.</p>
+        <label>Graphics score<input class="field" id="ts-g" type="number" placeholder="e.g. 20000"></label><label>CPU score<input class="field" id="ts-c" type="number" placeholder="e.g. 12000"></label><div class="out" id="ts-out">—</div></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="questions"><div class="wrap">
+  <span class="kicker">Question explorer</span>
+  <h2 class="sec reveal">Seventy answered questions</h2>
+  <p class="lead reveal">Technical deep dives and scene-lore investigations, searchable. Open any question to read the answer in place.</p>
+  <div class="filters" id="qf-bench"></div><div class="filters" id="qf-kind"></div>
+  <div class="filters"><input class="tsearch" id="qsearch" placeholder="Filter questions (e.g. async, professor, power)…" style="min-width:320px"><span id="qcount" class="kicker"></span></div>
+  <div class="qa" id="qa"></div>
+</div></section>
+
+<section id="library"><div class="wrap">
+  <span class="kicker">Everything in the repo</span>
+  <h2 class="sec reveal">Library</h2>
+  <p class="lead reveal">Every document, rendered for reading, with a table of contents, hover-to-preview citations and full-text search (press <span class="kbd">/</span> anywhere).</p>
+  <div id="libroot"></div>
+</div></section>
+</main>
+
+<footer class="site"><div class="wrap">
+  <div><h4>GPU Benchmark Lore</h4>Sourced histories of FurMark, UNIGINE Superposition and 3DMark. Text and code are MIT-licensed; quotations and trademarks stay with their owners. Video thumbnails belong to the uploaders; videos play from YouTube. Photos are credited to their authors under the licences shown.</div>
+  <div><h4>Read</h4><a href="read/history.html">FurMark history</a><a href="read/superposition.html">Superposition history</a><a href="read/3dmark-steel-nomad.html">3DMark history</a><a href="read/fact-check.html">Fact-check log</a></div>
+  <div><h4>Project</h4><a href="https://github.com/Parris-Tech-Services/furmark-history">GitHub repository</a><a href="furmark-history-podcast.pdf">Podcast PDF</a><a href="podcast.xml">Podcast RSS</a></div>
+</div></footer>
+
+<div id="lightbox"><div style="text-align:center"><img id="lbimg" alt=""><p id="lbcap"></p></div></div>
+<script src="assets/app.js" data-base=""></script>
+<script src="assets/home.js"></script>
+</body></html>

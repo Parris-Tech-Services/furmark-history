@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en" data-bench="furmark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FurMark: a history · GPU Benchmark Lore</title>
+<meta name="description" content="Timeline from 2007 to FurMark 2.11, the power-virus years, sources.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));z-index:60}
+.rhero{padding:54px 0 28px;position:relative}
+.rhero::before{content:"";position:absolute;inset:-60px 0 0;background:radial-gradient(60% 80% at 20% 0,color-mix(in srgb,var(--acc) 22%,transparent),transparent 70%);pointer-events:none}
+.rhero h1{font:700 clamp(30px,5vw,54px)/1.08 var(--f-ui);letter-spacing:-.02em;margin:14px 0 10px;max-width:22ch}
+.rhero p{color:var(--mut);font-size:18px;max-width:60ch;margin:0 0 16px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--faint);font:13px var(--f-mono)}
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:48px;align-items:start}
+@media(max-width:960px){.layout{grid-template-columns:1fr;gap:0}}
+aside.toc{position:sticky;top:84px;max-height:calc(100vh - 110px);overflow:auto;font-size:14px;padding-right:6px}
+aside.toc h4{margin:0 0 10px;font:600 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+aside.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:6px 0 6px 14px;color:var(--mut);margin-left:-1px;border-left:2px solid transparent;line-height:1.35}
+aside.toc li a:hover{color:var(--ink);text-decoration:none}
+aside.toc li a.on{color:var(--acc2);border-left-color:var(--acc)}
+@media(max-width:960px){aside.toc{position:static;max-height:none;margin:0 0 22px;border:1px solid var(--line);border-radius:14px;padding:14px}aside.toc ol{border:0}}
+article.prose{font:400 19px/1.72 var(--f-read);color:var(--ink);max-width:70ch}
+article.prose h2{font:700 clamp(24px,3vw,32px)/1.2 var(--f-ui);letter-spacing:-.01em;margin:2.2em 0 .5em;position:relative;padding-top:6px}
+article.prose h2::before{content:"";display:block;width:44px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--acc),var(--acc2));margin-bottom:14px}
+article.prose h3{font:700 21px/1.3 var(--f-ui);margin:1.8em 0 .4em;color:var(--acc2)}
+article.prose p{margin:0 0 1.1em}
+article.prose strong{color:var(--ink)}
+article.prose a{border-bottom:1px solid color-mix(in srgb,var(--acc2) 40%,transparent)}
+article.prose a:hover{text-decoration:none;border-bottom-color:var(--acc2)}
+article.prose blockquote{margin:1.2em 0;padding:4px 0 4px 20px;border-left:3px solid var(--acc);color:var(--mut)}
+article.prose code{font:500 .85em var(--f-mono);background:var(--surface2);padding:2px 6px;border-radius:6px}
+article.prose ul,article.prose ol{padding-left:1.3em}
+article.prose li{margin:.35em 0}
+article.prose li::marker{color:var(--acc2)}
+.tablewrap{overflow-x:auto;margin:1.3em 0;border:1px solid var(--line);border-radius:14px}
+article.prose table{border-collapse:collapse;width:100%;font:15px/1.5 var(--f-ui)}
+article.prose th{background:var(--surface2);text-align:left;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+article.prose th,article.prose td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+article.prose tr:last-child td{border-bottom:0}
+article.prose tbody tr:hover td{background:color-mix(in srgb,var(--acc) 7%,transparent)}
+a.cite{font:600 11px var(--f-mono);vertical-align:super;line-height:0;padding:1px 4px;margin:0 1px;border-radius:5px;background:color-mix(in srgb,var(--acc) 22%,transparent);color:var(--acc2);border:0!important}
+a.cite:hover{background:var(--acc);color:#000}
+#sources+*,h2#sources~ol{font:15px/1.55 var(--f-ui);color:var(--mut)}
+li:target{background:color-mix(in srgb,var(--acc) 20%,transparent);outline:2px solid var(--acc);border-radius:6px}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:70px 0 10px}
+.pager a{display:block;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink)}
+.pager a:hover{border-color:var(--acc);text-decoration:none}
+.pager span{display:block;font:11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.pager b{font-size:17px}
+.pager a:last-child{text-align:right}
+.tip{position:fixed;z-index:80;max-width:420px;background:var(--surface);border:1px solid var(--acc);border-radius:12px;padding:12px 14px;font:13px/1.45 var(--f-ui);color:var(--ink);box-shadow:var(--shadow);pointer-events:none;display:none}
+.hlink{opacity:0;margin-left:8px;color:var(--faint);font-size:.7em;border:0!important}
+h2:hover .hlink,h3:hover .hlink{opacity:1}
+.back{position:fixed;right:18px;bottom:18px;z-index:40}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../index.html"><span class="logo"></span><span class="bt">GPU Benchmark Lore</span></a>
+  <nav class="nav">
+    <a href="../index.html#timeline" class="hide-s">Timeline</a><a href="../index.html#watch" class="hide-s">Watch</a><a href="../index.html#lab" class="hide-s">GPU lab</a><a href="../index.html#library">Library</a>
+    <a href="#" data-open-search>Search <span class="kbd">/</span></a>
+  </nav>
+  <button class="iconbtn" data-theme-toggle title="Toggle light / dark" aria-label="Toggle theme">☾</button>
+</div></header>
+<section class="rhero"><div class="wrap">
+  <span class="tag">History</span>
+  <h1>FurMark: a history</h1>
+  <p>Timeline from 2007 to FurMark 2.11, the power-virus years, sources.</p>
+  <div class="meta"><span>~6 min read</span><span>·</span><a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/HISTORY.md">view source on GitHub</a></div>
+</div></section>
+<main class="wrap layout">
+  <aside class="toc"><h4>On this page</h4><ol id="tocol"><li><a href="#the-short-version">The short version</a></li><li><a href="#who-made-it">Who made it</a></li><li><a href="#what-it-actually-does">What it actually does</a></li><li><a href="#timeline">Timeline</a></li><li><a href="#the-power-virus-years">The &quot;power virus&quot; years</a></li><li><a href="#things-i-could-not-verify">Things I could not verify</a></li><li><a href="#sources">Sources</a></li></ol></aside>
+  <article class="prose" id="doc">
+<p><strong>Scene deep dive:</strong> <a href="scene-furmark.html">Why a furry doughnut? Ten questions about the visual story</a>.</p>
+<p><em>Compiled 13 November 2026 from the developer's own posts and release notes, plus independent coverage. Every claim below has a source number in brackets; the list is at the end. Where the evidence is thin, it says so.</em></p>
+<h2 id="the-short-version">The short version</h2>
+<p>FurMark is a free graphics-card stress test and benchmark. Its signature scene is a rotating, fur-covered torus (the "donut") drawn with OpenGL shaders. The developer says the first version of FurMark 1 was released in <strong>2007</strong> <a class="cite" href="#src-1">1</a>. It was written to push a GPU as hard as possible, mainly so overclockers could check stability <a class="cite" href="#src-2">2</a>. That very quality made driver teams treat it as a "power virus" and throttle cards when it ran <a class="cite" href="#src-3">3</a><a class="cite" href="#src-4">4</a>. FurMark 2, rebuilt on the author's GeeXLab engine, began beta testing on 1 December 2022 <a class="cite" href="#src-7">7</a> and was released publicly in February 2024 <a class="cite" href="#src-6">6</a>. The most recent changelog entry I found is version 2.11.0.4, dated 30 October 2026 <a class="cite" href="#src-7">7</a>.</p>
+<h2 id="who-made-it">Who made it</h2>
+<p>FurMark is the work of a developer who goes by <strong>JeGX</strong> (listed as Jérôme Guinot on his early site oZone3D.net, where he wrote OpenGL tutorials) and who later ran <strong>Geeks3D</strong> <a class="cite" href="#src-1">1</a><a class="cite" href="#src-15">15</a>. Geeks3D hosts the official downloads and warns that other sites claiming to be the official page are not <a class="cite" href="#src-1">1</a>.</p>
+<h2 id="what-it-actually-does">What it actually does</h2>
+<p>A scene of a furry torus plus a dynamic background (the changelog mentions a "new dynamic background (fire)" <a class="cite" href="#src-7">7</a>), rendered in OpenGL, repeating heavy shader maths each frame. It reports an FPS-style score and can read data from GPU-Z when that tool is running <a class="cite" href="#src-2">2</a>. In FurMark 2 the "classic donut" is joined by a "new knot" scene <a class="cite" href="#src-6">6</a>. Beginner guides describe it as a stress test rather than a benchmark, much harsher than any game <a class="cite" href="#src-16">16</a>. I could not confirm, from a primary source, the exact fur-rendering technique, so this document does not claim one.</p>
+<h2 id="timeline">Timeline</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Date</th>
+<th>What happened</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2007</td>
+<td>First version of FurMark 1 released (developer's statement, repeated in 2024 as "more than 16 years ago")</td>
+<td><a class="cite" href="#src-1">1</a><a class="cite" href="#src-6">6</a><a class="cite" href="#src-13">13</a></td>
+</tr>
+<tr class="even">
+<td>Aug 2008 (approx.)</td>
+<td>Catalyst 8.8 adds an AMD protection keyed on the file name <code>FurMark.exe</code>, per Geeks3D</td>
+<td><a class="cite" href="#src-3">3</a></td>
+</tr>
+<tr class="odd">
+<td>Aug 2009 (approx.)</td>
+<td>Catalyst 9.8 improves detection by measuring the ratio of texture to ALU instructions, per Geeks3D</td>
+<td><a class="cite" href="#src-3">3</a></td>
+</tr>
+<tr class="even">
+<td>25 Sep 2009</td>
+<td>Geeks3D reports the Radeon HD 5870 (Cypress) has a hardware monitoring chip that throttles one PowerPlay level when the voltage regulators are overloaded</td>
+<td><a class="cite" href="#src-3">3</a></td>
+</tr>
+<tr class="odd">
+<td>2 Feb 2010</td>
+<td>FurMark 1.8.0 "Hot Like Hell Edition": heat post-effect, vertex-displacement mode for more load, XML localization; scores lower than earlier versions</td>
+<td><a class="cite" href="#src-2">2</a></td>
+</tr>
+<tr class="even">
+<td>19 Apr 2010</td>
+<td>FurMark 1.8.2</td>
+<td><a class="cite" href="#src-2">2</a></td>
+</tr>
+<tr class="odd">
+<td>9 Nov 2010</td>
+<td>GeForce GTX 580 launches with power sensors plus driver detection of FurMark/OCCT; Geeks3D headline: "The Anti-FurMark DX11 Card". TechPowerUp measured 153 W with the limiter, 304 W without</td>
+<td><a class="cite" href="#src-4">4</a></td>
+</tr>
+<tr class="even">
+<td>27 Jan 2011</td>
+<td>JeGX comments on a TechPowerUp poll about limiters; objects to Nvidia's being an application blacklist; notes AMD PowerTune is adjustable by about 20%</td>
+<td><a class="cite" href="#src-5">5</a></td>
+</tr>
+<tr class="odd">
+<td>Mar 2011</td>
+<td>MSI support page describes Kombustor as co-developed by MSI and the FurMark team; Geeks3D calls it MSI's burn-in tool "based on the well-known FurMark software"</td>
+<td><a class="cite" href="#src-9">9</a><a class="cite" href="#src-20">20</a></td>
+</tr>
+<tr class="even">
+<td>Jun 2011</td>
+<td>FurMark 1.8.5 and 1.9.1 (maintenance, newer card support, improved score submission)</td>
+<td><a class="cite" href="#src-10">10</a></td>
+</tr>
+<tr class="odd">
+<td>12 Jun 2011</td>
+<td>Geeks3D's ASUS ROG Matrix GTX 580 Platinum review uses FurMark as a burn-in test; a pingback in its comments is titled "FurMark at DreamHack 2011" (I could not open that post)</td>
+<td><a class="cite" href="#src-15">15</a></td>
+</tr>
+<tr class="even">
+<td>Jan 2011</td>
+<td>JeGX notes ASUS left the power limiter off its GTX 560 Ti, so FurMark ran at full speed in his review</td>
+<td><a class="cite" href="#src-5">5</a></td>
+</tr>
+<tr class="odd">
+<td>21 Aug 2015</td>
+<td>FurMark 1.17.0</td>
+<td><a class="cite" href="#src-7">7</a></td>
+</tr>
+<tr class="even">
+<td>24 Aug 2016</td>
+<td>FurMark 1.18.0: GTX 1080/1070/1060 and RX 480/470/460 support, 5K resolution</td>
+<td><a class="cite" href="#src-7">7</a></td>
+</tr>
+<tr class="odd">
+<td>1 Dec 2022</td>
+<td>FurMark 2.0.0.0, first beta, via the Geeks3D Discord</td>
+<td><a class="cite" href="#src-7">7</a></td>
+</tr>
+<tr class="even">
+<td>9 Jan 2023</td>
+<td>2.0.4.0 adds Linux support</td>
+<td><a class="cite" href="#src-7">7</a></td>
+</tr>
+<tr class="odd">
+<td>18 Sep 2023</td>
+<td>First beta of a separate ASUS ROG Edition of FurMark 2 ("first beta for ASUS", per the ROG changelog); the Geeks3D ROG page describes it as a heavily revamped version for ASUS</td>
+<td><a class="cite" href="#src-18">18</a></td>
+</tr>
+<tr class="even">
+<td>Sep 2023</td>
+<td>TechPowerUp headline "FurMark 2.0 launching this month" (page not retrievable; month not re-confirmed). The public release did not follow until 2.1</td>
+<td><a class="cite" href="#src-11">11</a></td>
+</tr>
+<tr class="odd">
+<td>15–26 Feb 2024</td>
+<td>FurMark 2.1.0.2 (changelog 15 Feb; release post 24 Feb; KitGuru's "leaves beta" story 26 Feb; TechPowerUp 27 Feb): Windows 32/64-bit, Linux 64-bit, OpenGL 3.2 and Vulkan 1.1, GUI plus command-line tool, online scores</td>
+<td><a class="cite" href="#src-6">6</a><a class="cite" href="#src-7">7</a><a class="cite" href="#src-12">12</a><a class="cite" href="#src-19">19</a></td>
+</tr>
+<tr class="even">
+<td>3 May 2024</td>
+<td>2.3.0.0 adds Raspberry Pi 64-bit</td>
+<td><a class="cite" href="#src-7">7</a></td>
+</tr>
+<tr class="odd">
+<td>26 Dec 2024</td>
+<td>2.5.0.0 adds Intel Arc B580/B570</td>
+<td><a class="cite" href="#src-7">7</a></td>
+</tr>
+<tr class="even">
+<td>2025</td>
+<td>Releases track RTX 50-series and Radeon RX 9070 launches</td>
+<td><a class="cite" href="#src-7">7</a></td>
+</tr>
+<tr class="odd">
+<td>13 Mar 2025</td>
+<td>Geeks3D post for FurMark 1.39 (changelog: 1.39.0.0, 12 Mar 2025): JeGX writes that branch 1.39.x is "probably the last", with only patches until a final stop ("2026?")</td>
+<td><a class="cite" href="#src-1">1</a><a class="cite" href="#src-7">7</a></td>
+</tr>
+<tr class="even">
+<td>1 Oct 2026</td>
+<td>FurMark 1.39.4.0 per the changelog (the 2025 post was later updated to link it): still shipping new-GPU support</td>
+<td><a class="cite" href="#src-1">1</a><a class="cite" href="#src-7">7</a></td>
+</tr>
+<tr class="odd">
+<td>30 Oct 2026</td>
+<td>2.11.0.4: new NVIDIA Blackwell GPUs; elapsed time shown as days/hours/minutes/seconds. The ASUS ROG Edition carries the same version number</td>
+<td><a class="cite" href="#src-7">7</a><a class="cite" href="#src-1">1</a><a class="cite" href="#src-18">18</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-power-virus-years">The "power virus" years</h2>
+<p>By Geeks3D's account, the power circuitry on Radeon HD 4850/4870 cards was undersized for FurMark-type loads, so AMD added software protection, first by file name, later by instruction ratio <a class="cite" href="#src-3">3</a>. AnandTech's coverage of the Radeon HD 5970 says AMD lists FurMark and OCCT as "power virus" applications: they load a card harder than AMD believes is realistic. It also notes the 5800-series cards never throttled under them <a class="cite" href="#src-14">14</a>. A commenter objected that neither is a virus in the usual sense: "power virus" is AMD's term for the workload. Forum users reported that renaming the executable defeated the early check; I found no vendor confirmation of that, so treat it as unverified <a class="cite" href="#src-17">17</a>.</p>
+<p>For the GTX 580, TechPowerUp's testing (quoted by Geeks3D) found the limiter engaged only when the driver detected FurMark or OCCT, not in games <a class="cite" href="#src-4">4</a>. A review quoted in the same Geeks3D post said Nvidia's stated reason was to combat the two programs, which it called dangerous for the PSU, and suspected a PR motive too: Nvidia being "tired of seeing" review sites publish huge power numbers for non-real-world loads <a class="cite" href="#src-4">4</a>. JeGX's position in 2011: limiters are acceptable if the user can fully control or disable them, and an application blacklist is not <a class="cite" href="#src-5">5</a>.</p>
+<h2 id="things-i-could-not-verify">Things I could not verify</h2>
+<ul>
+<li>The <strong>exact fur-rendering technique</strong> (no primary source found).</li>
+<li>Whether renaming the executable really bypassed AMD's early check (forum reports only).</li>
+<li>The <strong>exact first release date</strong> in 2007 (the year is the developer's; the month is not stated in what I read).</li>
+<li>A press article stating the original FurMark "used DirectX": this contradicts every other source (OpenGL) and is not used here.</li>
+<li>What the "FurMark at DreamHack 2011" post says: only its title survives in a pingback.</li>
+<li>The AnandTech 5970 text: I saw its follow-up coverage through search summaries, not the full page.</li>
+</ul>
+<h2 id="sources">Sources</h2>
+<ol type="1">
+<li id="src-1">Geeks3D, "FurMark 1.39.4 GPU Stress Test Utility Released", 13 Mar 2025. <a href="https://geeks3d.com/20250313/furmark-1-39-gpu-stress-test-utility/">https://geeks3d.com/20250313/furmark-1-39-gpu-stress-test-utility/</a></li>
+<li id="src-2">Geeks3D, "FurMark 1.8.0 Hot Like Hell Edition Available", 2 Feb 2010. <a href="https://www.geeks3d.com/20100202/furmark-1-8-0-hot-like-hell-edition-available/">https://www.geeks3d.com/20100202/furmark-1-8-0-hot-like-hell-edition-available/</a></li>
+<li id="src-3">Geeks3D, "ATI Cypress (Radeon HD 5870) Cards Have Hardware Protection Against Power Virus Like FurMark and OCCT", 25 Sep 2009. <a href="https://www.geeks3d.com/20090925/ati-cypress-radeon-hd-5870-cards-have-hardware-protection-against-power-virus-like-furmark-and-occt/">https://www.geeks3d.com/20090925/ati-cypress-radeon-hd-5870-cards-have-hardware-protection-against-power-virus-like-furmark-and-occt/</a></li>
+<li id="src-4">Geeks3D, "NVIDIA GeForce GTX 580: The Anti-FurMark DX11 Card", 9 Nov 2010 (quotes TechPowerUp). <a href="https://www.geeks3d.com/20101109/nvidia-geforce-gtx-580-the-anti-furmark-dx11-card/">https://www.geeks3d.com/20101109/nvidia-geforce-gtx-580-the-anti-furmark-dx11-card/</a></li>
+<li id="src-5">Geeks3D, "Are you Ok with Power Limiter (GPU throttling) On Recent Graphics Cards?", 27 Jan 2011. <a href="https://www.geeks3d.com/20110127/are-you-ok-with-power-limiter-gpu-throttling-on-recent-graphics-cards/">https://www.geeks3d.com/20110127/are-you-ok-with-power-limiter-gpu-throttling-on-recent-graphics-cards/</a></li>
+<li id="src-6">Geeks3D, "FurMark 2.1.0 Released", 24 Feb 2024. <a href="https://www.geeks3d.com/20240224/furmark-2-1-0-released/">https://www.geeks3d.com/20240224/furmark-2-1-0-released/</a></li>
+<li id="src-7">FurMark changelog (FurMark 1 and 2 version history). <a href="https://glslhacker.geeks3d.com/furmark/changelog">https://glslhacker.geeks3d.com/furmark/changelog</a></li>
+<li id="src-8">MSI Kombustor page at Geeks3D. <a href="https://glslhacker.geeks3d.com/furmark/kombustor">https://glslhacker.geeks3d.com/furmark/kombustor</a></li>
+<li id="src-9">MSI, "MSI Afterburner and MSI Kombustor" FAQ. <a href="https://forum-en.msi.com/faq/article/msi-afterburner-and-msi-kombustor">https://forum-en.msi.com/faq/article/msi-afterburner-and-msi-kombustor</a></li>
+<li id="src-10">TechPowerUp, "FurMark updated to versions 1.8.5 and 1.9.1", 29 Jun 2011. <a href="https://techpowerup.com/148191/furmark-updated-to-versions-1-8-5-and-1-9-1">https://techpowerup.com/148191/furmark-updated-to-versions-1-8-5-and-1-9-1</a></li>
+<li id="src-11">TechPowerUp, "FurMark 2.0 launching this month", 19 Sep 2023. <a href="https://techpowerup.com/313786/furmark-2-0-launching-this-month">https://techpowerup.com/313786/furmark-2-0-launching-this-month</a></li>
+<li id="src-12">TechPowerUp, "FurMark 2.1 gets public release", 27 Feb 2024. <a href="https://techpowerup.com/319672/furmark-2-1-gets-public-release">https://techpowerup.com/319672/furmark-2-1-gets-public-release</a></li>
+<li id="src-13">Tom's Hardware, "New FurMark Version 2.0 Arrives After 16 Years". <a href="https://www.tomshardware.com/news/furmark-to-hit-version-20-after-16-years">https://www.tomshardware.com/news/furmark-to-hit-version-20-after-16-years</a></li>
+<li id="src-14">AnandTech, Radeon HD 5970 review. <a href="https://anandtech.com/print/3590">https://anandtech.com/print/3590</a></li>
+<li id="src-15">Geeks3D, "(Tested and Burned) ASUS ROG Matrix GTX 580 Platinum Review", 12 Jun 2011 (its comments carry the "FurMark at DreamHack 2011" pingback). <a href="https://geeks3d.com/20110612/asus-rog-matrix-gtx-580-platinum-review-overclocking/">https://geeks3d.com/20110612/asus-rog-matrix-gtx-580-platinum-review-overclocking/</a></li>
+<li id="src-16">Beginner guides that describe it as a stress test rather than a benchmark: Corsair, "How to use FurMark"; Make Tech Easier, "How to Stress Test Your GPU with FurMark". <a href="https://www.corsair.com/explorer/gamer/gaming-pcs/how-to-use-furmark">https://www.corsair.com/explorer/gamer/gaming-pcs/how-to-use-furmark</a></li>
+<li id="src-17">Forum reports on early AMD throttling and a renamed executable (anecdotal, unverified): Guru3D thread "radeon hd 4870 overheating". <a href="http://forums.guru3d.com/showthread.php?t=360883">http://forums.guru3d.com/showthread.php?t=360883</a></li>
+<li id="src-18">Geeks3D, FurMark ROG Edition page and changelog (first ASUS beta 2023.09.18). <a href="https://glslhacker.geeks3d.com/furmark/rog">https://glslhacker.geeks3d.com/furmark/rog</a> and <a href="https://geeks3d.com/furmark/rog/downloads">https://geeks3d.com/furmark/rog/downloads</a></li>
+<li id="src-19">KitGuru, "Furmark 2 benchmark leaves beta and officially launches", 26 Feb 2024. <a href="https://www.kitguru.net/gaming/joao-silva/furmark-2-benchmark-leaves-beta-and-officially-launches/">https://www.kitguru.net/gaming/joao-silva/furmark-2-benchmark-leaves-beta-and-officially-launches/</a></li>
+<li id="src-20">Geeks3D, MSI Kombustor page: "MSI's exclusive burn-in benchmarking tool based on the well-known FurMark software." <a href="https://glslhacker.geeks3d.com/furmark/kombustor">https://glslhacker.geeks3d.com/furmark/kombustor</a></li>
+</ol>
+
+    <nav class="pager"><a href="qa-furmark.html"><span>Read</span><b>FurMark: ten questions answered</b></a></nav>
+  </article>
+</main>
+<footer class="site"><div class="wrap">
+  <div><h4>GPU Benchmark Lore</h4>Sourced histories of FurMark, UNIGINE Superposition and 3DMark. Every claim carries a numbered source; what could not be confirmed says so. Text is MIT-licensed; quotations stay with their owners.</div>
+  <div><h4>Explore</h4><a href="../index.html#timeline">Timeline</a><a href="../index.html#questions">Question explorer</a><a href="fact-check.html">Fact-check log</a></div>
+  <div><h4>Repo</h4><a href="https://github.com/Parris-Tech-Services/furmark-history">GitHub repository</a><a href="../furmark-history-podcast.pdf">Podcast PDF</a></div>
+</div></footer>
+<div class="tip" id="tip"></div>
+<script src="../assets/app.js" data-base="../"></script>
+<script>
+(function(){
+  // wrap tables for horizontal scroll, add heading links
+  document.querySelectorAll("article table").forEach(function(t){var w=document.createElement("div");w.className="tablewrap";t.parentNode.insertBefore(w,t);w.appendChild(t)});
+  document.querySelectorAll("article h2[id],article h3[id]").forEach(function(h){var a=document.createElement("a");a.className="hlink";a.href="#"+h.id;a.textContent="#";a.title="Link to this section";h.appendChild(a)});
+  // external links open in new tab
+  document.querySelectorAll("article a[href^=http]").forEach(function(a){a.target="_blank";a.rel="noopener"});
+  // progress
+  var prog=document.getElementById("prog");
+  function sp(){var h=document.documentElement;var m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?h.scrollTop/m*100:0)+"%"}
+  addEventListener("scroll",sp,{passive:true});sp();
+  // scrollspy
+  var links=[].slice.call(document.querySelectorAll("#tocol a")),map={};
+  links.forEach(function(a){map[a.getAttribute("href").slice(1)]=a});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.remove("on")});var l=map[e.target.id];if(l)l.classList.add("on")}})},{rootMargin:"-80px 0px -70% 0px"});
+  document.querySelectorAll("article h2[id]").forEach(function(h){io.observe(h)});
+  // citation tooltips
+  var tip=document.getElementById("tip");
+  document.querySelectorAll("a.cite").forEach(function(a){
+    var id=a.getAttribute("href").slice(1);
+    a.addEventListener("mouseenter",function(){var li=document.getElementById(id);if(!li)return;tip.textContent=li.textContent.trim().slice(0,320);tip.style.display="block";var r=a.getBoundingClientRect();tip.style.left=Math.min(innerWidth-tip.offsetWidth-12,Math.max(12,r.left-20))+"px";tip.style.top=Math.max(12,r.top-tip.offsetHeight-10)+"px"});
+    a.addEventListener("mouseleave",function(){tip.style.display="none"});
+  });
+})();
+</script>
+</body></html>

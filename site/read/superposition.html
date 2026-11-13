@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en" data-bench="superposition">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UNIGINE Superposition: a history · GPU Benchmark Lore</title>
+<meta name="description" content="From Sanctuary to Superposition 1.1.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));z-index:60}
+.rhero{padding:54px 0 28px;position:relative}
+.rhero::before{content:"";position:absolute;inset:-60px 0 0;background:radial-gradient(60% 80% at 20% 0,color-mix(in srgb,var(--acc) 22%,transparent),transparent 70%);pointer-events:none}
+.rhero h1{font:700 clamp(30px,5vw,54px)/1.08 var(--f-ui);letter-spacing:-.02em;margin:14px 0 10px;max-width:22ch}
+.rhero p{color:var(--mut);font-size:18px;max-width:60ch;margin:0 0 16px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--faint);font:13px var(--f-mono)}
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:48px;align-items:start}
+@media(max-width:960px){.layout{grid-template-columns:1fr;gap:0}}
+aside.toc{position:sticky;top:84px;max-height:calc(100vh - 110px);overflow:auto;font-size:14px;padding-right:6px}
+aside.toc h4{margin:0 0 10px;font:600 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+aside.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:6px 0 6px 14px;color:var(--mut);margin-left:-1px;border-left:2px solid transparent;line-height:1.35}
+aside.toc li a:hover{color:var(--ink);text-decoration:none}
+aside.toc li a.on{color:var(--acc2);border-left-color:var(--acc)}
+@media(max-width:960px){aside.toc{position:static;max-height:none;margin:0 0 22px;border:1px solid var(--line);border-radius:14px;padding:14px}aside.toc ol{border:0}}
+article.prose{font:400 19px/1.72 var(--f-read);color:var(--ink);max-width:70ch}
+article.prose h2{font:700 clamp(24px,3vw,32px)/1.2 var(--f-ui);letter-spacing:-.01em;margin:2.2em 0 .5em;position:relative;padding-top:6px}
+article.prose h2::before{content:"";display:block;width:44px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--acc),var(--acc2));margin-bottom:14px}
+article.prose h3{font:700 21px/1.3 var(--f-ui);margin:1.8em 0 .4em;color:var(--acc2)}
+article.prose p{margin:0 0 1.1em}
+article.prose strong{color:var(--ink)}
+article.prose a{border-bottom:1px solid color-mix(in srgb,var(--acc2) 40%,transparent)}
+article.prose a:hover{text-decoration:none;border-bottom-color:var(--acc2)}
+article.prose blockquote{margin:1.2em 0;padding:4px 0 4px 20px;border-left:3px solid var(--acc);color:var(--mut)}
+article.prose code{font:500 .85em var(--f-mono);background:var(--surface2);padding:2px 6px;border-radius:6px}
+article.prose ul,article.prose ol{padding-left:1.3em}
+article.prose li{margin:.35em 0}
+article.prose li::marker{color:var(--acc2)}
+.tablewrap{overflow-x:auto;margin:1.3em 0;border:1px solid var(--line);border-radius:14px}
+article.prose table{border-collapse:collapse;width:100%;font:15px/1.5 var(--f-ui)}
+article.prose th{background:var(--surface2);text-align:left;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+article.prose th,article.prose td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+article.prose tr:last-child td{border-bottom:0}
+article.prose tbody tr:hover td{background:color-mix(in srgb,var(--acc) 7%,transparent)}
+a.cite{font:600 11px var(--f-mono);vertical-align:super;line-height:0;padding:1px 4px;margin:0 1px;border-radius:5px;background:color-mix(in srgb,var(--acc) 22%,transparent);color:var(--acc2);border:0!important}
+a.cite:hover{background:var(--acc);color:#000}
+#sources+*,h2#sources~ol{font:15px/1.55 var(--f-ui);color:var(--mut)}
+li:target{background:color-mix(in srgb,var(--acc) 20%,transparent);outline:2px solid var(--acc);border-radius:6px}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:70px 0 10px}
+.pager a{display:block;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink)}
+.pager a:hover{border-color:var(--acc);text-decoration:none}
+.pager span{display:block;font:11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.pager b{font-size:17px}
+.pager a:last-child{text-align:right}
+.tip{position:fixed;z-index:80;max-width:420px;background:var(--surface);border:1px solid var(--acc);border-radius:12px;padding:12px 14px;font:13px/1.45 var(--f-ui);color:var(--ink);box-shadow:var(--shadow);pointer-events:none;display:none}
+.hlink{opacity:0;margin-left:8px;color:var(--faint);font-size:.7em;border:0!important}
+h2:hover .hlink,h3:hover .hlink{opacity:1}
+.back{position:fixed;right:18px;bottom:18px;z-index:40}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../index.html"><span class="logo"></span><span class="bt">GPU Benchmark Lore</span></a>
+  <nav class="nav">
+    <a href="../index.html#timeline" class="hide-s">Timeline</a><a href="../index.html#watch" class="hide-s">Watch</a><a href="../index.html#lab" class="hide-s">GPU lab</a><a href="../index.html#library">Library</a>
+    <a href="#" data-open-search>Search <span class="kbd">/</span></a>
+  </nav>
+  <button class="iconbtn" data-theme-toggle title="Toggle light / dark" aria-label="Toggle theme">☾</button>
+</div></header>
+<section class="rhero"><div class="wrap">
+  <span class="tag">History</span>
+  <h1>UNIGINE Superposition: a history</h1>
+  <p>From Sanctuary to Superposition 1.1.</p>
+  <div class="meta"><span>~6 min read</span><span>·</span><a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/SUPERPOSITION.md">view source on GitHub</a></div>
+</div></section>
+<main class="wrap layout">
+  <aside class="toc"><h4>On this page</h4><ol id="tocol"><li><a href="#the-short-version">The short version</a></li><li><a href="#the-family-it-comes-from">The family it comes from</a></li><li><a href="#timeline">Timeline</a></li><li><a href="#what-superposition-is">What Superposition is</a></li><li><a href="#version-11">Version 1.1</a></li><li><a href="#settled-in-the-second-research-pass">Settled in the second research pass</a></li><li><a href="#still-open">Still open</a></li><li><a href="#sources">Sources</a></li></ol></aside>
+  <article class="prose" id="doc">
+<p><strong>Scene deep dive:</strong> <a href="scene-superposition.html">Who is the missing professor? Ten questions about the laboratory's mystery</a>.</p>
+<p><em>Compiled 13 November 2026 from the developer's own pages first, then press and Wikipedia. A second research pass resolved most of the first draft's open questions; what is still open is listed at the end. Source numbers in brackets point to the list at the bottom.</em></p>
+<h2 id="the-short-version">The short version</h2>
+<p>Superposition is the fifth GPU benchmark in a line that UNIGINE, a real-time 3D engine company, began in 2007. It launched on 11 April 2017 on the UNIGINE 2 engine, as the successor to Heaven (2009) and Valley (2013). Its scene is a cluttered lab belonging to a fictional professor; its headline feature is a lighting method UNIGINE calls SSRTGI. It was built to double as a stability and overclocking test, and the only update the developer has shipped is version 1.1 in April 2019. <a class="cite" href="#src-1">1</a><a class="cite" href="#src-2">2</a><a class="cite" href="#src-7">7</a></p>
+<h2 id="the-family-it-comes-from">The family it comes from</h2>
+<p>UNIGINE says it was established in 2005 and builds the UNIGINE engine for simulation, visualization, games and VR. Its own list of its benchmarks is: Sanctuary (2007), Tropics (2008), Heaven (2009), Valley (2013), Superposition (2017). UNIGINE claims "over 40 million active users" across them (a company figure, not independently checked). <a class="cite" href="#src-1">1</a></p>
+<p>Heaven is the one most people remember. It was released on 22 October 2009 and is widely described as the first DirectX 11 benchmark; Wikipedia attributes that to press coverage from Legit Reviews and others, so treat "first" as a contemporary claim, not an audited fact. <a class="cite" href="#src-4">4</a></p>
+<h2 id="timeline">Timeline</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Date</th>
+<th>Event</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2005</td>
+<td>UNIGINE company established</td>
+<td><a class="cite" href="#src-1">1</a></td>
+</tr>
+<tr class="even">
+<td>2007</td>
+<td>Sanctuary benchmark</td>
+<td><a class="cite" href="#src-1">1</a></td>
+</tr>
+<tr class="odd">
+<td>2008</td>
+<td>Tropics benchmark</td>
+<td><a class="cite" href="#src-1">1</a></td>
+</tr>
+<tr class="even">
+<td>22 Oct 2009</td>
+<td>Heaven announced as "the World's first true DirectX 11 benchmark" (UNIGINE's claim, repeated by Legit Reviews on 31 Oct 2009)</td>
+<td><a class="cite" href="#src-11">11</a></td>
+</tr>
+<tr class="odd">
+<td>2013</td>
+<td>Valley benchmark</td>
+<td><a class="cite" href="#src-1">1</a></td>
+</tr>
+<tr class="even">
+<td>Late 2016</td>
+<td>Superposition announced for release by the end of 2016, then slipped (as reported by VideoCardz and Alienware Arena; I saw their headlines and summaries but could not load the pages)</td>
+<td><a class="cite" href="#src-13">13</a></td>
+</tr>
+<tr class="odd">
+<td>11 Apr 2017</td>
+<td>Superposition 1.0 released. TechPowerUp and Overclock3D date their stories to this day; Vortez and GamingOnLinux carried it on the 12th</td>
+<td><a class="cite" href="#src-8">8</a><a class="cite" href="#src-9">9</a><a class="cite" href="#src-10">10</a><a class="cite" href="#src-5">5</a></td>
+</tr>
+<tr class="even">
+<td>April 2017</td>
+<td>UNIGINE's own version history: "Version 1.0. First release version."</td>
+<td><a class="cite" href="#src-7">7</a></td>
+</tr>
+<tr class="odd">
+<td>12 Apr 2019</td>
+<td>Version 1.1</td>
+<td><a class="cite" href="#src-2">2</a><a class="cite" href="#src-7">7</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-superposition-is">What Superposition is</h2>
+<ul>
+<li><strong>The scene.</strong> A lone professor runs dangerous experiments in an abandoned classroom. A loud bang came from the laboratory moments ago, and UNIGINE invites you to work out what happened by inspecting it. <a class="cite" href="#src-6">6</a></li>
+<li><strong>The lighting.</strong> SSRTGI, "Screen-Space Ray-Traced Global Illumination", is UNIGINE's own dynamic lighting technique. It works in screen space; it is not hardware DXR ray tracing, although Wikipedia describes it as a ray-tracing capability test. <a class="cite" href="#src-3">3</a><a class="cite" href="#src-6">6</a></li>
+<li><strong>The engine.</strong> UNIGINE 2. <a class="cite" href="#src-6">6</a></li>
+<li><strong>The presets.</strong> 1080p Medium (entry-level gaming PCs and laptops), 1080p High (mid-range), 1080p Extreme and 4K Optimized (high-end), and 8K Optimized, which the manual labels "future configurations (2017)". A Custom preset exists but cannot be published to the leaderboards. You pick DirectX or OpenGL as the API. <a class="cite" href="#src-7">7</a></li>
+<li><strong>The scoring.</strong> Each test and preset gives its own score. There is no overall score, and scores from different presets are not comparable. A separate VR-ready test is capped at 10,000 and is not sent to the leaderboards. <a class="cite" href="#src-7">7</a></li>
+<li><strong>The modes.</strong> A scripted benchmark, a free interactive mode with mini-games (the manual and 1.1 notes mention throwing darts) and over 900 interactive objects, a loop stress test, VR modes, and a global leaderboard. <a class="cite" href="#src-6">6</a><a class="cite" href="#src-7">7</a></li>
+<li><strong>The editions.</strong> Three: Basic (free: single runs, settings, GPU monitoring, VR-ready test, VR and interactive mode, no leaderboards), Advanced (adds history, leaderboards, the stress test, personal use only) and Pro (adds command-line automation, reports, fixed-frame rendering, per-frame stats, technical support and commercial use). <a class="cite" href="#src-7">7</a></li>
+<li><strong>Platforms.</strong> Windows 7 SP1 64-bit and up, and 64-bit Linux. Minimum GPU is AMD HD 7xxx, Intel HD 5xxx or NVIDIA GTX 6xx, with 2 GB of VRAM. <a class="cite" href="#src-6">6</a></li>
+<li><strong>No Mac version.</strong> UNIGINE's own manual and download list cover Windows and Linux only. A MacRumors thread quotes UNIGINE support saying the Mac was not supported because macOS lacks an OpenGL 4.5 Core profile. Wikipedia's infobox lists macOS, but nothing from the developer backs that. <a class="cite" href="#src-6">6</a><a class="cite" href="#src-7">7</a><a class="cite" href="#src-12">12</a></li>
+</ul>
+<h3 id="launch-reception">Launch reception</h3>
+<p>GamingOnLinux's reviewer called it "very demanding", noted it spread work evenly across all cores, and found the Linux build offered only OpenGL (no Vulkan) and detected only 3 GB of his 8 GB card at launch. Headset VR was not implemented on Linux then; the 1.1 update added it via SteamVR. <a class="cite" href="#src-5">5</a><a class="cite" href="#src-2">2</a></p>
+<h2 id="version-11">Version 1.1</h2>
+<p>Released 12 April 2019, and per the developer's own version history it is the last entry. <a class="cite" href="#src-7">7</a> It brought:</p>
+<ul>
+<li>VR mode for the free Basic edition (it had been paid-only) and VR on Linux via SteamVR.</li>
+<li>Better CPU and GPU detection, plus a major hardware-database update.</li>
+<li>Updated Oculus and OpenVR libraries (as of 3 March 2019) and a new HTC Vive Pro preset for the VR-ready test.</li>
+<li>Maximum render resolution raised to 16384 x 16384.</li>
+<li>Pro-edition automation: VR-ready mode, four new scripts, event-log entries for each run, and correct handling of paths with spaces.</li>
+<li>Fixes for the VR hotkeys, the 3440x1440 resolution selection, non-Latin profile names in licence checks, the 22:9 splash screen, and a crash when throwing darts.</li>
+</ul>
+<p>UNIGINE's post also gave two years of usage figures: over 200K competitive scores, 8,000+ benchmarking videos, and 3,338,923 tests run. It says reviewers like Tom's Hardware, Linus Tech Tips, PC Magazine and Phoronix use the benchmark regularly, and that an 8K demo was broadcast from space by satellite. These are the developer's own claims. <a class="cite" href="#src-2">2</a></p>
+<h2 id="settled-in-the-second-research-pass">Settled in the second research pass</h2>
+<ul>
+<li><strong>Launch day:</strong> 11 April 2017. Two review sites dated their stories that day; the 12 April dates are later coverage. <a class="cite" href="#src-8">8</a><a class="cite" href="#src-9">9</a><a class="cite" href="#src-10">10</a><a class="cite" href="#src-5">5</a></li>
+<li><strong>Versions after 1.1:</strong> none in the developer's version history, and the Chocolatey and MajorGeeks listings also show 1.1. <a class="cite" href="#src-7">7</a></li>
+<li><strong>macOS:</strong> never supported by the developer (see above).</li>
+<li><strong>"Superposition is a ray-tracing benchmark":</strong> no. SSRTGI is screen-space; the later DXR-based tests came from 3DMark. <a class="cite" href="#src-3">3</a><a class="cite" href="#src-6">6</a></li>
+</ul>
+<h2 id="still-open">Still open</h2>
+<ul>
+<li>The original UNIGINE press release for 1.0. I could not find it; the April 2017 date comes from the manual and the review sites.</li>
+<li>The Tom's Hardware, TechPowerUp, Vortez, VideoCardz and Phoronix launch stories blocked my fetches, so those are cited only from search summaries and headline dates.</li>
+<li>UNIGINE's usage numbers and the "over 40 million active users" figure are the company's own and are not independently audited.</li>
+</ul>
+<h2 id="sources">Sources</h2>
+<ol type="1">
+<li id="src-1">UNIGINE Benchmarks, "About us". <a href="https://benchmark.unigine.com/about">https://benchmark.unigine.com/about</a></li>
+<li id="src-2">UNIGINE, "Superposition Benchmark 1.1: Free VR to Everyone", 12 April 2019. <a href="https://unigine.com/news/2019/superposition-benchmark-1-1-free-vr-to-everyone">https://unigine.com/news/2019/superposition-benchmark-1-1-free-vr-to-everyone</a></li>
+<li id="src-3">Wikipedia, "Superposition Benchmark" (raw page, fetched 13 Nov 2026). <a href="https://en.wikipedia.org/wiki/Superposition_Benchmark">https://en.wikipedia.org/wiki/Superposition_Benchmark</a></li>
+<li id="src-4">Wikipedia, "Heaven Benchmark" (raw page). <a href="https://en.wikipedia.org/wiki/Heaven_Benchmark">https://en.wikipedia.org/wiki/Heaven_Benchmark</a></li>
+<li id="src-5">GamingOnLinux, "Superposition, the latest benchmark by Unigine, has been released", 12 April 2017. <a href="https://gamingonlinux.com/2017/04/superposition-the-latest-benchmark-by-unigine-has-been-released/">https://gamingonlinux.com/2017/04/superposition-the-latest-benchmark-by-unigine-has-been-released/</a></li>
+<li id="src-6">UNIGINE Benchmarks, "Superposition benchmark" product page. <a href="https://benchmark.unigine.com/superposition">https://benchmark.unigine.com/superposition</a></li>
+<li id="src-7">UNIGINE, "Superposition Benchmark 1.1 User Manual" (version history, editions, presets, scoring). <a href="https://benchmark.unigine.com/docs/superposition/Superposition_Benchmark_User_Manual.pdf">https://benchmark.unigine.com/docs/superposition/Superposition_Benchmark_User_Manual.pdf</a></li>
+<li id="src-8">TechPowerUp, "Unigine Superposition 1.0 Benchmark Released", 11 April 2017 (date seen in search results; page blocked). <a href="https://www.techpowerup.com/232288/unigine-superposition-1-0-benchmark-released">https://www.techpowerup.com/232288/unigine-superposition-1-0-benchmark-released</a></li>
+<li id="src-9">Overclock3D, "Unigine's Superposition benchmark has been released", 11 April 2017 (date seen in search results). <a href="https://overclock3d.net/news/software/unigines-superposition-benchmark-has-been-released/">https://overclock3d.net/news/software/unigines-superposition-benchmark-has-been-released/</a></li>
+<li id="src-10">Vortez, "Unigine Superposition Benchmark Released", 12 April 2017 (search results only). <a href="https://www.vortez.net/unigine_superposition_benchmark_released/">https://www.vortez.net/unigine_superposition_benchmark_released/</a></li>
+<li id="src-11">Legit Reviews, "Unigine 'Heaven' - The First DirectX 11 Benchmark", 31 October 2009. <a href="https://www.legitreviews.com/unigine-heaven-the-first-directx-11-benchmark_1117">https://www.legitreviews.com/unigine-heaven-the-first-directx-11-benchmark_1117</a></li>
+<li id="src-12">MacRumors forums, "Unigene Superposition Benchmark" (undated; predates 1.1). <a href="https://forums.macrumors.com/threads/unigene-superposition-benchmark.2043107/">https://forums.macrumors.com/threads/unigene-superposition-benchmark.2043107/</a></li>
+<li id="src-13">VideoCardz, "UNIGINE announces Superposition benchmark" and Alienware Arena, "Unigine Superposition Benchmark finally released" (headlines and summaries only; pages blocked). <a href="https://videocardz.com/65465/unigine-announces-superposition-benchmark-coming-q4-2016">https://videocardz.com/65465/unigine-announces-superposition-benchmark-coming-q4-2016</a></li>
+</ol>
+
+    <nav class="pager"><a href="qa-superposition.html"><span>Read</span><b>Superposition: ten questions answered</b></a></nav>
+  </article>
+</main>
+<footer class="site"><div class="wrap">
+  <div><h4>GPU Benchmark Lore</h4>Sourced histories of FurMark, UNIGINE Superposition and 3DMark. Every claim carries a numbered source; what could not be confirmed says so. Text is MIT-licensed; quotations stay with their owners.</div>
+  <div><h4>Explore</h4><a href="../index.html#timeline">Timeline</a><a href="../index.html#questions">Question explorer</a><a href="fact-check.html">Fact-check log</a></div>
+  <div><h4>Repo</h4><a href="https://github.com/Parris-Tech-Services/furmark-history">GitHub repository</a><a href="../furmark-history-podcast.pdf">Podcast PDF</a></div>
+</div></footer>
+<div class="tip" id="tip"></div>
+<script src="../assets/app.js" data-base="../"></script>
+<script>
+(function(){
+  // wrap tables for horizontal scroll, add heading links
+  document.querySelectorAll("article table").forEach(function(t){var w=document.createElement("div");w.className="tablewrap";t.parentNode.insertBefore(w,t);w.appendChild(t)});
+  document.querySelectorAll("article h2[id],article h3[id]").forEach(function(h){var a=document.createElement("a");a.className="hlink";a.href="#"+h.id;a.textContent="#";a.title="Link to this section";h.appendChild(a)});
+  // external links open in new tab
+  document.querySelectorAll("article a[href^=http]").forEach(function(a){a.target="_blank";a.rel="noopener"});
+  // progress
+  var prog=document.getElementById("prog");
+  function sp(){var h=document.documentElement;var m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?h.scrollTop/m*100:0)+"%"}
+  addEventListener("scroll",sp,{passive:true});sp();
+  // scrollspy
+  var links=[].slice.call(document.querySelectorAll("#tocol a")),map={};
+  links.forEach(function(a){map[a.getAttribute("href").slice(1)]=a});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.remove("on")});var l=map[e.target.id];if(l)l.classList.add("on")}})},{rootMargin:"-80px 0px -70% 0px"});
+  document.querySelectorAll("article h2[id]").forEach(function(h){io.observe(h)});
+  // citation tooltips
+  var tip=document.getElementById("tip");
+  document.querySelectorAll("a.cite").forEach(function(a){
+    var id=a.getAttribute("href").slice(1);
+    a.addEventListener("mouseenter",function(){var li=document.getElementById(id);if(!li)return;tip.textContent=li.textContent.trim().slice(0,320);tip.style.display="block";var r=a.getBoundingClientRect();tip.style.left=Math.min(innerWidth-tip.offsetWidth-12,Math.max(12,r.left-20))+"px";tip.style.top=Math.max(12,r.top-tip.offsetHeight-10)+"px"});
+    a.addEventListener("mouseleave",function(){tip.style.display="none"});
+  });
+})();
+</script>
+</body></html>

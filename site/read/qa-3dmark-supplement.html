@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en" data-bench="3dmark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3DMark: supplementary answers · GPU Benchmark Lore</title>
+<meta name="description" content="UL timeline, async compute, audits, pricing.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));z-index:60}
+.rhero{padding:54px 0 28px;position:relative}
+.rhero::before{content:"";position:absolute;inset:-60px 0 0;background:radial-gradient(60% 80% at 20% 0,color-mix(in srgb,var(--acc) 22%,transparent),transparent 70%);pointer-events:none}
+.rhero h1{font:700 clamp(30px,5vw,54px)/1.08 var(--f-ui);letter-spacing:-.02em;margin:14px 0 10px;max-width:22ch}
+.rhero p{color:var(--mut);font-size:18px;max-width:60ch;margin:0 0 16px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--faint);font:13px var(--f-mono)}
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:48px;align-items:start}
+@media(max-width:960px){.layout{grid-template-columns:1fr;gap:0}}
+aside.toc{position:sticky;top:84px;max-height:calc(100vh - 110px);overflow:auto;font-size:14px;padding-right:6px}
+aside.toc h4{margin:0 0 10px;font:600 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+aside.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:6px 0 6px 14px;color:var(--mut);margin-left:-1px;border-left:2px solid transparent;line-height:1.35}
+aside.toc li a:hover{color:var(--ink);text-decoration:none}
+aside.toc li a.on{color:var(--acc2);border-left-color:var(--acc)}
+@media(max-width:960px){aside.toc{position:static;max-height:none;margin:0 0 22px;border:1px solid var(--line);border-radius:14px;padding:14px}aside.toc ol{border:0}}
+article.prose{font:400 19px/1.72 var(--f-read);color:var(--ink);max-width:70ch}
+article.prose h2{font:700 clamp(24px,3vw,32px)/1.2 var(--f-ui);letter-spacing:-.01em;margin:2.2em 0 .5em;position:relative;padding-top:6px}
+article.prose h2::before{content:"";display:block;width:44px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--acc),var(--acc2));margin-bottom:14px}
+article.prose h3{font:700 21px/1.3 var(--f-ui);margin:1.8em 0 .4em;color:var(--acc2)}
+article.prose p{margin:0 0 1.1em}
+article.prose strong{color:var(--ink)}
+article.prose a{border-bottom:1px solid color-mix(in srgb,var(--acc2) 40%,transparent)}
+article.prose a:hover{text-decoration:none;border-bottom-color:var(--acc2)}
+article.prose blockquote{margin:1.2em 0;padding:4px 0 4px 20px;border-left:3px solid var(--acc);color:var(--mut)}
+article.prose code{font:500 .85em var(--f-mono);background:var(--surface2);padding:2px 6px;border-radius:6px}
+article.prose ul,article.prose ol{padding-left:1.3em}
+article.prose li{margin:.35em 0}
+article.prose li::marker{color:var(--acc2)}
+.tablewrap{overflow-x:auto;margin:1.3em 0;border:1px solid var(--line);border-radius:14px}
+article.prose table{border-collapse:collapse;width:100%;font:15px/1.5 var(--f-ui)}
+article.prose th{background:var(--surface2);text-align:left;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+article.prose th,article.prose td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+article.prose tr:last-child td{border-bottom:0}
+article.prose tbody tr:hover td{background:color-mix(in srgb,var(--acc) 7%,transparent)}
+a.cite{font:600 11px var(--f-mono);vertical-align:super;line-height:0;padding:1px 4px;margin:0 1px;border-radius:5px;background:color-mix(in srgb,var(--acc) 22%,transparent);color:var(--acc2);border:0!important}
+a.cite:hover{background:var(--acc);color:#000}
+#sources+*,h2#sources~ol{font:15px/1.55 var(--f-ui);color:var(--mut)}
+li:target{background:color-mix(in srgb,var(--acc) 20%,transparent);outline:2px solid var(--acc);border-radius:6px}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:70px 0 10px}
+.pager a{display:block;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink)}
+.pager a:hover{border-color:var(--acc);text-decoration:none}
+.pager span{display:block;font:11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.pager b{font-size:17px}
+.pager a:last-child{text-align:right}
+.tip{position:fixed;z-index:80;max-width:420px;background:var(--surface);border:1px solid var(--acc);border-radius:12px;padding:12px 14px;font:13px/1.45 var(--f-ui);color:var(--ink);box-shadow:var(--shadow);pointer-events:none;display:none}
+.hlink{opacity:0;margin-left:8px;color:var(--faint);font-size:.7em;border:0!important}
+h2:hover .hlink,h3:hover .hlink{opacity:1}
+.back{position:fixed;right:18px;bottom:18px;z-index:40}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../index.html"><span class="logo"></span><span class="bt">GPU Benchmark Lore</span></a>
+  <nav class="nav">
+    <a href="../index.html#timeline" class="hide-s">Timeline</a><a href="../index.html#watch" class="hide-s">Watch</a><a href="../index.html#lab" class="hide-s">GPU lab</a><a href="../index.html#library">Library</a>
+    <a href="#" data-open-search>Search <span class="kbd">/</span></a>
+  </nav>
+  <button class="iconbtn" data-theme-toggle title="Toggle light / dark" aria-label="Toggle theme">☾</button>
+</div></header>
+<section class="rhero"><div class="wrap">
+  <span class="tag">Deep dive</span>
+  <h1>3DMark: supplementary answers</h1>
+  <p>UL timeline, async compute, audits, pricing.</p>
+  <div class="meta"><span>~14 min read</span><span>·</span><a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/QA_3DMARK_SUPPLEMENT.md">view source on GitHub</a></div>
+</div></section>
+<main class="wrap layout">
+  <aside class="toc"><h4>On this page</h4><ol id="tocol"><li><a href="#1-how-are-time-spy-and-steel-nomad-scored-and-what-do-they-render">1. How are Time Spy and Steel Nomad scored, and what do they render?</a></li><li><a href="#2-how-big-is-3dmarks-user-base-and-who-holds-records">2. How big is 3DMark&#x27;s user base, and who holds records?</a></li><li><a href="#3-the-3dmark03-driver-scandal-and-the-smartphone-delistings">3. The 3DMark03 driver scandal and the smartphone delistings</a></li><li><a href="#4-the-time-spy-asynchronous-compute-controversy">4. The Time Spy asynchronous compute controversy</a></li><li><a href="#5-which-feature-tests-exist-and-when-did-they-arrive">5. Which feature tests exist, and when did they arrive?</a></li><li><a href="#6-the-mobile-tests">6. The mobile tests</a></li><li><a href="#7-what-has-3dmark-cost">7. What has 3DMark cost?</a></li><li><a href="#8-other-futuremark-benchmarks-and-the-vantage-physx-dispute">8. Other Futuremark benchmarks, and the Vantage PhysX dispute</a></li><li><a href="#9-how-does-the-benchmark-development-program-work">9. How does the Benchmark Development Program work?</a></li><li><a href="#10-how-were-port-royal-and-speed-way-received-and-how-do-they-relate-to-games">10. How were Port Royal and Speed Way received, and how do they relate to games?</a></li><li><a href="#sources">Sources</a></li></ol></aside>
+  <article class="prose" id="doc">
+<p><em>This file was written in parallel with <a href="qa-3dmark.html">QA_3DMARK.md</a>, which answers the same ten questions from a different set of sources. Read both: this one adds UL's About-page timeline, the Time Spy async-compute post, the 2003 audit, the Huawei delisting, Steel Nomad's engine page and the pricing notices. Where the two differ, check the cited primary page.</em></p>
+<p><em>Researched 13 November 2026. UL's own support pages, news posts, About-page timeline and technical guide were read directly; press and forums are labelled. Claims I could not confirm are marked "not confirmed". Sources are numbered at the end.</em></p>
+<h2 id="1-how-are-time-spy-and-steel-nomad-scored-and-what-do-they-render">1. How are Time Spy and Steel Nomad scored, and what do they render?</h2>
+<p><strong>Time Spy.</strong> Two graphics tests (2560x1440) and a CPU test. The overall score is a weighted harmonic mean: (W_g + W_c) / (W_g / S_g + W_c / S_c), with the graphics weight 0.85 and the CPU weight 0.15 <a class="cite" href="#src-1">1</a>. The graphics score is the harmonic mean of the two tests' average frame rates times a scaling constant, which brings it in line with traditional 3DMark levels; the CPU score derives from simulation time per frame <a class="cite" href="#src-1">1</a>. A harmonic mean means a weak CPU or GPU drags the total down more than an arithmetic mean would <a class="cite" href="#src-1">1</a>.</p>
+<p><strong>Steel Nomad.</strong> Rendering resolution 3840 x 2160, DirectX 12 feature level 12 or Vulkan 1.1, one graphics test and no CPU test <a class="cite" href="#src-2">2</a>. The overall score equals the graphics score, which is the average frame rate times 100 <a class="cite" href="#src-3">3</a>. Speed Way uses the same rule: score = average FPS x 100 <a class="cite" href="#src-4">4</a>.</p>
+<p>What Steel Nomad renders (UL's "engine" page) <a class="cite" href="#src-5">5</a>: opaque objects with deferred rendering into a G-buffer with PBR material parameters, shading in linear HDR; order-independent transparency; decals; reflections and diffuse global illumination sampled from probes spread around the scene; GPU-simulated particles (compute shaders); grass in compute shaders with distance-based level of detail; a dynamic ray-marched volumetric cloud sky; screen-space contact shadows; screen-space reflections with a cube-map fallback; heat distortion from particles; compute-shader FFT bloom (blur, streaks, anamorphic flare, lenticular halo); a three-pass froxel volume illumination for fog; scatter-as-gather depth of field; and XeGTAO ambient occlusion (ultra quality in compute shaders in Steel Nomad, high quality in pixel shaders in Light) <a class="cite" href="#src-5">5</a>. Steel Nomad uses asynchronous compute to overlap the first volume-illumination pass with other passes; Light does not, and also has no volume illumination <a class="cite" href="#src-5">5</a>. It is explicitly non-ray-traced <a class="cite" href="#src-6">6</a>. Version history: 1.0, launch version, and no later version <a class="cite" href="#src-7">7</a>.</p>
+<h2 id="2-how-big-is-3dmarks-user-base-and-who-holds-records">2. How big is 3DMark's user base, and who holds records?</h2>
+<p>UL gives few total figures. Hard numbers from UL: Time Spy had "almost 48 million" submitted results by May 2024 <a class="cite" href="#src-6">6</a>; the Android app had "more than 100,000 downloads in its first week" (April 2013) and the iOS app 50,000 downloads in two weeks (September 2013) <a class="cite" href="#src-8">8</a>; UL describes the 3DMark Hall of Fame as the home of world-record scores <a class="cite" href="#src-9">9</a>. A third-party download page claims "25 years, 50M+ results" but I could not trace that to UL, so I treat it as unconfirmed <a class="cite" href="#src-10">10</a>. I found no UL total for all results or for active users.</p>
+<p>Records: cached Hall of Fame pages show Port Royal's top entries in the high 40,000s on RTX 5090 systems (for example 47,311 on an RTX 5090 with a Core i9-14900KS at rank 85 in one snapshot), and an old Time Spy snapshot headed by multi-GPU rigs <a class="cite" href="#src-9">9</a>. The pages carry a notice about turbulence and the snapshots are of different dates, so these are not current standings. HWBot and the Hall of Fame both hold records; I did not reconcile them. Not confirmed.</p>
+<h2 id="3-the-3dmark03-driver-scandal-and-the-smartphone-delistings">3. The 3DMark03 driver scandal and the smartphone delistings</h2>
+<p><strong>May 2003.</strong> An ExtremeTech investigation of Nvidia's drivers prompted a Futuremark audit <a class="cite" href="#src-11">11</a>. On Friday 23 May 2003, Futuremark published a seven-page audit of Detonator FX 44.03 and 43.51 drivers listing eight instances where it believed Nvidia modified drivers unfairly; renaming the benchmark executable lowered scores in certain tests <a class="cite" href="#src-11">11</a><a class="cite" href="#src-12">12</a>. Futuremark's patch 330 stops the drivers recognising the benchmark; it measured the GeForce FX 5900 Ultra dropping about 24% with it, versus under 2% for ATI's Radeon 9800 Pro <a class="cite" href="#src-12">12</a>. The Register (27 May 2003) reported ATI also admitted tweaks: renaming the executable cut Game Test 4 by 8% and the total by just under 2% (ATI said it was an optimization of the water and sky shaders, "mathematically and functionally identical", and promised to remove it) <a class="cite" href="#src-11">11</a>. Weeks later Futuremark reversed course: it said Nvidia's approach was an "application specific optimization" rather than a cheat, but still said the rules were broken, and did not reinstate the original results; a joint statement called for clear industry rules for benchmarks <a class="cite" href="#src-13">13</a>.</p>
+<p><strong>Phones.</strong> On 7 September 2018 UL delisted the Huawei P20 Pro, Nova 3 and Honor Play (and the P20 based on AnandTech's testing). UL compared the public 3DMark app with a private build that is not available to manufacturers: public-app scores were up to 47% higher with identical tests, meaning the phones recognised the app by name. Delisted devices appear unranked, without scores <a class="cite" href="#src-14">14</a>. Other delistings reported: OPPO's Find X and F7 (2018) and a 2013 sweep of HTC and Samsung Android devices <a class="cite" href="#src-15">15</a>; and in April 2020 MediaTek-based phones from Xiaomi, OPPO, Vivo, Sony and Realme <a class="cite" href="#src-16">16</a>.</p>
+<h2 id="4-the-time-spy-asynchronous-compute-controversy">4. The Time Spy asynchronous compute controversy</h2>
+<p>In July 2016 a forum post on Overclock.net argued Time Spy's async compute use fit Nvidia's architecture better than AMD's: in DOOM and Ashes of the Singularity the Fury X beat a GTX 1070, but not in Time Spy <a class="cite" href="#src-17">17</a>. PC Perspective explained the issue and noted the causes were unknown (driver maturity, optimization differences) <a class="cite" href="#src-17">17</a>.</p>
+<p>Futuremark replied on 19 July 2016 with a detailed post. Its main points: Time Spy was developed with input from AMD, Intel, Microsoft, NVIDIA and others in the Benchmark Development Program, in development for nearly two years; vendors spent weeks in the office, downloaded daily source drops hundreds of times, and exchanged "around one thousand emails" on it; the engine uses two queues, DIRECT and COMPUTE, regardless of the hardware; "the implementation is the same regardless of the underlying hardware" with no vendor-specific optimizations; and whether COMPUTE-queue work runs in parallel or serial "is ultimately the decision of the underlying driver" because DirectX 12 only lets an application permit parallel execution <a class="cite" href="#src-18">18</a>. The post shows GPUView traces for the GTX 970, Fury and GTX 1080 with async compute on and off, and the compute work items: particle simulation, light culling and tiling, environment reflections, HBAO and unshadowed surface illumination <a class="cite" href="#src-18">18</a>. Futuremark's stated principle is that 3DMark predicts games in general, not absolute theoretical maximums <a class="cite" href="#src-18">18</a>. Forum claims that Nvidia's driver disables async on pre-Pascal cards, or that Time Spy's version is "preemption based", are unconfirmed forum claims <a class="cite" href="#src-19">19</a>.</p>
+<h2 id="5-which-feature-tests-exist-and-when-did-they-arrive">5. Which feature tests exist, and when did they arrive?</h2>
+<p>From UL's About-page timeline and release notes <a class="cite" href="#src-8">8</a><a class="cite" href="#src-20">20</a>:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Date</th>
+<th>Feature test</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>March 2015</td>
+<td>API Overhead, "the world's first DirectX 12 API performance test" (Vulkan added March 2017; Android Vulkan August 2017)</td>
+</tr>
+<tr class="even">
+<td>June 2016</td>
+<td>Stress tests added (loop runs to check stability)</td>
+</tr>
+<tr class="odd">
+<td>February 2019</td>
+<td>NVIDIA DLSS feature test (DLSS 2 and three quality modes added September 2020; DLSS 3 and Frame Generation October 2022)</td>
+</tr>
+<tr class="even">
+<td>June 2019</td>
+<td>PCI Express bandwidth feature test</td>
+</tr>
+<tr class="odd">
+<td>August 2019</td>
+<td>VRS feature test (Tier 2 option added December 2019)</td>
+</tr>
+<tr class="even">
+<td>October 2020</td>
+<td>DirectX Raytracing feature test</td>
+</tr>
+<tr class="odd">
+<td>February 2021</td>
+<td>Mesh Shader feature test</td>
+</tr>
+<tr class="even">
+<td>June 2021</td>
+<td>CPU Profile (1, 2, 4, 8, 16 or max threads)</td>
+</tr>
+<tr class="odd">
+<td>August 2021</td>
+<td>Sampler Feedback feature test</td>
+</tr>
+<tr class="even">
+<td>November 2021</td>
+<td>Storage Benchmark (a paid add-on)</td>
+</tr>
+<tr class="odd">
+<td>October 2022</td>
+<td>Intel XeSS feature test</td>
+</tr>
+<tr class="even">
+<td>March 2023</td>
+<td>AMD FSR feature test (release notes: 30 March 2023, "FSR 2")</td>
+</tr>
+<tr class="odd">
+<td>October 2024</td>
+<td>Opacity Micromap feature test (Android)</td>
+</tr>
+<tr class="even">
+<td>November 2024</td>
+<td>DirectStorage feature test</td>
+</tr>
+</tbody>
+</table>
+<p>The Mesh Shader test, per UL, uses a hall of carved pillars: one pass culls with the traditional approach, a second with mesh shaders, to show how game engines can boost frame rates <a class="cite" href="#src-21">21</a>. UL's Sampler Feedback test (24 August 2021 per its news post; the timeline says August 2021) made 3DMark the first public app with all four DirectX 12 Ultimate features, according to UL's coverage <a class="cite" href="#src-20">20</a><a class="cite" href="#src-22">22</a>.</p>
+<h2 id="6-the-mobile-tests">6. The mobile tests</h2>
+<p>UL's timeline gives: 3DMark for Android in April 2013 (100,000+ downloads in the first week), iOS in September 2013 (50,000 in two weeks), Windows RT in October 2013 <a class="cite" href="#src-8">8</a>. Ice Storm and Ice Storm Extreme were released in 2013 and support ended on 14 January 2020 (Ice Storm used OpenGL ES 2.0 on mobile) <a class="cite" href="#src-23">23</a>. Sling Shot (OpenGL ES 3.1 and 3.0) arrived on Android in July 2015 and iOS in October 2015, with Sling Shot Extreme using Apple's Metal in March 2016 <a class="cite" href="#src-8">8</a>. Wild Life arrived in October 2020 as a cross-platform benchmark for Apple, Android and Windows (Vulkan on Windows and Android; 2560 x 1440) <a class="cite" href="#src-8">8</a><a class="cite" href="#src-24">24</a>. Wild Life Extreme followed in May 2021 at 3840 x 2160, for Windows notebooks, Arm PCs and Apple M1 Macs <a class="cite" href="#src-8">8</a><a class="cite" href="#src-24">24</a>. Solar Bay launched in August 2023 as a ray-tracing benchmark: Vulkan 1.1, a benchmark whose ray-traced workload increases linearly by 100% over three stages with four scores, plus a stress test that loops for 20 minutes; the app was previously "3DMark Wild Life Benchmark" <a class="cite" href="#src-25">25</a>. Steel Nomad Light (May 2024) is the 1440p test for lighter devices <a class="cite" href="#src-24">24</a>. Solar Bay Extreme followed in August 2025 <a class="cite" href="#src-8">8</a>.</p>
+<h2 id="7-what-has-3dmark-cost">7. What has 3DMark cost?</h2>
+<p>UL's own price statements: from 12 October 2022, 3DMark Advanced Edition and 3DMark on Steam cost US$34.99, because Speed Way was included; existing owners could buy a Speed Way Upgrade DLC for <span class="math inline">4.99, <em>a</em><em>n</em><em>d</em><em>a</em><em>S</em><em>t</em><em>e</em><em>a</em><em>m</em><em>p</em><em>o</em><em>l</em><em>i</em><em>c</em><em>y</em><em>c</em><em>h</em><em>a</em><em>n</em><em>g</em><em>e</em><em>m</em><em>e</em><em>a</em><em>n</em><em>t</em><em>s</em><em>t</em><em>a</em><em>n</em><em>d</em><em>a</em><em>l</em><em>o</em><em>n</em><em>e</em><em>A</em><em>d</em><em>v</em><em>a</em><em>n</em><em>c</em><em>e</em><em>d</em><em>l</em><em>i</em><em>c</em><em>e</em><em>n</em><em>s</em><em>e</em><em>s</em><em>b</em><em>o</em><em>u</em><em>g</em><em>h</em><em>t</em><em>a</em><em>f</em><em>t</em><em>e</em><em>r</em><em>t</em><em>h</em><em>a</em><em>t</em><em>d</em><em>a</em><em>t</em><em>e</em><em>c</em><em>o</em><em>u</em><em>l</em><em>d</em><em>n</em><em>o</em><em>t</em><em>b</em><em>e</em><em>a</em><em>d</em><em>d</em><em>e</em><em>d</em><em>t</em><em>o</em><em>S</em><em>t</em><em>e</em><em>a</em><em>m</em><em>a</em><em>c</em><em>c</em><em>o</em><em>u</em><em>n</em><em>t</em><em>s</em><a class="cite" href="#src-26">26</a>.<em>I</em><em>n</em><em>M</em><em>a</em><em>y</em>2024<em>S</em><em>t</em><em>e</em><em>e</em><em>l</em><em>N</em><em>o</em><em>m</em><em>a</em><em>d</em><em>c</em><em>o</em><em>s</em><em>t</em><em>U</em><em>S</em></span>34.99 on Steam for newcomers (launch-week 75% off) and was free to existing owners <a class="cite" href="#src-6">6</a><a class="cite" href="#src-27">27</a>. Earlier price points: UL's statement that the price rose implies a lower earlier price; a secondary source says US<span class="math inline">29.99<em>n</em><em>o</em><em>r</em><em>m</em><em>a</em><em>l</em><em>A</em><em>d</em><em>v</em><em>a</em><em>n</em><em>c</em><em>e</em><em>d</em><em>p</em><em>r</em><em>i</em><em>c</em><em>e</em>, <em>a</em><em>n</em><em>d</em><em>P</em><em>C</em><em>G</em><em>a</em><em>m</em><em>e</em><em>r</em><em>r</em><em>e</em><em>p</em><em>o</em><em>r</em><em>t</em><em>s</em><em>s</em><em>a</em><em>l</em><em>e</em><em>s</em><em>t</em><em>a</em><em>k</em><em>i</em><em>n</em><em>g</em><em>A</em><em>d</em><em>v</em><em>a</em><em>n</em><em>c</em><em>e</em><em>d</em><em>u</em><em>n</em><em>d</em><em>e</em><em>r</em><em>U</em><em>S</em></span>5 <a class="cite" href="#src-28">28</a>. A reseller page lists Professional at US<span class="math inline">995<em>a</em><em>n</em><em>d</em><em>a</em><em>t</em><em>h</em><em>i</em><em>r</em><em>d</em> − <em>p</em><em>a</em><em>r</em><em>t</em><em>y</em><em>p</em><em>a</em><em>g</em><em>e</em><em>U</em><em>S</em></span>1,495 per year; neither is UL's own page, so unconfirmed <a class="cite" href="#src-29">29</a>. UL says Professional customers with a perpetual license need an annual license for Speed Way <a class="cite" href="#src-26">26</a>. Free: Basic Edition with the main tests (UL's 2011 Vantage Basic was also free) <a class="cite" href="#src-29">29</a>. I did not find Steam player counts or review totals. Not confirmed.</p>
+<h2 id="8-other-futuremark-benchmarks-and-the-vantage-physx-dispute">8. Other Futuremark benchmarks, and the Vantage PhysX dispute</h2>
+<p>From UL's timeline <a class="cite" href="#src-8">8</a>: Final Reality (May 1997, Remedy, before the company existed) <a class="cite" href="#src-30">30</a>; PCMark2002 (March 2002); PCMark04 (November 2003); PCMark05 (June 2005); PCMark Vantage (October 2007); Peacekeeper (March 2009, free browser test; universal-browser version November 2011); PCMark 7 (May 2011); Powermark (December 2011); PCMark 8 (June 2013 Professional); PCMark for Android (October 2014); VRMark (November 2016; Cyan Room November 2017); PCMark 10 (June 2017); Testdriver (July 2017); Servermark (November 2017 onward); Procyon (September 2020). Peacekeeper support ended on 29 July 2015 <a class="cite" href="#src-31">31</a>. The UL timeline states 3DMark06 (January 2006) was "our most popular 3DMark yet" and Fire Strike Ultra (October 2014) the "world's first 4K Ultra HD benchmark" and Time Spy Extreme (October 2017) the "world's first 4K DirectX 12 benchmark test" <a class="cite" href="#src-8">8</a>.</p>
+<p><strong>Vantage PhysX.</strong> Nvidia's ForceWare 177.39 drivers let 3DMark Vantage's CPU physics test run on the GPU, via PhysX, inflating the CPU score; reports quote CPU Test 2 at about 15 FPS without and 128 FPS with GPU PhysX <a class="cite" href="#src-32">32</a>. Nvidia said this was a physics test, not a graphics test; AMD and others objected. Futuremark's CEO said GPU PhysX would not be allowed because the CPU test measures CPU physics, and Futuremark updated its Hall of Fame to exclude GPU PhysX results <a class="cite" href="#src-32">32</a>. I did not retrieve Futuremark's own statement or exact dates, and some reports conflict on stages of the policy. Partly confirmed.</p>
+<h2 id="9-how-does-the-benchmark-development-program-work">9. How does the Benchmark Development Program work?</h2>
+<p>UL describes it as industry cooperation: each 3DMark "was developed with input from" AMD, Intel, NVIDIA and other members of the "UL Benchmark Development Program" <a class="cite" href="#src-2">2</a><a class="cite" href="#src-24">24</a>. The fullest account is Futuremark's own July 2016 post: members receive regular builds throughout development and conduct their own testing at each stage; they have source-code access and can suggest changes; all work is in a single source tree, so anything suggested by a vendor can be seen; vendors reviewed Time Spy for weeks in the office; and when members disagree, Futuremark listens to all sides, consults game developers, and asks "Is this the approach a game developer would take?" <a class="cite" href="#src-18">18</a>. Futuremark says vendors are invariably against vendor-specific paths, because they would alter the work done and break comparability <a class="cite" href="#src-18">18</a>. A forum claim that Futuremark cannot publish unless all vendors approve is unconfirmed <a class="cite" href="#src-19">19</a>. UL's 2026 Seasonic sponsorship shows another input: UL says the sponsor's logo is displayed inside the benchmark <a class="cite" href="#src-33">33</a>; it does not say what sponsors pay or whether they influence the test. UL's BDP page was not retrievable; a full member list is not confirmed.</p>
+<h2 id="10-how-were-port-royal-and-speed-way-received-and-how-do-they-relate-to-games">10. How were Port Royal and Speed Way received, and how do they relate to games?</h2>
+<p><strong>Port Royal</strong> launched on 8 January 2019 at 2560 x 1440, requiring DirectX Raytracing, as "the world's first dedicated real-time ray tracing benchmark for gamers" <a class="cite" href="#src-34">34</a>. Early press tests: one put the RTX 2080 at 5,986 (28 FPS) and the RTX 2080 Ti at 7,925 (37 FPS); another saw an ASUS ROG Strix RTX 2080 OC at 6,106 <a class="cite" href="#src-35">35</a>. Reviewers noted that the GTX 1080 fell far behind in this test, and that Port Royal does not run at maximum quality for ray tracing (one outlet measured an RTX 2080 Ti dropping from 37.8 to 23.0 FPS at lower ray-tracing quality) <a class="cite" href="#src-35">35</a>. NVIDIA added DLSS to the benchmark in February 2019, claiming up to 50% more performance <a class="cite" href="#src-35">35</a>.</p>
+<p><strong>Speed Way</strong> launched on 12 October 2022 for DirectX 12 Ultimate (feature level 12_2), at 2560 x 1440 <a class="cite" href="#src-4">4</a><a class="cite" href="#src-36">36</a>. Its engine removes all precomputed lighting (no lightmaps or probes), is fully dynamic, uses mesh shaders for continuous level-of-detail selection and culling, a deferred direct-lighting path, and DirectX Raytracing 1.1 for global illumination and reflections <a class="cite" href="#src-4">4</a><a class="cite" href="#src-36">36</a>. It was sponsored by Lenovo Legion <a class="cite" href="#src-36">36</a>. UL's pricing moved to $34.99 with it <a class="cite" href="#src-26">26</a>. Typical RTX 4090 results in forums run around 10,000 to 12,000 <a class="cite" href="#src-37">37</a>; one overclocker record was later deemed invalid by 3DMark due to a VRAM artifacting bug (a forum report) <a class="cite" href="#src-37">37</a>.</p>
+<p><strong>Relationship to games.</strong> UL's stated aim is to predict game performance generally, not the theoretical maximum of the hardware, through a neutral, common code path <a class="cite" href="#src-18">18</a>. UL also publishes a support article on estimating game performance from scores; I could not retrieve it, so I cannot quote its guidance. Tom's Hardware uses a FurMark run as a power worst-case rather than 3DMark as a game proxy <a class="cite" href="#src-38">38</a>. Independent studies of how well 3DMark scores predict frame rates in particular games: not found.</p>
+<h2 id="sources">Sources</h2>
+<ol type="1">
+<li id="src-1">UL Benchmarks support, "How is the 3DMark Time Spy score calculated?". <a href="https://support.benchmarks.ul.com/support/solutions/articles/44002136143-how-is-the-3dmark-time-spy-score-calculated-">https://support.benchmarks.ul.com/support/solutions/articles/44002136143-how-is-the-3dmark-time-spy-score-calculated-</a></li>
+<li id="src-2">UL Benchmarks support, "Overview of 3DMark Steel Nomad" (resolution 3840 x 2160). <a href="https://support.benchmarks.ul.com/support/solutions/articles/44002528058-overview-of-3dmark-steel-nomad">https://support.benchmarks.ul.com/support/solutions/articles/44002528058-overview-of-3dmark-steel-nomad</a></li>
+<li id="src-3">UL Benchmarks support, "How is the 3DMark Steel Nomad score calculated?". <a href="https://support.benchmarks.ul.com/support/solutions/articles/44002528064-how-is-the-3dmark-steel-nomad-score-calculated-">https://support.benchmarks.ul.com/support/solutions/articles/44002528064-how-is-the-3dmark-steel-nomad-score-calculated-</a></li>
+<li id="src-4">UL Benchmarks support, "How is the 3DMark Speed Way score calculated?" and "Speed Way engine". <a href="https://support.benchmarks.ul.com/support/solutions/articles/44002378659-how-is-the-3dmark-speed-way-score-calculated-">https://support.benchmarks.ul.com/support/solutions/articles/44002378659-how-is-the-3dmark-speed-way-score-calculated-</a></li>
+<li id="src-5">UL Benchmarks support, "Steel Nomad Engine". <a href="https://support.benchmarks.ul.com/support/solutions/articles/44002528067-steel-nomad-engine">https://support.benchmarks.ul.com/support/solutions/articles/44002528067-steel-nomad-engine</a></li>
+<li id="src-6">UL Benchmarks, "3DMark Steel Nomad is out now!", 21 May 2024. <a href="https://benchmarks.ul.com/news/3dmark-steel-nomad-is-out-now">https://benchmarks.ul.com/news/3dmark-steel-nomad-is-out-now</a></li>
+<li id="src-7">UL Benchmarks support, "Steel Nomad Version History". <a href="https://support.benchmarks.ul.com/support/solutions/articles/44002528068-steel-nomad-version-history">https://support.benchmarks.ul.com/support/solutions/articles/44002528068-steel-nomad-version-history</a></li>
+<li id="src-8">UL Benchmarks, "About us" (company timeline). <a href="https://benchmarks.ul.com/about">https://benchmarks.ul.com/about</a></li>
+<li id="src-9">3DMark Hall of Fame pages (via search summaries). <a href="https://www.3dmark.com/hall-of-fame-2/">https://www.3dmark.com/hall-of-fame-2/</a></li>
+<li id="src-10">pcgamingtools.com 3DMark page (third party; unverified claim). <a href="https://pcgamingtools.com/3dmark-download/">https://pcgamingtools.com/3dmark-download/</a></li>
+<li id="src-11">The Register, "ATI admits it 'optimised' drivers for 3DMark 03", 27 May 2003. <a href="https://www.theregister.com/2003/05/27/ati_admits_it_optimised_drivers">https://www.theregister.com/2003/05/27/ati_admits_it_optimised_drivers</a></li>
+<li id="src-12">Futuremark audit report, "Alleged NVIDIA Driver Cheating on 3DMark03" (third-party mirror) <a href="http://www.kickassgear.com/downloads/3dmark03_audit_report.pdf">http://www.kickassgear.com/downloads/3dmark03_audit_report.pdf</a> ; GameSpot, "Nvidia accused of cheating in 3DMark 03" <a href="https://www.gamespot.com/articles/nvidia-accused-of-cheating-in-3dmark-03/1100-6028894/">https://www.gamespot.com/articles/nvidia-accused-of-cheating-in-3dmark-03/1100-6028894/</a> (via search summaries)</li>
+<li id="src-13">GameSpot, "Futuremark says Nvidia didn't cheat" <a href="https://www.gamespot.com/articles/futuremark-says-nvidia-didnt-cheat/1100-6029339/">https://www.gamespot.com/articles/futuremark-says-nvidia-didnt-cheat/1100-6029339/</a> ; InfoWorld, "Futuremark says Nvidia didn't cheat, but broke rules" <a href="https://infoworld.com/article/2680144/futuremark-says-nvidia-didn-t-cheat--but-broke-rules.html">https://infoworld.com/article/2680144/futuremark-says-nvidia-didn-t-cheat--but-broke-rules.html</a></li>
+<li id="src-14">UL Benchmarks, "UL delists Huawei phones with suspect benchmark scores", Sep 2018. <a href="https://benchmarks.ul.com/news/ul-delists-huawei-phones-with-suspect-benchmark-scores">https://benchmarks.ul.com/news/ul-delists-huawei-phones-with-suspect-benchmark-scores</a></li>
+<li id="src-15">XDA Developers and Engadget coverage of Huawei, OPPO and earlier delistings (via search summaries). <a href="https://www.xda-developers.com/huawei-p20-huawei-nova-3-honor-play-cheating-benchmarks/">https://www.xda-developers.com/huawei-p20-huawei-nova-3-honor-play-cheating-benchmarks/</a></li>
+<li id="src-16">Forbes (Moor Insights), "UL Benchmarks Delists MediaTek-Based Xiaomi, OPPO, Vivo, Sony, And Realme Smartphones", 16 Apr 2020 (via search summary). <a href="https://www.forbes.com/sites/moorinsights/2020/04/16/ul-benchmarks-delists-mediatek-based-xiaomi-oppo-vivo-sony-and-realme-smartphones-devices-with-suspect-scores/amp/">https://www.forbes.com/sites/moorinsights/2020/04/16/ul-benchmarks-delists-mediatek-based-xiaomi-oppo-vivo-sony-and-realme-smartphones-devices-with-suspect-scores/amp/</a></li>
+<li id="src-17">PC Perspective, "What's Asynchronous Compute? 3DMark Time Spy Controversy", July 2016. <a href="https://pcper.com/2016/07/whats-asynchronous-compute-3dmark-time-spy-controversy/">https://pcper.com/2016/07/whats-asynchronous-compute-3dmark-time-spy-controversy/</a></li>
+<li id="src-18">Futuremark, "A closer look at asynchronous compute in 3DMark Time Spy", 19 Jul 2016. <a href="https://aws.futuremark.com/en/news/a-closer-look-at-asynchronous-compute-in-3dmark-time-spy">https://aws.futuremark.com/en/news/a-closer-look-at-asynchronous-compute-in-3dmark-time-spy</a></li>
+<li id="src-19">Guru3D and AnandTech forum threads on Time Spy async (anecdotal). <a href="https://forums.guru3d.com/threads/futuremark-developer-responds-to-accusations-of-cheating-in-time-spy-benchmark.408769/">https://forums.guru3d.com/threads/futuremark-developer-responds-to-accusations-of-cheating-in-time-spy-benchmark.408769/</a></li>
+<li id="src-20">UL Benchmarks support, "3DMark Windows application release notes". <a href="https://support.benchmarks.ul.com/support/solutions/articles/44001971281-3dmark-windows-application-release-notes">https://support.benchmarks.ul.com/support/solutions/articles/44001971281-3dmark-windows-application-release-notes</a></li>
+<li id="src-21">UL Benchmarks, "New 3DMark test measures mesh shader performance". <a href="https://benchmarks.ul.com/news/new-3dmark-test-measures-mesh-shader-performance">https://benchmarks.ul.com/news/new-3dmark-test-measures-mesh-shader-performance</a></li>
+<li id="src-22">TechPowerUp, "3DMark Receives DirectX 12 Ultimate Sampler Feedback Feature Test" (via search summary). <a href="https://www.techpowerup.com/286021/3dmark-receives-directx-12-ultimate-sampler-feedback-feature-test">https://www.techpowerup.com/286021/3dmark-receives-directx-12-ultimate-sampler-feedback-feature-test</a></li>
+<li id="src-23">UL, 3DMark Technical Guide (updated 14 Jan 2021). <a href="https://s3.amazonaws.com/download-aws.futuremark.com/3dmark-technical-guide.pdf">https://s3.amazonaws.com/download-aws.futuremark.com/3dmark-technical-guide.pdf</a></li>
+<li id="src-24">UL Benchmarks, 3DMark product page. <a href="https://benchmarks.ul.com/3dmark">https://benchmarks.ul.com/3dmark</a></li>
+<li id="src-25">UL Benchmarks, "UL Solutions Launches 3DMark Solar Bay, New Cross-Platform Ray Tracing Benchmark". <a href="https://benchmarks.ul.com/news/ul-solutions-launches-3dmark-solar-bay-new-crossplatform-ray-tracing-benchmark">https://benchmarks.ul.com/news/ul-solutions-launches-3dmark-solar-bay-new-crossplatform-ray-tracing-benchmark</a></li>
+<li id="src-26">UL Benchmarks, "3DMark Speed Way launches on October 12" (price notice). <a href="https://benchmarks.ul.com/news/3dmark-speed-way-launches-on-october-12">https://benchmarks.ul.com/news/3dmark-speed-way-launches-on-october-12</a></li>
+<li id="src-27">PC Gamer, "3DMark Steel Nomad is now available to give your GPU an inferiority complex". <a href="https://www.pcgamer.com/hardware/graphics-cards/3dmark-steel-nomad-is-now-available-to-give-your-gpu-an-inferiority-complex/">https://www.pcgamer.com/hardware/graphics-cards/3dmark-steel-nomad-is-now-available-to-give-your-gpu-an-inferiority-complex/</a></li>
+<li id="src-28">PC Gamer, "Unlock 3DMark Advanced for under $5". <a href="https://pcgamer.com/unlock-3dmark-advanced-for-under-dollar5-and-benchmark-your-pc-like-the-pros">https://pcgamer.com/unlock-3dmark-advanced-for-under-dollar5-and-benchmark-your-pc-like-the-pros</a></li>
+<li id="src-29">Newegg and reseller listings for 3DMark (third party; via search summary). <a href="https://www.newegg.com/ul-3dmark-advanced-edition/p/N82E16833980093">https://www.newegg.com/ul-3dmark-advanced-edition/p/N82E16833980093</a></li>
+<li id="src-30">James Mackenzie, "The History of (and Nostalgia for) 3DMark". <a href="https://www.jamesfmackenzie.com/2023/04/21/the-history-of-and-nostalgia-for-futuremark-3dmark/">https://www.jamesfmackenzie.com/2023/04/21/the-history-of-and-nostalgia-for-futuremark-3dmark/</a></li>
+<li id="src-31">UL Benchmarks, "Peacekeeper support ends July 29". <a href="https://aws.futuremark.com/en/news/peacekeeper-support-ends-july-29">https://aws.futuremark.com/en/news/peacekeeper-support-ends-july-29</a></li>
+<li id="src-32">HotHardware, "Futuremark Removes GPU PhysX Results" <a href="https://hothardware.com/news/futuremark-removes-gpu-physx-results">https://hothardware.com/news/futuremark-removes-gpu-physx-results</a> ; TechPowerUp, "GPU PhysX Doesn't get you to 3DMark Vantage Hall of Fame Anymore" <a href="https://www.techpowerup.com/66327/gpu-physx-doesnt-get-you-to-3dmark-vantage-hall-of-fame-anymore">https://www.techpowerup.com/66327/gpu-physx-doesnt-get-you-to-3dmark-vantage-hall-of-fame-anymore</a> (via search summaries; pages blocked)</li>
+<li id="src-33">UL Benchmarks, "Seasonic joins as a sponsor of the next 3DMark GPU Benchmark", 24 Jul 2026. <a href="https://benchmarks.ul.com/news">https://benchmarks.ul.com/news</a></li>
+<li id="src-34">UL Benchmarks, "3DMark Port Royal ray tracing benchmark now available", 8 Jan 2019. <a href="https://benchmarks.ul.com/news/3dmark-port-royal-ray-tracing-benchmark-now-available">https://benchmarks.ul.com/news/3dmark-port-royal-ray-tracing-benchmark-now-available</a></li>
+<li id="src-35">PC Gamer, "Testing ray tracing performance with 3DMark's latest benchmark" <a href="https://www.pcgamer.com/testing-ray-tracing-performance-with-3dmarks-latest-benchmark/">https://www.pcgamer.com/testing-ray-tracing-performance-with-3dmarks-latest-benchmark/</a> ; Geeks3D, "(Tested) 3DMark Port Royal" <a href="https://www.geeks3d.com/20190114/tested-3dmark-port-royal-directx-raytracing-benchmark/">https://www.geeks3d.com/20190114/tested-3dmark-port-royal-directx-raytracing-benchmark/</a> ; NVIDIA, "Port Royal Benchmark Adds NVIDIA DLSS" <a href="https://www.nvidia.com/en-in/geforce/news/nvidia-dlss-3dmark-port-royal-benchmark/">https://www.nvidia.com/en-in/geforce/news/nvidia-dlss-3dmark-port-royal-benchmark/</a> (via search summaries)</li>
+<li id="src-36">UL Benchmarks, "3DMark Speed Way is now available", 12 Oct 2022; UL support, "Overview of 3DMark Speed Way benchmark" (resolution 2560 x 1440). <a href="https://benchmarks.ul.com/news/3dmark-speed-way-is-now-available">https://benchmarks.ul.com/news/3dmark-speed-way-is-now-available</a></li>
+<li id="src-37">Tom's Hardware and Overclock.net forum threads on Speed Way scores (anecdotal). <a href="https://forums.tomshardware.com/threads/worried-about-my-3dmark-speed-way-score-with-rog-strix-rtx-4090-oc.3791463/">https://forums.tomshardware.com/threads/worried-about-my-3dmark-speed-way-score-with-rog-strix-rtx-4090-oc.3791463/</a></li>
+<li id="src-38">Tom's Hardware, "AMD Radeon RX 7900 XTX and XT Review". <a href="https://www.tomshardware.com/reviews/amd-radeon-rx-7900-xtx-and-xt-review-shooting-for-the-top/8">https://www.tomshardware.com/reviews/amd-radeon-rx-7900-xtx-and-xt-review-shooting-for-the-top/8</a></li>
+</ol>
+
+    <nav class="pager"><a href="qa-3dmark.html"><span>Read</span><b>3DMark: ten questions answered</b></a><a href="scene-steel-nomad.html"><span>Read</span><b>The masked wanderer: scene and lore</b></a></nav>
+  </article>
+</main>
+<footer class="site"><div class="wrap">
+  <div><h4>GPU Benchmark Lore</h4>Sourced histories of FurMark, UNIGINE Superposition and 3DMark. Every claim carries a numbered source; what could not be confirmed says so. Text is MIT-licensed; quotations stay with their owners.</div>
+  <div><h4>Explore</h4><a href="../index.html#timeline">Timeline</a><a href="../index.html#questions">Question explorer</a><a href="fact-check.html">Fact-check log</a></div>
+  <div><h4>Repo</h4><a href="https://github.com/Parris-Tech-Services/furmark-history">GitHub repository</a><a href="../furmark-history-podcast.pdf">Podcast PDF</a></div>
+</div></footer>
+<div class="tip" id="tip"></div>
+<script src="../assets/app.js" data-base="../"></script>
+<script>
+(function(){
+  // wrap tables for horizontal scroll, add heading links
+  document.querySelectorAll("article table").forEach(function(t){var w=document.createElement("div");w.className="tablewrap";t.parentNode.insertBefore(w,t);w.appendChild(t)});
+  document.querySelectorAll("article h2[id],article h3[id]").forEach(function(h){var a=document.createElement("a");a.className="hlink";a.href="#"+h.id;a.textContent="#";a.title="Link to this section";h.appendChild(a)});
+  // external links open in new tab
+  document.querySelectorAll("article a[href^=http]").forEach(function(a){a.target="_blank";a.rel="noopener"});
+  // progress
+  var prog=document.getElementById("prog");
+  function sp(){var h=document.documentElement;var m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?h.scrollTop/m*100:0)+"%"}
+  addEventListener("scroll",sp,{passive:true});sp();
+  // scrollspy
+  var links=[].slice.call(document.querySelectorAll("#tocol a")),map={};
+  links.forEach(function(a){map[a.getAttribute("href").slice(1)]=a});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.remove("on")});var l=map[e.target.id];if(l)l.classList.add("on")}})},{rootMargin:"-80px 0px -70% 0px"});
+  document.querySelectorAll("article h2[id]").forEach(function(h){io.observe(h)});
+  // citation tooltips
+  var tip=document.getElementById("tip");
+  document.querySelectorAll("a.cite").forEach(function(a){
+    var id=a.getAttribute("href").slice(1);
+    a.addEventListener("mouseenter",function(){var li=document.getElementById(id);if(!li)return;tip.textContent=li.textContent.trim().slice(0,320);tip.style.display="block";var r=a.getBoundingClientRect();tip.style.left=Math.min(innerWidth-tip.offsetWidth-12,Math.max(12,r.left-20))+"px";tip.style.top=Math.max(12,r.top-tip.offsetHeight-10)+"px"});
+    a.addEventListener("mouseleave",function(){tip.style.display="none"});
+  });
+})();
+</script>
+</body></html>

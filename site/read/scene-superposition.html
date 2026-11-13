@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en" data-bench="superposition">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The vanished professor: scene and lore · GPU Benchmark Lore</title>
+<meta name="description" content="The abandoned classroom and its missing physicist.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));z-index:60}
+.rhero{padding:54px 0 28px;position:relative}
+.rhero::before{content:"";position:absolute;inset:-60px 0 0;background:radial-gradient(60% 80% at 20% 0,color-mix(in srgb,var(--acc) 22%,transparent),transparent 70%);pointer-events:none}
+.rhero h1{font:700 clamp(30px,5vw,54px)/1.08 var(--f-ui);letter-spacing:-.02em;margin:14px 0 10px;max-width:22ch}
+.rhero p{color:var(--mut);font-size:18px;max-width:60ch;margin:0 0 16px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--faint);font:13px var(--f-mono)}
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:48px;align-items:start}
+@media(max-width:960px){.layout{grid-template-columns:1fr;gap:0}}
+aside.toc{position:sticky;top:84px;max-height:calc(100vh - 110px);overflow:auto;font-size:14px;padding-right:6px}
+aside.toc h4{margin:0 0 10px;font:600 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+aside.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:6px 0 6px 14px;color:var(--mut);margin-left:-1px;border-left:2px solid transparent;line-height:1.35}
+aside.toc li a:hover{color:var(--ink);text-decoration:none}
+aside.toc li a.on{color:var(--acc2);border-left-color:var(--acc)}
+@media(max-width:960px){aside.toc{position:static;max-height:none;margin:0 0 22px;border:1px solid var(--line);border-radius:14px;padding:14px}aside.toc ol{border:0}}
+article.prose{font:400 19px/1.72 var(--f-read);color:var(--ink);max-width:70ch}
+article.prose h2{font:700 clamp(24px,3vw,32px)/1.2 var(--f-ui);letter-spacing:-.01em;margin:2.2em 0 .5em;position:relative;padding-top:6px}
+article.prose h2::before{content:"";display:block;width:44px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--acc),var(--acc2));margin-bottom:14px}
+article.prose h3{font:700 21px/1.3 var(--f-ui);margin:1.8em 0 .4em;color:var(--acc2)}
+article.prose p{margin:0 0 1.1em}
+article.prose strong{color:var(--ink)}
+article.prose a{border-bottom:1px solid color-mix(in srgb,var(--acc2) 40%,transparent)}
+article.prose a:hover{text-decoration:none;border-bottom-color:var(--acc2)}
+article.prose blockquote{margin:1.2em 0;padding:4px 0 4px 20px;border-left:3px solid var(--acc);color:var(--mut)}
+article.prose code{font:500 .85em var(--f-mono);background:var(--surface2);padding:2px 6px;border-radius:6px}
+article.prose ul,article.prose ol{padding-left:1.3em}
+article.prose li{margin:.35em 0}
+article.prose li::marker{color:var(--acc2)}
+.tablewrap{overflow-x:auto;margin:1.3em 0;border:1px solid var(--line);border-radius:14px}
+article.prose table{border-collapse:collapse;width:100%;font:15px/1.5 var(--f-ui)}
+article.prose th{background:var(--surface2);text-align:left;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+article.prose th,article.prose td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+article.prose tr:last-child td{border-bottom:0}
+article.prose tbody tr:hover td{background:color-mix(in srgb,var(--acc) 7%,transparent)}
+a.cite{font:600 11px var(--f-mono);vertical-align:super;line-height:0;padding:1px 4px;margin:0 1px;border-radius:5px;background:color-mix(in srgb,var(--acc) 22%,transparent);color:var(--acc2);border:0!important}
+a.cite:hover{background:var(--acc);color:#000}
+#sources+*,h2#sources~ol{font:15px/1.55 var(--f-ui);color:var(--mut)}
+li:target{background:color-mix(in srgb,var(--acc) 20%,transparent);outline:2px solid var(--acc);border-radius:6px}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:70px 0 10px}
+.pager a{display:block;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink)}
+.pager a:hover{border-color:var(--acc);text-decoration:none}
+.pager span{display:block;font:11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.pager b{font-size:17px}
+.pager a:last-child{text-align:right}
+.tip{position:fixed;z-index:80;max-width:420px;background:var(--surface);border:1px solid var(--acc);border-radius:12px;padding:12px 14px;font:13px/1.45 var(--f-ui);color:var(--ink);box-shadow:var(--shadow);pointer-events:none;display:none}
+.hlink{opacity:0;margin-left:8px;color:var(--faint);font-size:.7em;border:0!important}
+h2:hover .hlink,h3:hover .hlink{opacity:1}
+.back{position:fixed;right:18px;bottom:18px;z-index:40}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../index.html"><span class="logo"></span><span class="bt">GPU Benchmark Lore</span></a>
+  <nav class="nav">
+    <a href="../index.html#timeline" class="hide-s">Timeline</a><a href="../index.html#watch" class="hide-s">Watch</a><a href="../index.html#lab" class="hide-s">GPU lab</a><a href="../index.html#library">Library</a>
+    <a href="#" data-open-search>Search <span class="kbd">/</span></a>
+  </nav>
+  <button class="iconbtn" data-theme-toggle title="Toggle light / dark" aria-label="Toggle theme">☾</button>
+</div></header>
+<section class="rhero"><div class="wrap">
+  <span class="tag">Lore</span>
+  <h1>The vanished professor: scene and lore</h1>
+  <p>The abandoned classroom and its missing physicist.</p>
+  <div class="meta"><span>~8 min read</span><span>·</span><a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/SCENE_SUPERPOSITION.md">view source on GitHub</a></div>
+</div></section>
+<main class="wrap layout">
+  <aside class="toc"><h4>On this page</h4><ol id="tocol"><li><a href="#1-who-is-the-professor-does-he-have-a-name-biography-or-identity">1. Who is the professor? Does he have a name, biography or identity?</a></li><li><a href="#2-why-an-abandoned-classroom-instead-of-a-sleek-high-tech-laboratory">2. Why an abandoned classroom instead of a sleek high-tech laboratory?</a></li><li><a href="#3-what-happened-immediately-before-the-visitor-arrives">3. What happened immediately before the visitor arrives?</a></li><li><a href="#4-why-does-the-story-invoke-quantum-theory-does-the-title-superposition-reveal-the-plot">4. Why does the story invoke quantum theory? Does the title &#x27;Superposition&#x27; reveal the plot?</a></li><li><a href="#5-what-are-the-strange-machines-rings-coils-and-pages">5. What are the strange machines, rings, coils and pages?</a></li><li><a href="#6-which-items-are-confirmed-clues-and-which-are-just-props">6. Which items are confirmed clues and which are just props?</a></li><li><a href="#7-can-you-actually-be-a-detective-and-interact-with-the-scene">7. Can you actually be a detective and interact with the scene?</a></li><li><a href="#8-how-do-gravity-time-and-lighting-relate-to-the-story">8. How do gravity, time and lighting relate to the story?</a></li><li><a href="#9-is-there-an-official-ending-proof-of-where-he-went-or-a-solution-to-the-mystery">9. Is there an official ending, proof of where he went, or a solution to the mystery?</a></li><li><a href="#10-is-the-laboratory-based-on-tesla-einstein-or-a-specific-science-fiction-tradition">10. Is the laboratory based on Tesla, Einstein or a specific science-fiction tradition?</a></li><li><a href="#further-verification-worth-doing-not-masquerading-as-completed">Further verification worth doing (not masquerading as completed)</a></li><li><a href="#sources">Sources</a></li></ol></aside>
+  <article class="prose" id="doc">
+<p><em>Research: 13 November 2026. Adds visual and narrative investigation to the <a href="scene-story-questions.html">thirty scene questions</a> and existing <a href="superposition.html">Superposition history</a>. This is <strong>UNIGINE's 2017 graphics benchmark</strong>, not unrelated games and books also titled Superposition.</em></p>
+<p><strong>Read this first:</strong> Unlike FurMark, Superposition has a <strong>real developer-written story hook</strong>, but it is intentionally brief. <strong>Canon</strong> = UNIGINE says it; <strong>observed</strong> = visible promotional scene or documented review; <strong>interpretation</strong> = plausible reading; <strong>unverified</strong> = no dependable published answer identified. We did <strong>not</strong> play the executable or inspect its proprietary assets in this research pass.</p>
+<h2 id="1-who-is-the-professor-does-he-have-a-name-biography-or-identity">1. Who is the professor? Does he have a name, biography or identity?</h2>
+<p><strong>Canon:</strong> UNIGINE describes <strong>a lone professor</strong> who repeatedly performs dangerous experiments in an <em>abandoned classroom</em>. He is obsessed with spectacular inventions and discoveries and wants to prove his ideas <a class="cite" href="#src-S1">S1</a>. The official manual repeats that premise and, in its Game Mode instructions, also calls him 'the physicist' <a class="cite" href="#src-S2">S2</a>. He is <strong>absent</strong> when the player arrives, which is the reason to investigate.</p>
+<p><strong>Unverified:</strong> UNIGINE's product page, game-mode manual, original promotional copy and artist showcase do <strong>not name him</strong>, identify his university, provide a biography, or confirm his fate <a class="cite" href="#src-S1">S1</a><a class="cite" href="#src-S2">S2</a><a class="cite" href="#src-S3">S3</a>. 'Professor Einstein', 'Professor Tesla', 'a mad scientist named X' or 'a real scientist' would be made-up identities. <strong>Professor/physicist</strong> is the defensible description.</p>
+<p><strong>Character reading (interpretation):</strong> His personality is revealed through absence: his obsessive experiments and dense accumulation of notebooks and apparatus make his work, not his portrait, the protagonist.</p>
+<h2 id="2-why-an-abandoned-classroom-instead-of-a-sleek-high-tech-laboratory">2. Why an abandoned classroom instead of a sleek high-tech laboratory?</h2>
+<p><strong>Canon:</strong> The classroom is explicitly <strong>abandoned</strong>; the professor has repurposed it as a working laboratory <a class="cite" href="#src-S1">S1</a>. No UNIGINE artist statement found explains the exact artistic decision.</p>
+<p><strong>Observed:</strong> Official scene pictures show tall windows, old brick and timber surfaces, a classroom/lecture-hall quality, blackboards, papers and clocks alongside imposing coils, cylinders, cables and experimental equipment <a class="cite" href="#src-S3">S3</a><a class="cite" href="#src-S4">S4</a>. The aesthetic reads as <strong>vintage academic science crossed with steampunk-like invention</strong>. 'Steampunk' is a visual description, not a separately documented story setting or official genre designation.</p>
+<p><strong>Interpretation:</strong> An old classroom provides visual contrast between everyday education and dangerous experimentation. Books and clutter create environmental storytelling, while tall windows and many surfaces challenge the engine with natural light, self-shadowing and material detail. We do not know why the fictional building was vacated, who owned it or whether it is in a particular country.</p>
+<h2 id="3-what-happened-immediately-before-the-visitor-arrives">3. What happened immediately before the visitor arrives?</h2>
+<p><strong>Canon:</strong> The visitor reaches the site <strong>early in the morning</strong>, the professor is <strong>missing</strong>, and an unexplained <strong>loud bang</strong> was heard from the laboratory moments before <a class="cite" href="#src-S1">S1</a><a class="cite" href="#src-S2">S2</a>. Those are the only directly documented sequence-of-events facts in the plot introduction.</p>
+<p><strong>Not established:</strong> Whether an explosion occurred, what device caused it, whether the professor teleported, was injured, escaped, entered a different universe or simply walked away. 'Bang' does <strong>not</strong> by itself prove any of those. Official wording frames the event as a <strong>mystery to investigate</strong>, not an already-solved tragedy.</p>
+<p><strong>Interpretation:</strong> This is a 'missing person / interrupted experiment' narrative hook. The apparently mundane classroom becomes ominous because its operator has disappeared just when an experiment went wrong—or at least when something made a loud noise.</p>
+<h2 id="4-why-does-the-story-invoke-quantum-theory-does-the-title-superposition-reveal-the-plot">4. Why does the story invoke quantum theory? Does the title 'Superposition' reveal the plot?</h2>
+<p><strong>Canon:</strong> UNIGINE directly asks visitors to investigate the mystery by looking at the professor's <strong>records and instruments</strong>, with specific reference to <strong>quantum theory</strong> <a class="cite" href="#src-S1">S1</a>. The title <strong>Superposition</strong> is a genuine physics term referring to systems described as combinations of possible states before a particular measurement.</p>
+<p><strong>Plausible reading, not confirmed plot:</strong> 'Superposition' evokes overlapping states, simultaneous possibilities, and ambiguous reality; these fit a missing scientist and an experimental catastrophe. The title is thematically apt, but <strong>no verified UNIGINE explanation identifies an exact quantum experiment or states that the professor was split into parallel copies</strong>. Such stories may be fun fan theories, not established canon.</p>
+<p>A benchmark rendering a convincing laboratory does <strong>not</strong> itself simulate scientifically accurate quantum physics. The GPU work concerns lighting, geometry, textures and physics interactions, not a reproducible laboratory demonstration of quantum superposition <a class="cite" href="#src-S2">S2</a><a class="cite" href="#src-S5">S5</a>.</p>
+<h2 id="5-what-are-the-strange-machines-rings-coils-and-pages">5. What are the strange machines, rings, coils and pages?</h2>
+<p><strong>Observed:</strong> The producer's own <a href="https://unigine.artstation.com/projects/3KEWB">ArtStation showcase</a> displays a complicated <strong>large central cylindrical apparatus with protruding red components</strong>, heavy cabling, older bench instruments, metal rings, models, papers, books and classroom fittings <a class="cite" href="#src-S3">S3</a>. Contemporary review screenshots show optical/electrical-style equipment, gauges, a cluttered bench, furniture and chalkboards <a class="cite" href="#src-S4">S4</a>.</p>
+<p><strong>Canon is limited:</strong> The maker calls these <strong>records and instruments</strong>, relevant to inspecting the professor's work <a class="cite" href="#src-S1">S1</a>. In the sources reviewed, UNIGINE does <strong>not</strong> publish a part-numbered schematic assigning a fictional function to every individual machine. A visually Tesla-coil-like device is <em>not</em> confirmed to be 'the quantum teleporter' or 'the accident generator'.</p>
+<p><strong>Design interpretation:</strong> Distinct silhouettes and materials—glass, metal, paper, wood, cabling—make an environment varied enough to demonstrate modern rendering while encouraging players to ask what each device does.</p>
+<h2 id="6-which-items-are-confirmed-clues-and-which-are-just-props">6. Which items are confirmed clues and which are just props?</h2>
+<p><strong>Canon:</strong> UNIGINE specifically singles out the professor's <strong>written records</strong> and <strong>instruments</strong> as things worth inspecting <a class="cite" href="#src-S1">S1</a>. That is a meaningful directive from the maker. The manual calls the setting a <strong>mystery of the physicist</strong> and encourages looking in every corner <a class="cite" href="#src-S2">S2</a>.</p>
+<p><strong>But:</strong> The public manual does not provide an official itemised clue list, solved puzzle transcript, order of evidence or complete object-to-story glossary. A blackboard equation, portrait, notebook, peculiar electrical device or dartboard may carry visual meaning; without a supporting caption, readable in-game text, a developer statement or a documented puzzle solution, we <strong>cannot label it a specific plot clue</strong>.</p>
+<p><strong>Interpretation:</strong> The set dressing helps <em>tell</em> a story in the same way a film set does. The crucial research distinction is between 'looks like a clue' and 'developer confirms this reveals what happened'.</p>
+<h2 id="7-can-you-actually-be-a-detective-and-interact-with-the-scene">7. Can you actually be a detective and interact with the scene?</h2>
+<p><strong>Confirmed:</strong> Yes, there is a playable <strong>Game Mode</strong>, not merely a fly-through. UNIGINE's <strong>version 1.1 user manual</strong> invites players to explore, investigate the physicist's mystery, and interact with <strong>more than 900 objects</strong> <a class="cite" href="#src-S2">S2</a>. The listed features include physical object interactions, the ability to move and look around, and moving between game and cinematic modes. The manual maps the <strong>left mouse button</strong> to grabbing/releasing objects and describes keyboard, controller and VR controls <a class="cite" href="#src-S2">S2</a>.</p>
+<p>UNIGINE also advertises mini-games. Its 2019 update notably fixed a <strong>crash when throwing darts</strong>, an unusually tangible sign that the professor's laboratory is deliberately toy-like as well as cinematic <a class="cite" href="#src-S5">S5</a>. Promotional artwork reinforces the emphasis on a believable, cluttered workspace <a class="cite" href="#src-S3">S3</a>.</p>
+<p><strong>Limit:</strong> Interactive objects, physics and mini-games do <strong>not</strong> independently prove a solvable hidden main quest or a canonical alternate ending. The manual's invitation is real; the answer to <em>what solves the mystery</em> remains unverified here.</p>
+<h2 id="8-how-do-gravity-time-and-lighting-relate-to-the-story">8. How do gravity, time and lighting relate to the story?</h2>
+<p><strong>Confirmed Game Mode controls:</strong> UNIGINE documents a <strong>tweakable day/night cycle</strong>, <strong>gravity control</strong>, <strong>adjustable time scale</strong>, <strong>room lighting adjustments</strong> and the option to switch to cinematic mode <a class="cite" href="#src-S2">S2</a>. Those are unusually creative features for a benchmark.</p>
+<p><strong>Aesthetic interpretation:</strong> Moving through the room at different times and light levels can reveal previously hidden details. Turning gravity down produces floating instruments and books; a playful visual analogue to a physics experiment and a useful demonstration of the engine's physical interactions. It is <strong>not confirmed</strong> that changing gravity unlocks a plot revelation or that time control lets you undo the bang.</p>
+<p>The technological purpose is clearer: the same setting can show changing direct/screen-space illumination and many dynamic objects <a class="cite" href="#src-S6">S6</a>. Keep the gameplay/physics controls separate from the title's quantum metaphor.</p>
+<h2 id="9-is-there-an-official-ending-proof-of-where-he-went-or-a-solution-to-the-mystery">9. Is there an official ending, proof of where he went, or a solution to the mystery?</h2>
+<p><strong>The honest result is unresolved.</strong> UNIGINE's marketing copy announces the mystery and its manual encourages solving it, but the primary material reviewed does <strong>not disclose an explicit final cutscene, named culprit, device activation, answer or official ending</strong> <a class="cite" href="#src-S1">S1</a><a class="cite" href="#src-S2">S2</a><a class="cite" href="#src-S3">S3</a>. The available changelog describes software features and bug fixes, not story chapters or narrative updates <a class="cite" href="#src-S5">S5</a>.</p>
+<p>This does <strong>not</strong> prove no player has ever worked something out in the executable; we did not complete an interactive playthrough or examine every object. It means a claimed ending needs evidence before being presented as fact. A reproducible walkthrough or developer comment could fill that gap.</p>
+<p><strong>Current story boundary:</strong> We know the <strong>setup</strong> (missing professor, bang, experiments, records), not a definitive cause or resolution.</p>
+<h2 id="10-is-the-laboratory-based-on-tesla-einstein-or-a-specific-science-fiction-tradition">10. Is the laboratory based on Tesla, Einstein or a specific science-fiction tradition?</h2>
+<p><strong>Visually:</strong> The workshop includes experimental electrical machines, coils, drawings and old-school physics teaching furnishings <a class="cite" href="#src-S3">S3</a><a class="cite" href="#src-S4">S4</a>. Those can reasonably evoke the historical laboratory imagery associated with <strong>Nikola Tesla</strong>, <strong>early twentieth-century physics</strong>, vintage classrooms and <strong>steampunk</strong> design.</p>
+<p><strong>Fact check:</strong> The sources consulted contain <strong>no confirmed UNIGINE statement</strong> that the unnamed professor is Tesla, Einstein or a historical person, that the setting represents an identifiable university, or that a specific film/game inspired the art. A picture of a celebrated scientist on the wall—if positively identified—would still be a portrait, <strong>not proof that the professor is that person</strong>.</p>
+<p>The larger published context is clear: Superposition follows UNIGINE's outdoor Sanctuary, Tropics, Heaven and Valley demos, but chooses an enclosed, detail-rich <strong>lab mystery</strong> to show off its UNIGINE 2 engine, dynamic SSRTGI lighting and interactive physics <a class="cite" href="#src-S6">S6</a><a class="cite" href="#src-S7">S7</a>. That change of stage helps give this benchmark a character beyond its score.</p>
+<h2 id="further-verification-worth-doing-not-masquerading-as-completed">Further verification worth doing (not masquerading as completed)</h2>
+<ul>
+<li><strong>Play and document</strong> Game Mode on the 1.1 build, photograph notebooks/chalkboard text and relevant objects; record whether a reproducible puzzle solution exists.</li>
+<li>Check credits and development interviews for <strong>named level artists, reference photography and artistic influences</strong>; an artist post alone does not establish a whole-team design rationale.</li>
+<li>Seek an official answer from UNIGINE if a canonical professor name, cause of the bang or location of the school matters.</li>
+</ul>
+<h2 id="sources">Sources</h2>
+<ul>
+<li id="src-1"><strong>[S1] UNIGINE Benchmarks, official Superposition product page:</strong> story, 2017 origin and interactive features. <a href="https://benchmark.unigine.com/superposition">https://benchmark.unigine.com/superposition</a></li>
+<li id="src-2"><strong>[S2] UNIGINE, official <em>Superposition Benchmark 1.1 User Manual</em> (2019), pp. 3 and 13–16:</strong> plot overview, Game Mode interactions, lighting, gravity, timescale. <a href="https://benchmark.unigine.com/docs/superposition/Superposition_Benchmark_User_Manual.pdf">https://benchmark.unigine.com/docs/superposition/Superposition_Benchmark_User_Manual.pdf</a></li>
+<li id="src-3"><strong>[S3] UNIGINE Studio, <em>Superposition Benchmark (2017)</em>, original art portfolio and videos:</strong> official visual reference gallery. <a href="https://unigine.artstation.com/projects/3KEWB">https://unigine.artstation.com/projects/3KEWB</a></li>
+<li id="src-4"><strong>[S4] Tom's Hardware (April 2017), <em>Unigine Releases Superposition Graphics Benchmark With 8K, VR Tests</em>:</strong> contemporary photographs and environment discussion. <a href="https://www.tomshardware.com/news/unigine-superposition-graphics-benchmark-test%2C34121.html">https://www.tomshardware.com/news/unigine-superposition-graphics-benchmark-test%2C34121.html</a></li>
+<li id="src-5"><strong>[S5] UNIGINE (12 April 2019), <em>Superposition Benchmark 1.1: Free VR to Everyone</em>:</strong> later changes and dart interaction fix. <a href="https://unigine.com/news/2019/superposition-benchmark-1-1-free-vr-to-everyone">https://unigine.com/news/2019/superposition-benchmark-1-1-free-vr-to-everyone</a></li>
+<li id="src-6"><strong>[S6] UNIGINE Developer, <em>UNIGINE 2.5</em> devlog (2017):</strong> Screen-Space Ray-Traced Global Illumination; graphics-engine context, not a secret story key. <a href="https://developer.unigine.com/devlog/20170531-unigine-2.5">https://developer.unigine.com/devlog/20170531-unigine-2.5</a></li>
+<li id="src-7"><strong>[S7] UNIGINE Benchmarks, <em>About</em>: benchmark lineage and company chronology.</strong> <a href="https://benchmark.unigine.com/about">https://benchmark.unigine.com/about</a></li>
+<li id="src-8"><strong>[S8] TechPowerUp, <em>UNIGINE announces the Superposition Benchmark</em> (5 January 2017):</strong> reprints original story long before launch. <a href="https://www.techpowerup.com/229303/unigine-announces-the-superposition-benchmark-coming-soon">https://www.techpowerup.com/229303/unigine-announces-the-superposition-benchmark-coming-soon</a></li>
+<li id="src-9"><strong>[S9] Linux Gaming Consortium (12 October 2016), contemporary pre-release notice:</strong> same story and interactivity in 2016. <a href="https://linuxgameconsortium.com/superposition-benchmark-new-gpu-stress-testing-tool/">https://linuxgameconsortium.com/superposition-benchmark-new-gpu-stress-testing-tool/</a></li>
+</ul>
+
+    <nav class="pager"><a href="qa-superposition.html"><span>Read</span><b>Superposition: ten questions answered</b></a></nav>
+  </article>
+</main>
+<footer class="site"><div class="wrap">
+  <div><h4>GPU Benchmark Lore</h4>Sourced histories of FurMark, UNIGINE Superposition and 3DMark. Every claim carries a numbered source; what could not be confirmed says so. Text is MIT-licensed; quotations stay with their owners.</div>
+  <div><h4>Explore</h4><a href="../index.html#timeline">Timeline</a><a href="../index.html#questions">Question explorer</a><a href="fact-check.html">Fact-check log</a></div>
+  <div><h4>Repo</h4><a href="https://github.com/Parris-Tech-Services/furmark-history">GitHub repository</a><a href="../furmark-history-podcast.pdf">Podcast PDF</a></div>
+</div></footer>
+<div class="tip" id="tip"></div>
+<script src="../assets/app.js" data-base="../"></script>
+<script>
+(function(){
+  // wrap tables for horizontal scroll, add heading links
+  document.querySelectorAll("article table").forEach(function(t){var w=document.createElement("div");w.className="tablewrap";t.parentNode.insertBefore(w,t);w.appendChild(t)});
+  document.querySelectorAll("article h2[id],article h3[id]").forEach(function(h){var a=document.createElement("a");a.className="hlink";a.href="#"+h.id;a.textContent="#";a.title="Link to this section";h.appendChild(a)});
+  // external links open in new tab
+  document.querySelectorAll("article a[href^=http]").forEach(function(a){a.target="_blank";a.rel="noopener"});
+  // progress
+  var prog=document.getElementById("prog");
+  function sp(){var h=document.documentElement;var m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?h.scrollTop/m*100:0)+"%"}
+  addEventListener("scroll",sp,{passive:true});sp();
+  // scrollspy
+  var links=[].slice.call(document.querySelectorAll("#tocol a")),map={};
+  links.forEach(function(a){map[a.getAttribute("href").slice(1)]=a});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.remove("on")});var l=map[e.target.id];if(l)l.classList.add("on")}})},{rootMargin:"-80px 0px -70% 0px"});
+  document.querySelectorAll("article h2[id]").forEach(function(h){io.observe(h)});
+  // citation tooltips
+  var tip=document.getElementById("tip");
+  document.querySelectorAll("a.cite").forEach(function(a){
+    var id=a.getAttribute("href").slice(1);
+    a.addEventListener("mouseenter",function(){var li=document.getElementById(id);if(!li)return;tip.textContent=li.textContent.trim().slice(0,320);tip.style.display="block";var r=a.getBoundingClientRect();tip.style.left=Math.min(innerWidth-tip.offsetWidth-12,Math.max(12,r.left-20))+"px";tip.style.top=Math.max(12,r.top-tip.offsetHeight-10)+"px"});
+    a.addEventListener("mouseleave",function(){tip.style.display="none"});
+  });
+})();
+</script>
+</body></html>
