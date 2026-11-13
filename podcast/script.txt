@@ -1,0 +1,70 @@
+# The Donut That Cooks GPUs: the story of FurMark
+# Segments are separated by a line starting with ##. Speaker lines start with LEDA: or DORAL:
+
+## Cold open
+LEDA: Picture a furry, rotating donut. Orange fuzz, a flickering background, and a graphics card whose fans are screaming like a hair dryer.
+DORAL: That donut has made more graphics cards sweat than almost any game ever released.
+LEDA: Today: FurMark. The free program that exists to make your GPU as hot as possible, on purpose.
+DORAL: And somehow it ended up detected, throttled and argued over by two of the biggest chip makers on the planet.
+
+## Seed
+DORAL: It starts in two thousand and seven. The author goes by JeGX, Jérôme Guinot. He wrote graphics tutorials on a site called oZone3D, and later ran Geeks3D.
+LEDA: And his own words, from a post in March twenty twenty-five: the first version of FurMark one was released in two thousand and seven.
+DORAL: It's built on OpenGL. One scene. A torus covered in fur, drawn with shaders that do an enormous amount of maths on every single frame.
+LEDA: Why fur? Because fur is brutal to render. It's dense, shader-heavy work that keeps every core busy. Great for hurting a card, useless for playing anything.
+DORAL: So it was never really a game demo. JeGX pitched it as a stability test. Overclock your card, run the donut, see if it survives.
+
+## Hot like hell
+LEDA: Fast forward to February the second, twenty ten. Version one point eight, with a name that tells you everything: the Hot Like Hell Edition.
+DORAL: The announcement said, quote, this new version will overheat your GPUs like hell. For a hot winter.
+LEDA: There was a new effect that simulated a heat haze around the donut. And a displacement mapping effect that made the fur heights uneven, which meant more work for the card.
+DORAL: He even warned that scores would come out lower than earlier versions, because the workload was heavier.
+LEDA: And in his own test notes he mentions a Radeon HD forty-eight fifty running a driver, Catalyst nine point five, that, quote, has no protection against FurMark.
+DORAL: Which is a very strange sentence to read about a benchmark.
+
+## The power virus years
+LEDA: Because protection was the plot twist. Graphics card makers started treating FurMark like malware.
+DORAL: Here's the story as Geeks3D told it in September two thousand and nine. The power circuitry on the Radeon HD forty-eight fifty and forty-eight seventy cards was, in his words, under-sized for a load like FurMark's.
+LEDA: So AMD added a protection in Catalyst eight point eight. It looked for the file name: furmark dot exe.
+DORAL: Rename the file and the throttle went away. At least that's what forum users reported at the time. I couldn't find AMD ever confirming it.
+LEDA: Then in Catalyst nine point eight, per Geeks3D, the check got smarter. It stopped reading the name and started measuring the ratio of texture work to maths work.
+DORAL: Smart. Because what do you call a program that deliberately finds the one load a card can't survive?
+LEDA: The industry called it a power virus. AnandTech's review of the Radeon HD fifty-nine seventy says FurMark and OCCT were on AMD's list.
+DORAL: JeGX was not thrilled. He wrote that for a card costing two hundred dollars or more, quote, I should have the right to draw some furry objects.
+LEDA: With the next generation, the Radeon HD fifty-eight seventy, AMD moved the protection into hardware. A small monitoring chip watching the voltage regulators, throttling one performance step when things got dangerous.
+
+## Nvidia joins in
+DORAL: Then November two thousand and ten. Nvidia launches the GeForce GTX five-eighty, and Geeks3D's headline is: the Anti-FurMark card.
+LEDA: Three sensors on the twelve-volt lines measured power. And the driver watched for FurMark or OCCT running.
+DORAL: When it detected one, the card clocked itself down. Not in games, only in the stress tests. Nvidia said it was protecting cards and motherboards.
+LEDA: The reviewer at TechPowerUp measured it. A hundred and fifty-three watts with the limiter. Three hundred and four without.
+DORAL: Half the power. In the one program people used to measure power.
+LEDA: Reviewers were stuck, because FurMark was how they tested temperatures, noise and power draw. Suddenly the donut wasn't telling the whole truth.
+DORAL: In January twenty eleven, JeGX picked up on a TechPowerUp reader poll about these limiters. The majority said they were fine with them, but only with full control to switch them off.
+LEDA: He put himself in that majority. His complaint about Nvidia's version was that it was based on, quote, an applications blacklist. Which, he wrote, really sucks.
+DORAL: He added that AMD's PowerTune at least let you adjust the limit by about twenty percent. And that Asus had left the limiter off its GTX five-sixty Ti, so FurMark ran at full speed.
+
+## Spin-offs and long life
+DORAL: Meanwhile FurMark became a standard. Geeks3D describes MSI's Kombustor as a burn-in tool, quote, based on the well-known FurMark software. MSI's own support page from twenty eleven says it was co-developed by MSI and the FurMark team.
+LEDA: A blog post by JeGX has FurMark at DreamHack in June twenty eleven, stressing an Asus ROG GTX five-eighty on the show floor.
+DORAL: And the old version just kept shipping. One point seventeen in August twenty fifteen. One point eighteen a year later, adding GTX ten-eighty and RX four-eighty support, plus a five-K resolution.
+LEDA: Over the years it went from fighting drivers to being listed in every guide on how to test a new build.
+DORAL: A caution that every guide repeats, though: it's a stress test, much harsher than any game. Treat the temperature numbers with respect.
+
+## A second life
+LEDA: December the first, twenty twenty-two. Version two point zero point zero point zero. A beta, handed out to the Geeks3D Discord.
+DORAL: Rebuilt on JeGX's own GeeXLab engine. Linux support arrived in January twenty twenty-three. Vulkan alongside OpenGL.
+LEDA: The public launch came in February twenty twenty-four. Version two point one. In the release notes JeGX wrote, quote, FurMark two is finally there. It took me more time than expected.
+DORAL: It supports OpenGL three point two and Vulkan one point one, on Windows and Linux, with a command line tool and a graphical front end.
+LEDA: There's a new scene too: a twisted knot, next to the classic donut. And online scores, so you can compare your card with everyone else's.
+DORAL: Since then, updates have followed new hardware almost like a diary. A Raspberry Pi build in May twenty twenty-four. Intel Arc Battlemage support that December. Nvidia RTX fifty-series cards in twenty twenty-five.
+LEDA: The most recent entry I found is version two point eleven, dated October the thirtieth, twenty twenty-six. It adds new Nvidia Blackwell chips, and shows elapsed time as days, hours, minutes and seconds.
+DORAL: The changelog says that's handy for very long stress test sessions.
+LEDA: And the old version? In March twenty twenty-five JeGX wrote that FurMark one's branch one point thirty-nine was probably the last. Only patches after that, until a final stop, he wrote, maybe in twenty twenty-six.
+
+## Outro
+DORAL: So that's FurMark. A program written to be unreasonable, that forced two chip giants to build safety nets into their hardware.
+LEDA: And still, nearly twenty years on, one fuzzy donut is how a lot of us decide whether a graphics card is ready to be trusted.
+DORAL: Check your temperatures. Keep the fans clean.
+LEDA: And if your card ever starts clocking down the moment you launch the donut, now you know why.
+DORAL: Thanks for listening.
