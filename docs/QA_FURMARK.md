@@ -32,7 +32,7 @@ I found no controlled test, teardown or RMA confirmation proving FurMark alone k
 - **A vendor-acknowledged risk for other parts.** A review quoted by Geeks3D said that, at an end-user level, FurMark and OCCT "really can be dangerous" because they can draw too much power from the PSU, even though cards can no longer be toasted by them [15].
 - **Forum anecdotes, not proof.** HardForum and Overclock.net threads describe dead HD 4870-class cards after FurMark; the same threads include replies attributing the failures to overclocking, poor cooling, or a card that was already failing [16].
 
-Conclusion: plausible on old, undersized VRMs, not demonstrated as a verified cause. The developer's own advice, repeated in guides, is to keep runs short [17].
+Conclusion: plausible on old, undersized VRMs, not demonstrated as a verified cause. Practical third-party guides recommend conservative run lengths and temperature monitoring [17]; I did not establish a specific run-length recommendation directly from the developer.
 
 ## 5. Do modern GPUs still detect or limit FurMark?
 
@@ -63,7 +63,7 @@ Why was it added? The post gives no reason beyond cross-platform coverage; it fo
 
 ## 9. How does FurMark compare with other stress tools?
 
-No independent lab comparison turned up; the guides I found are secondary, SEO-heavy and not consistent on numbers. The shared conclusions are: FurMark produces higher temperatures and power than Heaven, 3DMark or OCCT's GPU test and is a worst-case load unlike games; OCCT is better for error detection when validating an overclock; and Time Spy's looped stress test and Heaven give a more game-like load [28]. Tom's Hardware's choice is instructive: it measures real-world power with a looped game (Metro Exodus) and a FurMark run as a deliberate worst-case bracket [18].
+No independent lab comparison turned up; the guides I found are secondary, SEO-heavy and not consistent on numbers. Several guides *characterise* FurMark as an atypically intense thermal/power workload, OCCT as useful for error detection, and looped game-like benchmarks such as Heaven or Time Spy as complementary stability checks [28]. Those descriptions do not establish a universal temperature or wattage ranking against every OCCT mode on every GPU. Tom's Hardware's choice is instructive: it measures real-world power with a looped game (Metro Exodus) and a FurMark run as a deliberate worst-case bracket [18].
 
 The developer's own positioning is consistent: FurMark 2 is "a very intensive GPU stress test" and "also a graphics benchmark" [29]. Specific heat and wattage comparisons would need a controlled test on one card; I did not find one and did not run one.
 
