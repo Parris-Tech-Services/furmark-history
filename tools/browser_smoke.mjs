@@ -36,8 +36,10 @@ const pass=s=>{notes.push(s);console.log("PASS",s)};
 try{
   browser=await chromium.launch({headless:true,executablePath:chrome,args:["--no-sandbox","--disable-dev-shm-usage"]});
   const context=await browser.newContext({viewport:{width:1366,height:900},acceptDownloads:true});
+  // External embeds are verified by URL. Exercise first-party scripts and media locally.
+  await context.route(/^https:\/\//, route=>route.abort());
   const page=await context.newPage();
-  page.on("pageerror",e=>errors.push(e.message));
+  page.on("pageerror",e=>errors.push(e.stack||e.message));
   await page.goto(url,{waitUntil:"domcontentloaded"});
   await page.waitForFunction(()=>document.querySelector("#ftiles")?.children.length>=5,{timeout:25000});
   assert.match(await page.locator("#ftiles").innerText(),/\d+\s*\/\s*\d+/);
@@ -101,6 +103,7 @@ try{
   assert.match(await page.locator("body").innerText(),/professor/i);
   pass("Deep-dive reading page");
   const mobile=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true});
+  await mobile.route(/^https:\/\//, route=>route.abort());
   const mp=await mobile.newPage();
   mp.on("pageerror",e=>errors.push("mobile: "+e.message));
   await mp.goto(url,{waitUntil:"domcontentloaded"});
