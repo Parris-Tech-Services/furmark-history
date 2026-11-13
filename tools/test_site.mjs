@@ -20,7 +20,7 @@ check("JavaScript parses",() => {
 check("Interactive controls retain working selectors and accessibility hooks",() => {
   const home=read("site/assets/home.js"), shared=read("site/assets/app.js");
   const html=read("site/index.html");
-  assert(!/\$\("[^"]+"\)\.forEach\(/.test(home),"querySelector is not iterable: use $()");
+  assert(!/(?<!\$)\$\("[^"]+"\)\.forEach\(/.test(home),"querySelector is not iterable: use $()");
   for(const id of ["fgo","fcardgo","ffollow","fexport","fdetail","fflags","texp","lbclose","heat","heatv"])
     assert(html.includes('id="'+id+'"'),"Missing interactive control "+id);
   assert(home.includes('rowsForView()'),"Fleet filters/export disconnected");
