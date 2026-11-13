@@ -238,20 +238,40 @@ function fleet(F){
       (c.fm!=null?'<p style="margin:12px 0 0;color:var(--mut);font-size:14px">FurMark '+fmt(c.fm)+' points ≈ '+(c.fm/60).toFixed(0)+' FPS over the 60 s run'+(c.sn!=null?'; Steel Nomad '+fmt(c.sn)+' ≈ '+(c.sn/100).toFixed(1)+' FPS at 4K':"")+".</p>":"")+
       '<div style="margin-top:10px">'+(c.gpuz?'<span class="pill ok">GPU-Z recognised</span>':"")+(c.status==="MATCHED_GTX1070"?'<span class="pill ok">public result matches</span>':"")+(c.status==="LINK_SCORE_MISMATCH"?'<span class="pill warn">link mismatch</span>':"")+(c.occt?'<span class="pill ok">OCCT: '+esc(c.occt)+"</span>":"")+(c.note?'<span class="pill warn">'+esc(c.note)+"</span>":"")+(fl?'<span class="pill '+fl[0]+'">'+esc(fl[1])+"</span>":"")+"</div>"+(c.url?'<a href="'+esc(c.url)+'" target="_blank" rel="noopener">'+(c.status==="LINK_SCORE_MISMATCH"?"Incorrect link — opens a different GPU ↗":"Open public FurMark result ↗")+'</a>':"")}
   function draw(){
-    var k=st.m,rows=C.filter(function(c){return c[k]!=null&&(st.rig==="all"||c.rig===st.rig)}).sort(function(a,b){return b[k]-a[k]});
-    var mx=Math.max.apply(null,rows.map(function(c){return c[k]})),mn=Math.min.apply(null,rows.map(function(c){return c[k]})),base=st.zero?0:mn*.97;
-    $("#fbt").textContent=MET[k][0]+" · "+rows.length+" cards · axis starts at "+fmt(base);
-    $("#fbars").innerHTML=rows.map(function(c){return'<div class="frow'+(st.sel===c.card?" sel":"")+'" data-n="'+c.card+'" style="--rc:'+RIGC[c.rig]+'"><b>#'+c.card+'</b><div><i style="width:'+Math.max(2,(c[k]-base)/(mx-base)*100)+'%"></i></div><span>'+fmt(c[k])+"</span></div>"}).join("");
+    var k=st.m,rows=rowsForView(),values=rows.map(function(c){return c[k]});
+    var mx=rows.length?Math.max.apply(null,values):0,mn=rows.length?Math.min.apply(null,values):0,base=st.zero?0:mn*.97;
+    $("#fbt").textContent=MET[k][0]+" · "+rows.length+" cards"+(rows.length?" · chart axis starts at "+fmt(base):"");
+    $("#fbars").innerHTML=rows.length?rows.map(function(c){
+      var width=mx===base?100:Math.max(2,Math.min(100,(c[k]-base)/(mx-base)*100));
+      return '<button type="button" aria-label="Inspect card '+c.card+', '+MET[k][0]+' '+fmt(c[k])+' points" aria-pressed="'+(st.sel===c.card)+'" class="frow'+(st.sel===c.card?" sel":"")+'" data-n="'+c.card+'" style="--rc:'+(RIGC[c.rig]||"#9aa3b8")+'"><b>#'+c.card+'</b><div><i style="width:'+width+'%"></i></div><span>'+fmt(c[k])+'</span></button>'
+    }).join(""):'<p class="searchmessage">No scored cards match these filters. Try another test PC or untick “Follow-ups only”.</p>';
     $$(".frow").forEach(function(r){r.onclick=function(){sel(+r.dataset.n)}});
-    // scatter
-    var P=C.filter(function(c){return c.fm!=null&&c.sp!=null&&(st.rig==="all"||c.rig===st.rig)}),x0=Math.min.apply(null,P.map(function(c){return c.fm}))-40,x1=Math.max.apply(null,P.map(function(c){return c.fm}))+40,y0=Math.min.apply(null,P.map(function(c){return c.sp}))-150,y1=Math.max.apply(null,P.map(function(c){return c.sp}))+150;
-    var X=function(v){return 78+(v-x0)/(x1-x0)*518},Y=function(v){return 350-(v-y0)/(y1-y0)*320};var svg="";
-    for(var i=0;i<=4;i++){var gx=x0+(x1-x0)*i/4,gy=y0+(y1-y0)*i/4;svg+='<line x1="'+X(gx)+'" y1="30" x2="'+X(gx)+'" y2="350" stroke="rgba(255,255,255,.07)"/><line x1="78" y1="'+Y(gy)+'" x2="596" y2="'+Y(gy)+'" stroke="rgba(255,255,255,.07)"/><text x="'+X(gx)+'" y="368" text-anchor="middle">'+fmt(gx)+'</text><text x="70" y="'+(Y(gy)+3)+'" text-anchor="end">'+fmt(gy)+"</text>"}
-    svg+='<text x="326" y="392" text-anchor="middle">FurMark points →</text><text x="10" y="190" transform="rotate(-90 10 190)" text-anchor="middle">Superposition →</text>';
-    P.forEach(function(c){svg+='<circle data-n="'+c.card+'" cx="'+X(c.fm).toFixed(1)+'" cy="'+Y(c.sp).toFixed(1)+'" r="5.5" fill="'+RIGC[c.rig]+'" class="'+(st.sel===c.card?"sel":"")+'"/>'});
-    $("#fscatter").innerHTML=svg;
-    $$("#fscatter circle").forEach(function(c){var n=+c.dataset.n,cd=C.filter(function(x){return x.card===n})[0];c.onclick=function(){sel(n)};c.onmouseenter=function(){$("#ftip").textContent="#"+n+" · FurMark "+fmt(cd.fm)+" · Superposition "+fmt(cd.sp)+" · "+cd.rig}});
-    $("#fscatter").parentNode.querySelector(".legend")||$("#fscatter").insertAdjacentHTML("afterend",'<div class="legend">'+Object.keys(RIGC).filter(function(r){return C.some(function(c){return c.rig===r})}).map(function(r){return'<span><i style="background:'+RIGC[r]+'"></i>'+r+"</span>"}).join("")+"</div>");
+    // The plot is a within-batch comparison, not a causal measure of hardware health.
+    var P=C.filter(function(c){return c.fm!=null&&c.sp!=null&&(st.rig==="all"||c.rig===st.rig)&&(!st.follow||needsFollowUp(c))}),svg="";
+    if(!P.length){
+      $("#fscatter").innerHTML='<text x="310" y="190" text-anchor="middle">No paired scores in this filtered view.</text>';
+      $("#ftip").textContent="Choose a broader filter to compare results.";
+    }else{
+      var x0=Math.min.apply(null,P.map(function(c){return c.fm}))-40,
+          x1=Math.max.apply(null,P.map(function(c){return c.fm}))+40,
+          y0=Math.min.apply(null,P.map(function(c){return c.sp}))-150,
+          y1=Math.max.apply(null,P.map(function(c){return c.sp}))+150;
+      var X=function(v){return 78+(v-x0)/(x1-x0)*518},Y=function(v){return 350-(v-y0)/(y1-y0)*320};
+      for(var i=0;i<=4;i++){var gx=x0+(x1-x0)*i/4,gy=y0+(y1-y0)*i/4;
+        svg+='<line x1="'+X(gx)+'" y1="30" x2="'+X(gx)+'" y2="350" stroke="rgba(255,255,255,.07)"/><line x1="78" y1="'+Y(gy)+'" x2="596" y2="'+Y(gy)+'" stroke="rgba(255,255,255,.07)"/><text x="'+X(gx)+'" y="368" text-anchor="middle">'+fmt(gx)+'</text><text x="70" y="'+(Y(gy)+3)+'" text-anchor="end">'+fmt(gy)+"</text>"}
+      svg+='<text x="326" y="392" text-anchor="middle">FurMark points →</text><text x="10" y="190" transform="rotate(-90 10 190)" text-anchor="middle">Superposition →</text>';
+      P.forEach(function(c){svg+='<circle data-n="'+c.card+'" tabindex="0" role="button" aria-label="Inspect card '+c.card+', FurMark '+fmt(c.fm)+', Superposition '+fmt(c.sp)+'" cx="'+X(c.fm).toFixed(1)+'" cy="'+Y(c.sp).toFixed(1)+'" r="5.5" fill="'+(RIGC[c.rig]||"#9aa3b8")+'" class="'+(st.sel===c.card?"sel":"")+'"/>'});
+      $("#fscatter").innerHTML=svg;
+      $$("#fscatter circle").forEach(function(node){var n=+node.dataset.n,cd=C.find(function(x){return x.card===n});
+        node.onclick=function(){sel(n)};
+        node.onkeydown=function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();sel(n)}};
+        node.onmouseenter=node.onfocus=function(){$("#ftip").textContent="#"+n+" · FurMark "+fmt(cd.fm)+" · Superposition "+fmt(cd.sp)+" · "+cd.rig};
+      });
+      $("#ftip").textContent=P.length+" paired results · pick a dot or use “Find a card #”.";
+    }
+    var legend=$("#fscatter").parentNode.querySelector(".legend");
+    if(legend)legend.remove();
+    $("#fscatter").insertAdjacentHTML("afterend",'<div class="legend">'+Object.keys(RIGC).filter(function(r){return C.some(function(c){return c.rig===r})}).map(function(r){return'<span><i style="background:'+RIGC[r]+'"></i>'+r+"</span>"}).join("")+"</div>");
     // rigs
     $("#frigs").innerHTML='<table class="table"><thead><tr><th>Test PC</th><th>Cards</th><th>FurMark mean</th><th>Superposition mean</th><th>Steel Nomad mean</th><th>CPU in public result</th></tr></thead><tbody>'+Object.keys(RIGC).filter(function(r){return C.some(function(c){return c.rig===r})}).map(function(r){var cs=C.filter(function(c){return c.rig===r}),m=function(kk){var a=vals(kk,r);return a.length?fmt(mean(a)):"–"},cpus=cs.map(function(c){return c.cpu}).filter(function(v,i,a){return v&&a.indexOf(v)===i}).join(", ");return"<tr><td><i class=\"dot\" style=\"background:"+RIGC[r]+"\"></i> <b>"+r+"</b></td><td>"+cs.length+"</td><td>"+m("fm")+"</td><td>"+m("sp")+"</td><td>"+m("sn")+"</td><td>"+esc(cpus||"–")+"</td></tr>"}).join("")+"</tbody></table>"}
   $("#fflags").innerHTML=Object.keys(FLAGS).map(function(n){var f=FLAGS[n];return'<div class="flag" data-n="'+n+'"><b>#'+n+'</b><span><span class="pill '+f[0]+'">'+(f[0]==="warn"?"check":f[0]==="ok"?"good":"note")+"</span> "+esc(f[1])+"</span></div>"}).join("");
