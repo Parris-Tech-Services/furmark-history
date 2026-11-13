@@ -18,18 +18,18 @@
 | 2002 | Renamed Futuremark | [2] |
 | Dec 2009 | Mobile and embedded unit spun off as Rightware | [2] |
 | Mar 2012 | Games division sold to Rovio | [2] |
-| 31 Oct 2014 | Futuremark acquired by UL | [2] |
+| 31 Oct 2014 | Futuremark acquisition by UL closed; publicly announced 3 Nov | [22] |
 | 23 Apr 2018 | Rebranded UL Benchmarks; the Futuremark website closed | [2] |
 
 ## 3DMark by generation
 
-Scores are not comparable across versions, because each is tied to a DirectX generation. [3]
+Scores cannot be compared indiscriminately between different 3DMark tests or generations. Within a specifically designed cross-platform benchmark, results from supported APIs/platforms *can* be comparable (subject to official test rules and versions); see [benchmark interpretation](BENCHMARK_PRACTICE.md). [3][20][21]
 
 | Version | Released | API / focus | Source |
 |---|---|---|---|
 | 3DMark99 | 26 Oct 1998 | DirectX 6, Remedy's MAX-FX engine | [10][11] |
 | 3DMark99 MAX | 8 Mar 1999 | content update | [3] |
-| 3DMark2000 | Dec 2000 | DirectX 7, hardware transform and lighting | [11] |
+| 3DMark2000 | **Dec 1999** | DirectX 7, hardware transform and lighting; UL's own company timeline places the release before Christmas 1999 | [19] |
 | 3DMark2001 | 13 Mar 2001 | DirectX 8; first with vertex and pixel shaders; last on MAX-FX | [3][11] |
 | 3DMark2001 SE | 12 Feb 2002 | DirectX 8.1 | [3] |
 | 3DMark03 | 11 Feb 2003 | DirectX 9; no third-party engine; first to include CPU tests | [3][11] |
@@ -37,7 +37,7 @@ Scores are not comparable across versions, because each is tied to a DirectX gen
 | 3DMark06 | 18 Jan 2006 | first to fold the CPU result into the score | [3] |
 | 3DMark Vantage | 28 Apr 2008 | DirectX 10 | [3] |
 | 3DMark 11 | 7 Dec 2010 | DirectX 11: tessellation, compute shaders | [3] |
-| 3DMark (Fire Strike era) | 4 Feb 2013 | one app with separate tests; Windows, Android and iOS scores comparable for the first time | [3][11] |
+| 3DMark (Fire Strike era) | 4 Feb 2013 (Windows) | A suite of separate tests; Android followed in April 2013, iOS in September. **Only equivalent cross-platform tests** (such as Ice Storm), not arbitrary 3DMark scores, can be compared | [19][21] |
 | Time Spy | 14 Jul 2016 | DirectX 12; trailer shown 23 Jun 2016 | [12][13] |
 | Port Royal | 8 Jan 2019 | "world's first dedicated real-time ray tracing benchmark for gamers"; DXR; 2560 x 1440 | [14] |
 | Speed Way | 12 Oct 2022 | DirectX 12 Ultimate, DXR 1.1, mesh shaders; sponsored by Lenovo Legion | [4] |
@@ -68,11 +68,12 @@ UL first planned Steel Nomad for the end of Q1 2024. A Steam message then moved 
 
 | Date | Event | Source |
 |---|---|---|
-| 12 Jun 2025 | 3DMark for macOS (native app). UL says roughly 1 in 6 iOS submissions came from Macs, and that running the iOS build on a Mac can lower scores. Brings Steel Nomad to macOS | [5] |
+| 12 Jun 2025 | Native 3DMark for **Apple Silicon** macOS launches with Steel Nomad, Steel Nomad Light, Solar Bay and Wild Life Extreme; UL says roughly one in six iOS submissions came from Macs | [5][20] |
+| 18 Jun 2025 | **Important omitted correction:** UL fixes a macOS compiler error affecting initial-launch Solar Bay, Steel Nomad and Steel Nomad Light scores (up to ~5% performance impact); UL marks the affected launch results invalid | [20] |
 | 20 Aug 2025 | Solar Bay Extreme: more ray-tracing workload (specular and glass reflections, soft shadows) | [6] |
 | 22 Apr 2026 | 3DMark macOS available as a standalone download direct from UL Solutions | [7] |
-| 3 Jun 2026 | UL announces a new fully path-traced 3DMark benchmark, running at native 4K and with AI upscaling and frame generation from several vendors; first sponsor named | [8] |
-| 24 Jul 2026 | Seasonic added as sponsor of the upcoming benchmark; UL gives no date, only that it will share it "when it is ready" | [9] |
+| 3 Jun 2026 | UL announces an unnamed fully path-traced 3DMark benchmark with native 4K plus vendor-dependent AI upscaling and frame-generation options; **Thermal Grizzly** is the first sponsor | [8] |
+| 24 Jul 2026 | **Seasonic** joins Thermal Grizzly as a sponsor of the upcoming benchmark; no public launch date confirmed in the cited announcements | [9] |
 
 ### Linux
 
@@ -83,28 +84,28 @@ UL promised Linux support in May 2024 and at one point said macOS and Linux woul
 - **Steel Nomad launch day:** 21 May 2024. UL's post and the Steam listing agree; the "25 May" figure from one outlet is wrong. [1][17]
 - **Steel Nomad resolution:** native 4K for the standard test; 2560 x 1440 is Steel Nomad Light. [1][16]
 - **Time Spy:** 14 July 2016. [12]
-- **3DMark99:** 26 October 1998, from Futuremark's own press release, which says "today, 26th of October 1998". Wikipedia's 28 October infobox date disagrees. [10]
+- **3DMark99:** 26 October 1998, from Futuremark's own press release, which says "today, 26th of October 1998". The preserved press release has a current UL-hosted URL [10].
 - **The delay:** Q1 2024, then April, then 21 May. [17]
 
 ## Still open
 
 - UL's next-generation benchmark has no name or release date in its posts.
 - Whether and when Steel Nomad reaches Linux publicly.
-- The 3DMark2000 month comes from a hobbyist history (December 2000); I did not find the press release.
+- The exact release **day** of 3DMark2000 is not established here from an original press release. Its **month and year are confirmed as December 1999** by UL's own history [19]; the formerly cited December 2000 date was wrong.
 - The Steel Nomad delay articles (VideoCardz, Overclock3D, TweakTown) are cited from search summaries; some of those pages blocked my fetches.
 
 ## Sources
 
 1. UL Benchmarks, "3DMark Steel Nomad is out now!", 21 May 2024. https://benchmarks.ul.com/news/3dmark-steel-nomad-is-out-now
-2. Wikipedia, "Futuremark" (raw page). https://en.wikipedia.org/wiki/Futuremark
+2. Wikipedia, "Futuremark" (secondary corporate history; primary UL acquisition and company-history sources below override it on conflicting dates). https://en.wikipedia.org/wiki/Futuremark
 3. Wikipedia, "3DMark" (raw page, version table). https://en.wikipedia.org/wiki/3DMark
 4. UL Benchmarks, "3DMark Speed Way is now available", 12 Oct 2022. https://benchmarks.ul.com/news/3dmark-speed-way-is-now-available
 5. UL Benchmarks, "3DMark for macOS available now!", 12 Jun 2025. https://benchmarks.ul.com/news/3dmark-for-macos-available-now
 6. UL Benchmarks, "3DMark Solar Bay Extreme is available now!", 20 Aug 2025. https://benchmarks.ul.com/news
 7. UL Benchmarks, "3DMark on macOS now available directly from UL Solutions", Apr 2026. https://benchmarks.ul.com/news
-8. UL Benchmarks, "Announcing our next generation 3DMark GPU Benchmark and its first sponsor", 3 Jun 2026. https://benchmarks.ul.com/news
-9. UL Benchmarks, "Seasonic joins as a sponsor of the next 3DMark GPU Benchmark", 24 Jul 2026. https://benchmarks.ul.com/news
-10. Futuremark, "Futuremark Corporation Releases 3DMark 99 - The Gamers' Benchmark", 26 Oct 1998. https://www.futuremark.com/pressreleases/20408/
+8. UL Benchmarks, "Announcing our next generation 3DMark GPU Benchmark and its first sponsor", 3 Jun 2026. https://benchmarks.ul.com/news/announcing-our-next-generation-3dmark-gpu-benchmark-and-its-first-sponsor
+9. UL Benchmarks, "Seasonic joins as a sponsor of the next 3DMark GPU Benchmark", 24 Jul 2026. https://benchmarks.ul.com/news (find announcement dated 24 Jul 2026)
+10. Futuremark, "Futuremark Corporation Releases 3DMark 99 - The Gamers' Benchmark", 26 Oct 1998. **Preserved on UL's site**: https://benchmarks.ul.com/news/20408
 11. James Mackenzie, "The History of (and Nostalgia for) 3DMark", 21 Apr 2023. https://www.jamesfmackenzie.com/2023/04/21/the-history-of-and-nostalgia-for-futuremark-3dmark/
 12. Futuremark, "3DMark Time Spy - DirectX 12 benchmark test available now", 14 Jul 2016. https://aws.futuremark.com/en/news/3dmark-time-spy-directx-12-benchmark-test-available-now
 13. Futuremark, "Introducing 3DMark Time Spy DirectX 12 benchmark test", 23 Jun 2016. https://aws.futuremark.com/en/news/introducing-3dmark-time-spy-directx-12-benchmark-test
@@ -113,3 +114,8 @@ UL promised Linux support in May 2024 and at one point said macOS and Linux woul
 16. UL Benchmarks support, "Steel Nomad Graphics Test" and "Overview of Steel Nomad Light" (both give 2560 x 1440 for Light). https://support.benchmarks.ul.com/support/solutions/articles/44002528070-overview-of-steel-nomad-light
 17. VideoCardz, "3DMark Steel Nomad non-raytraced benchmark has been delayed to April"; Overclock3D delay stories; Steam store page (release date 21 May 2024). https://store.steampowered.com/app/2695340/3DMark_Steel_Nomad/
 18. GamingOnLinux, "3DMark are planning a Linux version but no date for it yet", June 2025. https://www.gamingonlinux.com/2025/06/3dmark-are-planning-a-linux-version-but-no-date-for-it-yet
+
+19. UL Benchmarks, *About us / Making a mark since 1997*, first-party timeline showing 3DMark2000 in **December 1999** and 2013 platform releases. https://benchmarks.ul.com/about
+20. UL Benchmarks, *3DMark for macOS application release notes*, including the 18 Jun 2025 correction invalidating launch-version results. https://support.benchmarks.ul.com/support/solutions/articles/44002626797-3dmark-for-macos-application-release-notes
+21. UL Benchmarks, *3DMark Android release notes*, September 2013 Ice Storm cross-device comparison (and later end of Ice Storm support). https://support.benchmarks.ul.com/support/solutions/articles/44002142020-3dmark-android-application-release-notes
+22. UL Solutions, *Futuremark acquisition*, press release published 3 Nov 2014 (transaction closed **31 Oct 2014**). https://www.ul.com/news/ul-signals-strategic-expansion-performance-benchmarking-services-futuremark-acquisition
