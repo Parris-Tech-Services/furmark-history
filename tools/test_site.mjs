@@ -67,6 +67,23 @@ check("No unreferenced local media in the podcast feed", () => {
   for(const f of ["furmark-history-podcast.mp3","superposition-history-podcast.mp3","steelnomad-history-podcast.mp3"])
     assert(existsSync(join(site,f)),"Missing episode "+f);
 });
+check("Resale grades are consistent with the fleet data and every card has a sheet", () => {
+  const fleet=JSON.parse(read("site/data/batch.json")), resale=JSON.parse(read("site/data/resale.json"));
+  assert.equal(resale.cards.length, fleet.cards.length, "resale.json is stale: run tools/build_resale.py");
+  const grades=new Set(Object.keys(resale.grades));
+  for(const r of resale.cards){
+    assert(grades.has(r.grade), "unknown grade "+r.grade);
+    assert(existsSync(join(site,"cards","card-"+String(r.card).padStart(2,"0")+".html")), "missing sheet for card "+r.card);
+    const src=fleet.cards.find(c=>c.card===r.card);
+    assert(src, "card "+r.card+" not in fleet data");
+    if(src.status==="FAN_NOISE_STOP") assert.equal(r.grade,"H","a card with a physical fault must be held");
+    if(src.status==="LINK_SCORE_MISMATCH") assert.equal(r.grade,"V","a card with a wrong result link must be re-verified");
+    if(r.grade==="A"||r.grade==="B") assert(r.fm!=null&&r.sp!=null&&r.sn!=null&&r.ask, "A/B cards need three scores and a price range");
+    if(r.grade==="A") assert(/no error/i.test(r.occt||""), "A needs a clean memory test");
+  }
+  assert.equal(resale.lots.reduce((n,l)=>n+l.count,0), resale.cards.length);
+  assert(existsSync(join(site,"data","resale-grades.csv")));
+});
 const n=result.filter(Boolean).length;
 console.log(n+"/"+result.length+" checks passed");
 if(n!==result.length)process.exitCode=1;

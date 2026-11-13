@@ -55,10 +55,11 @@ Why these two: of the free routes I checked, Google's NotebookLM sounds best but
 | `site/index.html`, `site/assets/` | Home page: hero, timeline, lore, video, podcasts, photos, GPU lab, question explorer, library |
 | `tools/build_site.py` + `tools/reader_template.html` | Renders every `docs/*.md` to `site/read/*.html` and writes the search and Q&A indexes |
 | `tools/build_fleet.py` | Turns `data/benchmark_snapshot_*.csv` into `site/data/batch.json` for the GTX 1070 explorer |
+| `tools/build_resale.py` | Grades every started GTX 1070 (rig-normalised), plans lots, writes `site/data/resale.json`, `site/cards/*.html` listing sheets, the grades CSV and `docs/RESALE_ANALYSIS.md` |
 | `tools/build_podcast.py` | Writes `site/podcast.xml`, the RSS feed to submit to Spotify |
 | `site/data/*.json` | Editable data: `timeline.json`, `media.json` (YouTube IDs), `gpus.json`, `photos.json` |
 
-Rebuild after editing docs or data: `python3 tools/build_site.py && python3 tools/build_fleet.py && python3 tools/build_podcast.py`.
+Rebuild after editing docs or data: `python3 tools/build_site.py && python3 tools/build_fleet.py && python3 tools/build_resale.py && python3 tools/build_site.py && python3 tools/build_podcast.py`.
 
 **What's here**
 | Path | What |

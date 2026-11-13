@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" data-bench="fleet">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GTX 1070 resale analysis · GPU Benchmark Lore</title>
+<meta name="description" content="Rig-normalised grades, listing readiness, lots and missing-test checklists for the GTX 1070 batch, with a listing sheet for every card.">
+<link rel="canonical" href="https://parris-tech-services.github.io/furmark-history/resale.html">
+<meta name="theme-color" content="#07080d"><meta name="color-scheme" content="dark light">
+<meta property="og:type" content="website"><meta property="og:title" content="GTX 1070 resale analysis"><meta property="og:description" content="Grades, lots and listing sheets for a batch of used GTX 1070 cards, with every grade explained.">
+<meta property="og:image" content="https://parris-tech-services.github.io/furmark-history/assets/og-card.jpg"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest">
+<link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500 700;font-display:swap;src:url(assets/fonts/jetbrains-mono-latin.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:400 700;font-display:swap;src:url(assets/fonts/space-grotesk-latin.woff2) format('woff2')}</style>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+main{padding-bottom:60px}
+.hero2{padding:54px 0 10px}.hero2 h1{font:700 clamp(32px,5.5vw,60px)/1.05 var(--f-ui);letter-spacing:-.03em;margin:12px 0}.hero2 p{color:var(--mut);font-size:18px;max-width:66ch}
+h2.sec{font:700 clamp(24px,3.4vw,34px)/1.15 var(--f-ui);letter-spacing:-.01em;margin:54px 0 8px}
+.lead{color:var(--mut);max-width:66ch;margin:0 0 18px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:22px 0}
+.tile{border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:14px 16px;text-align:left;color:var(--ink);font:inherit;cursor:pointer}
+.tile:hover{border-color:var(--acc)}.tile[aria-pressed="true"]{outline:2px solid var(--acc);background:color-mix(in srgb,var(--acc) 10%,var(--surface))}
+.tile b{display:block;font:700 34px/1 var(--f-ui)}.tile span{display:block;color:var(--mut);font-size:13px;margin-top:6px}
+.tile .g{font:700 12px var(--f-mono);letter-spacing:.08em;color:var(--acc2)}
+.tile.warn .g{color:#ff8d8d}.tile.note .g{color:#ffc15a}
+.ask{border:1px solid var(--line);border-radius:18px;padding:18px 20px;background:var(--surface);display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.ask b{font:700 30px var(--f-ui)}.ask small{display:block;color:var(--mut);max-width:60ch}
+.controls{display:flex;gap:10px 16px;flex-wrap:wrap;align-items:center;margin:20px 0 10px}
+.controls label{font:600 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--faint);display:flex;gap:8px;align-items:center}
+.controls input,.controls select{background:var(--bg2);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:8px 10px;font:14px var(--f-ui);min-height:36px}
+.scroll{overflow-x:auto;position:relative;border:1px solid var(--line);border-radius:16px}
+table.t{border-collapse:collapse;width:100%;font-size:14px;min-width:760px}
+table.t caption{text-align:left;padding:12px 14px;color:var(--mut);font-size:13px}
+table.t th,table.t td{padding:10px 12px;border-top:1px solid var(--line);text-align:left;vertical-align:top}
+table.t th{font:600 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--faint);background:var(--surface)}
+table.t th button{all:unset;cursor:pointer;display:inline-flex;gap:6px;align-items:center;min-height:24px}
+table.t th button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+table.t tbody tr:hover td{background:color-mix(in srgb,var(--acc) 6%,transparent)}
+.pill{display:inline-block;font:700 11px var(--f-mono);padding:4px 8px;border-radius:7px;min-width:28px;text-align:center}
+.pill.ok{background:#4be0a126;color:#4be0a1}.pill.note{background:#ffb34726;color:#ffc15a}.pill.warn{background:#ff6b6b26;color:#ff8d8d}
+.pct{font:12px var(--f-mono);color:var(--mut)}.pct.low{color:#ffc15a}.pct.hi{color:#4be0a1}
+.lots{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.lot{border:1px solid var(--line);border-radius:16px;padding:16px;background:var(--surface)}
+.lot h3{margin:0 0 4px;font:700 18px var(--f-ui)}.lot p{margin:0 0 10px;color:var(--mut);font-size:14px}
+.lot .n{font:700 32px var(--f-ui)}.nums{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.nums a{font:600 12px var(--f-mono);border:1px solid var(--line);border-radius:7px;padding:3px 7px;color:var(--ink);min-width:30px;text-align:center;text-decoration:none}
+.nums a:hover{border-color:var(--acc)}
+.matrix td,.matrix th{text-align:center;padding:6px 8px}.matrix td:first-child,.matrix th:first-child{text-align:left}
+.miss{display:inline-block;width:14px;height:14px;border-radius:50%;background:#ffb347}.ok2{display:inline-block;width:14px;height:14px;border-radius:50%;background:#4be0a1}
+.rules{display:grid;gap:8px;margin:0;padding:0;list-style:none}.rules li{display:flex;gap:12px;align-items:flex-start;color:var(--mut);font-size:15px}
+.note2{border:1px dashed var(--line);border-radius:14px;padding:14px 16px;color:var(--mut);font-size:14px;margin-top:20px}
+.note2 a,.lead a{text-decoration:underline;text-underline-offset:3px}
+#tiles{min-height:130px}.ask{min-height:96px}#lots{min-height:210px}#tbl tbody{min-height:600px}.scroll{min-height:660px}#wholesale{min-height:80px}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+</style>
+</head>
+<body>
+<a class="skiplink" href="#maincontent">Skip to main content</a>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html" aria-label="GPU Benchmark Lore, home"><span class="logo"></span><span class="bt">GPU Benchmark Lore</span></a>
+  <nav class="nav" aria-label="Main"><a href="index.html#lab">GPU lab</a><a href="read/resale-analysis.html">Method</a><a href="read/gpu-batch-research.html">Audit</a><a href="#" data-open-search>Search <span class="kbd">/</span></a></nav>
+  <button class="iconbtn" data-theme-toggle title="Toggle light / dark" aria-label="Toggle light or dark theme">☾</button>
+</div></header>
+<main id="maincontent" class="wrap">
+  <section class="hero2">
+    <span class="kicker">Resale analysis · snapshot <span id="snap">…</span></span>
+    <h1>Which GTX 1070s are ready to sell?</h1>
+    <p>Every started card, graded on what the evidence supports. Scores are compared with the median of the same test PC, because your three rigs differ. A grade is never a health certificate: benchmarks do not test memory, outputs or fan bearings.</p>
+  </section>
+
+  <section aria-labelledby="h-grades">
+    <h2 class="sec" id="h-grades" style="margin-top:20px">Grades at a glance</h2>
+    <p class="lead">Select a grade to filter the table below. <a href="read/resale-analysis.html">How each grade is decided</a>.</p>
+    <div class="tiles" id="tiles" role="group" aria-label="Filter by grade"></div>
+    <div class="ask" id="ask"></div>
+  </section>
+
+  <section aria-labelledby="h-table">
+    <h2 class="sec" id="h-table">Every card</h2>
+    <div class="controls">
+      <label>Test PC <select id="f-rig"><option value="all">All</option></select></label>
+      <label>Card # <input id="f-q" type="search" inputmode="numeric" placeholder="e.g. 24" style="width:90px"></label>
+      <label>Sort <select id="f-sort"><option value="card">Card number</option><option value="grade">Grade</option><option value="fm">FurMark vs rig</option><option value="sp">Superposition vs rig</option><option value="sn">Steel Nomad vs rig</option><option value="gaps">Most gaps</option></select></label>
+      <span id="count" class="kicker"></span>
+    </div>
+    <div class="scroll" tabindex="0" role="region" aria-label="Card table, scrolls sideways on small screens">
+      <table class="t" id="tbl"><caption>One row per started card. Percentages compare each score with the median of the same test PC.</caption>
+        <thead><tr><th scope="col">Card</th><th scope="col">Grade</th><th scope="col">Test PC</th><th scope="col">FurMark</th><th scope="col">Superposition</th><th scope="col">Steel Nomad</th><th scope="col">Still to check</th><th scope="col">Sheet</th></tr></thead>
+        <tbody></tbody></table>
+    </div>
+    <div class="btnrow"><a class="btn" href="data/resale-grades.csv" download>Download grades (CSV)</a><a class="btn ghost" href="data/resale.json" download>Raw analysis (JSON)</a><a class="btn ghost" href="sale.html">Inspection queue and printable bench sheet</a></div>
+  </section>
+
+  <section aria-labelledby="h-lots">
+    <h2 class="sec" id="h-lots">Lots</h2>
+    <p class="lead">A suggested order of work. Prices are observed asking ranges for planning, before fees, shipping and your time.</p>
+    <div class="lots" id="lots"></div>
+    <div id="wholesale" class="note2"></div>
+  </section>
+
+  <section aria-labelledby="h-gaps">
+    <h2 class="sec" id="h-gaps">What is still missing</h2>
+    <p class="lead">A filled dot means the check is still open for that card. Missing is unknown, not a fail.</p>
+    <ul class="rules" id="gaplist"></ul>
+    <div class="scroll" tabindex="0" role="region" aria-label="Missing checks per card" style="margin-top:16px"><table class="t matrix" id="matrix"><caption class="sr">Open checks per card</caption><thead></thead><tbody></tbody></table></div>
+  </section>
+
+  <section aria-labelledby="h-limits">
+    <h2 class="sec" id="h-limits">Limits</h2>
+    <div class="note2" style="margin-top:0">Benchmarks show a card initialised and finished three short high-load runs. They do not prove memory correctness, display outputs, fan condition or reliability over time. The public results report PCI subsystem 7377:0000 (Colorful), which conflicts with the Gigabyte label, so confirm the board maker from each card before a brand-specific listing. Prices are asking ranges, not sold prices. <a href="read/resale-analysis.html">Full method and limits</a>.</div>
+  </section>
+</main>
+<footer class="site"><div class="wrap">
+  <div><p class="fh">GPU Benchmark Lore</p>Resale grades are generated from the fleet data by <code>tools/build_resale.py</code>.</div>
+  <div><p class="fh">Read</p><a href="read/resale-analysis.html">Resale method</a><a href="read/gpu-batch-research.html">GTX 1070 audit</a><a href="index.html#lab">GPU lab</a></div>
+  <div><p class="fh">Project</p><a href="https://github.com/Parris-Tech-Services/furmark-history">GitHub repository</a></div>
+</div></footer>
+<script src="assets/app.js" data-base=""></script>
+<script src="assets/resale.js"></script>
+</body></html>

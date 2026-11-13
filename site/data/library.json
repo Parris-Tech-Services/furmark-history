@@ -112,6 +112,14 @@
   "mins": 6
  },
  {
+  "slug": "resale-analysis",
+  "title": "Resale analysis: which GTX 1070s are ready to sell",
+  "bench": "fleet",
+  "kind": "Your GPUs",
+  "blurb": "Rig-normalised grades, lots, asking ranges and the checks still missing.",
+  "mins": 6
+ },
+ {
   "slug": "fact-check",
   "title": "Fact-check log",
   "bench": "all",

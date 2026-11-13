@@ -34,6 +34,7 @@ META = {
  "SCENE_STORY_QUESTIONS": ("The thirty scene questions", "all", "Index", "Story and visual-lore questions."),
  "GPU_BATCH_RESEARCH":     ("My GTX 1070 batch: deep research", "fleet", "Your GPUs", "100 sheet slots, 38 started cards, link audit, rig bias, health and resale."),
  "WEBSITE_NOTES":          ("How this site is built: web best practices applied", "all", "Method", "What research says makes a great website, and what was changed because of it."),
+ "RESALE_ANALYSIS":        ("Resale analysis: which GTX 1070s are ready to sell", "fleet", "Your GPUs", "Rig-normalised grades, lots, asking ranges and the checks still missing."),
  "FACT_CHECK":            ("Fact-check log", "all", "Method", "What was re-checked and corrected."),
 }
 ORDER = list(META)
@@ -118,7 +119,7 @@ def jsonld(name, p):
 
 def write_site_files(pages):
     """sitemap, robots, manifest and the 404 page: small files search engines and browsers look for."""
-    urls = [BASE] + [BASE + "read/%s.html" % slug(n) for n in pages]
+    urls = [BASE, BASE + "resale.html"] + [BASE + "read/%s.html" % slug(n) for n in pages]
     open(os.path.join(SITE, "sitemap.xml"), "w", encoding="utf-8").write(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + "".join("  <url><loc>%s</loc><lastmod>%s</lastmod></url>\n" % (u, TODAY) for u in urls) + "</urlset>\n")
