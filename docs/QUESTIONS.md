@@ -1,6 +1,6 @@
-# Thirty open questions
+# Thirty research questions — answered (13 November 2026)
 
-Questions the repo did not answer yet. Ten per benchmark. Answers go in [QA_FURMARK.md](QA_FURMARK.md), [QA_SUPERPOSITION.md](QA_SUPERPOSITION.md) and [QA_3DMARK.md](QA_3DMARK.md), each with its sources.
+These were gaps in the original histories when the question list was created. **All 30 now have evidence-based answers** in [FurMark](QA_FURMARK.md), [Superposition](QA_SUPERPOSITION.md) and [3DMark](QA_3DMARK.md). Answers distinguish sourced facts, reviewer opinions, inference and questions that remain genuinely unverified. A researched question does not imply every historical unknown has been resolved.
 
 ## FurMark
 

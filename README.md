@@ -4,8 +4,23 @@ This repo documents the history of GPU benchmark culture: sourced research on Fu
 
 Sourced histories of GPU benchmarks. The main project is **FurMark** (below); newer write-ups cover **UNIGINE Superposition** and **3DMark / Steel Nomad**.
 
+**NEW: The stories behind the scenes (30 additional questions, completed 13 November 2026)**
+
+- [All 30 scene-story questions](docs/SCENE_STORY_QUESTIONS.md) — the furry doughnut, the vanished professor and the masked Steel Nomad
+- [FurMark: why fur, why a doughnut, and how its strange visual evolved](docs/SCENE_FURMARK.md)
+- [Superposition: who is the professor, what happened in the lab, and what can you uncover?](docs/SCENE_SUPERPOSITION.md)
+- [Steel Nomad: the traveller, the frontier settlement, night-time lake and old 3DMark Easter eggs](docs/SCENE_STEEL_NOMAD.md)
+
+**Research method:** Each story answer distinguishes verified creator statements, independent observations, plausible interpretations, and things that have **not** been established. The documents do not invent character names or outcomes where the makers have not published them.
+
+**Original thirty-question technical/history research (10 per benchmark, also completed 13 November 2026)**
+- [Thirty questions and completion status](docs/QUESTIONS.md)
+- [FurMark: 10 detailed answers](docs/QA_FURMARK.md)
+- [Superposition: 10 detailed answers](docs/QA_SUPERPOSITION.md)
+- [3DMark / Steel Nomad: 10 detailed answers and 56 numbered references](docs/QA_3DMARK.md)
+- [3DMark supplementary answers](docs/QA_3DMARK_SUPPLEMENT.md): UL timeline, async-compute post, 2003 audit, delistings, pricing notices
+
 **More research**
-- [docs/QUESTIONS.md](docs/QUESTIONS.md): thirty open questions, answered in [FurMark](docs/QA_FURMARK.md), [Superposition](docs/QA_SUPERPOSITION.md) and [3DMark](docs/QA_3DMARK.md)
 - [docs/FACT_CHECK.md](docs/FACT_CHECK.md): what was re-checked and corrected on 13 Nov 2026
 - [docs/SUPERPOSITION.md](docs/SUPERPOSITION.md): UNIGINE Superposition (2017) and its Sanctuary, Tropics, Heaven, Valley lineage
 - [docs/3DMARK_STEEL_NOMAD.md](docs/3DMARK_STEEL_NOMAD.md): 3DMark from 1998, Futuremark to UL, and Steel Nomad (2024)

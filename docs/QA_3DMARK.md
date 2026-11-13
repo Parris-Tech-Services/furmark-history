@@ -1,119 +1,197 @@
 # 3DMark: ten questions answered
 
-*Researched 13 November 2026. UL's own support pages, news posts, About-page timeline and technical guide were read directly; press and forums are labelled. Claims I could not confirm are marked "not confirmed". Sources are numbered at the end.*
+*Research completed 13 November 2026. This continues [the thirty-question research plan](QUESTIONS.md) and supplements [the chronological history](3DMARK_STEEL_NOMAD.md) rather than repeating it. Prefer original Futuremark/UL release announcements, benchmark documentation, audit documents, and price statements; independent reporting provides context. Dates are release dates unless stated otherwise. A benchmark result, sales estimate, or leaderboard position is **not** a permanent record.*
 
 ## 1. How are Time Spy and Steel Nomad scored, and what do they render?
 
-**Time Spy.** Two graphics tests (2560x1440) and a CPU test. The overall score is a weighted harmonic mean: (W_g + W_c) / (W_g / S_g + W_c / S_c), with the graphics weight 0.85 and the CPU weight 0.15 [1]. The graphics score is the harmonic mean of the two tests' average frame rates times a scaling constant, which brings it in line with traditional 3DMark levels; the CPU score derives from simulation time per frame [1]. A harmonic mean means a weak CPU or GPU drags the total down more than an arithmetic mean would [1].
+**Time Spy** (14 July 2016) is a DirectX 12 benchmark with two graphics tests and one CPU test. UL publishes exact score calculations [1]:
 
-**Steel Nomad.** Rendering resolution 3840 x 2160, DirectX 12 feature level 12 or Vulkan 1.1, one graphics test and no CPU test [2]. The overall score equals the graphics score, which is the average frame rate times 100 [3]. Speed Way uses the same rule: score = average FPS x 100 [4].
+- Graphics score = **164 × 2 / (1/FPS1 + 1/FPS2)**: a scaled *harmonic mean* of the two graphics-test average frame rates. Using a harmonic mean prevents one unusually fast scene from masking a slow scene.
+- CPU score = **298 × FPS_CPU3**, based on the heaviest of three 10-second CPU-test stages.
+- Overall Time Spy = **1 / (0.85/graphics score + 0.15/CPU score)**. It is a weighted harmonic mean, **not** 85% of one score simply added to 15% of the other. Low CPU scores can therefore pull the total down even when the GPU is fast.
+- Time Spy tests use a custom, multithreaded engine with a DirectX 12 rendering pipeline including asynchronous compute, explicit multi-adapter support, and compute/graphics work submitted through queues. The engine uses occlusion culling and other modern techniques; its 2016 technical explanation was prepared with feedback from competing GPU vendors [2][3]. It is a *synthetic gaming-style workload*, not an actual game benchmark.
 
-What Steel Nomad renders (UL's "engine" page) [5]: opaque objects with deferred rendering into a G-buffer with PBR material parameters, shading in linear HDR; order-independent transparency; decals; reflections and diffuse global illumination sampled from probes spread around the scene; GPU-simulated particles (compute shaders); grass in compute shaders with distance-based level of detail; a dynamic ray-marched volumetric cloud sky; screen-space contact shadows; screen-space reflections with a cube-map fallback; heat distortion from particles; compute-shader FFT bloom (blur, streaks, anamorphic flare, lenticular halo); a three-pass froxel volume illumination for fog; scatter-as-gather depth of field; and XeGTAO ambient occlusion (ultra quality in compute shaders in Steel Nomad, high quality in pixel shaders in Light) [5]. Steel Nomad uses asynchronous compute to overlap the first volume-illumination pass with other passes; Light does not, and also has no volume illumination [5]. It is explicitly non-ray-traced [6]. Version history: 1.0, launch version, and no later version [7].
+**Steel Nomad** (21 May 2024) is a *single GPU graphics test*, with **no CPU test**. Its overall and graphics scores are identical: **score = average graphics FPS × 100** [4]. For example, 45.00 FPS means 4,500 points. Standard Steel Nomad renders **3840 × 2160**; Steel Nomad Light is **2560 × 1440**, a separate test with its own scale and leaderboard [5][6]. UL's engine documentation describes computer-generated terrain/grass with compute-shader distribution, moving ray-marched volumetric clouds, contact shadows, screen-space reflections with cubemap fallbacks, depth-of-field, bloom, XeGTAO ambient occlusion and temporal antialiasing [7]. **Standard Steel Nomad is not a ray-tracing benchmark**: ray marching volumetric clouds and screen-space effects do *not* make it a hardware DXR/path-tracing test.
 
-## 2. How big is 3DMark's user base, and who holds records?
+**Why these distinctions matter.** Neither a Time Spy total and a Time Spy *Graphics* score, nor Time Spy and Steel Nomad, are interchangeable. Match exact test name, test version, resolution, API, driver and hardware before comparing results. Extreme and Light editions are distinct tests. A CPU bottleneck can still invalidate a GPU-only score if command submission is too slow [5][8].
 
-UL gives few total figures. Hard numbers from UL: Time Spy had "almost 48 million" submitted results by May 2024 [6]; the Android app had "more than 100,000 downloads in its first week" (April 2013) and the iOS app 50,000 downloads in two weeks (September 2013) [8]; UL describes the 3DMark Hall of Fame as the home of world-record scores [9]. A third-party download page claims "25 years, 50M+ results" but I could not trace that to UL, so I treat it as unconfirmed [10]. I found no UL total for all results or for active users.
+## 2. How big is the user base and result database, and who holds the records?
 
-Records: cached Hall of Fame pages show Port Royal's top entries in the high 40,000s on RTX 5090 systems (for example 47,311 on an RTX 5090 with a Core i9-14900KS at rank 85 in one snapshot), and an old Time Spy snapshot headed by multi-GPU rigs [9]. The pages carry a notice about turbulence and the snapshots are of different dates, so these are not current standings. HWBot and the Hall of Fame both hold records; I did not reconcile them. Not confirmed.
+There are **dated, sourceable scale measurements**, but not a reliable public running total of unique users or all accepted results:
 
-## 3. The 3DMark03 driver scandal and the smartphone delistings
+- **March 2003:** Futuremark said 3DMark03 had been downloaded **more than 2.5 million times in its first month** [9]. Downloads are not unique users or purchases.
+- **September 2003:** Futuremark said its *combined benchmark products* had **over 2 million registered users** and **more than 10 million submitted results** [10]. This was not a 3DMark-only figure.
+- **2016:** Futuremark described 3DMark as used by **millions of gamers** and hundreds of review sites, without a precise unique-user count [11].
+- **May 2024:** UL reported **almost 48 million Time Spy result submissions since 2016**, and said the *average* Time Spy score had roughly tripled [12]. Submissions are not a count of unique computers, people or paid licences.
+- **2025:** UL said hundreds of thousands of people had run Solar Bay before Solar Bay Extreme arrived [13]. This is a different population and timeframe.
 
-**May 2003.** An ExtremeTech investigation of Nvidia's drivers prompted a Futuremark audit [11]. On Friday 23 May 2003, Futuremark published a seven-page audit of Detonator FX 44.03 and 43.51 drivers listing eight instances where it believed Nvidia modified drivers unfairly; renaming the benchmark executable lowered scores in certain tests [11][12]. Futuremark's patch 330 stops the drivers recognising the benchmark; it measured the GeForce FX 5900 Ultra dropping about 24% with it, versus under 2% for ATI's Radeon 9800 Pro [12]. The Register (27 May 2003) reported ATI also admitted tweaks: renaming the executable cut Game Test 4 by 8% and the total by just under 2% (ATI said it was an optimization of the water and sky shaders, "mathematically and functionally identical", and promised to remove it) [11]. Weeks later Futuremark reversed course: it said Nvidia's approach was an "application specific optimization" rather than a cheat, but still said the rules were broken, and did not reinstate the original results; a joint statement called for clear industry rules for benchmarks [13].
+**Records are test-specific and fluid.** UL maintains the official [3DMark Hall of Fame](https://www.3dmark.com/hall-of-fame-2/3d) and per-test rankings [14]. That is where current official 3DMark/VRMark/legacy records must be checked; a result posted by a third-party site is not automatically an official record. UL validates eligibility and requires approved drivers, publicly available hardware and benchmark-specific restrictions, including **CPU-based NVIDIA PhysX for Vantage record submissions** [14][15]. Enthusiasts overclock and sometimes use exotic cooling; those records should not be used as everyday factory-speed purchase recommendations.
 
-**Phones.** On 7 September 2018 UL delisted the Huawei P20 Pro, Nova 3 and Honor Play (and the P20 based on AnandTech's testing). UL compared the public 3DMark app with a private build that is not available to manufacturers: public-app scores were up to 47% higher with identical tests, meaning the phones recognised the app by name. Delisted devices appear unranked, without scores [14]. Other delistings reported: OPPO's Find X and F7 (2018) and a 2013 sweep of HTC and Samsung Android devices [15]; and in April 2020 MediaTek-based phones from Xiaomi, OPPO, Vivo, Sony and Realme [16].
+**Unanswered after research:** no independently audited, up-to-date count for all unique 3DMark users, total lifetime submissions across every test, total paid licences, or a stable list of 'the record holder'. Listing a username without the date and the exact test would become stale.
 
-## 4. The Time Spy asynchronous compute controversy
+## 3. What happened in the 3DMark03 NVIDIA driver controversy and smartphone delistings?
 
-In July 2016 a forum post on Overclock.net argued Time Spy's async compute use fit Nvidia's architecture better than AMD's: in DOOM and Ashes of the Singularity the Fury X beat a GTX 1070, but not in Time Spy [17]. PC Perspective explained the issue and noted the causes were unknown (driver maturity, optimization differences) [17].
+**The 2003 dispute unfolded in stages rather than ending with one settled verdict.** After suspicious performance changes, Futuremark audited NVIDIA Detonator FX drivers and published a report dated **23 May 2003** identifying **eight detection mechanisms**; changing benchmark code without changing the intended graphics workload stopped those mechanisms. Futuremark released **3DMark03 build 330** to prevent the detectors from distorting scores [16][17]. Independent contemporary reporting described up to **24.1%** score impact in some configurations, along with altered output [18].
 
-Futuremark replied on 19 July 2016 with a detailed post. Its main points: Time Spy was developed with input from AMD, Intel, Microsoft, NVIDIA and others in the Benchmark Development Program, in development for nearly two years; vendors spent weeks in the office, downloaded daily source drops hundreds of times, and exchanged "around one thousand emails" on it; the engine uses two queues, DIRECT and COMPUTE, regardless of the hardware; "the implementation is the same regardless of the underlying hardware" with no vendor-specific optimizations; and whether COMPUTE-queue work runs in parallel or serial "is ultimately the decision of the underlying driver" because DirectX 12 only lets an application permit parallel execution [18]. The post shows GPUView traces for the GTX 970, Fury and GTX 1080 with async compute on and off, and the compute work items: particle simulation, light culling and tiling, environment reflections, HBAO and unshadowed surface illumination [18]. Futuremark's stated principle is that 3DMark predicts games in general, not absolute theoretical maximums [18]. Forum claims that Nvidia's driver disables async on pre-Pascal cards, or that Time Spy's version is "preemption based", are unconfirmed forum claims [19].
+On **2 June 2003**, Futuremark and NVIDIA issued a joint statement reclassifying the driver behaviour as **application-specific optimisation rather than 'cheating'** [19]. That reversal does not erase the technical audit. In a September 2003 interview Futuremark said the *substance* of the audit was still correct, but the terminology was too contentious [20]. ATI was also scrutinised: ATI acknowledged optimising two shaders in 3DMark03; contemporary reporting put the overall boost around **1.9%** and recorded ATI's claim of mathematical equivalence [21]. Futuremark subsequently published formal benchmark optimisation guidelines on **23 September 2003**, separating general-purpose improvements from workload-specific manipulation [22]. This is an historically significant case about benchmark *trust*, not simply 'NVIDIA cheated and got caught'.
 
-## 5. Which feature tests exist, and when did they arrive?
+**The problem returned on smartphones.** UL's rules prohibit a device from detecting the 3DMark app and secretly increasing clocks or switching performance profiles only for it. UL compares a normal executable with an otherwise identical, renamed one, and delists stock models with proven application-dependent behaviour [23]. Its published examples include some **Samsung Galaxy S4/Note 3** Android 4.3 builds, **HTC One/One Mini**, **Oppo Find X/F7**, **Huawei P20/P20 Pro/Nova 3/Honor Play**, and, as listed in 2026, **RedMagic 11 Pro/11 Pro+**. Some older Samsung devices became eligible again with a software update. A delisted phone's owner is **not** accused of personally cheating [23]. The question is whether benchmarked performance represents ordinary applications, including thermal and power policies.
 
-From UL's About-page timeline and release notes [8][20]:
+## 4. Why did Time Spy's asynchronous compute implementation cause controversy?
 
-| Date | Feature test |
-|---|---|
-| March 2015 | API Overhead, "the world's first DirectX 12 API performance test" (Vulkan added March 2017; Android Vulkan August 2017) |
-| June 2016 | Stress tests added (loop runs to check stability) |
-| February 2019 | NVIDIA DLSS feature test (DLSS 2 and three quality modes added September 2020; DLSS 3 and Frame Generation October 2022) |
-| June 2019 | PCI Express bandwidth feature test |
-| August 2019 | VRS feature test (Tier 2 option added December 2019) |
-| October 2020 | DirectX Raytracing feature test |
-| February 2021 | Mesh Shader feature test |
-| June 2021 | CPU Profile (1, 2, 4, 8, 16 or max threads) |
-| August 2021 | Sampler Feedback feature test |
-| November 2021 | Storage Benchmark (a paid add-on) |
-| October 2022 | Intel XeSS feature test |
-| March 2023 | AMD FSR feature test (release notes: 30 March 2023, "FSR 2") |
-| October 2024 | Opacity Micromap feature test (Android) |
-| November 2024 | DirectStorage feature test |
+The debate arose during the DirectX 11-to-12 transition, when GPUs differed in their ability to overlap compute work and graphics rendering. AMD marketed dedicated async compute capability, while NVIDIA Maxwell and Pascal architectural behaviour differed. Media and enthusiasts asked whether a test that benefits one architecture was 'fair' and whether disabling async changed results [24][25].
 
-The Mesh Shader test, per UL, uses a hall of carved pillars: one pass culls with the traditional approach, a second with mesh shaders, to show how game engines can boost frame rates [21]. UL's Sampler Feedback test (24 August 2021 per its news post; the timeline says August 2021) made 3DMark the first public app with all four DirectX 12 Ultimate features, according to UL's coverage [20][22].
+Futuremark's **19 July 2016** technical response is unusually precise [3]. Time Spy submits work into a graphics/direct queue and a compute queue; around **10–20% of the GPU workload per frame** was described as asynchronous compute in contemporary testing [25]. The *benchmark implementation is the same across GPU vendors*. Actual concurrent execution is a **driver/hardware scheduling decision**, not an API guarantee. Advanced/Professional users can disable async in a *custom run*: the compute work moves into the direct queue, preserving the visual workload [3]. Therefore a custom no-async run is **a diagnostic**, not a directly comparable official preset score.
 
-## 6. The mobile tests
+PCWorld compared Radeon and GeForce cards with async enabled and disabled. In that review the tested AMD cards lost substantially more performance without async than many NVIDIA Maxwell cards, while a GTX 1070 also showed benefit [26]. PC Perspective published its own per-GPU experiments [25]. These observations describe those specific 2016 cards/drivers and tests, not a universal result for every generation.
 
-UL's timeline gives: 3DMark for Android in April 2013 (100,000+ downloads in the first week), iOS in September 2013 (50,000 in two weeks), Windows RT in October 2013 [8]. Ice Storm and Ice Storm Extreme were released in 2013 and support ended on 14 January 2020 (Ice Storm used OpenGL ES 2.0 on mobile) [23]. Sling Shot (OpenGL ES 3.1 and 3.0) arrived on Android in July 2015 and iOS in October 2015, with Sling Shot Extreme using Apple's Metal in March 2016 [8]. Wild Life arrived in October 2020 as a cross-platform benchmark for Apple, Android and Windows (Vulkan on Windows and Android; 2560 x 1440) [8][24]. Wild Life Extreme followed in May 2021 at 3840 x 2160, for Windows notebooks, Arm PCs and Apple M1 Macs [8][24]. Solar Bay launched in August 2023 as a ray-tracing benchmark: Vulkan 1.1, a benchmark whose ray-traced workload increases linearly by 100% over three stages with four scores, plus a stress test that loops for 20 minutes; the app was previously "3DMark Wild Life Benchmark" [25]. Steel Nomad Light (May 2024) is the 1440p test for lighter devices [24]. Solar Bay Extreme followed in August 2025 [8].
+**Conclusion:** the documented architecture-sensitive behaviour was real, but it is not proof that Time Spy secretly changed work depending on vendor. Whether a synthetic workload predicts an individual game depends on that game's own compute/graphics scheduling, engine, resolution and GPU.
 
-## 7. What has 3DMark cost?
+## 5. Which feature tests exist and when did they arrive?
 
-UL's own price statements: from 12 October 2022, 3DMark Advanced Edition and 3DMark on Steam cost US$34.99, because Speed Way was included; existing owners could buy a Speed Way Upgrade DLC for $4.99, and a Steam policy change meant standalone Advanced licenses bought after that date could not be added to Steam accounts [26]. In May 2024 Steel Nomad cost US$34.99 on Steam for newcomers (launch-week 75% off) and was free to existing owners [6][27]. Earlier price points: UL's statement that the price rose implies a lower earlier price; a secondary source says US$29.99 normal Advanced price, and PC Gamer reports sales taking Advanced under US$5 [28]. A reseller page lists Professional at US$995 and a third-party page US$1,495 per year; neither is UL's own page, so unconfirmed [29]. UL says Professional customers with a perpetual license need an annual license for Speed Way [26]. Free: Basic Edition with the main tests (UL's 2011 Vantage Basic was also free) [29]. I did not find Steam player counts or review totals. Not confirmed.
+A **feature test** isolates a particular graphics capability or technology, unlike a full benchmark combining many game-like effects. UL's official update chronology gives this timeline [27]; current tests and editions are listed in its support guide [28].
 
-## 8. Other Futuremark benchmarks, and the Vantage PhysX dispute
+| First release | Test or capability | What it investigates |
+|---|---|---|
+| 2015 | API Overhead | CPU/API draw-call overhead; later added Vulkan (2017) |
+| 2019 | NVIDIA DLSS | Upscaled vs non-DLSS performance and image quality; DLSS 2 support in 2020, DLSS 3 support in 2022, later updates |
+| 2019 | PCI Express | Host-to-GPU PCIe transfer bandwidth |
+| 2019 | Variable Rate Shading (VRS) | Performance and image-quality effect of shading different image regions at different rates |
+| 2020 | DirectX Raytracing | Isolated DXR ray-tracing workload, rather than hybrid rasterisation plus ray tracing |
+| 2021 | Mesh Shader | Geometry-processing efficiency with mesh shaders |
+| 2021 | Sampler Feedback | Texture sampling/streaming technique on compatible DX12 Ultimate GPUs |
+| 2022 | Intel XeSS | Upscaling and image quality using supported hardware |
+| 2023 | AMD FSR | Upscaling and image-quality effects (UL describes FSR 2.2) |
+| 2022/2023 | Speed Way / Solar Bay | These are **full benchmarks**, not feature tests; respectively DX12 Ultimate ray tracing and cross-platform mobile/desktop ray tracing |
 
-From UL's timeline [8]: Final Reality (May 1997, Remedy, before the company existed) [30]; PCMark2002 (March 2002); PCMark04 (November 2003); PCMark05 (June 2005); PCMark Vantage (October 2007); Peacekeeper (March 2009, free browser test; universal-browser version November 2011); PCMark 7 (May 2011); Powermark (December 2011); PCMark 8 (June 2013 Professional); PCMark for Android (October 2014); VRMark (November 2016; Cyan Room November 2017); PCMark 10 (June 2017); Testdriver (July 2017); Servermark (November 2017 onward); Procyon (September 2020). Peacekeeper support ended on 29 July 2015 [31]. The UL timeline states 3DMark06 (January 2006) was "our most popular 3DMark yet" and Fire Strike Ultra (October 2014) the "world's first 4K Ultra HD benchmark" and Time Spy Extreme (October 2017) the "world's first 4K DirectX 12 benchmark test" [8].
+UL has also shipped **CPU Profile**, **Storage Benchmark** and **DirectStorage** tests, but those are CPU/storage/component tests, not the same list of GPU-rendering feature tests [28][29]. Availability depends on platform and licence: many feature tests need the paid Advanced or Professional Edition on Windows. Test scores from unlike features should **not** be ranked as if they measured the same thing.
 
-**Vantage PhysX.** Nvidia's ForceWare 177.39 drivers let 3DMark Vantage's CPU physics test run on the GPU, via PhysX, inflating the CPU score; reports quote CPU Test 2 at about 15 FPS without and 128 FPS with GPU PhysX [32]. Nvidia said this was a physics test, not a graphics test; AMD and others objected. Futuremark's CEO said GPU PhysX would not be allowed because the CPU test measures CPU physics, and Futuremark updated its Hall of Fame to exclude GPU PhysX results [32]. I did not retrieve Futuremark's own statement or exact dates, and some reports conflict on stages of the policy. Partly confirmed.
+## 6. What is the history of 3DMark mobile benchmarks?
 
-## 9. How does the Benchmark Development Program work?
+The mobile branch reflects changes in phone GPU APIs and power efficiency:
 
-UL describes it as industry cooperation: each 3DMark "was developed with input from" AMD, Intel, NVIDIA and other members of the "UL Benchmark Development Program" [2][24]. The fullest account is Futuremark's own July 2016 post: members receive regular builds throughout development and conduct their own testing at each stage; they have source-code access and can suggest changes; all work is in a single source tree, so anything suggested by a vendor can be seen; vendors reviewed Time Spy for weeks in the office; and when members disagree, Futuremark listens to all sides, consults game developers, and asks "Is this the approach a game developer would take?" [18]. Futuremark says vendors are invariably against vendor-specific paths, because they would alter the work done and break comparability [18]. A forum claim that Futuremark cannot publish unless all vendors approve is unconfirmed [19]. UL's 2026 Seasonic sponsorship shows another input: UL says the sponsor's logo is displayed inside the benchmark [33]; it does not say what sponsors pay or whether they influence the test. UL's BDP page was not retrievable; a full member list is not confirmed.
+| Date | Family | Technology and significance |
+|---|---|---|
+| **2013** | **Ice Storm / Ice Storm Extreme** | Cross-platform baseline: DirectX 11 feature level 9 on Windows tablets, OpenGL ES 2.0 on phones [30] |
+| **27 July 2015** | **Sling Shot Android** | OpenGL ES 3.0/3.1, multiple render targets, instancing, volumetric lighting; new high-end phone workload [31] |
+| **15 October 2015** | **Sling Shot iOS** | Released on iPhone/iPad, allowing comparable OpenGL ES 3.0 testing [32] |
+| **15 October 2020** | **Wild Life** | Cross-platform Apple/Android/Windows modern game-like scene, quick score and prolonged stability/thermal stress test [33] |
+| **2021** | **Wild Life Extreme** | Heavier workload for faster mobile devices [27][34] |
+| **14 August 2023** | **Solar Bay** | Mobile-class Vulkan ray queries and cross-platform ray-traced rendering on compatible devices; iOS addition followed in September 2023 [35][36] |
+| **21 May 2024** | **Steel Nomad Light** | 1440p non-ray-traced, cross-platform; includes Android and iOS versions [12][36] |
+| **20 August 2025** | **Solar Bay Extreme** | Substantially more complex ray-traced reflections, glass and soft shadows; Windows, Windows-on-Arm, macOS, Android and iOS [13] |
 
-## 10. How were Port Royal and Speed Way received, and how do they relate to games?
+UL stopped supporting **Ice Storm on 14 January 2020**, because it had become too easy for modern devices [30]. On phones, the key question is often not peak short-run FPS but **sustained performance after heat builds up**; UL recommends the **20-minute stress tests** when reviewing smartphones and thin laptops [34].
 
-**Port Royal** launched on 8 January 2019 at 2560 x 1440, requiring DirectX Raytracing, as "the world's first dedicated real-time ray tracing benchmark for gamers" [34]. Early press tests: one put the RTX 2080 at 5,986 (28 FPS) and the RTX 2080 Ti at 7,925 (37 FPS); another saw an ASUS ROG Strix RTX 2080 OC at 6,106 [35]. Reviewers noted that the GTX 1080 fell far behind in this test, and that Port Royal does not run at maximum quality for ray tracing (one outlet measured an RTX 2080 Ti dropping from 37.8 to 23.0 FPS at lower ray-tracing quality) [35]. NVIDIA added DLSS to the benchmark in February 2019, claiming up to 50% more performance [35].
+Cross-platform scores are designed for comparable workloads, but different rendering APIs, driver implementations, system thermals and power limits mean equal scores do **not** prove architectural equivalence. Only compare the *same* test (and ideally the same version) across systems, and distinguish Vulkan/Metal/DirectX where relevant [29][37].
 
-**Speed Way** launched on 12 October 2022 for DirectX 12 Ultimate (feature level 12_2), at 2560 x 1440 [4][36]. Its engine removes all precomputed lighting (no lightmaps or probes), is fully dynamic, uses mesh shaders for continuous level-of-detail selection and culling, a deferred direct-lighting path, and DirectX Raytracing 1.1 for global illumination and reflections [4][36]. It was sponsored by Lenovo Legion [36]. UL's pricing moved to $34.99 with it [26]. Typical RTX 4090 results in forums run around 10,000 to 12,000 [37]; one overclocker record was later deemed invalid by 3DMark due to a VRAM artifacting bug (a forum report) [37].
+## 7. What did 3DMark cost, and what do Steam sales tell us?
 
-**Relationship to games.** UL's stated aim is to predict game performance generally, not the theoretical maximum of the hardware, through a neutral, common code path [18]. UL also publishes a support article on estimating game performance from scores; I could not retrieve it, so I cannot quote its guidance. Tom's Hardware uses a FurMark run as a power worst-case rather than 3DMark as a game proxy [38]. Independent studies of how well 3DMark scores predict frame rates in particular games: not found.
+The prices below are historical **US-dollar list prices or stated publisher offers**, not today's Australian pricing and not lifetime revenue [10][38][39][40][41].
+
+- **11 February 2003:** 3DMark03 was a free public download, with **US$39.95** paid individual edition and **US$250** corporate licence [38].
+- **12 September 2003:** Futuremark cut the paid 3DMark03/PCMark2002 individual versions to **US$19.95** [10].
+- **5 February 2013:** new 3DMark Basic was free, Advanced **US$24.99**, Professional **US$995** (contemporary publisher-sourced coverage) [39].
+- **July 2016:** Time Spy was added free to the basic tests; Advanced rose from **US$24.99 to US$29.99** after 23 July; pre-existing buyers could choose a separate Time Spy feature upgrade [40].
+- **12 October 2022:** Speed Way brought Advanced's advertised price from **US$29.99 to US$34.99**, with an optional **US$4.99** upgrade for eligible existing owners [41].
+- **Steam page inspected November 2026:** the US-price page displayed **US$29.99** normal price and separate optional DLC prices; regional prices, temporary sales and licence bundles can differ [42]. This shows that an old price announcement is not a dependable present-day price.
+
+**Edition naming note (2026):** UL's current reviewers' guide calls the free tier *3DMark Demo*, the consumer paid tier *3DMark*, and the commercial tier *3DMark for Enterprise*; historical announcements used *Basic*, *Advanced* and *Professional*. These names have evolved, so a 2013 price list is not a current commercial licence offer [34].
+
+**Business model:** 2013 onward, 3DMark shifted away from issuing a completely new standalone suite for each DirectX generation. UL keeps adding free tests, paid upgrades and some separate DLC; business use requires the licensed Professional/enterprise route, not simply owning the consumer Steam version [27][41][43].
+
+**What about success?** A Steam product page exposes reviews and its catalogue, but does **not** reveal independently auditable gross sales, net revenue, margins or total paying customers. SteamSpy/third-party owner and revenue estimates are model-derived rather than receipts. **No actual lifetime Steam revenue or unit sales could be confirmed.** Claims that Steam popularity proves precise revenue would be false precision.
+
+## 8. What else did Futuremark make, and what was the Vantage PhysX dispute?
+
+Beyond 3DMark, Futuremark/UL created **PCMark** (whole-PC, office/applications, storage and platform benchmarking), **VRMark** (VR performance and headset readiness), **Peacekeeper** (web-browser performance), **Powermark** (laptop battery runtime), **Servermark** (enterprise/VDI/media-transcoding), **Video2000**, and other specialised products [44]. UL's archived history dates **Peacekeeper to March 2009** and its cross-device update to 2011; Peacekeeper later ended support. PCMark evolved into separate desktop and mobile-oriented versions rather than simply measuring game graphics [45]. These are siblings, not merely earlier versions of 3DMark.
+
+The **2008 3DMark Vantage PhysX argument** was about what a supposedly *CPU* result means when a GPU can run the physics simulation. Vantage's CPU tests included a physics workload using PhysX. With supported NVIDIA hardware/driver, portions could execute on the GPU, dramatically raising the CPU sub-score and indirectly the overall score [46][47]. NVIDIA argued that it was legitimate acceleration of the test rather than changing test code [47]; critics objected that the resulting number stopped being an apples-to-apples *CPU* comparison. This is different from 2003's driver-detection audit.
+
+The enduring resolution is pragmatic: **UL's official Vantage Hall of Fame requires NVIDIA PhysX to run on the CPU** for comparable record scores [14]. A historical Vantage score with GPU PhysX enabled should not be compared uncritically with one using CPU-only physics.
+
+## 9. How does the Benchmark Development Program work, and who participates?
+
+UL's **Benchmark Development Program (BDP)** brings hardware and software companies into test design, technical review and early feedback. The public programme page describes access to benchmark workload/source-level details, feedback from specifications through release candidates, and private Developer Edition licensing [48]. UL states that every partner in the same tier pays equal fees and that one company cannot simply pay extra to dominate the outcome; this is **UL's own description**, not an independent audit.
+
+UL explicitly names **AMD, Intel, NVIDIA and Microsoft** as participants in developing Time Spy, including the async-compute implementation [3]. Port Royal's engine documentation names AMD, Intel and NVIDIA as contributors and says Microsoft was especially closely involved in DXR implementation [49]. Speed Way's announcement also credits AMD, Intel, NVIDIA and other partners [50].
+
+**Why it is both valuable and complicated:** competing vendors can identify incompatibilities before a benchmark launches and help make a test representative of real APIs. But the same companies have commercial interests in ranking well. The safeguards are common workloads, documented formulae, vendor-neutral code paths, published rules and validation of results [22][23][48]. Membership alone does not guarantee an unbiased final test; that depends on independent reproducibility. **The current complete paying membership roster and any confidential vote/decision records were not publicly verified.**
+
+## 10. How were Port Royal and Speed Way received, and do their results match games?
+
+**Port Royal** launched **8 January 2019** at **2560 × 1440**, with a hybrid rasterisation + DirectX Raytracing scene, including ray-traced reflections and shadows [51][52]. It was an early way to compare GPUs capable of Microsoft's DXR technology. Because it had *no CPU test*, it primarily targeted the GPU; CPU command-list throughput can still become a limitation [53]. At launch RTX hardware was the central consumer use case. German testing site ComputerBase found that *within the RTX card family* some broad relative performance patterns resembled those in **Battlefield V**, but also warned that synthetic benchmarks are not substitutes for actual game measurements; its alternative rasterisation comparison was not an adequate like-for-like image-quality comparison [54].
+
+**Speed Way** launched **12 October 2022** as a more modern **DirectX 12 Ultimate** workload. It uses **DXR tier 1.1 reflections and global illumination, mesh shaders**, and the **2560 × 1440** scene; the publisher also provided an interactive scene and VS comparison mode [50][55]. Unlike Time Spy or Steel Nomad, it demands ray-tracing-capable hardware. Its specifications and sponsor/product placement were transparent in the launch announcement. It received attention as a demanding modern feature showcase, but that is not evidence that one Speed Way point predicts a certain frame rate in Cyberpunk or any other game.
+
+UL does provide **statistical game-FPS estimates** for selected combinations of games, resolution and settings, by measuring correlations with benchmark results (examples include Time Spy Graphics against Fortnite, Apex Legends and Red Dead Redemption 2) [56]. This does **not** give a universal Port Royal/Speed Way-to-game FPS conversion. Correlations can shift with ray-tracing implementation, driver changes, CPU limits, memory, upscalers, frame generation, power settings, thermal behaviour and game patches.
+
+**Practical reading:** use *Speed Way* for DX12 Ultimate/ray-tracing-capable GPU comparison, *Port Royal* for its older DXR hybrid test, *Steel Nomad* for non-ray-traced native 4K, *Time Spy Graphics* for broader older DX12 comparisons, and **real gameplay benchmarks** for a particular game's expected FPS. Comparisons across the benchmark families' point totals are invalid [29][51][55].
+
+## Research limitations and verification policy
+
+- Dates, formulae, supported APIs, publisher-stated prices and named features are checked against primary documentation linked below.
+- Publisher-reported totals, comparisons and fairness claims are correctly attributed to UL/Futuremark, not represented as independent audits.
+- Reviewers' conclusions are labelled as reviewers' findings and cannot be generalised to every GPU generation.
+- Record-holder names and pricing are not frozen into a historical research document: both change.
+- Historical scores do not establish a direct universal conversion to current games.
+- There was **no physical GPU test** or new historical archival discovery from privately held company records in this research pass.
 
 ## Sources
 
-1. UL Benchmarks support, "How is the 3DMark Time Spy score calculated?". https://support.benchmarks.ul.com/support/solutions/articles/44002136143-how-is-the-3dmark-time-spy-score-calculated-
-2. UL Benchmarks support, "Overview of 3DMark Steel Nomad" (resolution 3840 x 2160). https://support.benchmarks.ul.com/support/solutions/articles/44002528058-overview-of-3dmark-steel-nomad
-3. UL Benchmarks support, "How is the 3DMark Steel Nomad score calculated?". https://support.benchmarks.ul.com/support/solutions/articles/44002528064-how-is-the-3dmark-steel-nomad-score-calculated-
-4. UL Benchmarks support, "How is the 3DMark Speed Way score calculated?" and "Speed Way engine". https://support.benchmarks.ul.com/support/solutions/articles/44002378659-how-is-the-3dmark-speed-way-score-calculated-
-5. UL Benchmarks support, "Steel Nomad Engine". https://support.benchmarks.ul.com/support/solutions/articles/44002528067-steel-nomad-engine
-6. UL Benchmarks, "3DMark Steel Nomad is out now!", 21 May 2024. https://benchmarks.ul.com/news/3dmark-steel-nomad-is-out-now
-7. UL Benchmarks support, "Steel Nomad Version History". https://support.benchmarks.ul.com/support/solutions/articles/44002528068-steel-nomad-version-history
-8. UL Benchmarks, "About us" (company timeline). https://benchmarks.ul.com/about
-9. 3DMark Hall of Fame pages (via search summaries). https://www.3dmark.com/hall-of-fame-2/
-10. pcgamingtools.com 3DMark page (third party; unverified claim). https://pcgamingtools.com/3dmark-download/
-11. The Register, "ATI admits it 'optimised' drivers for 3DMark 03", 27 May 2003. https://www.theregister.com/2003/05/27/ati_admits_it_optimised_drivers
-12. Futuremark audit report, "Alleged NVIDIA Driver Cheating on 3DMark03" (third-party mirror) http://www.kickassgear.com/downloads/3dmark03_audit_report.pdf ; GameSpot, "Nvidia accused of cheating in 3DMark 03" https://www.gamespot.com/articles/nvidia-accused-of-cheating-in-3dmark-03/1100-6028894/ (via search summaries)
-13. GameSpot, "Futuremark says Nvidia didn't cheat" https://www.gamespot.com/articles/futuremark-says-nvidia-didnt-cheat/1100-6029339/ ; InfoWorld, "Futuremark says Nvidia didn't cheat, but broke rules" https://infoworld.com/article/2680144/futuremark-says-nvidia-didn-t-cheat--but-broke-rules.html
-14. UL Benchmarks, "UL delists Huawei phones with suspect benchmark scores", Sep 2018. https://benchmarks.ul.com/news/ul-delists-huawei-phones-with-suspect-benchmark-scores
-15. XDA Developers and Engadget coverage of Huawei, OPPO and earlier delistings (via search summaries). https://www.xda-developers.com/huawei-p20-huawei-nova-3-honor-play-cheating-benchmarks/
-16. Forbes (Moor Insights), "UL Benchmarks Delists MediaTek-Based Xiaomi, OPPO, Vivo, Sony, And Realme Smartphones", 16 Apr 2020 (via search summary). https://www.forbes.com/sites/moorinsights/2020/04/16/ul-benchmarks-delists-mediatek-based-xiaomi-oppo-vivo-sony-and-realme-smartphones-devices-with-suspect-scores/amp/
-17. PC Perspective, "What's Asynchronous Compute? 3DMark Time Spy Controversy", July 2016. https://pcper.com/2016/07/whats-asynchronous-compute-3dmark-time-spy-controversy/
-18. Futuremark, "A closer look at asynchronous compute in 3DMark Time Spy", 19 Jul 2016. https://aws.futuremark.com/en/news/a-closer-look-at-asynchronous-compute-in-3dmark-time-spy
-19. Guru3D and AnandTech forum threads on Time Spy async (anecdotal). https://forums.guru3d.com/threads/futuremark-developer-responds-to-accusations-of-cheating-in-time-spy-benchmark.408769/
-20. UL Benchmarks support, "3DMark Windows application release notes". https://support.benchmarks.ul.com/support/solutions/articles/44001971281-3dmark-windows-application-release-notes
-21. UL Benchmarks, "New 3DMark test measures mesh shader performance". https://benchmarks.ul.com/news/new-3dmark-test-measures-mesh-shader-performance
-22. TechPowerUp, "3DMark Receives DirectX 12 Ultimate Sampler Feedback Feature Test" (via search summary). https://www.techpowerup.com/286021/3dmark-receives-directx-12-ultimate-sampler-feedback-feature-test
-23. UL, 3DMark Technical Guide (updated 14 Jan 2021). https://s3.amazonaws.com/download-aws.futuremark.com/3dmark-technical-guide.pdf
-24. UL Benchmarks, 3DMark product page. https://benchmarks.ul.com/3dmark
-25. UL Benchmarks, "UL Solutions Launches 3DMark Solar Bay, New Cross-Platform Ray Tracing Benchmark". https://benchmarks.ul.com/news/ul-solutions-launches-3dmark-solar-bay-new-crossplatform-ray-tracing-benchmark
-26. UL Benchmarks, "3DMark Speed Way launches on October 12" (price notice). https://benchmarks.ul.com/news/3dmark-speed-way-launches-on-october-12
-27. PC Gamer, "3DMark Steel Nomad is now available to give your GPU an inferiority complex". https://www.pcgamer.com/hardware/graphics-cards/3dmark-steel-nomad-is-now-available-to-give-your-gpu-an-inferiority-complex/
-28. PC Gamer, "Unlock 3DMark Advanced for under $5". https://pcgamer.com/unlock-3dmark-advanced-for-under-dollar5-and-benchmark-your-pc-like-the-pros
-29. Newegg and reseller listings for 3DMark (third party; via search summary). https://www.newegg.com/ul-3dmark-advanced-edition/p/N82E16833980093
-30. James Mackenzie, "The History of (and Nostalgia for) 3DMark". https://www.jamesfmackenzie.com/2023/04/21/the-history-of-and-nostalgia-for-futuremark-3dmark/
-31. UL Benchmarks, "Peacekeeper support ends July 29". https://aws.futuremark.com/en/news/peacekeeper-support-ends-july-29
-32. HotHardware, "Futuremark Removes GPU PhysX Results" https://hothardware.com/news/futuremark-removes-gpu-physx-results ; TechPowerUp, "GPU PhysX Doesn't get you to 3DMark Vantage Hall of Fame Anymore" https://www.techpowerup.com/66327/gpu-physx-doesnt-get-you-to-3dmark-vantage-hall-of-fame-anymore (via search summaries; pages blocked)
-33. UL Benchmarks, "Seasonic joins as a sponsor of the next 3DMark GPU Benchmark", 24 Jul 2026. https://benchmarks.ul.com/news
-34. UL Benchmarks, "3DMark Port Royal ray tracing benchmark now available", 8 Jan 2019. https://benchmarks.ul.com/news/3dmark-port-royal-ray-tracing-benchmark-now-available
-35. PC Gamer, "Testing ray tracing performance with 3DMark's latest benchmark" https://www.pcgamer.com/testing-ray-tracing-performance-with-3dmarks-latest-benchmark/ ; Geeks3D, "(Tested) 3DMark Port Royal" https://www.geeks3d.com/20190114/tested-3dmark-port-royal-directx-raytracing-benchmark/ ; NVIDIA, "Port Royal Benchmark Adds NVIDIA DLSS" https://www.nvidia.com/en-in/geforce/news/nvidia-dlss-3dmark-port-royal-benchmark/ (via search summaries)
-36. UL Benchmarks, "3DMark Speed Way is now available", 12 Oct 2022; UL support, "Overview of 3DMark Speed Way benchmark" (resolution 2560 x 1440). https://benchmarks.ul.com/news/3dmark-speed-way-is-now-available
-37. Tom's Hardware and Overclock.net forum threads on Speed Way scores (anecdotal). https://forums.tomshardware.com/threads/worried-about-my-3dmark-speed-way-score-with-rog-strix-rtx-4090-oc.3791463/
-38. Tom's Hardware, "AMD Radeon RX 7900 XTX and XT Review". https://www.tomshardware.com/reviews/amd-radeon-rx-7900-xtx-and-xt-review-shooting-for-the-top/8
+1. UL, *How is the 3DMark Time Spy score calculated?* https://support.benchmarks.ul.com/support/solutions/articles/44002136143-how-is-the-3dmark-time-spy-score-calculated-
+2. Futuremark, *Time Spy DX12 benchmark test available now* (14 July 2016). https://benchmarks.ul.com/news/3dmark-time-spy-directx-12-benchmark-test-available-now
+3. Futuremark, *A Closer Look at Asynchronous Compute in 3DMark Time Spy* (19 July 2016). https://benchmarks.ul.com/news/a-closer-look-at-asynchronous-compute-in-3dmark-time-spy
+4. UL, *How is the Steel Nomad score calculated?* https://support.benchmarks.ul.com/support/solutions/articles/44002528064-how-is-the-3dmark-steel-nomad-score-calculated-
+5. UL, *Steel Nomad Graphics Test*. https://support.benchmarks.ul.com/support/solutions/articles/44002528063-steel-nomad-graphics-test
+6. UL, *Steel Nomad Light Graphics Test*. https://support.benchmarks.ul.com/support/solutions/articles/44002528074-steel-nomad-graphics-test
+7. UL, *Steel Nomad Engine*. https://support.benchmarks.ul.com/support/solutions/articles/44002528067-steel-nomad-engine
+8. UL, *Overview of Steel Nomad*. https://support.benchmarks.ul.com/support/solutions/articles/44002528058-overview-of-3dmark-steel-nomad
+9. Futuremark, *3DMark03 downloads exceed 2,500,000 copies in first month* (10 March 2003). https://benchmarks.ul.com/news/20387
+10. Futuremark, *3DMark and PCMark Pricing Cut in Half; Distribution Marks New Records* (12 September 2003). https://benchmarks.ul.com/news/20432
+11. Futuremark, *Time Spy DX12 benchmark available now* (14 July 2016). https://benchmarks.ul.com/en-pt/news/3dmark-time-spy-directx-12-benchmark-test-available-now
+12. UL, *3DMark Steel Nomad is out now!* (21 May 2024). https://benchmarks.ul.com/news/3dmark-steel-nomad-is-out-now
+13. UL, *Solar Bay Extreme is available now!* (20 August 2025). https://benchmarks.ul.com/news/3dmark-solar-bay-extreme-is-available-now-
+14. UL, *3DMark Hall of Fame*. https://www.3dmark.com/hall-of-fame-2/3d
+15. UL, *3DMark technical reporting rules*. https://benchmarks.ul.com/support/benchmark-rules
+16. Futuremark, *3DMark03 driver audit report* (23 May 2003, archived copy). https://www.kickassgear.com/downloads/3dmark03_audit_report.pdf
+17. GameSpot, *Nvidia accused of cheating in 3DMark 03* (23 May 2003). https://www.gamespot.com/articles/nvidia-accused-of-cheating-in-3dmark-03/1100-6028894/
+18. The Register, *What's wrong with this pixel shader?* (24 May 2003). https://www.theregister.com/on-prem/2003/05/24/whats-wrong-with-this-pixel-shader/
+19. GameSpot, *Futuremark says Nvidia didn't cheat* (2 June 2003). https://www.gamespot.com/articles/futuremark-says-nvidia-didnt-cheat/1100-6029339/
+20. 3DCenter, *Interview with Futuremark* (September 2003). https://alt.3dcenter.org/artikel/2003/09-20_english.php
+21. The Register, *ATI admits it optimised drivers for 3DMark03* (27 May 2003). https://www.theregister.com/off-prem/2003/05/27/ati-admits-it-optimised-drivers-for-3dmark-03/
+22. Futuremark, *Guidelines for Driver Optimizations* (23 September 2003). https://benchmarks.ul.com/news/20392
+23. UL, *Benchmark Rules and Guidelines / Delisted devices*. https://benchmarks.ul.com/support/benchmark-rules
+24. VideoCardz, *Time Spy supports Asynchronous Computing* (24 June 2016). https://videocardz.com/61272/3dmark-time-spy-supports-asynchronous-computing
+25. PC Perspective, *Time Spy async-compute performance* (July 2016). https://pcper.com/2016/07/3dmark-time-spy-looking-at-dx12-asynchronous-compute-performance/
+26. PCWorld, *Radeon vs GeForce in Time Spy* (2016). https://www.pcworld.com/article/415661/3dmark-time-spy-tested-we-pit-radeon-vs-geforce-in-this-major-new-dx12-benchmark.html
+27. UL, *3DMark updates and upgrades: major updates by year*. https://benchmarks.ul.com/support/3dmark-updates-and-upgrades
+28. UL, *3DMark feature tests/editions*. https://support.benchmarks.ul.com/support/solutions/articles/44002132667-3dmark-features-by-edition
+29. UL, *Which 3DMark benchmark should I use?* https://support.benchmarks.ul.com/support/solutions/articles/44002132650
+30. UL, *Ice Storm (unsupported)*. https://support.benchmarks.ul.com/support/solutions/articles/44002135566-ice-storm-unsupported-
+31. Futuremark, *New Sling Shot benchmarks for Android* (27 July 2015). https://benchmarks.ul.com/en/news/new-3dmark-sling-shot-benchmarks-for-android
+32. Futuremark, *New benchmarks for your iPhone and iPad* (15 October 2015). https://benchmarks.ul.com/news/new-benchmarks-for-your-iphone-and-ipad
+33. UL, *New cross-platform Wild Life benchmark* (15 October 2020). https://benchmarks.ul.com/en-jp/news/new-crossplatform-benchmark-for-android-ios-and-windows
+34. UL, *3DMark Reviewers' Guide*. https://support.benchmarks.ul.com/support/solutions/articles/44002506454-3dmark-reviewers-guide
+35. UL, *Solar Bay launch* (14 August 2023). https://benchmarks.ul.com/en-pt/news/ul-solutions-launches-3dmark-solar-bay-new-crossplatform-ray-tracing-benchmark
+36. UL, *3DMark iOS release notes*. https://support.benchmarks.ul.com/support/solutions/articles/44002142029-3dmark-ios-app-release-notes
+37. UL, *3DMark Android Benchmark*. https://benchmarks.ul.com/3dmark-android
+38. Futuremark, *3DMark03 released* (11 February 2003). https://benchmarks.ul.com/jp/news/20386
+39. HardwareZone, *New 3DMark for Windows Available Now* (5 February 2013). https://www.hardwarezone.com.sg/lifestyle/apps/tech-news-new-3dmark-windows-available-now
+40. Futuremark, *Time Spy available now / new prices* (14 July 2016). https://benchmarks.ul.com/en-jp/news/3dmark-time-spy-directx-12-benchmark-test-available-now
+41. UL, *3DMark Speed Way is now available* (12 October 2022). https://benchmarks.ul.com/news/3dmark-speed-way-is-now-available
+42. Steam, *3DMark store listing* (observed November 2026, prices depend on region). https://store.steampowered.com/app/223850/3DMark/
+43. UL, *3DMark feature availability and licence tiers*. https://support.benchmarks.ul.com/support/solutions/articles/44002132667-3dmark-features-by-edition
+44. UL, *Futuremark Legacy Benchmarks*. https://benchmarks.ul.com/legacy-benchmarks
+45. UL, *Company/benchmark history*. https://benchmarks.ul.com/about
+46. TechPowerUp, *PhysX Runs on RV670, Scores 22,000 CPU Marks in Vantage* (26 June 2008). https://www.techpowerup.com/64042/physx-runs-on-rv670-scores-22-000-cpu-marks-in-3dmark-vantage
+47. DVHardware, *NVIDIA responds to GPU PhysX cheating allegations* (26 June 2008). https://www.dvhardware.net/news/28182/nvidia-responds-to-gpu-physx-cheating-allegations
+48. UL, *Benchmark Development Program*. https://benchmarks.ul.com/services/benchmark-development-program
+49. UL, *Port Royal engine*. https://support.benchmarks.ul.com/support/solutions/articles/44002135563-port-royal-engine
+50. UL, *3DMark Speed Way launch* (12 October 2022). https://benchmarks.ul.com/news/3dmark-speed-way-is-now-available
+51. UL, *Port Royal overview*. https://support.benchmarks.ul.com/support/solutions/articles/44002135553-overview-of-3dmark-port-royal-benchmark
+52. UL, *Port Royal launch* (8 January 2019). https://benchmarks.ul.com/news/3dmark-port-royal-ray-tracing-benchmark-now-available
+53. UL, *Port Royal engine*. https://support.benchmarks.ul.com/support/solutions/articles/44002135563-port-royal-engine
+54. ComputerBase, *3DMark Port Royal angeschaut* (January 2019). https://www.computerbase.de/artikel/grafikkarten/3dmark-port-royal.66244/
+55. UL, *Speed Way benchmark overview*. https://support.benchmarks.ul.com/support/solutions/articles/44002378655-overview-of-3dmark-speed-way-benchmark
+56. UL, *Estimating game performance from 3DMark scores*. https://support.benchmarks.ul.com/support/solutions/articles/44002125238-estimating-game-performance-from-3dmark-scores

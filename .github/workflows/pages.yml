@@ -25,5 +25,9 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
+      # Allow GitHub Pages artifact metadata to become available after upload.
+      # Rerun as a fresh workflow run, not a failed-job rerun, to avoid duplicate artifacts.
+      - name: Wait for Pages artifact propagation
+        run: sleep 25
       - id: deployment
         uses: actions/deploy-pages@v4
