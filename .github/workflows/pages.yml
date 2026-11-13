@@ -2,10 +2,10 @@ name: Deploy site to GitHub Pages
 on:
   push:
     branches: [main]
-    paths: ['site/**', '.github/workflows/pages.yml']
+    paths: ['site/**', 'docs/HISTORY.md', 'podcast/script.txt', 'tools/build_pdf.py', '.github/workflows/pages.yml']
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 concurrency:
@@ -22,6 +22,24 @@ jobs:
       - uses: actions/configure-pages@v5
         with:
           enablement: true
+      - name: Install PDF compiler prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Regenerate companion PDF from checked source text
+        run: |
+          python3 tools/build_pdf.py
+          test -s site/furmark-history-podcast.pdf
+          pdftotext site/furmark-history-podcast.pdf - | grep -q "22 August 2007"
+      - name: Commit updated PDF to the repository
+        run: |
+          git add site/furmark-history-podcast.pdf
+          if ! git diff --cached --quiet; then
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'docs: rebuild FurMark companion PDF from verified text'
+            git push || echo "::warning::Could not push PDF back; published Pages artifact still contains the freshly built PDF"
+          fi
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
