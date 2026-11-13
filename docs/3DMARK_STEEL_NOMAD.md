@@ -1,5 +1,7 @@
 # The history of 3DMark, and 3DMark Steel Nomad
 
+For additional technical detail beyond this timeline, see [10 researched 3DMark questions, 56 source references](QA_3DMARK.md).
+
 *Compiled 13 November 2026. UL's own news posts are the primary sources; the version table comes from Wikipedia and is labelled as such. A second research pass resolved the first draft's conflicts; what is still open is listed at the end. Source numbers in brackets point to the list at the bottom.*
 
 ## The short version
