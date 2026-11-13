@@ -13,16 +13,16 @@ JORDAN: And on the twenty-sixth of October, nineteen ninety-eight, its press rel
 SAM: It ran on DirectX six, used Remedy's own game engine, and claimed to be the first three D benchmark aimed directly at gamers.
 
 ## Names and owners
-JORDAN: The company changed its trading name to MadOnion dot com in nineteen ninety-nine, and became Futuremark in two thousand and two.
+JORDAN: Three D Mark two thousand was actually released in December nineteen ninety-nine, despite its name. The company also changed its trading name to MadOnion dot com in nineteen ninety-nine, and became Futuremark in two thousand and two.
 SAM: In December two thousand and nine the mobile business was spun off as Rightware. In March two thousand and twelve the games division went to Rovio, the Angry Birds company.
-JORDAN: And on the thirty-first of October, two thousand and fourteen, the whole company was acquired by UL, the safety science firm. In April twenty eighteen the Futuremark name was retired for UL Benchmarks, though the team stayed in Espoo.
+JORDAN: The acquisition by UL, the safety science firm, closed on the thirty-first of October, two thousand and fourteen, and was publicly announced in early November. In April twenty eighteen the Futuremark name was retired for UL Benchmarks.
 
 ## One benchmark per DirectX
 SAM: The pattern is simple. Each big graphics standard gets its own 3DMark, and scores never carry across versions.
 JORDAN: Two thousand and one was the first to use vertex and pixel shaders, and the last on that Remedy engine. Two thousand and three was DirectX nine and the first to test the processor.
 SAM: Two thousand and six did something that mattered. For the first time the processor result fed into the final score.
 JORDAN: Vantage, April two thousand and eight, for DirectX ten. Three D Mark eleven, December twenty ten, with tessellation and compute shaders.
-SAM: Then in February twenty thirteen, plain 3DMark. One app, separate tests with their own scores, and for the first time Windows, Android and iOS results could be compared.
+SAM: Then in February twenty thirteen, plain 3DMark came to Windows, followed by Android in April and iOS in September. Specific matched tests, like Ice Storm, could compare supported devices across platforms. It never meant you could compare the scores of unrelated tests.
 
 ## The modern run
 JORDAN: Time Spy. Futuremark showed a trailer on the twenty-third of June, twenty sixteen, full of old 3DMark scenes, and released it on the fourteenth of July.
@@ -40,11 +40,11 @@ SAM: And it is not ray traced. UL also notes that on a fast twenty twenty-four g
 JORDAN: It is also cross-platform. Windows and Windows on Arm with DirectX twelve and Vulkan, Android with Vulkan, iPhone with Metal. Thirty-five dollars on Steam for newcomers, free for people who already owned 3DMark.
 
 ## After launch
-SAM: June twelfth, twenty twenty-five: a native Mac app. UL had noticed roughly one in six iOS submissions were coming from Macs, and running the phone version on a Mac could lower scores.
+SAM: June twelfth, twenty twenty-five: a native Apple Silicon Mac app. UL noticed roughly one in six iOS submissions came from Macs, but running the phone version on a Mac could lower scores. On June the eighteenth, UL fixed a compiler issue that had affected the launch version and invalidated those early results.
 JORDAN: August twentieth: Solar Bay Extreme, with ray traced reflections on every surface and soft shadows.
 SAM: Linux is the one that keeps slipping. UL promised it at launch and even said later in twenty twenty-four. Mac arrived. Linux still has no public date, though UL has described a Vulkan build for enterprise customers and reviewers.
 JORDAN: And on the third of June, twenty twenty-six, UL announced a new fully path-traced benchmark, at native four K, with a choice of upscaling and frame generation from several vendors.
-SAM: In July, Seasonic joined as a sponsor. No name and no date yet. UL says it has been in the works for a long time, and it will share it when it is ready.
+SAM: Thermal Grizzly was announced as the first sponsor in June; Seasonic joined in July. There was still no confirmed benchmark name or launch date in the announcements checked for this episode.
 
 ## Wrap
 JORDAN: So that is a line stretching nearly three decades, from a cover disc benchmark to a path-traced one. Every few years, the same promise: how will your PC handle what is next.
