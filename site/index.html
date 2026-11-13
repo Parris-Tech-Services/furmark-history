@@ -185,13 +185,14 @@ section p.lead{color:var(--mut);font-size:18px;max-width:62ch;margin:0 0 26px}
 .libcard b{font-size:16px;line-height:1.3}
 .libcard span{color:var(--mut);font-size:13px}
 .libcard small{font:11px var(--f-mono);color:var(--faint);margin-top:auto}
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}
+ .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}
 .reveal.in{opacity:1;transform:none}
 </style>
 </head>
 <body>
+<a class="skiplink" href="#maincontent">Skip to main content</a>
 <header class="top"><div class="wrap">
-  <a class="brand" href="#top"><span class="logo"></span><span class="bt">GPU Benchmark Lore</span></a>
+  <a class="brand" href="#maincontent"><span class="logo"></span><span class="bt">GPU Benchmark Lore</span></a>
   <nav class="nav">
     <a href="#worlds" class="hide-s">The three worlds</a><a href="#timeline">Timeline</a><a href="#lore" class="hide-s">Lore</a><a href="#watch">Watch</a><a href="#listen">Listen</a><a href="#lab">Your GPUs</a><a href="#questions" class="hide-s">Questions</a><a href="#library">Library</a>
     <a href="#" data-open-search>Search <span class="kbd">/</span></a>
@@ -199,7 +200,7 @@ section p.lead{color:var(--mut);font-size:18px;max-width:62ch;margin:0 0 26px}
   <button class="iconbtn" data-theme-toggle title="Toggle light / dark" aria-label="Toggle theme">☾</button>
 </div></header>
 
-<main id="top">
+<main id="maincontent">
 <section class="hero"><div class="bgglow"></div><div class="grid-bg"></div>
   <div class="wrap">
     <div>
@@ -210,8 +211,8 @@ section p.lead{color:var(--mut);font-size:18px;max-width:62ch;margin:0 0 26px}
       <div class="stats" id="stats"></div>
     </div>
     <div>
-      <div class="stage"><canvas id="furcv" width="900" height="900" aria-label="Interactive rotating furry torus. Drag to rotate; use the slider to heat it up."></canvas></div>
-      <div class="heat"><span>cool</span><input id="heat" type="range" min="0" max="100" value="62" aria-label="Heat"><span>white-hot</span><b id="heatv">—</b></div>
+      <div class="stage"><canvas id="furcv" width="900" height="900" role="img" aria-label="Interactive artistic rendering of a furry torus; drag to rotate. This is an illustration, not FurMark or a live temperature measurement."></canvas></div>
+      <div class="heat"><span>Cool colour</span><input id="heat" type="range" min="0" max="100" value="62" aria-label="Simulated colour intensity, not GPU temperature"><span>White-hot colour</span><b id="heatv">62%</b></div><p class="demo-note">Art demo only · This slider changes the illustration’s colour, not your GPU temperature.</p>
     </div>
   </div>
 </section>
@@ -242,8 +243,8 @@ section p.lead{color:var(--mut);font-size:18px;max-width:62ch;margin:0 0 26px}
   <p class="lead reveal">Filter by benchmark or kind of event, search by word, and click an event to open it. Each links to the document with its sources.</p>
   <div class="filters" id="tf-bench"></div>
   <div class="filters" id="tf-type"></div>
-  <div class="filters"><input class="tsearch" id="tsearch" placeholder="Search the timeline…" aria-label="Search the timeline"><span id="tcount" class="kicker"></span><a href="#" id="texp" class="chip" style="margin-left:auto">Expand all</a></div>
-  <div class="rail" id="rail"></div>
+  <div class="filters"><input class="tsearch" id="tsearch" placeholder="Search the timeline…" aria-label="Search the timeline"><span id="tcount" class="kicker" role="status" aria-live="polite"></span><button type="button" id="texp" class="chip" style="margin-left:auto">Expand all</button></div>
+  <div class="rail" id="rail" aria-label="Benchmark history timeline"></div>
 </div></section>
 
 <section id="lore"><div class="wrap">
@@ -300,7 +301,7 @@ section p.lead{color:var(--mut);font-size:18px;max-width:62ch;margin:0 0 26px}
       <div class="srow" style="margin-top:14px"><span class="kicker" style="width:100%">Find episodes on Spotify</span>
         <a class="chip" target="_blank" rel="noopener" href="https://open.spotify.com/search/3DMark">3DMark</a><a class="chip" target="_blank" rel="noopener" href="https://open.spotify.com/search/GPU%20benchmark%20podcast">GPU benchmarks</a><a class="chip" target="_blank" rel="noopener" href="https://open.spotify.com/search/hardware%20overclocking%20podcast">overclocking</a><a class="chip" target="_blank" rel="noopener" href="https://open.spotify.com/search/PC%20hardware%20podcast">PC hardware shows</a></div></div>
     <div class="card" data-bench="3dmark"><span class="kicker">Put these episodes on Spotify</span><h3 style="margin:8px 0 6px">Podcast feed</h3>
-      <p style="color:var(--mut);font-size:14px;margin:0 0 8px">This site publishes a standard podcast RSS feed. Submit it once and the three episodes appear in Spotify, Apple Podcasts and others.</p>
+      <p style="color:var(--mut);font-size:14px;margin:0 0 8px">A draft RSS feed is available for you to submit. It is <strong>not yet listed on Spotify or Apple Podcasts</strong>; owner contact details, hosting checks and platform approval are still needed.</p>
       <div class="srow"><a class="btn" href="podcast.xml">Open RSS feed</a><button class="btn ghost" id="copyfeed">Copy feed URL</button></div>
       <ol style="margin-top:14px"><li>Open <a target="_blank" rel="noopener" href="https://creators.spotify.com">creators.spotify.com</a> and sign in.</li><li>Choose “Add a podcast” → “I already have a podcast” and paste the feed URL.</li><li>Verify with the owner email in the feed (add yours to <code>podcast.xml</code> first; I left it blank on purpose).</li><li>After approval, paste the show link into the shelf on the left.</li></ol></div>
   </div>
@@ -320,13 +321,21 @@ section p.lead{color:var(--mut);font-size:18px;max-width:62ch;margin:0 0 26px}
   <div class="labtabs" id="labtabs"><button class="chip on" data-t="fleet" data-bench="fleet">My GTX 1070s</button><button class="chip" data-t="hall">Hall of GPUs</button><button class="chip" data-t="bench">My bench</button><button class="chip" data-t="decode">Score decoder</button></div>
   <div id="lab-fleet" data-bench="fleet">
     <div class="card glow fleethead"><div><span class="kicker">Your batch · snapshot <span id="fsnap"></span></span><h3 style="margin:8px 0 6px;font:700 26px var(--f-ui)">GeForce GTX 1070 fleet</h3>
-      <p style="color:var(--mut);margin:0;max-width:62ch;font-size:15px">Scores from your GPU Testing Sheet, checked against the public FurMark result pages. The three test PCs differ in CPU and driver, so this is <b>not</b> a fair ranking of the physical cards. <a href="read/gpu-batch-research.html">Read the full audit →</a></p></div>
+      <p style="color:var(--mut);margin:0;max-width:62ch;font-size:15px">Dated results from your GPU Testing Sheet, checked against published FurMark submissions. This is <b>a snapshot, not a live Google Sheet sync or a hardware health certificate</b>. The PCs differ, so raw rankings aren't fair. <a href="read/gpu-batch-research.html">Read the full audit →</a></p><p class="fleetlinks"><a class="chip" href="https://docs.google.com/spreadsheets/d/1yCaJ1PXI7R5sCuZopxetPMwNWyK142i7SJOmZRwTj44/edit" target="_blank" rel="noopener">Open live test sheet ↗</a> <a class="chip" href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/data/benchmark_snapshot_2026-11-13.csv" target="_blank" rel="noopener">Audited CSV ↗</a></p></div>
       <div class="gtxspec" id="gtxspec"></div></div>
     <div class="ftiles" id="ftiles"></div>
+    <div class="fleettoolbar">
+      <label for="fcardgo">Find a card #</label>
+      <input class="field" id="fcardgo" type="number" min="1" max="100" inputmode="numeric" placeholder="e.g. 36" aria-describedby="factionmsg">
+      <button class="btn ghost" type="button" id="fgo">Show card</button>
+      <label class="fleettoggle"><input type="checkbox" id="ffollow"> Follow-ups only</label>
+      <button class="btn ghost" type="button" id="fexport">Export visible cards CSV</button>
+      <span id="factionmsg" role="status" aria-live="polite"></span>
+    </div>
     <div class="filters" id="ff-metric"></div><div class="filters" id="ff-rig"></div>
-    <div class="fgrid"><div class="card fbars"><div class="kicker" id="fbt"></div><div id="fbars"></div><label class="zoom"><input type="checkbox" id="fzero"> start axis at zero</label></div>
+    <div class="fgrid"><div class="card fbars"><div class="kicker" id="fbt"></div><div id="fbars" aria-label="Selectable graphics card benchmark results"></div><label class="zoom"><input type="checkbox" id="fzero"> start axis at zero</label></div>
       <div class="card"><div class="kicker">FurMark vs Superposition</div><svg id="fscatter" viewBox="0 0 620 400" role="img" aria-label="Scatter plot of FurMark against Superposition scores"></svg><div id="ftip" class="ftip"></div></div></div>
-    <div class="card" id="fdetail"><p style="margin:0;color:var(--mut)">Click a bar or a dot to inspect a card.</p></div>
+    <div class="card" id="fdetail" tabindex="-1" aria-live="polite"><p style="margin:0;color:var(--mut)">Select a bar, chart point or card number to inspect its results.</p></div>
     <div class="card" style="overflow-x:auto"><div class="kicker">By test PC</div><div id="frigs"></div></div>
     <div class="card"><div class="kicker">Cards to follow up</div><div id="fflags" class="flags"></div></div>
   </div>
@@ -365,7 +374,7 @@ section p.lead{color:var(--mut);font-size:18px;max-width:62ch;margin:0 0 26px}
   <h2 class="sec reveal">Seventy answered questions</h2>
   <p class="lead reveal">Technical deep dives and scene-lore investigations, searchable. Open any question to read the answer in place.</p>
   <div class="filters" id="qf-bench"></div><div class="filters" id="qf-kind"></div>
-  <div class="filters"><input class="tsearch" id="qsearch" placeholder="Filter questions (e.g. async, professor, power)…" style="min-width:320px"><span id="qcount" class="kicker"></span></div>
+  <div class="filters"><input class="tsearch" id="qsearch" aria-label="Search answered questions" placeholder="Filter questions (e.g. async, professor, power)…"><span id="qcount" class="kicker" role="status" aria-live="polite"></span></div>
   <div class="qa" id="qa"></div>
 </div></section>
 
@@ -383,7 +392,7 @@ section p.lead{color:var(--mut);font-size:18px;max-width:62ch;margin:0 0 26px}
   <div><h4>Project</h4><a href="https://github.com/Parris-Tech-Services/furmark-history">GitHub repository</a><a href="furmark-history-podcast.pdf">Podcast PDF</a><a href="podcast.xml">Podcast RSS</a></div>
 </div></footer>
 
-<div id="lightbox"><div style="text-align:center"><img id="lbimg" alt=""><p id="lbcap"></p></div></div>
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged photo"><div style="text-align:center"><button type="button" id="lbclose" class="iconbtn lightbox-close" aria-label="Close enlarged photo">✕</button><img id="lbimg" alt=""><p id="lbcap"></p></div></div>
 <script src="assets/app.js" data-base=""></script>
 <script src="assets/home.js"></script>
 </body></html>
