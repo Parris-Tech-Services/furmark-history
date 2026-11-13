@@ -4,6 +4,12 @@ This repo documents the history of GPU benchmark culture: sourced research on Fu
 
 Sourced histories of GPU benchmarks. The main project is **FurMark** (below); newer write-ups cover **UNIGINE Superposition** and **3DMark / Steel Nomad**.
 
+**Thirty-question research follow-up (10 per benchmark, completed 13 November 2026)**
+- [Thirty questions and completion status](docs/QUESTIONS.md)
+- [FurMark: 10 detailed answers](docs/QA_FURMARK.md)
+- [Superposition: 10 detailed answers](docs/QA_SUPERPOSITION.md)
+- [3DMark / Steel Nomad: 10 detailed answers and 56 numbered references](docs/QA_3DMARK.md)
+
 **More research**
 - [docs/FACT_CHECK.md](docs/FACT_CHECK.md): what was re-checked and corrected on 13 Nov 2026
 - [docs/SUPERPOSITION.md](docs/SUPERPOSITION.md): UNIGINE Superposition (2017) and its Sanctuary, Tropics, Heaven, Valley lineage
