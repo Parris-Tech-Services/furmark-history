@@ -1,0 +1,39 @@
+# From Fire Strike to Steel Nomad: the story of 3DMark
+# Speaker lines start with SAM: or JORDAN:
+
+## Cold open
+SAM: In May of two thousand and twenty-four, a company announced a benchmark by saying one number. Almost forty-eight million.
+JORDAN: That is how many Time Spy results people had submitted since two thousand and sixteen. And it was the reason for the new test.
+SAM: Today: 3DMark, from a Finnish startup in the nineteen nineties, all the way to Steel Nomad.
+
+## The company
+JORDAN: The company that made 3DMark was founded in Espoo, Finland, in November of nineteen ninety-seven, and launched in February nineteen ninety-eight.
+SAM: First it was called MadOnion dot com. In two thousand and two it became Futuremark.
+JORDAN: Then a run of ownership changes. A spin-off called Rightware in December two thousand and nine. A sale to Rovio in March two thousand and twelve. And in October two thousand and fourteen, an acquisition by UL.
+SAM: In April two thousand and eighteen the products were rebranded UL Benchmarks.
+
+## One benchmark per DirectX
+JORDAN: The pattern is simple. Each big graphics standard gets its own 3DMark, and scores do not carry across versions.
+SAM: Nineteen ninety-eight, the first one, for DirectX six. Then two thousand and one, the first to use shaders. Two thousand and three, for DirectX nine.
+JORDAN: Two thousand and six did something new. For the first time the processor result fed into the final score.
+SAM: Vantage in April two thousand and eight. Then three D Mark eleven in December twenty ten. Then in February twenty thirteen, plain 3DMark, one app with Fire Strike as the main test and mobile versions soon after.
+JORDAN: Time Spy for DirectX twelve in July twenty sixteen. Port Royal for ray tracing in January twenty nineteen. And Speed Way, on the twelfth of October, twenty twenty-two, for DirectX twelve Ultimate.
+
+## Steel Nomad
+SAM: Then the twenty-first of May, twenty twenty-four. Steel Nomad and a lighter Steel Nomad Light.
+JORDAN: UL's reasoning: the average Time Spy score had roughly tripled, so a new non-ray-traced test was due. Time Spy was not fully retired.
+SAM: Steel Nomad runs at what UL calls native four K. By UL's own numbers it is about three times heavier than Time Spy, and almost seven times heavier than Fire Strike.
+JORDAN: UL also notes that on a fast twenty twenty-four graphics card, the processor can bottleneck the older tests and flatten the results.
+SAM: And it is cross-platform. Windows and Windows on Arm with DirectX twelve and Vulkan, Android with Vulkan, iPhone with Metal.
+
+## After launch
+JORDAN: June twelfth, twenty twenty-five, 3DMark became a native Mac app. UL said about one in six iOS submissions had been coming from Macs, and running the phone version on a Mac could lower scores.
+SAM: August twentieth, Solar Bay Extreme, with more ray tracing. Reflections, glass and soft shadows.
+JORDAN: Then on the third of June, twenty twenty-six, UL announced a new fully path-traced benchmark, at native four K and with upscaling and frame generation from several vendors.
+SAM: In July it added Seasonic as a sponsor. No name and no date yet. UL only says it will share more when it is ready.
+
+## What we could not verify
+JORDAN: A few conflicts. Another outlet gave the twenty-fifth of May as the launch date, and UL's own post says the twenty-first. We went with UL.
+SAM: Some coverage calls it fourteen-forty P resolution. UL says native four K, and we did not test it.
+JORDAN: And two small ones: the exact day of Time Spy, and whether the first 3DMark came out on the twenty-sixth or the twenty-eighth of October nineteen ninety-eight.
+SAM: Sources are in the repo. Thanks for listening.

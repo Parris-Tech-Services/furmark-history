@@ -15,6 +15,12 @@ The story of **FurMark**, the furry-donut GPU stress test: a sourced timeline, a
 - Podcast audio (MP3, ~8 min): https://cdn.jsdelivr.net/gh/Parris-Tech-Services/furmark-history@main/site/furmark-history-podcast.mp3
 - Research write-up with every source: [docs/HISTORY.md](docs/HISTORY.md)
 
+**Free podcast episodes** (no API key; built offline by `tools/build_free_audio.py`)
+- Superposition, voices by Kokoro-82M: [audio](site/superposition-history-podcast.mp3) · [script](podcast/superposition_script.txt)
+- Steel Nomad / 3DMark, voices by Piper: [audio](site/steelnomad-history-podcast.mp3) · [script](podcast/steelnomad_script.txt)
+
+Why these two: of the free routes I checked, Google's NotebookLM sounds best but has no way to run from a script, and the hosted services (Edge TTS) are unreachable from the build sandbox. Kokoro and Piper are open-source, run offline, and are scriptable. Kokoro sounds more natural; Piper is lighter and faster. Piper's voice licences vary by voice, so check the voice card before reusing the audio commercially.
+
 **What's here**
 | Path | What |
 |---|---|

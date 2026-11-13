@@ -1,0 +1,40 @@
+# The Professor's Lab: the story of UNIGINE Superposition
+# Speaker lines start with ALEX: or MORGAN:
+
+## Cold open
+ALEX: A lone professor, an abandoned classroom, and a loud bang from the laboratory a few moments ago.
+MORGAN: That is the actual setup of a graphics card benchmark. Your job is to look around and work out what happened.
+ALEX: Today: UNIGINE Superposition, the benchmark that has been heating up graphics cards since April of two thousand and seventeen.
+
+## The family
+MORGAN: Start with who made it. UNIGINE says it was established in two thousand and five, and it builds a real-time three D engine for simulation, games and virtual reality.
+ALEX: And along the way it built a line of benchmarks. By its own list: Sanctuary in two thousand and seven, Tropics in two thousand and eight, Heaven in two thousand and nine, Valley in two thousand and thirteen, and Superposition in two thousand and seventeen.
+MORGAN: Heaven is the famous one. It came out on the twenty-second of October, two thousand and nine, and it is widely described as the first DirectX eleven benchmark.
+ALEX: Worth a small asterisk there. That claim comes from press coverage at the time, so call it the contemporary description, not an audited fact.
+MORGAN: Fair. UNIGINE also says its benchmarks have over forty million active users. That is the company's own figure, and I could not check it.
+
+## The release
+ALEX: Superposition one point zero arrived in April two thousand and seventeen, on the second generation of the UNIGINE engine.
+MORGAN: The exact day is a little fuzzy. UNIGINE itself says only April. Wikipedia says the eleventh, and a Linux news site posted its launch story on the twelfth.
+ALEX: Which might just be time zones, but I could not find a primary announcement that settles it.
+MORGAN: What I can say is how it was received. That Linux reviewer called it very demanding, and said the work spread evenly across all of his processor cores.
+ALEX: He also hit rough edges. The Linux build offered only OpenGL, no Vulkan, and it saw only three gigabytes of an eight gigabyte card.
+
+## What it is
+MORGAN: The scene is a cluttered lab belonging to a fictional professor. The headline feature is a lighting method UNIGINE calls SSRTGI, screen-space ray-traced global illumination.
+ALEX: And here is a careful point. Wikipedia describes it as testing ray tracing capability. But it works in screen space. It is not the hardware ray tracing you get from DirectX Raytracing.
+MORGAN: Beyond the scripted run, there is an interactive mode with mini-games and over nine hundred objects you can poke at.
+ALEX: There is a loop stress test to check that your card, your cooling and your power supply stay stable. A global leaderboard. And virtual reality modes for Oculus Rift, HTC Vive and other SteamVR headsets.
+MORGAN: The basic edition is free. UNIGINE lists the stress loop, the leaderboard, commercial use and quality-assurance automation under extended editions.
+
+## Version one point one
+ALEX: The one feature update on record came on the twelfth of April, two thousand and nineteen. Version one point one.
+MORGAN: Free virtual reality for the basic edition, which had been a paid feature. Better graphics card detection. The maximum render resolution raised to sixteen thousand three hundred eighty-four pixels square.
+ALEX: And virtual reality on Linux through SteamVR, which fixes that gap from the launch review.
+MORGAN: UNIGINE also published two years of numbers. Over two hundred thousand competitive scores. More than eight thousand benchmark videos on YouTube. Three million, three hundred thirty-eight thousand, nine hundred twenty-three tests run.
+ALEX: All of that is the developer's own marketing. It even says an eight K demo was broadcast from space. I found no independent confirmation of any of it.
+
+## What we could not verify
+MORGAN: So, the honest gaps. The exact launch day. Whether any version exists after one point one. The macOS claim, since Wikipedia lists it and UNIGINE's download page shows only Windows and Linux.
+ALEX: But the shape of the story is solid. A small engine company, five benchmarks, and one lab with a professor who is still, as far as anyone can tell, mid-experiment.
+MORGAN: The full write-up and sources are in the repo. Thanks for listening.
