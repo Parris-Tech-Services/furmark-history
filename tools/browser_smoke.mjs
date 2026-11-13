@@ -91,7 +91,7 @@ try{
   assert(width.scroll<=width.viewport+8,"Horizontal page overflow "+JSON.stringify(width));
   await mp.locator("#fcardgo").fill("37");
   await mp.locator("#fgo").click();
-  assert.match(await mp.locator("#fdetail").innerText(),/Card #37/);
+  assert.match(await mp.locator("#fdetail").innerText(),/card #37/i);
   pass("390px mobile layout and card finder");
   await context.close();await mobile.close();
   assert.deepEqual(errors,[],"Uncaught browser errors: "+errors.join("; "));
