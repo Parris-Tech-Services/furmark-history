@@ -36,6 +36,10 @@ const pass=s=>{notes.push(s);console.log("PASS",s)};
 try{
   browser=await chromium.launch({headless:true,executablePath:chrome,args:["--no-sandbox","--disable-dev-shm-usage"]});
   const context=await browser.newContext({viewport:{width:1366,height:900},acceptDownloads:true});
+  // Test the Spotify embed URLs and fallbacks, but don't execute untrusted
+  // third-party iframe scripts in our own site's JavaScript-error assertion.
+  const stubSpotify=route=>route.fulfill({status:200,contentType:"text/html",body:"<!doctype html><title>External Spotify embed test placeholder</title>"});
+  await context.route("**/open.spotify.com/**",stubSpotify);
   // External embeds are verified by URL. Exercise first-party scripts and media locally.
   await context.route(/^https:\/\//, route=>route.abort());
   const page=await context.newPage();
@@ -104,6 +108,7 @@ try{
   pass("Deep-dive reading page");
   const mobile=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true});
   await mobile.route(/^https:\/\//, route=>route.abort());
+  await mobile.route("**/open.spotify.com/**",stubSpotify);
   const mp=await mobile.newPage();
   mp.on("pageerror",e=>errors.push("mobile: "+e.message));
   await mp.goto(url,{waitUntil:"domcontentloaded"});
