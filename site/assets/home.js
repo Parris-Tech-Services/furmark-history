@@ -274,8 +274,16 @@ function fleet(F){
     $("#fscatter").insertAdjacentHTML("afterend",'<div class="legend">'+Object.keys(RIGC).filter(function(r){return C.some(function(c){return c.rig===r})}).map(function(r){return'<span><i style="background:'+RIGC[r]+'"></i>'+r+"</span>"}).join("")+"</div>");
     // rigs
     $("#frigs").innerHTML='<table class="table"><thead><tr><th>Test PC</th><th>Cards</th><th>FurMark mean</th><th>Superposition mean</th><th>Steel Nomad mean</th><th>CPU in public result</th></tr></thead><tbody>'+Object.keys(RIGC).filter(function(r){return C.some(function(c){return c.rig===r})}).map(function(r){var cs=C.filter(function(c){return c.rig===r}),m=function(kk){var a=vals(kk,r);return a.length?fmt(mean(a)):"–"},cpus=cs.map(function(c){return c.cpu}).filter(function(v,i,a){return v&&a.indexOf(v)===i}).join(", ");return"<tr><td><i class=\"dot\" style=\"background:"+RIGC[r]+"\"></i> <b>"+r+"</b></td><td>"+cs.length+"</td><td>"+m("fm")+"</td><td>"+m("sp")+"</td><td>"+m("sn")+"</td><td>"+esc(cpus||"–")+"</td></tr>"}).join("")+"</tbody></table>"}
-  $("#fflags").innerHTML=Object.keys(FLAGS).map(function(n){var f=FLAGS[n];return'<div class="flag" data-n="'+n+'"><b>#'+n+'</b><span><span class="pill '+f[0]+'">'+(f[0]==="warn"?"check":f[0]==="ok"?"good":"note")+"</span> "+esc(f[1])+"</span></div>"}).join("");
-  $$(".flag").forEach(function(f){f.onclick=function(){sel(+f.dataset.n);$("#fdetail").scrollIntoView({block:"center",behavior:"smooth"})}});
+  // Derive actionable list from saved audit statuses, rather than displaying
+  // historically "good" cards as if they still require attention.
+  var flagged=C.filter(needsFollowUp);
+  $("#fflags").innerHTML=flagged.length?flagged.map(function(c){
+    var fl=FLAGS[c.card],level=c.status==="FAN_NOISE_STOP"||c.status==="LINK_SCORE_MISMATCH"?"warn":"note";
+    var description=fl?fl[1]:[c.fm==null?"FurMark":null,c.sp==null?"Superposition":null,c.sn==null?"Steel Nomad":null]
+      .filter(Boolean).join(", ")+" not recorded in the snapshot. Finish testing before grading.";
+    return '<button type="button" class="flag" data-n="'+c.card+'"><b>#'+c.card+'</b><span><span class="pill '+level+'">'+(level==="warn"?"check":"follow up")+'</span> '+esc(description)+'</span></button>'
+  }).join(""):'<p class="searchmessage">No outstanding items in this snapshot.</p>';
+  $$(".flag").forEach(function(button){button.onclick=function(){sel(+button.dataset.n);$("#fdetail").focus();$("#fdetail").scrollIntoView({block:"center",behavior:"smooth"})}});
   draw();sel(24);
 }
 
