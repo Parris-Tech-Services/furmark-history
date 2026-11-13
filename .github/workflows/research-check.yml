@@ -1,0 +1,19 @@
+name: Check benchmark research consistency
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths: ['docs/**', 'podcast/**', 'README.md', 'site/index.html', 'tools/check_research.py', '.github/workflows/research-check.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  research-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python3 -m compileall -q tools
+      - run: python3 tools/check_research.py
