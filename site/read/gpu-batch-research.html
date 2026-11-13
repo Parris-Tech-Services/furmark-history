@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en" data-bench="fleet">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My GTX 1070 batch: deep research · GPU Benchmark Lore</title>
+<meta name="description" content="100 sheet slots, 38 started cards, link audit, rig bias, health and resale.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));z-index:60}
+.rhero{padding:54px 0 28px;position:relative}
+.rhero::before{content:"";position:absolute;inset:-60px 0 0;background:radial-gradient(60% 80% at 20% 0,color-mix(in srgb,var(--acc) 22%,transparent),transparent 70%);pointer-events:none}
+.rhero h1{font:700 clamp(30px,5vw,54px)/1.08 var(--f-ui);letter-spacing:-.02em;margin:14px 0 10px;max-width:22ch}
+.rhero p{color:var(--mut);font-size:18px;max-width:60ch;margin:0 0 16px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--faint);font:13px var(--f-mono)}
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:48px;align-items:start}
+@media(max-width:960px){.layout{grid-template-columns:minmax(0,1fr);gap:0}}
+article.prose{overflow-wrap:anywhere;min-width:0}
+.layout>*{min-width:0}
+aside.toc{position:sticky;top:84px;max-height:calc(100vh - 110px);overflow:auto;font-size:14px;padding-right:6px}
+aside.toc h4{margin:0 0 10px;font:600 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+aside.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:6px 0 6px 14px;color:var(--mut);margin-left:-1px;border-left:2px solid transparent;line-height:1.35}
+aside.toc li a:hover{color:var(--ink);text-decoration:none}
+aside.toc li a.on{color:var(--acc2);border-left-color:var(--acc)}
+@media(max-width:960px){aside.toc{position:static;max-height:none;margin:0 0 22px;border:1px solid var(--line);border-radius:14px;padding:14px}aside.toc ol{border:0}}
+article.prose{font:400 19px/1.72 var(--f-read);color:var(--ink);max-width:70ch}
+article.prose h2{font:700 clamp(24px,3vw,32px)/1.2 var(--f-ui);letter-spacing:-.01em;margin:2.2em 0 .5em;position:relative;padding-top:6px}
+article.prose h2::before{content:"";display:block;width:44px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--acc),var(--acc2));margin-bottom:14px}
+article.prose h3{font:700 21px/1.3 var(--f-ui);margin:1.8em 0 .4em;color:var(--acc2)}
+article.prose p{margin:0 0 1.1em}
+article.prose strong{color:var(--ink)}
+article.prose a{border-bottom:1px solid color-mix(in srgb,var(--acc2) 40%,transparent)}
+article.prose a:hover{text-decoration:none;border-bottom-color:var(--acc2)}
+article.prose blockquote{margin:1.2em 0;padding:4px 0 4px 20px;border-left:3px solid var(--acc);color:var(--mut)}
+article.prose code{font:500 .85em var(--f-mono);background:var(--surface2);padding:2px 6px;border-radius:6px}
+article.prose ul,article.prose ol{padding-left:1.3em}
+article.prose li{margin:.35em 0}
+article.prose li::marker{color:var(--acc2)}
+.tablewrap{overflow-x:auto;margin:1.3em 0;border:1px solid var(--line);border-radius:14px}
+article.prose table{border-collapse:collapse;width:100%;font:15px/1.5 var(--f-ui)}
+article.prose th{background:var(--surface2);text-align:left;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+article.prose th,article.prose td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+article.prose tr:last-child td{border-bottom:0}
+article.prose tbody tr:hover td{background:color-mix(in srgb,var(--acc) 7%,transparent)}
+a.cite{font:600 11px var(--f-mono);vertical-align:super;line-height:0;padding:1px 4px;margin:0 1px;border-radius:5px;background:color-mix(in srgb,var(--acc) 22%,transparent);color:var(--acc2);border:0!important}
+a.cite:hover{background:var(--acc);color:#000}
+#sources+*,h2#sources~ol{font:15px/1.55 var(--f-ui);color:var(--mut)}
+li:target{background:color-mix(in srgb,var(--acc) 20%,transparent);outline:2px solid var(--acc);border-radius:6px}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:70px 0 10px}
+.pager a{display:block;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink)}
+.pager a:hover{border-color:var(--acc);text-decoration:none}
+.pager span{display:block;font:11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.pager b{font-size:17px}
+.pager a:last-child{text-align:right}
+.tip{position:fixed;z-index:80;max-width:420px;background:var(--surface);border:1px solid var(--acc);border-radius:12px;padding:12px 14px;font:13px/1.45 var(--f-ui);color:var(--ink);box-shadow:var(--shadow);pointer-events:none;display:none}
+.hlink{opacity:0;margin-left:8px;color:var(--faint);font-size:.7em;border:0!important}
+h2:hover .hlink,h3:hover .hlink{opacity:1}
+.back{position:fixed;right:18px;bottom:18px;z-index:40}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../index.html"><span class="logo"></span><span class="bt">GPU Benchmark Lore</span></a>
+  <nav class="nav">
+    <a href="../index.html#timeline" class="hide-s">Timeline</a><a href="../index.html#watch" class="hide-s">Watch</a><a href="../index.html#lab" class="hide-s">GPU lab</a><a href="../index.html#library">Library</a>
+    <a href="#" data-open-search>Search <span class="kbd">/</span></a>
+  </nav>
+  <button class="iconbtn" data-theme-toggle title="Toggle light / dark" aria-label="Toggle theme">☾</button>
+</div></header>
+<section class="rhero"><div class="wrap">
+  <span class="tag">Your GPUs</span>
+  <h1>My GTX 1070 batch: deep research</h1>
+  <p>100 sheet slots, 38 started cards, link audit, rig bias, health and resale.</p>
+  <div class="meta"><span>~12 min read</span><span>·</span><a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/GPU_BATCH_RESEARCH.md">view source on GitHub</a></div>
+</div></section>
+<main class="wrap layout">
+  <aside class="toc"><h4>On this page</h4><ol id="tocol"><li><a href="#the-main-discoveries">The main discoveries</a></li><li><a href="#1-the-silicon-and-history">1. The silicon and history</a></li><li><a href="#2-what-does-the-real-benchmark-batch-show">2. What does the real benchmark batch show?</a></li><li><a href="#3-individual-cards-to-follow-up">3. Individual cards to follow up</a></li><li><a href="#4-what-do-the-results-prove-about-health">4. What do the results prove about health?</a></li><li><a href="#5-drivers-windows-ai-and-realistic-2026-use">5. Drivers, Windows, AI and realistic 2026 use</a></li><li><a href="#6-what-could-they-sell-for-in-australia">6. What could they sell for in Australia?</a></li><li><a href="#7-what-is-still-genuinely-unknown">7. What is still genuinely unknown?</a></li><li><a href="#source-links">Source links</a></li></ol></aside>
+  <article class="prose" id="doc">
+<p><em>13 November 2026, Australia/Sydney. Companion to the <a href="https://docs.google.com/spreadsheets/d/1yCaJ1PXI7R5sCuZopxetPMwNWyK142i7SJOmZRwTj44/edit">live GPU Testing Sheet</a> linked in the repository's benchmark file. <a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/data/benchmark_snapshot_2026-11-13.csv">Full per-card snapshot and link audit</a>. The source sheet was read-only. A numbered row is not independent proof of a physical card.</em></p>
+<h2 id="the-main-discoveries">The main discoveries</h2>
+<ul>
+<li>The sheet contains <strong>100 numbered slots</strong>, <strong>38 marked GPU-Z recognised</strong> (cards 1–38), <strong>37 FurMark scores</strong>, <strong>35 Superposition scores</strong>, <strong>35 Steel Nomad scores</strong>, and <strong>35 cards with all three</strong>. The 100 rows are inventory <em>slots</em>, not a confirmed stocktake of 100 cards. A prior conversation estimated 92 physical cards; that quantity still requires serial/label reconciliation.</li>
+<li>Every one of the <strong>37 FurMark result URLs</strong> was opened; <strong>36 link to a GTX 1070 with the correct sheet score</strong>. <strong>Card #4's link is wrong</strong>: the sheet says FurMark <strong>5,103</strong> but <a href="https://www.gpumagick.com/scores/3389368">the linked result</a> belongs to a <strong>PowerColor RX 9070 XT scoring 15,590</strong>. That is an erroneous citation, <strong>not proof that card #4 is an AMD GPU</strong>.</li>
+<li>All <strong>36 matched GTX 1070</strong> public submissions share the PCI device ID <strong>10DE:1B81</strong> and reported subsystem <strong>7377:0000</strong>. PCI-SIG assigns vendor 7377 to <strong>Shenzhen Colorful Yugong Technology and Development Co., Ltd</strong>, rather than Gigabyte <a class="cite" href="#src-1">1</a>. This conflicts with an earlier photographed-label identification as <strong>Gigabyte GTX 1070 WINDFORCE OC 8G Rev. 2.0</strong> <a class="cite" href="#src-2">2</a>. It does <strong>not</strong> automatically mean counterfeit or modified cards: a firmware-reported PCI ID, a physical shroud/label and one earlier identification must be reconciled, not conflated. Exact board branding is <strong>not yet independently verified across the batch</strong>.</li>
+<li>These public FurMark runs show <strong>50–66°C peak reported GPU temperature</strong> and <strong>99% peak GPU utilisation</strong> in many results. Encouraging for a 60-second load, <strong>not proof of VRAM health, acoustics or sustained reliability</strong>.</li>
+<li>The three testing PCs have <strong>different CPUs and NVIDIA drivers</strong>, making a simple 'highest score = best physical GPU' ranking unreliable.</li>
+</ul>
+<h2 id="1-the-silicon-and-history">1. The silicon and history</h2>
+<p>NVIDIA launched the <strong>GeForce GTX 1070 on 10 June 2016</strong>, built on its <strong>Pascal</strong> architecture and the GP104 chip <a class="cite" href="#src-3">3</a>. It originally offered previous-generation flagship-class raster performance for <strong>US<span class="math inline">379<em>p</em><em>a</em><em>r</em><em>t</em><em>n</em><em>e</em><em>r</em>/<em>U</em><em>S</em></span>449 Founders Edition</strong> at launch. This is historic US pricing, not its value in Australia today.</p>
+<table>
+<thead>
+<tr class="header">
+<th>GPU feature</th>
+<th>Reference GTX 1070</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>GPU family</td>
+<td>NVIDIA Pascal GP104, desktop</td>
+</tr>
+<tr class="even">
+<td>CUDA cores</td>
+<td><strong>1,920</strong></td>
+</tr>
+<tr class="odd">
+<td>TMUs / ROPs</td>
+<td><strong>120 / 64</strong></td>
+</tr>
+<tr class="even">
+<td>Fabrication</td>
+<td><strong>16 nm</strong></td>
+</tr>
+<tr class="odd">
+<td>Video memory</td>
+<td><strong>8 GB GDDR5</strong></td>
+</tr>
+<tr class="even">
+<td>Bus / bandwidth</td>
+<td><strong>256 bit / approx. 256 GB/s</strong></td>
+</tr>
+<tr class="odd">
+<td>Reference clocks</td>
+<td>approx. <strong>1,506 MHz base / 1,683 MHz boost</strong></td>
+</tr>
+<tr class="even">
+<td>Reference board power</td>
+<td><strong>150 W</strong>; actual partner/VBIOS power limit may vary</td>
+</tr>
+<tr class="odd">
+<td>Expansion bus</td>
+<td><strong>PCIe 3.0 x16</strong></td>
+</tr>
+<tr class="even">
+<td>Supplemental power</td>
+<td>commonly <strong>one 8-pin</strong> on reference-type boards; check each physical card</td>
+</tr>
+<tr class="odd">
+<td>Gaming strengths in 2026</td>
+<td>older/lighter games at 1080p, retro gaming and compatible compute tasks</td>
+</tr>
+<tr class="even">
+<td>Gaming limitations</td>
+<td>no dedicated RTX ray-tracing cores, Tensor cores or hardware DLSS</td>
+</tr>
+</tbody>
+</table>
+<p>NVIDIA's launch account and contemporary GPU specification lists support these characteristics <a class="cite" href="#src-3">3</a><a class="cite" href="#src-4">4</a><a class="cite" href="#src-5">5</a>. The GPU was a strong <strong>1440p</strong> option in 2016. Ten years later, it remains useful for lower-cost machines, but modern high-fidelity games and current AI tooling can exceed its capabilities. <strong>8 GB VRAM does not turn a Pascal GPU into a modern RTX GPU.</strong></p>
+<h3 id="the-board-model-question-is-more-complicated">The board-model question is more complicated</h3>
+<p>An earlier physical photograph was identified as <strong>Gigabyte GV-N1070WF2OC-8GD Rev. 2.0</strong>. If that identification is accurate for a specific card, Gigabyte's <strong>official specs</strong> <a class="cite" href="#src-2">2</a> list a WINDFORCE 2X dual-fan cooler, <strong>6+2 power phases</strong>, <strong>1771/1582 MHz OC-mode boost/base</strong>, <strong>1746/1556 MHz gaming boost/base</strong>, <strong>280 x 131 x 37 mm</strong>, <strong>one 8-pin PCIe</strong> and outputs <strong>3 DisplayPort, HDMI, DVI-D</strong>. These are model-specific, <strong>not automatically applicable to all 36 matched public results</strong>.</p>
+<p>The result pages instead report <strong>7377:0000</strong>. The PCI-SIG member directory identifies 0x7377 as <strong>Colorful</strong> <a class="cite" href="#src-1">1</a>, and independent Linux hardware records resolve the <em>same GPU + subsystem</em> to Colorful <a class="cite" href="#src-6">6</a>. Colorful sold several GTX 1070 designs with differing cooling and power connectors <a class="cite" href="#src-7">7</a>.</p>
+<p><strong>Additional firmware corroboration:</strong> An archived GPU VBIOS entry specifically labelled <strong>GV-N1070WF2OC-8GD</strong> lists the <em>Gigabyte</em> PCI subsystem vendor <strong>1458</strong>, device <strong>377F</strong>, and a <strong>180 W target / 200 W maximum</strong> power limit (read-only archive: <a href="https://modbios.io/v2/vgabios/gigabyte-gtx-1070-8192-1737812201">https://modbios.io/v2/vgabios/gigabyte-gtx-1070-8192-1737812201</a>). The 180-ish-watt software telemetry reported by the tested cards therefore does <strong>not</strong> prove Colorful versus Gigabyte: similar power limits exist. The <strong>1458 versus 7377 vendor difference</strong>, however, reinforces that the exact board/firmware identity needs proper on-device verification. <strong>This is not a recommendation to download or flash the archived BIOS.</strong></p>
+<p><strong>Read-only reconciliation before selling as a named board:</strong> Photograph both sides, sticker/model/revision (serial should be stored privately), GPU-Z Graphics Card screenshot with <strong>Subvendor, memory size/type, PCI ID, BIOS Version</strong>, port arrangement and physical power sockets. Compare against the manufacturer's exact model, not just the NVIDIA GPU name. <strong>Do not flash firmware as an identification experiment.</strong> A BIOS can expose a subvendor different from the exterior; without original records this discrepancy remains unresolved.</p>
+<h2 id="2-what-does-the-real-benchmark-batch-show">2. What does the real benchmark batch show?</h2>
+<p>The 13 November snapshot counts only nonblank numeric scores. These averages reflect <strong>different testing PCs</strong>, not a controlled matched-machine trial.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Benchmark</th>
+<th style="text-align: right;">Results</th>
+<th style="text-align: right;">Mean score</th>
+<th style="text-align: right;">Low</th>
+<th style="text-align: right;">High</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>FurMark2</strong></td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;"><strong>5,050</strong></td>
+<td style="text-align: right;">4,819 (#15)</td>
+<td style="text-align: right;">5,182 (#24)</td>
+</tr>
+<tr class="even">
+<td><strong>UNIGINE Superposition</strong></td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;"><strong>12,568</strong></td>
+<td style="text-align: right;">11,446 (#23)</td>
+<td style="text-align: right;">13,062 (#24)</td>
+</tr>
+<tr class="odd">
+<td><strong>3DMark Steel Nomad</strong></td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;"><strong>1,336</strong></td>
+<td style="text-align: right;">1,272 (#15)</td>
+<td style="text-align: right;">1,373 (#24)</td>
+</tr>
+</tbody>
+</table>
+<p>The matched FurMark submissions use <strong>FurMark 2.11.0.4 (x64)</strong>, <strong>OpenGL (GL) 3.2</strong>, <strong>P1080 1920x1080</strong>, and <strong>60 seconds</strong>. Reported peak GPU temperature across the 36 valid linked GTX 1070 results is <strong>50–66°C</strong>, average <strong>57.8°C</strong>. The numbers do not mean that the physical board's VRAM or fans were fully tested.</p>
+<p>A typical result around <strong>5,050 points</strong> corresponds to about <strong>84 rendered FPS</strong> during the FurMark 60-second run. <strong>Steel Nomad score = average FPS x 100</strong>, according to UL <a class="cite" href="#src-8">8</a>. Therefore <strong>1,336 ≈ 13.36 FPS</strong> in its deliberately demanding standard <strong>native-4K synthetic scene</strong>, not in an everyday video game. Contemporary community Steel Nomad testing includes a <strong>GTX 1070 at about 1,350</strong> <a class="cite" href="#src-9">9</a>, a useful order-of-magnitude sanity check rather than a controlled ranking.</p>
+<p><strong>Do not mix test scales.</strong> The sheet does <strong>not preserve Superposition preset/API</strong> or whether standard Steel Nomad versus Steel Nomad Light was selected. The two Steel Nomad editions and the various Superposition presets cannot be compared indiscriminately <a class="cite" href="#src-10">10</a><a class="cite" href="#src-11">11</a>. The listed Superposition scores appear plausible for a lighter 1080p preset, but <strong>the exact preset is unverified from sheet cells</strong>.</p>
+<h3 id="why-the-testing-computers-matter">Why the testing computers matter</h3>
+<p>Public Geeks3D pages reveal three different test CPUs:</p>
+<table>
+<thead>
+<tr class="header">
+<th>CPU in the public FurMark record</th>
+<th style="text-align: right;">Number of matched results</th>
+<th style="text-align: right;">Mean FurMark score</th>
+<th style="text-align: right;">Mean peak reported temp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Core i5-3570 3.4 GHz</strong></td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;"><strong>5,118</strong></td>
+<td style="text-align: right;"><strong>59.6°C</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Pentium G3258 3.2 GHz</strong></td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;"><strong>5,026</strong></td>
+<td style="text-align: right;"><strong>57.8°C</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Celeron G3900 2.8 GHz</strong></td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;"><strong>4,990</strong></td>
+<td style="text-align: right;"><strong>55.7°C</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Driver <strong>560.94</strong> and driver <strong>582.78</strong> both appear in the public results. The difference between the highest and lowest group means is about <strong>2.6%</strong>. That does <strong>not prove</strong> CPU alone causes the difference: cooling, driver, VBIOS, power policy, which cards were assigned and room conditions can contribute. The Sheet's <strong>'Which PC?'</strong> names <strong>Gigabyte / ASrock / Asus B250 / ?</strong> identify <strong>test rigs</strong> and must <strong>not</strong> be interpreted as the GPU's board partner.</p>
+<p>Some GPU Magick records report max board telemetry near <strong>100–103% of an approximately 180 W firmware power target</strong>, rather than the reference GTX 1070's 150 W design point. These figures are <strong>software-estimated GPU telemetry, not wall-socket PSU measurements</strong>. Do not assume the original Gigabyte variant or any given power-supply load from them.</p>
+<h2 id="3-individual-cards-to-follow-up">3. Individual cards to follow up</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Card</th>
+<th>Evidence</th>
+<th>Next action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>#4</strong></td>
+<td>Spreadsheet says 5,103; <a href="https://www.gpumagick.com/scores/3389368">linked record 3389368</a> is <strong>RX 9070 XT / 15,590</strong>.</td>
+<td>Find the actual GTX 1070 link or original result image; <strong>do not classify the card as AMD or faulty</strong> from a wrong URL.</td>
+</tr>
+<tr class="even">
+<td><strong>#15</strong></td>
+<td>Lowest FurMark <strong>4,819</strong> and Steel Nomad <strong>1,272</strong>; Celeron/Asus B250 rig.</td>
+<td>Retest under standard settings and note clock/power/temp; differences may be rig-related and do not themselves prove damage.</td>
+</tr>
+<tr class="odd">
+<td><strong>#23</strong></td>
+<td>Superposition <strong>11,446</strong> versus roughly <strong>12,313 same-rig median</strong> (about <strong>7% lower</strong>); FurMark <strong>4,896</strong>, Steel <strong>1,326</strong>. Linked FurMark peak <strong>50°C</strong>, max clock <strong>1,646 MHz</strong>, estimated peak <strong>163 W</strong>.</td>
+<td>Repeat Superposition with identical preset/API; check clocks, power limits and background load. Steel score is not similarly low.</td>
+</tr>
+<tr class="even">
+<td><strong>#25</strong></td>
+<td>FurMark <strong>5,132</strong>, Steel <strong>1,366</strong>, but Superposition <strong>12,156</strong>.</td>
+<td>Check for benchmark setting mismatch, not immediate hardware condemnation.</td>
+</tr>
+<tr class="odd">
+<td><strong>#36</strong></td>
+<td>GPU-Z recognised, <strong>loud fan</strong> noted; test intentionally stopped.</td>
+<td><strong>Keep out of stress testing until physically checked</strong> for fan rubbing, obstruction, looseness or bearing damage.</td>
+</tr>
+<tr class="even">
+<td><strong>#37</strong></td>
+<td><a href="https://www.gpumagick.com/scores/3393499">Public FurMark</a> <strong>5,033 / 83 FPS</strong>, <strong>56°C</strong>, max <strong>1,772 MHz</strong>, 99% usage, Pentium G3258 and driver 582.78.</td>
+<td>This <strong>matches the supplied photo</strong>; finish whichever additional benchmarks/VRAM checks are part of your protocol.</td>
+</tr>
+<tr class="odd">
+<td><strong>#38</strong></td>
+<td><a href="https://www.gpumagick.com/scores/3393504">Public FurMark</a> <strong>5,081</strong>, verified GTX 1070 on Celeron/Asus B250; remaining scores blank in snapshot.</td>
+<td>Finish Superposition and Steel Nomad if still part of regimen.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Card #24</strong> has the highest recorded score in all three columns (<strong>5,182 / 13,062 / 1,373</strong>). This does <strong>not</strong> prove the card is physically superior to all the others: its test rig differs from several lower-scoring units.</p>
+<p><strong>Photo-to-card matching:</strong> #19 and #37 both have <strong>5,033 FurMark</strong>, but the public details distinguish them. #19 shows <strong>59°C / max 1,785 MHz</strong>, whereas #37 shows <strong>56°C / max 1,772 MHz</strong>. The attached image matches <strong>#37</strong>, making it a useful example of why you need numbered labels rather than identifying cards by score alone.</p>
+<h2 id="4-what-do-the-results-prove-about-health">4. What do the results prove about health?</h2>
+<p><strong>Proven for many tested examples:</strong> GPU-Z initialisation and the ability to complete a short high-load rendering test; for 35 cards, three scores appear in the sheet. <strong>Not yet proven across the batch:</strong> memory correctness, all outputs functioning, stable operation after sustained warm-up, acceptable fan-bearing sound, correct original firmware, no power/connector damage, or genuine provenance.</p>
+<p>A useful minimal, non-redundant grading workflow:</p>
+<ol type="1">
+<li><strong>Identify the exact physical board.</strong> Give each unit a numbered sticker, record model/revision/serial privately and GPU-Z details. An identical PCI model does not uniquely distinguish two physical cards.</li>
+<li><strong>Inspect while powered off.</strong> Fans spin without rubbing, no missing blades/loose screws, burnt connectors or damaged PCB. On any mechanical noise (#36), <strong>stop before further load</strong>.</li>
+<li><strong>Repeatable render checks.</strong> Keep consistent FurMark P1080 GL, same settings and a recorded test rig/driver. Use Superposition and/or standard Steel Nomad as different rendering workloads, not endless duplicates of FurMark.</li>
+<li><strong>Test memory/errors.</strong> Add a VRAM-error test such as OCCT VRAM, and log duration <strong>and actual error count</strong>. The Sheet only has 'No errors' notes for #18–20; that must not be extrapolated to other rows.</li>
+<li><strong>Inspect function and acoustics.</strong> Test HDMI/DisplayPort outputs and fan response at idle and at moderate load. For cards intended to be resold, a calm, repeatable functional check matters more than a peak score.</li>
+<li><strong>Grade transparently.</strong> 'Fully tested', 'runs but incomplete', 'needs diagnosis' and 'faulty (verified)' are distinct statuses. Missing tests are <strong>unknown</strong>, not passes or fails. Provide the actual test date and links when advertising.</li>
+</ol>
+<p>NVIDIA cautions FurMark can draw more power than normal games and that disabling over-temperature/over-current protections can damage cards <a class="cite" href="#src-12">12</a>. <strong>Never bypass those protections</strong>, and stop on artefacts, abnormal sounds, unexpected shutdowns or unsafe heat. A <strong>60-second peak temperature of 50°C</strong> does not establish a better cooler than another board peaking at 66°C: room conditions, fan speeds, clocks and actual GPU watts matter.</p>
+<h2 id="5-drivers-windows-ai-and-realistic-2026-use">5. Drivers, Windows, AI and realistic 2026 use</h2>
+<p><strong>Driver lifecycle:</strong> NVIDIA's official Pascal/Maxwell/Volta policy says <strong>Game Ready feature/performance updates ended in October 2025</strong>, with <strong>critical security driver updates continuing through October 2028</strong> <a class="cite" href="#src-13">13</a>. The presence of a newer-numbered driver does not imply new gaming capabilities.</p>
+<p><strong>Windows 10:</strong> All validated public score pages say <strong>Windows 10 build 19045</strong>. Microsoft ended ordinary Windows 10 support on <strong>14 October 2025</strong>, although Extended Security Updates are available for eligible enrolled machines <a class="cite" href="#src-14">14</a>. The benchmark records cannot establish whether a tester is enrolled. Avoid treating an unpatched online test box as a safe everyday workstation.</p>
+<p><strong>Compute/AI:</strong> NVIDIA lists the GTX 1070 at <strong>CUDA compute capability 6.1</strong> <a class="cite" href="#src-15">15</a>. <strong>CUDA Toolkit 13</strong> removed offline compilation support for architectures older than capability 7.5; older CUDA toolkit paths may be needed for legacy GPU projects <a class="cite" href="#src-16">16</a>. No Tensor cores, no RTX/DLSS and no compelling performance for modern large generative models. These are still good low-cost GPUs for legacy graphics research, older games and compatible image/video workflows, subject to application support.</p>
+<p><strong>Hardware fit:</strong> Full-size PCIe slot and the exact board's video outputs, external power connector(s), dimensions, PSU, cooling and BIOS compatibility must be checked before recommending a card for a particular desktop. A <strong>laptop cannot simply accept a desktop PCIe GTX 1070 internally</strong>. The actual current GPU and whether the machine is still owned must be established before claiming an upgrade.</p>
+<h2 id="6-what-could-they-sell-for-in-australia">6. What could they sell for in Australia?</h2>
+<p><strong>Observed November 2026 asking prices</strong>, not verified completed sales: ordinary used GTX 1070 8GB entries on eBay Australia include approximately <strong>AU<span class="math inline">135<em>G</em><em>A</em><em>L</em><em>A</em><em>X</em> * *, *  * <em>A</em><em>U</em></span>143 MSI</strong>, <strong>AU<span class="math inline">144<em>G</em><em>i</em><em>g</em><em>a</em><em>b</em><em>y</em><em>t</em><em>e</em> * *, *  * <em>A</em><em>U</em></span>158 ZOTAC</strong>, with some ASUS examples <strong>AU<span class="math inline">170–200 +  *  * <a class="cite" href="#src-17">17</a>.<em>G</em><em>u</em><em>m</em><em>t</em><em>r</em><em>e</em><em>e</em><em>o</em><em>f</em><em>f</em><em>e</em><em>r</em><em>s</em><em>i</em><em>n</em><em>c</em><em>l</em><em>u</em><em>d</em><em>e</em><em>a</em><em>n</em> *  * <em>E</em><em>V</em><em>G</em><em>A</em><em>G</em><em>T</em><em>X</em>1070<em>a</em><em>t</em><em>A</em><em>U</em></span>150</strong> and a <strong>Founders Edition around AU<span class="math inline">180 *  * <a class="cite" href="#src-18">18</a>.<em>A</em><em>d</em><em>a</em><em>t</em><em>e</em><em>d</em><em>A</em><em>u</em><em>s</em><em>t</em><em>r</em><em>a</em><em>l</em><em>i</em><em>a</em><em>n</em><em>s</em><em>e</em><em>c</em><em>o</em><em>n</em><em>d</em> − <em>h</em><em>a</em><em>n</em><em>d</em><em>g</em><em>u</em><em>i</em><em>d</em><em>e</em><em>e</em><em>s</em><em>t</em><em>i</em><em>m</em><em>a</em><em>t</em><em>e</em><em>s</em><em>r</em><em>o</em><em>u</em><em>g</em><em>h</em><em>l</em><em>y</em> *  * <em>A</em><em>U</em></span>120–180</strong> <a class="cite" href="#src-19">19</a>.</p>
+<p>A defensible initial <strong>individual asking-price range</strong> for a correctly identified, clean and adequately tested ordinary GTX 1070 is <strong>about AU$120–180</strong>, dependent on branding, warranty, condition and demand. <strong>That is not an assured selling price</strong>, and a pile sold as a single wholesale lot would likely achieve less per card. Returns, shipping, labour and fees also matter. An unresolved Colorful/Gigabyte identification conflict should be corrected before any brand-specific listing.</p>
+<h2 id="7-what-is-still-genuinely-unknown">7. What is still genuinely unknown?</h2>
+<ul>
+<li>Physical count and ownership history: <strong>100 sheet slots do not mean 100 GPUs</strong>; earlier conversation referred to a batch of <strong>92</strong>, not fully reconciled against labels.</li>
+<li>The board manufacturer, actual submodel, serial, original VBIOS and memory chip vendor <strong>per card</strong>. <strong>Colorful PCI subsystem vs earlier Gigabyte label is an open evidence conflict.</strong></li>
+<li>Whether card #4's actual FurMark submission can be recovered. Do not silently replace the wrong AMD result with a guessed link.</li>
+<li>Why card #36's fan is loud, and whether it is repairable.</li>
+<li>A same-PC, same-driver, same-preset <strong>fair ranking</strong> of the batch.</li>
+<li>Universal VRAM, output and fan tests (not present yet).</li>
+<li>Whether any card was previously used for mining. <strong>Do not assume mining history merely from quantity.</strong></li>
+<li>Actual Australian sold prices and net resale proceeds.</li>
+<li>Superposition's exact test preset/API and Steel Nomad edition for every entry.</li>
+</ul>
+<p><strong>Research conclusion:</strong> the known GTX 1070 results are broadly consistent and their short-run temperatures look reasonable. The <em>physical manufacturer conflict</em>, <em>wrong #4 link</em>, <em>noisy #36</em>, <em>two incomplete card records</em> and <em>VRAM/port/fan certification gaps</em> are more important to resolve than chasing an additional few points in FurMark.</p>
+<h2 id="source-links">Source links</h2>
+<ol type="1">
+<li id="src-1"><a href="https://pcisig.com/membership/member-companies">PCI-SIG vendor registry: 0x7377 = Shenzhen Colorful Yugong</a></li>
+<li id="src-2"><a href="https://www.gigabyte.com/Graphics-Card/GV-N1070WF2OC-8GD-rev-20/sp">Gigabyte GTX 1070 WINDFORCE OC 8G Rev. 2.0 official specifications</a></li>
+<li id="src-3"><a href="https://www.nvidia.com/en-us/geforce/news/geforce-gtx-1070/">NVIDIA launch, 10 June 2016</a></li>
+<li id="src-4"><a href="https://www.techspot.com/specs/gpu/138288-nvidia-geforce-gtx-1070.html">TechSpot GTX 1070 specification and 2016 performance summary</a></li>
+<li id="src-5"><a href="https://www.techpowerup.com/222537/nvidia-geforce-gtx-1070-specifications-revealed">TechPowerUp 2016 GTX 1070 silicon specification</a></li>
+<li id="src-6"><a href="https://mail.vivaolinux.com.br/topico/Redes-Fisicas-e-logicas/Meu-Linux-reconhce-minha-placa-de-rede-porem-nao-conecta/">Independent Linux lspci example identifying 7377:0000 as Colorful</a></li>
+<li id="src-7"><a href="https://www.colorfly.eu/products/graphic-cards-for-industrial-use/basics-for-customized/igame-gtx1070-u-top-8g/">Colorful iGame GTX1070 model and variant specifications</a></li>
+<li id="src-8"><a href="https://support.benchmarks.ul.com/support/solutions/articles/44002528064-how-is-the-3dmark-steel-nomad-score-calculated-">UL Steel Nomad scoring formula</a></li>
+<li id="src-9"><a href="https://www.computerbase.de/artikel/apps/3dmark-steel-nomad-community-benchmark.88184/">ComputerBase community 3DMark Steel Nomad results, including GTX 1070</a></li>
+<li id="src-10"><a href="https://benchmark.unigine.com/docs/superposition/Superposition_Benchmark_User_Manual.pdf">UNIGINE Superposition benchmark user manual</a></li>
+<li id="src-11"><a href="https://support.benchmarks.ul.com/support/solutions/articles/44002132650">UL which 3DMark benchmark to choose</a></li>
+<li id="src-12"><a href="https://nvidia.custhelp.com/app/answers/detail/a_id/2603/">NVIDIA's FurMark power and hardware-safety warning</a></li>
+<li id="src-13"><a href="https://nvidia.custhelp.com/app/answers/detail/a_id/5676">NVIDIA Pascal/Maxwell/Volta driver support plan</a></li>
+<li id="src-14"><a href="https://learn.microsoft.com/en-au/windows/release-health/release-information">Microsoft Windows 10 release/ESU information</a></li>
+<li id="src-15"><a href="https://developer.nvidia.com/cuda/gpus/legacy">NVIDIA legacy CUDA compute capability list</a></li>
+<li id="src-16"><a href="https://developer.nvidia.com/blog/navigating-gpu-architecture-support-a-guide-for-nvidia-cuda-developers">NVIDIA CUDA 13 architecture retirement explanation</a></li>
+<li id="src-17"><a href="https://www.ebay.com.au/b/NVIDIA-GeForce-GTX-1070-8-GB-Memory-Computer-Graphics-Video-Cards/27386/bn_7116940860">eBay Australia used GTX 1070 8GB live listings</a></li>
+<li id="src-18"><a href="https://www.gumtree.com.au/s-electronics-computer/gtx%2B1070/k0c20045?condition=used">Gumtree Australia GTX 1070 second-hand asking prices</a></li>
+<li id="src-19"><a href="https://thewilsons.au/gcards.html">Australian used-GPU price guide, October 2026</a></li>
+</ol>
+<p><em>This document and its CSV are a dated audit. The Google Sheet is live; new scores entered afterwards do not automatically alter the historical snapshot. The user's original Sheet has not been edited.</em></p>
+
+    <nav class="pager"></nav>
+  </article>
+</main>
+<footer class="site"><div class="wrap">
+  <div><h4>GPU Benchmark Lore</h4>Sourced histories of FurMark, UNIGINE Superposition and 3DMark. Every claim carries a numbered source; what could not be confirmed says so. Text is MIT-licensed; quotations stay with their owners.</div>
+  <div><h4>Explore</h4><a href="../index.html#timeline">Timeline</a><a href="../index.html#questions">Question explorer</a><a href="fact-check.html">Fact-check log</a></div>
+  <div><h4>Repo</h4><a href="https://github.com/Parris-Tech-Services/furmark-history">GitHub repository</a><a href="../furmark-history-podcast.pdf">Podcast PDF</a></div>
+</div></footer>
+<div class="tip" id="tip"></div>
+<script src="../assets/app.js" data-base="../"></script>
+<script>
+(function(){
+  // wrap tables for horizontal scroll, add heading links
+  document.querySelectorAll("article table").forEach(function(t){var w=document.createElement("div");w.className="tablewrap";t.parentNode.insertBefore(w,t);w.appendChild(t)});
+  document.querySelectorAll("article h2[id],article h3[id]").forEach(function(h){var a=document.createElement("a");a.className="hlink";a.href="#"+h.id;a.textContent="#";a.title="Link to this section";h.appendChild(a)});
+  // external links open in new tab
+  document.querySelectorAll("article a[href^=http]").forEach(function(a){a.target="_blank";a.rel="noopener"});
+  // progress
+  var prog=document.getElementById("prog");
+  function sp(){var h=document.documentElement;var m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?h.scrollTop/m*100:0)+"%"}
+  addEventListener("scroll",sp,{passive:true});sp();
+  // scrollspy
+  var links=[].slice.call(document.querySelectorAll("#tocol a")),map={};
+  links.forEach(function(a){map[a.getAttribute("href").slice(1)]=a});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.remove("on")});var l=map[e.target.id];if(l)l.classList.add("on")}})},{rootMargin:"-80px 0px -70% 0px"});
+  document.querySelectorAll("article h2[id]").forEach(function(h){io.observe(h)});
+  // citation tooltips
+  var tip=document.getElementById("tip");
+  document.querySelectorAll("a.cite").forEach(function(a){
+    var id=a.getAttribute("href").slice(1);
+    a.addEventListener("mouseenter",function(){var li=document.getElementById(id);if(!li)return;tip.textContent=li.textContent.trim().slice(0,320);tip.style.display="block";var r=a.getBoundingClientRect();tip.style.left=Math.min(innerWidth-tip.offsetWidth-12,Math.max(12,r.left-20))+"px";tip.style.top=Math.max(12,r.top-tip.offsetHeight-10)+"px"});
+    a.addEventListener("mouseleave",function(){tip.style.display="none"});
+  });
+})();
+</script>
+</body></html>

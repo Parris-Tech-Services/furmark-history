@@ -28,6 +28,7 @@ META = {
  "SCENE_STEEL_NOMAD":     ("The masked wanderer: scene and lore", "3dmark", "Lore", "Who is the Nomad, and what is the world?"),
  "QUESTIONS":             ("The thirty technical questions", "all", "Index", "Every open question and where it is answered."),
  "SCENE_STORY_QUESTIONS": ("The thirty scene questions", "all", "Index", "Story and visual-lore questions."),
+ "GPU_BATCH_RESEARCH":     ("My GTX 1070 batch: deep research", "fleet", "Your GPUs", "100 sheet slots, 38 started cards, link audit, rig bias, health and resale."),
  "FACT_CHECK":            ("Fact-check log", "all", "Method", "What was re-checked and corrected."),
 }
 ORDER = list(META)
@@ -73,17 +74,20 @@ def split_sections(h):
     return out
 
 def number_sources(h):
-    m = re.search(r'(<h2 id="sources[^"]*">.*?</h2>)(.*)$', h, re.S)
+    """Give each item of the Sources list an id: src-<n> for numbered lists, src-<label> for '[F1] ...' bullets."""
+    m = re.search(r'(<h2 id="source[^"]*">.*?</h2>)(.*)$', h, re.S)
     if not m: return h
-    tail = m.group(2)
-    n = [0]
-    def li(mm):
+    tail, n = m.group(2), [0]
+    # walk <li> elements, looking ahead at their text for a [A1] label
+    out, pos = [], 0
+    for mm in re.finditer(r"<li([^>]*)>", tail):
         n[0] += 1
-        return '<li id="src-%d"' % n[0]
-    tail2 = re.sub(r"<li(?=[ >])", li, tail)
-    # sources such as "[F1] text" keep their own labels: expose them as ids as well
-    tail2 = re.sub(r"<li id=\"src-\d+\"([^>]*)>(\s*(?:<p>)?)\[?([A-Z]{1,2}\d{1,3})\]?[ .:]", lambda mm: '<li id="src-%s"%s>%s' % (mm.group(3), mm.group(1), mm.group(2)), tail2)
-    return h[:m.start(2)] + tail2
+        look = re.sub(r"<[^>]+>", "", tail[mm.end():mm.end() + 120])[:24]
+        lab = re.match(r"\s*\[([A-Z]{1,2}\d{1,3})\]", look)
+        out.append(tail[pos:mm.start()] + '<li id="src-%s"%s>' % (lab.group(1) if lab else n[0], mm.group(1)))
+        pos = mm.end()
+    out.append(tail[pos:])
+    return h[:m.start(2)] + "".join(out)
 
 def text_of(h): return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", h))).strip()
 
@@ -102,7 +106,7 @@ def build():
         toc = [(i, t) for i, t, _ in secs if i != "intro" and t]
         body = []
         for i, t, s in secs:
-            body.append(link_cites(s) if not re.match(r"sources", i) else s)
+            body.append(link_cites(s) if not i.startswith("source") else s)
             if i != "intro":
                 search.append({"doc": slug(name), "title": title, "bench": bench, "h": t, "id": i, "t": text_of(s)[:2500]})
             m = re.match(r"(\d+)\.\s*(.*)", t)

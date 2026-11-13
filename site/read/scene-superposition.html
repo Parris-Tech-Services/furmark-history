@@ -15,7 +15,9 @@
 .rhero p{color:var(--mut);font-size:18px;max-width:60ch;margin:0 0 16px}
 .meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--faint);font:13px var(--f-mono)}
 .layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:48px;align-items:start}
-@media(max-width:960px){.layout{grid-template-columns:1fr;gap:0}}
+@media(max-width:960px){.layout{grid-template-columns:minmax(0,1fr);gap:0}}
+article.prose{overflow-wrap:anywhere;min-width:0}
+.layout>*{min-width:0}
 aside.toc{position:sticky;top:84px;max-height:calc(100vh - 110px);overflow:auto;font-size:14px;padding-right:6px}
 aside.toc h4{margin:0 0 10px;font:600 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
 aside.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
@@ -127,15 +129,15 @@ h2:hover .hlink,h3:hover .hlink{opacity:1}
 </ul>
 <h2 id="sources">Sources</h2>
 <ul>
-<li id="src-1"><strong>[S1] UNIGINE Benchmarks, official Superposition product page:</strong> story, 2017 origin and interactive features. <a href="https://benchmark.unigine.com/superposition">https://benchmark.unigine.com/superposition</a></li>
-<li id="src-2"><strong>[S2] UNIGINE, official <em>Superposition Benchmark 1.1 User Manual</em> (2019), pp. 3 and 13–16:</strong> plot overview, Game Mode interactions, lighting, gravity, timescale. <a href="https://benchmark.unigine.com/docs/superposition/Superposition_Benchmark_User_Manual.pdf">https://benchmark.unigine.com/docs/superposition/Superposition_Benchmark_User_Manual.pdf</a></li>
-<li id="src-3"><strong>[S3] UNIGINE Studio, <em>Superposition Benchmark (2017)</em>, original art portfolio and videos:</strong> official visual reference gallery. <a href="https://unigine.artstation.com/projects/3KEWB">https://unigine.artstation.com/projects/3KEWB</a></li>
-<li id="src-4"><strong>[S4] Tom's Hardware (April 2017), <em>Unigine Releases Superposition Graphics Benchmark With 8K, VR Tests</em>:</strong> contemporary photographs and environment discussion. <a href="https://www.tomshardware.com/news/unigine-superposition-graphics-benchmark-test%2C34121.html">https://www.tomshardware.com/news/unigine-superposition-graphics-benchmark-test%2C34121.html</a></li>
-<li id="src-5"><strong>[S5] UNIGINE (12 April 2019), <em>Superposition Benchmark 1.1: Free VR to Everyone</em>:</strong> later changes and dart interaction fix. <a href="https://unigine.com/news/2019/superposition-benchmark-1-1-free-vr-to-everyone">https://unigine.com/news/2019/superposition-benchmark-1-1-free-vr-to-everyone</a></li>
-<li id="src-6"><strong>[S6] UNIGINE Developer, <em>UNIGINE 2.5</em> devlog (2017):</strong> Screen-Space Ray-Traced Global Illumination; graphics-engine context, not a secret story key. <a href="https://developer.unigine.com/devlog/20170531-unigine-2.5">https://developer.unigine.com/devlog/20170531-unigine-2.5</a></li>
-<li id="src-7"><strong>[S7] UNIGINE Benchmarks, <em>About</em>: benchmark lineage and company chronology.</strong> <a href="https://benchmark.unigine.com/about">https://benchmark.unigine.com/about</a></li>
-<li id="src-8"><strong>[S8] TechPowerUp, <em>UNIGINE announces the Superposition Benchmark</em> (5 January 2017):</strong> reprints original story long before launch. <a href="https://www.techpowerup.com/229303/unigine-announces-the-superposition-benchmark-coming-soon">https://www.techpowerup.com/229303/unigine-announces-the-superposition-benchmark-coming-soon</a></li>
-<li id="src-9"><strong>[S9] Linux Gaming Consortium (12 October 2016), contemporary pre-release notice:</strong> same story and interactivity in 2016. <a href="https://linuxgameconsortium.com/superposition-benchmark-new-gpu-stress-testing-tool/">https://linuxgameconsortium.com/superposition-benchmark-new-gpu-stress-testing-tool/</a></li>
+<li id="src-S1"><strong>[S1] UNIGINE Benchmarks, official Superposition product page:</strong> story, 2017 origin and interactive features. <a href="https://benchmark.unigine.com/superposition">https://benchmark.unigine.com/superposition</a></li>
+<li id="src-S2"><strong>[S2] UNIGINE, official <em>Superposition Benchmark 1.1 User Manual</em> (2019), pp. 3 and 13–16:</strong> plot overview, Game Mode interactions, lighting, gravity, timescale. <a href="https://benchmark.unigine.com/docs/superposition/Superposition_Benchmark_User_Manual.pdf">https://benchmark.unigine.com/docs/superposition/Superposition_Benchmark_User_Manual.pdf</a></li>
+<li id="src-S3"><strong>[S3] UNIGINE Studio, <em>Superposition Benchmark (2017)</em>, original art portfolio and videos:</strong> official visual reference gallery. <a href="https://unigine.artstation.com/projects/3KEWB">https://unigine.artstation.com/projects/3KEWB</a></li>
+<li id="src-S4"><strong>[S4] Tom's Hardware (April 2017), <em>Unigine Releases Superposition Graphics Benchmark With 8K, VR Tests</em>:</strong> contemporary photographs and environment discussion. <a href="https://www.tomshardware.com/news/unigine-superposition-graphics-benchmark-test%2C34121.html">https://www.tomshardware.com/news/unigine-superposition-graphics-benchmark-test%2C34121.html</a></li>
+<li id="src-S5"><strong>[S5] UNIGINE (12 April 2019), <em>Superposition Benchmark 1.1: Free VR to Everyone</em>:</strong> later changes and dart interaction fix. <a href="https://unigine.com/news/2019/superposition-benchmark-1-1-free-vr-to-everyone">https://unigine.com/news/2019/superposition-benchmark-1-1-free-vr-to-everyone</a></li>
+<li id="src-S6"><strong>[S6] UNIGINE Developer, <em>UNIGINE 2.5</em> devlog (2017):</strong> Screen-Space Ray-Traced Global Illumination; graphics-engine context, not a secret story key. <a href="https://developer.unigine.com/devlog/20170531-unigine-2.5">https://developer.unigine.com/devlog/20170531-unigine-2.5</a></li>
+<li id="src-S7"><strong>[S7] UNIGINE Benchmarks, <em>About</em>: benchmark lineage and company chronology.</strong> <a href="https://benchmark.unigine.com/about">https://benchmark.unigine.com/about</a></li>
+<li id="src-S8"><strong>[S8] TechPowerUp, <em>UNIGINE announces the Superposition Benchmark</em> (5 January 2017):</strong> reprints original story long before launch. <a href="https://www.techpowerup.com/229303/unigine-announces-the-superposition-benchmark-coming-soon">https://www.techpowerup.com/229303/unigine-announces-the-superposition-benchmark-coming-soon</a></li>
+<li id="src-S9"><strong>[S9] Linux Gaming Consortium (12 October 2016), contemporary pre-release notice:</strong> same story and interactivity in 2016. <a href="https://linuxgameconsortium.com/superposition-benchmark-new-gpu-stress-testing-tool/">https://linuxgameconsortium.com/superposition-benchmark-new-gpu-stress-testing-tool/</a></li>
 </ul>
 
     <nav class="pager"><a href="qa-superposition.html"><span>Read</span><b>Superposition: ten questions answered</b></a></nav>

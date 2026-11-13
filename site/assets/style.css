@@ -17,6 +17,8 @@
 [data-bench="furmark"]{--acc:var(--fur);--acc2:var(--fur2)}
 [data-bench="superposition"]{--acc:var(--sup);--acc2:var(--sup2)}
 [data-bench="3dmark"]{--acc:var(--dmk);--acc2:var(--dmk2)}
+[data-bench="fleet"]{--acc:#76d12a;--acc2:#a4f04a}
+:root[data-theme="light"] [data-bench="fleet"]{--acc:#3f8a0c;--acc2:#2f6d08}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:84px}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-ui);-webkit-font-smoothing:antialiased;overflow-x:hidden}

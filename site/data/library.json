@@ -96,6 +96,14 @@
   "mins": 3
  },
  {
+  "slug": "gpu-batch-research",
+  "title": "My GTX 1070 batch: deep research",
+  "bench": "fleet",
+  "kind": "Your GPUs",
+  "blurb": "100 sheet slots, 38 started cards, link audit, rig bias, health and resale.",
+  "mins": 12
+ },
+ {
   "slug": "fact-check",
   "title": "Fact-check log",
   "bench": "all",

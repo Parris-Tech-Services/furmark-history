@@ -3,7 +3,7 @@
 var $=function(s,r){return(r||document).querySelector(s)},$$=function(s,r){return[].slice.call((r||document).querySelectorAll(s))};
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function j(u){return fetch(u).then(function(r){return r.json()})}
-var BN={furmark:"FurMark",superposition:"Superposition","3dmark":"3DMark",all:"All"};
+var BN={fleet:"My GPUs",furmark:"FurMark",superposition:"Superposition","3dmark":"3DMark",all:"All"};
 var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* ---------- reveal ---------- */
@@ -81,9 +81,9 @@ $$(".miniart").forEach(function(cv){
 });
 
 /* ---------- JSON-driven sections ---------- */
-Promise.all([j("data/timeline.json"),j("data/media.json"),j("data/gpus.json"),j("data/qa.json"),j("data/library.json"),j("data/photos.json").catch(function(){return[]})]).then(function(d){
-  var TL=d[0],MEDIA=d[1],GPUS=d[2],QA=d[3],LIB=d[4],PH=d[5];
-  stats(TL,MEDIA,QA,LIB);timeline(TL);watch(MEDIA);photos(PH);hall(GPUS);qa(QA);library(LIB);
+Promise.all([j("data/timeline.json"),j("data/media.json"),j("data/gpus.json"),j("data/qa.json"),j("data/library.json"),j("data/photos.json").catch(function(){return[]}),j("data/batch.json").catch(function(){return null})]).then(function(d){
+  var TL=d[0],MEDIA=d[1],GPUS=d[2],QA=d[3],LIB=d[4],PH=d[5],FLEET=d[6];
+  stats(TL,MEDIA,QA,LIB);timeline(TL);watch(MEDIA);photos(PH);hall(GPUS);qa(QA);library(LIB);if(FLEET)fleet(FLEET);
 });
 
 function stats(TL,M,QA,LIB){
@@ -137,14 +137,14 @@ function watch(M){
 
 /* ---------- photos ---------- */
 function photos(P){
-  var el=$("#photos");if(!P.length){$("#photos").closest("section").style.display="none";return}
+  var el=$("#photogrid");if(!P.length){$("#photos").style.display="none";return}
   el.innerHTML=P.map(function(p,i){return'<figure data-i="'+i+'"><div class="imgwrap"><img loading="lazy" src="'+esc(p.src)+'" alt="'+esc(p.alt)+'"></div><figcaption><b>'+esc(p.t)+"</b>"+esc(p.c)+' <a href="'+esc(p.page)+'" target="_blank" rel="noopener">'+esc(p.credit)+" · "+esc(p.lic)+"</a></figcaption></figure>"}).join("");
   var lb=$("#lightbox");
   el.addEventListener("click",function(e){var f=e.target.closest("figure");if(!f||e.target.tagName==="A")return;var p=P[+f.dataset.i];$("#lbimg").src=p.big||p.src;$("#lbimg").alt=p.alt;$("#lbcap").textContent=p.t+" — "+p.credit+", "+p.lic;lb.classList.add("open")});
   lb.onclick=function(){lb.classList.remove("open")};addEventListener("keydown",function(e){if(e.key==="Escape")lb.classList.remove("open")})}
 
 /* ---------- lab ---------- */
-$$("#labtabs .chip").forEach(function(c){c.onclick=function(){$$("#labtabs .chip").forEach(function(o){o.classList.toggle("on",o===c)});["hall","bench","decode"].forEach(function(t){$("#lab-"+t).hidden=t!==c.dataset.t})}});
+$$("#labtabs .chip").forEach(function(c){c.onclick=function(){$$("#labtabs .chip").forEach(function(o){o.classList.toggle("on",o===c)});["fleet","hall","bench","decode"].forEach(function(t){$("#lab-"+t).hidden=t!==c.dataset.t})}});
 function hall(G){
   var f={v:"all"};var vs=["all"].concat(G.map(function(g){return g.v}).filter(function(v,i,a){return a.indexOf(v)===i}));
   $("#gf").innerHTML=vs.map(function(v){return'<button class="chip" data-v="'+v+'" aria-pressed="'+(v==="all")+'">'+(v==="all"?"All vendors":v)+"</button>"}).join("");
@@ -179,6 +179,48 @@ function hall(G){
   function ts(){var g=num("#ts-g"),c=num("#ts-c");$("#ts-out").innerHTML=(g&&c)?fmt(1/(.85/g+.15/c),0)+"<small>1 ÷ (0.85 ÷ graphics + 0.15 ÷ CPU)</small>":"—"}
   $("#ts-g").oninput=ts;$("#ts-c").oninput=ts}
 
+/* ---------- fleet ---------- */
+function fleet(F){
+  var C=F.cards,RIGC={"Gigabyte":"#76d12a","Asus B250":"#35a7ff","ASrock":"#ff8a2a","unlabelled":"#9aa3b8"},st={m:"fm",rig:"all",sel:null,zero:false};
+  var MET={fm:["FurMark 1080p","points"],sp:["Superposition","points"],sn:["Steel Nomad","points"]};
+  var FLAGS={4:["warn","The FurMark link opens a different GPU (RX 9070 XT, 15,590). Do not read its telemetry as this card; find the real result."],15:["note","Lowest FurMark (4,819) and Steel Nomad (1,272), on the Celeron / Asus B250 rig. Retest before judging the card."],19:["ok","OCCT: no errors. FurMark 5,033, 59 °C peak, max 1,785 MHz."],23:["note","Superposition 11,446 is about 7% under the same-rig median. Repeat with an identical preset and API."],24:["ok","Highest recorded in all three benchmarks (5,182 / 13,062 / 1,373), but on a different rig from many lower cards."],25:["note","FurMark and Steel Nomad high, Superposition lower. Check for a settings mismatch first."],36:["warn","Fan spinning loudly; test stopped. Keep out of stress testing until the fan is physically checked."],37:["ok","Public FurMark 5,033 (83 FPS), 56 °C, matches your photo."],38:["note","Superposition and Steel Nomad still blank."]};
+  var vals=function(k,rig){return C.filter(function(c){return c[k]!=null&&(rig==="all"||c.rig===rig)}).map(function(c){return c[k]})};
+  var mean=function(a){return a.reduce(function(x,y){return x+y},0)/a.length};
+  var fmt=function(x){return Math.round(x).toLocaleString()};
+  $("#fsnap").textContent=F.snapshot;
+  $("#gtxspec").innerHTML=[["Launched","10 Jun 2016"],["Chip","Pascal GP104, 16 nm"],["CUDA cores","1,920"],["Memory","8 GB GDDR5, 256-bit"],["Reference clocks","1506 / 1683 MHz"],["Board power","150 W reference"],["Launch price","US$379 / $449 FE"],["Ray tracing","none (no RT cores)"]].map(function(x){return"<div>"+x[0]+"<b>"+x[1]+"</b></div>"}).join("");
+  $("#ftiles").innerHTML='<div class="card ftile"><b>'+F.started+" / "+F.slots+'</b>cards started<small>slots are not proof a card exists</small></div>'+Object.keys(MET).map(function(k){var a=vals(k,"all");return'<div class="card ftile"><b>'+fmt(mean(a))+"</b>"+MET[k][0]+" mean<small>n="+a.length+" · low "+fmt(Math.min.apply(null,a))+" · high "+fmt(Math.max.apply(null,a))+"</small></div>"}).join("");
+  function chips(el,items,key,lab){el.innerHTML=items.map(function(x){return'<button class="chip" data-k="'+x+'" aria-pressed="'+(st[key]===x)+'">'+lab(x)+"</button>"}).join("");$$("button",el).forEach(function(b){b.onclick=function(){st[key]=b.dataset.k;$$("button",el).forEach(function(o){o.setAttribute("aria-pressed",o===b)});draw()}})}
+  chips($("#ff-metric"),["fm","sp","sn"],"m",function(k){return MET[k][0]});
+  var rigs=["all"].concat(Object.keys(RIGC).filter(function(r){return C.some(function(c){return c.rig===r})}));
+  chips($("#ff-rig"),rigs,"rig",function(r){return r==="all"?"All test PCs":r});
+  $("#fzero").onchange=function(){st.zero=this.checked;draw()};
+  function sel(n){st.sel=n;draw();var c=C.filter(function(x){return x.card===n})[0];var fl=FLAGS[n];
+    $("#fdetail").innerHTML='<span class="kicker">Card #'+n+'</span><div class="dgrid">'+[["FurMark",c.fm],["Superposition",c.sp],["Steel Nomad",c.sn],["Peak temp",c.temp!=null?c.temp+" °C":null],["Peak power (est.)",c.power!=null?c.power+" W":null],["Max clock",c.clockmax!=null?c.clockmax+" MHz":null],["Test PC",c.rig],["CPU",c.cpu],["Driver",c.driver]].map(function(x){return"<div>"+x[0]+"<b>"+(x[1]!=null&&x[1]!==""?(typeof x[1]==="number"?x[1].toLocaleString():esc(x[1])):"–")+"</b></div>"}).join("")+"</div>"+
+      (c.fm!=null?'<p style="margin:12px 0 0;color:var(--mut);font-size:14px">FurMark '+fmt(c.fm)+' points ≈ '+(c.fm/60).toFixed(0)+' FPS over the 60 s run'+(c.sn!=null?'; Steel Nomad '+fmt(c.sn)+' ≈ '+(c.sn/100).toFixed(1)+' FPS at 4K':"")+".</p>":"")+
+      '<div style="margin-top:10px">'+(c.gpuz?'<span class="pill ok">GPU-Z recognised</span>':"")+(c.status==="MATCHED_GTX1070"?'<span class="pill ok">public result matches</span>':"")+(c.status==="LINK_SCORE_MISMATCH"?'<span class="pill warn">link mismatch</span>':"")+(c.occt?'<span class="pill ok">OCCT: '+esc(c.occt)+"</span>":"")+(c.note?'<span class="pill warn">'+esc(c.note)+"</span>":"")+(fl?'<span class="pill '+fl[0]+'">'+esc(fl[1])+"</span>":"")+"</div>"+(c.url?'<a href="'+esc(c.url)+'" target="_blank" rel="noopener">Open the public FurMark result ↗</a>':"")}
+  function draw(){
+    var k=st.m,rows=C.filter(function(c){return c[k]!=null&&(st.rig==="all"||c.rig===st.rig)}).sort(function(a,b){return b[k]-a[k]});
+    var mx=Math.max.apply(null,rows.map(function(c){return c[k]})),mn=Math.min.apply(null,rows.map(function(c){return c[k]})),base=st.zero?0:mn*.97;
+    $("#fbt").textContent=MET[k][0]+" · "+rows.length+" cards · axis starts at "+fmt(base);
+    $("#fbars").innerHTML=rows.map(function(c){return'<div class="frow'+(st.sel===c.card?" sel":"")+'" data-n="'+c.card+'" style="--rc:'+RIGC[c.rig]+'"><b>#'+c.card+'</b><div><i style="width:'+Math.max(2,(c[k]-base)/(mx-base)*100)+'%"></i></div><span>'+fmt(c[k])+"</span></div>"}).join("");
+    $$(".frow").forEach(function(r){r.onclick=function(){sel(+r.dataset.n)}});
+    // scatter
+    var P=C.filter(function(c){return c.fm!=null&&c.sp!=null&&(st.rig==="all"||c.rig===st.rig)}),x0=Math.min.apply(null,P.map(function(c){return c.fm}))-40,x1=Math.max.apply(null,P.map(function(c){return c.fm}))+40,y0=Math.min.apply(null,P.map(function(c){return c.sp}))-150,y1=Math.max.apply(null,P.map(function(c){return c.sp}))+150;
+    var X=function(v){return 78+(v-x0)/(x1-x0)*518},Y=function(v){return 350-(v-y0)/(y1-y0)*320};var svg="";
+    for(var i=0;i<=4;i++){var gx=x0+(x1-x0)*i/4,gy=y0+(y1-y0)*i/4;svg+='<line x1="'+X(gx)+'" y1="30" x2="'+X(gx)+'" y2="350" stroke="rgba(255,255,255,.07)"/><line x1="78" y1="'+Y(gy)+'" x2="596" y2="'+Y(gy)+'" stroke="rgba(255,255,255,.07)"/><text x="'+X(gx)+'" y="368" text-anchor="middle">'+fmt(gx)+'</text><text x="70" y="'+(Y(gy)+3)+'" text-anchor="end">'+fmt(gy)+"</text>"}
+    svg+='<text x="326" y="392" text-anchor="middle">FurMark points →</text><text x="10" y="190" transform="rotate(-90 10 190)" text-anchor="middle">Superposition →</text>';
+    P.forEach(function(c){svg+='<circle data-n="'+c.card+'" cx="'+X(c.fm).toFixed(1)+'" cy="'+Y(c.sp).toFixed(1)+'" r="5.5" fill="'+RIGC[c.rig]+'" class="'+(st.sel===c.card?"sel":"")+'"/>'});
+    $("#fscatter").innerHTML=svg;
+    $$("#fscatter circle").forEach(function(c){var n=+c.dataset.n,cd=C.filter(function(x){return x.card===n})[0];c.onclick=function(){sel(n)};c.onmouseenter=function(){$("#ftip").textContent="#"+n+" · FurMark "+fmt(cd.fm)+" · Superposition "+fmt(cd.sp)+" · "+cd.rig}});
+    $("#fscatter").parentNode.querySelector(".legend")||$("#fscatter").insertAdjacentHTML("afterend",'<div class="legend">'+Object.keys(RIGC).filter(function(r){return C.some(function(c){return c.rig===r})}).map(function(r){return'<span><i style="background:'+RIGC[r]+'"></i>'+r+"</span>"}).join("")+"</div>");
+    // rigs
+    $("#frigs").innerHTML='<table class="table"><thead><tr><th>Test PC</th><th>Cards</th><th>FurMark mean</th><th>Superposition mean</th><th>Steel Nomad mean</th><th>CPU in public result</th></tr></thead><tbody>'+Object.keys(RIGC).filter(function(r){return C.some(function(c){return c.rig===r})}).map(function(r){var cs=C.filter(function(c){return c.rig===r}),m=function(kk){var a=vals(kk,r);return a.length?fmt(mean(a)):"–"},cpus=cs.map(function(c){return c.cpu}).filter(function(v,i,a){return v&&a.indexOf(v)===i}).join(", ");return"<tr><td><i class=\"dot\" style=\"background:"+RIGC[r]+"\"></i> <b>"+r+"</b></td><td>"+cs.length+"</td><td>"+m("fm")+"</td><td>"+m("sp")+"</td><td>"+m("sn")+"</td><td>"+esc(cpus||"–")+"</td></tr>"}).join("")+"</tbody></table>"}
+  $("#fflags").innerHTML=Object.keys(FLAGS).map(function(n){var f=FLAGS[n];return'<div class="flag" data-n="'+n+'"><b>#'+n+'</b><span><span class="pill '+f[0]+'">'+(f[0]==="warn"?"check":f[0]==="ok"?"good":"note")+"</span> "+esc(f[1])+"</span></div>"}).join("");
+  $$(".flag").forEach(function(f){f.onclick=function(){sel(+f.dataset.n);$("#fdetail").scrollIntoView({block:"center",behavior:"smooth"})}});
+  draw();sel(24);
+}
+
 /* ---------- Q&A ---------- */
 function qa(Q){
   var f={b:"all",k:"all",q:""};
@@ -195,6 +237,6 @@ function qa(Q){
 
 /* ---------- library ---------- */
 function library(L){
-  var G=[["furmark","FurMark"],["superposition","UNIGINE Superposition"],["3dmark","3DMark & Steel Nomad"],["all","Indexes, method and fact-checking"]];
+  var G=[["fleet","Your GPUs"],["furmark","FurMark"],["superposition","UNIGINE Superposition"],["3dmark","3DMark & Steel Nomad"],["all","Indexes, method and fact-checking"]];
   $("#libroot").innerHTML=G.map(function(g){var items=L.filter(function(x){return x.bench===g[0]});return'<div class="libgroup" data-bench="'+g[0]+'"><h3><i class="dot"></i>'+g[1]+'</h3><div class="lib">'+items.map(function(x){return'<a class="card libcard" href="read/'+x.slug+'.html"><span class="tag">'+esc(x.kind)+"</span><b>"+esc(x.title)+"</b><span>"+esc(x.blurb)+"</span><small>~"+x.mins+" min read</small></a>"}).join("")+"</div></div>"}).join("")}
 })();

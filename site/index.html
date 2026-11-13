@@ -136,6 +136,31 @@ section p.lead{color:var(--mut);font-size:18px;max-width:62ch;margin:0 0 26px}
 .tool p{color:var(--mut);font-size:14px;margin:0 0 12px}
 .out{margin-top:10px;font:700 24px var(--f-ui);color:var(--acc2)}
 .out small{display:block;font:12px var(--f-mono);color:var(--faint);font-weight:400;margin-top:3px}
+.fleethead{display:grid;grid-template-columns:1.3fr 1fr;gap:22px;margin-bottom:16px}
+@media(max-width:860px){.fleethead{grid-template-columns:1fr}}
+.gtxspec{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;font-size:13px;color:var(--mut);align-content:start}
+.gtxspec b{display:block;color:var(--ink);font:700 15px var(--f-ui)}
+.ftiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:16px}
+.ftile{padding:16px}.ftile b{font:700 28px var(--f-ui);display:block;letter-spacing:-.01em}.ftile small{color:var(--faint);font:12px var(--f-mono);display:block;margin-top:4px}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0 16px}
+@media(max-width:960px){.fgrid{grid-template-columns:1fr}}
+.fbars{max-height:620px;overflow:auto}
+.frow{display:grid;grid-template-columns:44px 1fr 62px;gap:8px;align-items:center;font-size:12px;margin:3px 0;cursor:pointer;border-radius:6px;padding:1px 4px}
+.frow:hover,.frow.sel{background:color-mix(in srgb,var(--acc) 14%,transparent)}
+.frow i{display:block;height:11px;border-radius:6px;background:var(--rc,var(--acc));transition:width .4s}
+.frow span{color:var(--mut);font-family:var(--f-mono)}
+.zoom{display:block;margin-top:10px;font-size:12px;color:var(--mut)}
+#fscatter{width:100%;height:auto;margin-top:8px}
+#fscatter circle{cursor:pointer;transition:r .15s;stroke:#000;stroke-opacity:.35}
+#fscatter circle:hover,#fscatter circle.sel{r:8;stroke:#fff;stroke-opacity:1}
+#fscatter text{fill:var(--faint);font:10px var(--f-mono)}
+.ftip{font:12px var(--f-mono);color:var(--mut);min-height:18px;margin-top:6px}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin-top:8px}.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px 18px;margin-top:10px}
+.dgrid div{font-size:13px;color:var(--mut)}.dgrid b{display:block;color:var(--ink);font:600 16px var(--f-ui)}
+.pill{display:inline-block;font:700 10px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;padding:4px 7px;border-radius:6px;margin:0 6px 6px 0}
+.pill.warn{background:#ff6b6b26;color:#ff8d8d}.pill.ok{background:#4be0a126;color:#4be0a1}.pill.note{background:#ffb34726;color:#ffc15a}
+.flags{display:grid;gap:8px;margin-top:10px}.flag{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--mut);cursor:pointer;padding:8px 10px;border-radius:10px;border:1px solid var(--line)}.flag:hover{border-color:var(--acc)}.flag b{color:var(--ink);min-width:40px}
 .tool label{display:grid;gap:5px;font-size:13px;color:var(--mut);margin-bottom:8px}
 /* qa */
 .qa{display:grid;gap:10px;margin-top:16px}
@@ -168,7 +193,7 @@ section p.lead{color:var(--mut);font-size:18px;max-width:62ch;margin:0 0 26px}
 <header class="top"><div class="wrap">
   <a class="brand" href="#top"><span class="logo"></span><span class="bt">GPU Benchmark Lore</span></a>
   <nav class="nav">
-    <a href="#worlds" class="hide-s">The three worlds</a><a href="#timeline">Timeline</a><a href="#lore" class="hide-s">Lore</a><a href="#watch">Watch</a><a href="#listen">Listen</a><a href="#lab">GPU lab</a><a href="#questions" class="hide-s">Questions</a><a href="#library">Library</a>
+    <a href="#worlds" class="hide-s">The three worlds</a><a href="#timeline">Timeline</a><a href="#lore" class="hide-s">Lore</a><a href="#watch">Watch</a><a href="#listen">Listen</a><a href="#lab">Your GPUs</a><a href="#questions" class="hide-s">Questions</a><a href="#library">Library</a>
     <a href="#" data-open-search>Search <span class="kbd">/</span></a>
   </nav>
   <button class="iconbtn" data-theme-toggle title="Toggle light / dark" aria-label="Toggle theme">☾</button>
@@ -181,7 +206,7 @@ section p.lead{color:var(--mut);font-size:18px;max-width:62ch;margin:0 0 26px}
       <span class="kicker">Sourced histories · 1997 → 2026</span>
       <h1>The stories behind the programs that <em>heat up your GPU</em>.</h1>
       <p>FurMark’s furry doughnut, UNIGINE’s vanished professor, 3DMark’s masked wanderer: three benchmarks, three companies, thirty years of scandals, records and lore. Every claim is sourced, and what couldn’t be confirmed says so.</p>
-      <div class="cta"><a class="btn" href="#timeline">Explore the timeline</a><a class="btn ghost" href="#watch">Watch the trailers</a><a class="btn ghost" href="#lab">Open the GPU lab</a></div>
+      <div class="cta"><a class="btn" href="#timeline">Explore the timeline</a><a class="btn ghost" href="#watch">Watch the trailers</a><a class="btn ghost" href="#lab">Your GTX 1070 fleet</a></div>
       <div class="stats" id="stats"></div>
     </div>
     <div>
@@ -285,15 +310,27 @@ section p.lead{color:var(--mut);font-size:18px;max-width:62ch;margin:0 0 26px}
   <span class="kicker">Photos</span>
   <h2 class="sec reveal">The hardware, up close</h2>
   <p class="lead reveal">Freely licensed photographs from Wikimedia Commons, each with its author and licence. Click to enlarge.</p>
-  <div class="photos" id="photos"></div>
+  <div class="photos" id="photogrid"></div>
 </div></section>
 
 <section id="lab"><div class="wrap">
   <span class="kicker">GPU lab</span>
-  <h2 class="sec reveal">The GPUs, and your GPUs</h2>
-  <p class="lead reveal">A hall of the cards that shaped these stories, a bench to log your own cards and scores, and calculators for the scoring rules UL and Geeks3D publish.</p>
-  <div class="labtabs" id="labtabs"><button class="chip on" data-t="hall">Hall of GPUs</button><button class="chip" data-t="bench">My bench</button><button class="chip" data-t="decode">Score decoder</button></div>
-  <div id="lab-hall"><div class="filters" id="gf"></div><div class="gpugrid" id="gpugrid"></div></div>
+  <h2 class="sec reveal">Your GPUs, and the legends</h2>
+  <p class="lead reveal">Your GTX 1070 batch, explored; a hall of the cards that shaped these stories; a bench for any other card; and calculators for the scoring rules UL and Geeks3D publish.</p>
+  <div class="labtabs" id="labtabs"><button class="chip on" data-t="fleet" data-bench="fleet">My GTX 1070s</button><button class="chip" data-t="hall">Hall of GPUs</button><button class="chip" data-t="bench">My bench</button><button class="chip" data-t="decode">Score decoder</button></div>
+  <div id="lab-fleet" data-bench="fleet">
+    <div class="card glow fleethead"><div><span class="kicker">Your batch · snapshot <span id="fsnap"></span></span><h3 style="margin:8px 0 6px;font:700 26px var(--f-ui)">GeForce GTX 1070 fleet</h3>
+      <p style="color:var(--mut);margin:0;max-width:62ch;font-size:15px">Scores from your GPU Testing Sheet, checked against the public FurMark result pages. The three test PCs differ in CPU and driver, so this is <b>not</b> a fair ranking of the physical cards. <a href="read/gpu-batch-research.html">Read the full audit →</a></p></div>
+      <div class="gtxspec" id="gtxspec"></div></div>
+    <div class="ftiles" id="ftiles"></div>
+    <div class="filters" id="ff-metric"></div><div class="filters" id="ff-rig"></div>
+    <div class="fgrid"><div class="card fbars"><div class="kicker" id="fbt"></div><div id="fbars"></div><label class="zoom"><input type="checkbox" id="fzero"> start axis at zero</label></div>
+      <div class="card"><div class="kicker">FurMark vs Superposition</div><svg id="fscatter" viewBox="0 0 620 400" role="img" aria-label="Scatter plot of FurMark against Superposition scores"></svg><div id="ftip" class="ftip"></div></div></div>
+    <div class="card" id="fdetail"><p style="margin:0;color:var(--mut)">Click a bar or a dot to inspect a card.</p></div>
+    <div class="card" style="overflow-x:auto"><div class="kicker">By test PC</div><div id="frigs"></div></div>
+    <div class="card"><div class="kicker">Cards to follow up</div><div id="fflags" class="flags"></div></div>
+  </div>
+  <div id="lab-hall" hidden><div class="filters" id="gf"></div><div class="gpugrid" id="gpugrid"></div></div>
   <div id="lab-bench" hidden>
     <div class="card" data-bench="superposition">
       <p style="margin:0 0 12px;color:var(--mut);font-size:14px">Log the GPUs you test. Everything stays in this browser; use Export to back it up or Share to send a link. Leave a score blank if you didn’t run it.</p>
@@ -342,7 +379,7 @@ section p.lead{color:var(--mut);font-size:18px;max-width:62ch;margin:0 0 26px}
 
 <footer class="site"><div class="wrap">
   <div><h4>GPU Benchmark Lore</h4>Sourced histories of FurMark, UNIGINE Superposition and 3DMark. Text and code are MIT-licensed; quotations and trademarks stay with their owners. Video thumbnails belong to the uploaders; videos play from YouTube. Photos are credited to their authors under the licences shown.</div>
-  <div><h4>Read</h4><a href="read/history.html">FurMark history</a><a href="read/superposition.html">Superposition history</a><a href="read/3dmark-steel-nomad.html">3DMark history</a><a href="read/fact-check.html">Fact-check log</a></div>
+  <div><h4>Read</h4><a href="read/history.html">FurMark history</a><a href="read/superposition.html">Superposition history</a><a href="read/3dmark-steel-nomad.html">3DMark history</a><a href="read/gpu-batch-research.html">Your GTX 1070 audit</a><a href="read/fact-check.html">Fact-check log</a></div>
   <div><h4>Project</h4><a href="https://github.com/Parris-Tech-Services/furmark-history">GitHub repository</a><a href="furmark-history-podcast.pdf">Podcast PDF</a><a href="podcast.xml">Podcast RSS</a></div>
 </div></footer>
 

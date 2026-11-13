@@ -1,5 +1,7 @@
 # GPU benchmark histories
 
+**Read it as a website: https://parris-tech-services.github.io/furmark-history/** (interactive timeline, embedded videos, podcasts, photos, your GTX 1070 fleet, searchable questions).
+
 This repo documents the history of GPU benchmark culture: sourced research on FurMark, plus companion histories of UNIGINE Superposition and 3DMark / Steel Nomad. It includes research notes, podcast scripts, generated audio, PDF companions, and a GitHub Pages site.
 
 Sourced histories of GPU benchmarks. The main project is **FurMark** (below); newer write-ups cover **UNIGINE Superposition** and **3DMark / Steel Nomad**.
@@ -46,6 +48,17 @@ The story of **FurMark**, the furry-donut GPU stress test: a sourced timeline, a
 - Steel Nomad / 3DMark, voices by Piper: [audio](site/steelnomad-history-podcast.mp3) · [script](podcast/steelnomad_script.txt)
 
 Why these two: of the free routes I checked, Google's NotebookLM sounds best but has no way to run from a script, and the hosted services (Edge TTS) are unreachable from the build sandbox. Kokoro and Piper are the local TTS engines I could run without an external API for the companion episodes.
+
+**The website** (`site/`)
+| Path | What |
+|---|---|
+| `site/index.html`, `site/assets/` | Home page: hero, timeline, lore, video, podcasts, photos, GPU lab, question explorer, library |
+| `tools/build_site.py` + `tools/reader_template.html` | Renders every `docs/*.md` to `site/read/*.html` and writes the search and Q&A indexes |
+| `tools/build_fleet.py` | Turns `data/benchmark_snapshot_*.csv` into `site/data/batch.json` for the GTX 1070 explorer |
+| `tools/build_podcast.py` | Writes `site/podcast.xml`, the RSS feed to submit to Spotify |
+| `site/data/*.json` | Editable data: `timeline.json`, `media.json` (YouTube IDs), `gpus.json`, `photos.json` |
+
+Rebuild after editing docs or data: `python3 tools/build_site.py && python3 tools/build_fleet.py && python3 tools/build_podcast.py`.
 
 **What's here**
 | Path | What |

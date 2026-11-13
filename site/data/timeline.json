@@ -320,6 +320,14 @@
 "doc": "qa-superposition"
 },
 {
+"d": "2016-06-10",
+"b": "furmark",
+"ty": "hardware",
+"t": "GeForce GTX 1070 launches",
+"x": "Pascal GP104, 1,920 CUDA cores, 8 GB GDDR5, US$379 partner / $449 Founders Edition. Ten years later, 38 of them are in your test batch.",
+"doc": "gpu-batch-research"
+},
+{
 "d": "2016-07-14",
 "b": "3dmark",
 "ty": "release",
@@ -542,5 +550,13 @@
 "t": "FurMark 2.11.0.4",
 "x": "Newest Blackwell GPUs; elapsed time shown as days, hours, minutes and seconds.",
 "doc": "history"
+},
+{
+"d": "2026-11-13",
+"b": "furmark",
+"ty": "milestone",
+"t": "The GTX 1070 batch is audited",
+"x": "37 FurMark, 35 Superposition and 35 Steel Nomad scores from three test PCs, cross-checked against public FurMark result pages: 36 match a GTX 1070, one link points at a different GPU.",
+"doc": "gpu-batch-research"
 }
 ]
