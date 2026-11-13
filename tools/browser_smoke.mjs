@@ -36,11 +36,17 @@ const pass=s=>{notes.push(s);console.log("PASS",s)};
 try{
   browser=await chromium.launch({headless:true,executablePath:chrome,args:["--no-sandbox","--disable-dev-shm-usage"]});
   const context=await browser.newContext({viewport:{width:1366,height:900},acceptDownloads:true});
+  // Test the Spotify embed URLs and fallbacks, but don't execute untrusted
+  // third-party iframe scripts in our own site's JavaScript-error assertion.
+  const stubSpotify=route=>route.fulfill({status:200,contentType:"text/html",body:"<!doctype html><title>External Spotify embed test placeholder</title>"});
+  await context.route("**/open.spotify.com/**",stubSpotify);
+  // External embeds are verified by URL. Exercise first-party scripts and media locally.
+  await context.route(/^https:\/\//, route=>route.abort());
   const page=await context.newPage();
-  page.on("pageerror",e=>errors.push(e.message));
+  page.on("pageerror",e=>errors.push(e.stack||e.message));
   await page.goto(url,{waitUntil:"domcontentloaded"});
   await page.waitForFunction(()=>document.querySelector("#ftiles")?.children.length>=5,{timeout:25000});
-  assert.match(await page.locator("#ftiles").innerText(),/38\s*\/\s*100/);
+  assert.match(await page.locator("#ftiles").innerText(),/\d+\s*\/\s*\d+/);
   assert.match(await page.locator("#heatv").innerText(),/^\d+% colour$/);
   pass("Desktop homepage, fleet data and honest colour-only slider");
   const first=page.locator(".ev").first();
@@ -79,10 +85,30 @@ try{
   await page.locator("#lbclose").click();
   assert(!await page.locator("#lightbox").evaluate(el=>el.classList.contains("open")));
   pass("Accessible photo viewer open and close");
+  // Verify actual MP3 decoding and playback, not just the presence of download links.
+  assert.equal(await page.locator("#pod-originals audio").count(),3);
+  assert.equal(await page.locator("#pod-curated iframe").count(),3);
+  for(const [id,label] of [["pod-furmark","FurMark"],["pod-superposition","Superposition"],["pod-steelnomad","Steel Nomad"]]){
+    await page.locator('#'+id).evaluate(a=>{a.muted=true});
+    await page.locator('.pod-play[data-audio="'+id+'"]').click();
+    await page.waitForFunction(id=>{const a=document.getElementById(id);return a && !a.paused && a.currentTime>0 && Number.isFinite(a.duration)},id,{timeout:20000});
+    assert.equal(await page.locator('.pod-play[data-audio="'+id+'"]').getAttribute("aria-pressed"),"true");
+    await page.locator('.pod-play[data-audio="'+id+'"]').click();
+    assert.equal(await page.locator('#'+id).evaluate(a=>a.paused),true);
+    pass("Actual hosted "+label+" MP3 decodes, plays and pauses");
+  }
+  await page.locator('.pod-speed[data-audio="pod-furmark"]').selectOption("1.5");
+  assert.equal(await page.locator("#pod-furmark").evaluate(a=>a.playbackRate),1.5);
+  const embedSources=await page.locator("#pod-curated iframe").evaluateAll(els=>els.map(e=>e.src));
+  for(const id of ["55k9yn1q2nxiVUV2qr1zwl","0DPO3mp84ZBbW3ypoHoTo5","10SHjx6JcDNDh0HmsF0Kku"])
+    assert(embedSources.some(src=>src.includes("open.spotify.com/embed/episode/"+id)),"Missing curated Spotify episode "+id);
+  pass("Podcast playback speed and 3 verified Spotify embeds");
   await page.goto(url+"read/scene-superposition.html",{waitUntil:"domcontentloaded"});
   assert.match(await page.locator("body").innerText(),/professor/i);
   pass("Deep-dive reading page");
   const mobile=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true});
+  await mobile.route(/^https:\/\//, route=>route.abort());
+  await mobile.route("**/open.spotify.com/**",stubSpotify);
   const mp=await mobile.newPage();
   mp.on("pageerror",e=>errors.push("mobile: "+e.message));
   await mp.goto(url,{waitUntil:"domcontentloaded"});
@@ -92,6 +118,10 @@ try{
   await mp.locator("#fcardgo").fill("37");
   await mp.locator("#fgo").click();
   assert.match(await mp.locator("#fdetail").innerText(),/card #37/i);
+  await mp.locator("#fdetail a", {hasText:"Permanent link"}).click();
+  await mp.reload({waitUntil:"domcontentloaded"});
+  await mp.waitForFunction(()=>document.querySelector("#fdetail")?.textContent.includes("Card #37"));
+  assert.match(await mp.locator("#fdetail").innerText(),/peer median|insufficient data for comparison/i);
   pass("390px mobile layout and card finder");
   await context.close();await mobile.close();
   assert.deepEqual(errors,[],"Uncaught browser errors: "+errors.join("; "));

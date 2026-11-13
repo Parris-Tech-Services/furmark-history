@@ -1,5 +1,8 @@
 # The history of the UNIGINE Superposition benchmark
 
+[See our GTX 1070 results](https://parris-tech-services.github.io/furmark-history/?metric=sp#lab)
+
+
 **Scene deep dive:** [Who is the missing professor? Ten questions about the laboratory's mystery](SCENE_SUPERPOSITION.md).
 
 *Compiled 13 November 2026 from the developer's own pages first, then press and Wikipedia. A second research pass resolved most of the first draft's open questions; what is still open is listed at the end. Source numbers in brackets point to the list at the bottom.*

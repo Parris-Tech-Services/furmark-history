@@ -386,18 +386,18 @@ section p.lead{color:var(--mut);font-size:18px;max-width:62ch;margin:0 0 26px}
   <div class="labtabs" id="labtabs"><button class="chip on" data-t="fleet" data-bench="fleet">My GTX 1070s</button><button class="chip" data-t="hall">Hall of GPUs</button><button class="chip" data-t="bench">My bench</button><button class="chip" data-t="decode">Score decoder</button></div>
   <div id="lab-fleet" data-bench="fleet">
     <div class="card glow fleethead"><div><span class="kicker">Your batch · snapshot <span id="fsnap"></span></span><h3 style="margin:8px 0 6px;font:700 26px var(--f-ui)">GeForce GTX 1070 fleet</h3>
-      <p style="color:var(--mut);margin:0;max-width:62ch;font-size:15px">Dated results from your GPU Testing Sheet, checked against published FurMark submissions. This is <b>a snapshot, not a live Google Sheet sync or a hardware health certificate</b>. The PCs differ, so raw rankings aren't fair. <a href="read/gpu-batch-research.html">Read the full audit →</a></p><p class="fleetlinks"><a class="chip" href="https://docs.google.com/spreadsheets/d/1yCaJ1PXI7R5sCuZopxetPMwNWyK142i7SJOmZRwTj44/edit" target="_blank" rel="noopener">Open live test sheet ↗</a> <a class="chip" href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/data/benchmark_snapshot_2026-11-13.csv" target="_blank" rel="noopener">Audited CSV ↗</a></p></div>
+      <p style="color:var(--mut);margin:0;max-width:62ch;font-size:15px">Scores come from the testing sheet. Select a dot to inspect a card. <a href="?card=23#fdetail">Card #23</a> recorded 11,446 in Superposition. Its preset was missing, so that result alone cannot establish a fault. <span id="freshness"></span> <a href="read/gpu-batch-research.html">Read the full audit →</a></p><p class="fleetlinks"><a class="chip" href="https://docs.google.com/spreadsheets/d/1yCaJ1PXI7R5sCuZopxetPMwNWyK142i7SJOmZRwTj44/edit" target="_blank" rel="noopener">Open live test sheet ↗</a> <a class="chip" href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/data/benchmark_snapshot_2026-11-13.csv" target="_blank" rel="noopener">Audited CSV ↗</a></p></div>
       <div class="gtxspec" id="gtxspec"></div></div>
     <div class="ftiles" id="ftiles"></div>
     <div class="fleettoolbar">
       <label for="fcardgo">Find a card #</label>
       <input class="field" id="fcardgo" type="number" min="1" max="100" inputmode="numeric" placeholder="e.g. 36" aria-describedby="factionmsg">
-      <button class="btn ghost" type="button" id="fgo">Show card</button>
+      <button class="btn ghost" type="button" id="fgo">Compare this card</button>
       <label class="fleettoggle"><input type="checkbox" id="ffollow"> Follow-ups only</label>
       <button class="btn ghost" type="button" id="fexport">Export visible cards CSV</button>
       <span id="factionmsg" role="status" aria-live="polite"></span>
     </div>
-    <div class="filters" id="ff-metric"></div><div class="filters" id="ff-rig"></div>
+    <p>What does this test measure? <a href="read/history.html">FurMark</a> · <a href="read/superposition.html">Superposition</a> · <a href="read/3dmark-steel-nomad.html">Steel Nomad</a></p><div class="filters" id="ff-metric"></div><div class="filters" id="ff-rig"></div>
     <div class="fgrid"><div class="card fbars"><div class="kicker" id="fbt"></div><div id="fbars" aria-label="Selectable graphics card benchmark results"></div><label class="zoom"><input type="checkbox" id="fzero"> start axis at zero</label></div>
       <div class="card"><div class="kicker">FurMark vs Superposition</div><svg id="fscatter" viewBox="0 0 620 400" role="img" aria-label="Scatter plot of FurMark against Superposition scores"></svg><div id="ftip" class="ftip"></div></div></div>
     <div class="card" id="fdetail" tabindex="-1" aria-live="polite"><p style="margin:0;color:var(--mut)">Select a bar, chart point or card number to inspect its results.</p></div>
