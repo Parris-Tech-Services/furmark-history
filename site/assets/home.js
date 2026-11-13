@@ -153,7 +153,7 @@ function watch(M){
     var btn=getButton(audio);
     if(!btn)return;
     var playing=!audio.paused&&!audio.ended;
-    btn.textContent=playing?"❚❚ Pause episode":"▶ Play this episode";
+    var lab=playing?"❚❚ Pause episode":"▶ Play this episode",ep=btn.closest(".pod-episode"),h=ep&&ep.querySelector("h3");btn.textContent=lab;btn.setAttribute("aria-label",lab+(h?": "+h.textContent.trim():""));
     btn.setAttribute("aria-pressed",String(playing));
   }
   audios.forEach(function(audio){
@@ -317,7 +317,7 @@ function fleet(F){
     $("#fbt").textContent=MET[k][0]+" · "+rows.length+" cards"+(rows.length?" · chart axis starts at "+fmt(base):"");
     $("#fbars").innerHTML=rows.length?rows.map(function(c){
       var width=mx===base?100:Math.max(2,Math.min(100,(c[k]-base)/(mx-base)*100));
-      return '<button type="button" aria-label="#'+c.card+' '+fmt(c[k])+', inspect card '+c.card+' ('+MET[k][0]+' points)" aria-pressed="'+(st.sel===c.card)+'" class="frow'+(st.sel===c.card?" sel":"")+'" data-n="'+c.card+'" style="--rc:'+(RIGC[c.rig]||"#9aa3b8")+'"><b>#'+c.card+'</b><div><i style="width:'+width+'%"></i></div><span>'+fmt(c[k])+'</span></button>'
+      return '<button type="button" aria-label="#'+c.card+' '+fmt(c[k])+', inspect card '+c.card+' ('+MET[k][0]+' points)" aria-pressed="'+(st.sel===c.card)+'" class="frow'+(st.sel===c.card?" sel":"")+'" data-n="'+c.card+'" style="--rc:'+(RIGC[c.rig]||"#9aa3b8")+'"><b>#'+c.card+'</b> <div><i style="width:'+width+'%"></i></div> <span>'+fmt(c[k])+'</span></button>'
     }).join(""):'<p class="searchmessage">No scored cards match these filters. Try another test PC or untick “Follow-ups only”.</p>';
     $$(".frow").forEach(function(r){r.onclick=function(){sel(+r.dataset.n)}});
     // The plot is a within-batch comparison, not a causal measure of hardware health.

@@ -109,7 +109,7 @@
   "bench": "all",
   "kind": "Method",
   "blurb": "What research says makes a great website, and what was changed because of it.",
-  "mins": 1
+  "mins": 6
  },
  {
   "slug": "fact-check",

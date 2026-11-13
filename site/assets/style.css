@@ -195,3 +195,8 @@ a.cite{display:inline-block;min-width:24px;min-height:24px;text-align:center;lin
 #listen .pod-publishing[open] summary{margin-bottom:12px}
 @media(max-width:1050px){#listen .pod-episodes,#listen .pod-curated{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){#listen .pod-episodes,#listen .pod-curated{grid-template-columns:minmax(0,1fr)}#listen .pod-feature,#listen .pod-episode{padding:18px}#listen .podhead-external{margin-top:32px}}
+
+/* WCAG 1.4.1: footer links sit beside plain text, so they are underlined rather than distinguished by colour alone. */
+footer.site a{text-decoration:underline;text-underline-offset:3px}
+/* Any link inside a paragraph or list item is underlined (WCAG 1.4.1), except button-styled links. */
+main p a:not(.btn):not(.chip),main li a:not(.btn):not(.chip){text-decoration:underline;text-underline-offset:3px}

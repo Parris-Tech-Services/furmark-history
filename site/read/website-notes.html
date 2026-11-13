@@ -86,12 +86,172 @@ h2:hover .hlink,h3:hover .hlink{opacity:1}
   <span class="tag">Method</span>
   <h1>How this site is built: web best practices applied</h1>
   <p>What research says makes a great website, and what was changed because of it.</p>
-  <div class="meta"><span>~1 min read</span><span>·</span><span>updated <time datetime="2026-11-13">2026-11-13</time></span><span>·</span><a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/WEBSITE_NOTES.md">view source on GitHub</a></div>
+  <div class="meta"><span>~6 min read</span><span>·</span><span>updated <time datetime="2026-11-13">2026-11-13</time></span><span>·</span><a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/WEBSITE_NOTES.md">view source on GitHub</a></div>
 </div></section>
 <main class="wrap layout">
-  <aside class="toc" aria-label="On this page"><p class="tochead">On this page</p><ol id="tocol"></ol></aside>
+  <aside class="toc" aria-label="On this page"><p class="tochead">On this page</p><ol id="tocol"><li><a href="#the-short-version">The short version</a></li><li><a href="#what-the-research-says">What the research says</a></li><li><a href="#what-was-changed-and-why">What was changed, and why</a></li><li><a href="#measured-results">Measured results</a></li><li><a href="#considered-and-left-out">Considered and left out</a></li><li><a href="#sources">Sources</a></li></ol></aside>
   <article class="prose" id="doc">
-
+<p><em>Researched and applied 13 November 2026. This page records what the research says makes a great website, what was changed on this site because of it, how it was measured, and what was deliberately left alone. Every claim has a numbered source.</em></p>
+<h2 id="the-short-version">The short version</h2>
+<p>Four bodies of evidence agree on what matters: pages that <strong>load fast and stay still</strong> (Core Web Vitals), that <strong>everyone can use</strong> (WCAG 2.2), that <strong>say clearly what they are</strong> to people and search engines (Google's SEO guide), and that <strong>respect how people actually read</strong> (scanning, not reading) <a class="cite" href="#src-1">1</a><a class="cite" href="#src-2">2</a><a class="cite" href="#src-3">3</a><a class="cite" href="#src-4">4</a><a class="cite" href="#src-5">5</a><a class="cite" href="#src-6">6</a>. Measured with Lighthouse on the published site, the home page started at 81 for performance and 85 for accessibility, and the reading pages at 98 and 84. After the changes below, both kinds of page score 100 for accessibility, best practices and SEO, and 99 or 100 for performance in lab runs, with the home page's first paint nearly twice as fast (see "Measured results").</p>
+<h2 id="what-the-research-says">What the research says</h2>
+<p><strong>Speed and stability: Core Web Vitals.</strong> Google's three user-experience metrics have fixed "good" thresholds, judged on at least 75% of page visits: Largest Contentful Paint 2.5 seconds or less, Interaction to Next Paint 200 milliseconds or less, and Cumulative Layout Shift 0.1 or less <a class="cite" href="#src-1">1</a><a class="cite" href="#src-2">2</a><a class="cite" href="#src-3">3</a><a class="cite" href="#src-4">4</a>. The specific advice that matters for a static site like this one:</p>
+<ul>
+<li>Always give images and videos <code>width</code> and <code>height</code> (or CSS <code>aspect-ratio</code>) so the browser reserves space before they load; web fonts that swap can also shift layout, so fallback fonts should match the web font's metrics <a class="cite" href="#src-3">3</a><a class="cite" href="#src-7">7</a>.</li>
+<li>Fonts: self-host WOFF2 files, preload only the critical face, use <code>font-display</code>, and be cautious with preload because it competes with other critical requests <a class="cite" href="#src-7">7</a>.</li>
+<li>Images: choose a modern format. WebP and AVIF compress better than JPEG and PNG and are widely supported <a class="cite" href="#src-8">8</a>.</li>
+<li>Interaction responsiveness comes down to the main thread: long tasks delay input, so break up or remove heavy work <a class="cite" href="#src-4">4</a>.</li>
+</ul>
+<p><strong>Accessibility: WCAG 2.2 and what actually fails.</strong> WebAIM's 2025 analysis of one million home pages found WCAG failures on 94.8% of them. The commonest was <strong>low-contrast text on 79.1% of pages</strong>, followed by missing image descriptions, missing form labels, empty links and buttons, and a missing document language <a class="cite" href="#src-5">5</a>. WCAG 2.2 added criteria that matter for an interactive page like this one: <strong>target size of at least 24 by 24 CSS pixels (2.5.8)</strong>, a <strong>non-dragging alternative for any drag interaction (2.5.7)</strong>, and <strong>focus must not be hidden behind sticky bars (2.4.11)</strong> <a class="cite" href="#src-9">9</a>.</p>
+<p><strong>Search and sharing: Google's SEO starter guide.</strong> Unique, accurate titles and page-specific descriptions; descriptive link text; descriptive alt text; a canonical URL where duplicates are possible; images placed near relevant text; and a sitemap to help crawlers find pages <a class="cite" href="#src-6">6</a>. Social preview cards (Open Graph) are not Google guidance but are the de facto standard for how a link looks when shared.</p>
+<p><strong>Reading: people scan.</strong> Nielsen Norman Group's research found that 79% of test users always scanned a new page and only 16% read word by word <a class="cite" href="#src-10">10</a>. The practical consequences are meaningful headings, short paragraphs, lists, and a table of contents.</p>
+<h2 id="what-was-changed-and-why">What was changed, and why</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Finding</th>
+<th>Change on this site</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fonts should be self-hosted, and a third-party font stylesheet is an extra request that blocks first render <a class="cite" href="#src-7">7</a></td>
+<td>The three fonts are now <strong>self-hosted Latin subsets</strong> (Space Grotesk 22 KB, JetBrains Mono 31 KB, Newsreader 58 KB, pinned to one optical size), with the font CSS inlined and the main font preloaded.</td>
+</tr>
+<tr class="even">
+<td>Swapping fonts can shift layout <a class="cite" href="#src-3">3</a><a class="cite" href="#src-7">7</a></td>
+<td>Added <strong>size-matched fallback fonts</strong>, so the swap barely moves text.</td>
+</tr>
+<tr class="odd">
+<td>Images need dimensions and modern formats <a class="cite" href="#src-3">3</a><a class="cite" href="#src-8">8</a></td>
+<td>The seven photographs are <strong>WebP</strong> (about 40% smaller, 1.1 MB to 0.6 MB), with <code>width</code>, <code>height</code> and <code>decoding="async"</code>; video thumbnails got dimensions too.</td>
+</tr>
+<tr class="even">
+<td>Long tasks hurt responsiveness <a class="cite" href="#src-4">4</a></td>
+<td>The hero animation draws <strong>1,500 strands instead of 3,600</strong>, allocates nothing per frame, starts after the first paint, caps its frame rate, <strong>adapts its density to the device</strong>, and pauses off-screen or in a hidden tab. Decorative canvas art and the 70-question explorer now load only when you scroll near them.</td>
+</tr>
+<tr class="odd">
+<td>Low contrast is the top failure <a class="cite" href="#src-5">5</a></td>
+<td>The faint-text colour was darkened or lightened to pass 4.5:1 in both themes.</td>
+</tr>
+<tr class="even">
+<td>Colour alone must not signal a link (WCAG 1.4.1) <a class="cite" href="#src-9">9</a></td>
+<td>Links inside running text are underlined.</td>
+</tr>
+<tr class="odd">
+<td>Targets must be 24 px (2.5.8) <a class="cite" href="#src-9">9</a></td>
+<td>Citation markers, chart rows, buttons and chips now meet the minimum.</td>
+</tr>
+<tr class="even">
+<td>Dragging needs an alternative (2.5.7) <a class="cite" href="#src-9">9</a></td>
+<td>The hero torus rotates with the <strong>arrow keys</strong> as well as by dragging.</td>
+</tr>
+<tr class="odd">
+<td>Accessible names must contain visible text; heading levels must not skip <a class="cite" href="#src-5">5</a><a class="cite" href="#src-9">9</a></td>
+<td>Chart rows start their accessible name with the visible label; footer and calculator headings were fixed; the logo link has a name.</td>
+</tr>
+<tr class="even">
+<td>Descriptive titles, canonical URLs, sitemap <a class="cite" href="#src-6">6</a></td>
+<td><strong>Canonical URLs, <code>sitemap.xml</code>, <code>robots.txt</code></strong>, per-page descriptions, breadcrumbs, and <strong>JSON-LD</strong> (WebSite on the home page; Article and BreadcrumbList on each reading page).</td>
+</tr>
+<tr class="odd">
+<td>Shared links need a preview</td>
+<td><strong>Open Graph and Twitter card</strong> metadata with a 1200 by 630 preview image.</td>
+</tr>
+<tr class="even">
+<td>A missing favicon logged a 404 on every page</td>
+<td>Added an <strong>SVG favicon</strong>, touch icon and a web <strong>app manifest</strong> with theme colour.</td>
+</tr>
+<tr class="odd">
+<td>People scan <a class="cite" href="#src-10">10</a></td>
+<td>Reading pages already had a table of contents, reading time and hover-to-preview citations; they now also have <strong>breadcrumbs, an "updated" date and a print stylesheet</strong> that expands links into the page.</td>
+</tr>
+<tr class="even">
+<td>Broken links should lead somewhere</td>
+<td>A real <strong>404 page</strong> with routes back into the site.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="measured-results">Measured results</h2>
+<p>Lighthouse (mobile profile, simulated slow connection) on the published site, before the changes and after them:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Page</th>
+<th>Performance</th>
+<th>Accessibility</th>
+<th>Best practices</th>
+<th>SEO</th>
+<th>First paint</th>
+<th>Blocking time</th>
+<th>Layout shift</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Home, before</td>
+<td>81</td>
+<td>85</td>
+<td>96</td>
+<td>100</td>
+<td>1.9 s</td>
+<td>690 ms</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Home, after</td>
+<td>99 to 100</td>
+<td>100</td>
+<td>100</td>
+<td>100</td>
+<td>1.0 s</td>
+<td>10 to 120 ms</td>
+<td>0.04</td>
+</tr>
+<tr class="odd">
+<td>A reading page, before</td>
+<td>98</td>
+<td>84</td>
+<td>96</td>
+<td>100</td>
+<td>1.8 s</td>
+<td>0 ms</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>A reading page, after</td>
+<td>100</td>
+<td>100</td>
+<td>100</td>
+<td>100</td>
+<td>0.9 s</td>
+<td>0 to 30 ms</td>
+<td>0 to 0.004</td>
+</tr>
+</tbody>
+</table>
+<p>Lab scores vary from run to run, especially for the home page, which animates. The home page's layout shift rose from 0 to 0.04 because more content now renders after the data loads; that is still inside the 0.1 "good" threshold <a class="cite" href="#src-3">3</a>. Field data from real visitors is not available for a site this new, and this site collects no analytics.</p>
+<h2 id="considered-and-left-out">Considered and left out</h2>
+<ul>
+<li><strong><code>content-visibility: auto</code> on page sections.</strong> It skips rendering of off-screen sections, but it also made the browser report empty text for controls that had not been scrolled into view, which broke the repository's own browser tests and could confuse other tools. Total Blocking Time was already near zero without it.</li>
+<li><strong>A service worker for offline use.</strong> Cached copies can serve stale pages while the site is still changing daily; the gain does not outweigh the confusion.</li>
+<li><strong>Analytics.</strong> Not needed, and it would add a third party and a consent question.</li>
+<li><strong>A strict Content Security Policy.</strong> The pages use inline styles and scripts, so a meta-tag policy would have to allow them and protect little.</li>
+<li><strong>Dark-mode-only.</strong> The site defaults to dark, with a light theme behind the toggle; both pass contrast checks.</li>
+</ul>
+<h2 id="sources">Sources</h2>
+<ol type="1">
+<li id="src-1">web.dev, "Web Vitals". <a href="https://web.dev/articles/vitals">https://web.dev/articles/vitals</a></li>
+<li id="src-2">web.dev, "Optimize Largest Contentful Paint". <a href="https://web.dev/articles/optimize-lcp">https://web.dev/articles/optimize-lcp</a></li>
+<li id="src-3">web.dev, "Optimize Cumulative Layout Shift". <a href="https://web.dev/articles/optimize-cls">https://web.dev/articles/optimize-cls</a></li>
+<li id="src-4">web.dev, "Optimize Interaction to Next Paint". <a href="https://web.dev/articles/optimize-inp">https://web.dev/articles/optimize-inp</a></li>
+<li id="src-5">WebAIM, "The WebAIM Million: 2025 report on the accessibility of the top 1,000,000 home pages". <a href="https://webaim.org/projects/million/2025">https://webaim.org/projects/million/2025</a></li>
+<li id="src-6">Google Search Central, "SEO Starter Guide: The Basics". <a href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide">https://developers.google.com/search/docs/fundamentals/seo-starter-guide</a></li>
+<li id="src-7">web.dev, "Best practices for fonts". <a href="https://web.dev/articles/font-best-practices">https://web.dev/articles/font-best-practices</a></li>
+<li id="src-8">web.dev, "Choose the right image format". <a href="https://web.dev/articles/choose-the-right-image-format">https://web.dev/articles/choose-the-right-image-format</a></li>
+<li id="src-9">W3C Web Accessibility Initiative, "What's new in WCAG 2.2". <a href="https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/">https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/</a></li>
+<li id="src-10">Nielsen Norman Group, "How Users Read on the Web". <a href="https://www.nngroup.com/articles/how-users-read-on-the-web/">https://www.nngroup.com/articles/how-users-read-on-the-web/</a></li>
+</ol>
 
     <nav class="pager"><a href="scene-story-questions.html"><span>Read</span><b>The thirty scene questions</b></a><a href="fact-check.html"><span>Read</span><b>Fact-check log</b></a></nav>
   </article>
