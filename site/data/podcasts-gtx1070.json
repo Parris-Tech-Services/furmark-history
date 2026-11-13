@@ -1,0 +1,105 @@
+{
+ "checked": "2026-11-13",
+ "source": "Apple Podcasts / iTunes Search API",
+ "episodes": [
+  {
+   "id": "1000415322134",
+   "show": "ThinkComputers Weekly Tech Podcast",
+   "title": "ThinkComputers Podcast #63 – Intel 750 Series SSD, GeForce GTX 1080/1070, Intel Processor Leaks & More!",
+   "date": "2016-05-06",
+   "mins": 58,
+   "note": "The rumours and leaked benchmarks that came before the GTX 1080 and 1070 announcement.",
+   "kind": "launch",
+   "page": "https://podcasts.apple.com/us/podcast/thinkcomputers-podcast-63-intel-750-series-ssd-geforce/id972172529?i=1000415322134",
+   "embed": "https://embed.podcasts.apple.com/us/podcast/thinkcomputers-podcast-63-intel-750-series-ssd-geforce/id972172529?i=1000415322134"
+  },
+  {
+   "id": "1000415322193",
+   "show": "ThinkComputers Weekly Tech Podcast",
+   "title": "ThinkComputers Podcast #64 – Phanteks Eclipse P400, NVIDIA GTX 1080/1070, Battlefield 1 & More!",
+   "date": "2016-05-14",
+   "mins": 66,
+   "note": "The GeForce GTX 1080 and 1070 launch, discussed alongside a case review and the Battlefield 1 announcement.",
+   "kind": "launch",
+   "page": "https://podcasts.apple.com/us/podcast/thinkcomputers-podcast-64-phanteks-eclipse-p400-nvidia/id972172529?i=1000415322193",
+   "embed": "https://embed.podcasts.apple.com/us/podcast/thinkcomputers-podcast-64-phanteks-eclipse-p400-nvidia/id972172529?i=1000415322193"
+  },
+  {
+   "id": "1000368781502",
+   "show": "The Hardware Asylum Podcast",
+   "title": "NVIDIA GTX 1080 Launch and Phanteks EVOLV Modding Project",
+   "date": "2016-05-16",
+   "mins": 32,
+   "note": "The NVIDIA launch of the GTX 1080 and GTX 1070, followed by a case-modding project.",
+   "kind": "launch",
+   "page": "https://podcasts.apple.com/us/podcast/nvidia-gtx-1080-launch-and-phanteks-evolv-modding-project/id435354089?i=1000368781502",
+   "embed": "https://embed.podcasts.apple.com/us/podcast/nvidia-gtx-1080-launch-and-phanteks-evolv-modding-project/id435354089?i=1000368781502"
+  },
+  {
+   "id": "1000369001410",
+   "show": "PC Perspective Podcast",
+   "title": "PC Perspective Podcast 400 - 05/19/16",
+   "date": "2016-05-19",
+   "mins": 78,
+   "note": "GTX 1080 performance and features and the official specifications of the GTX 1070, a few weeks before it shipped.",
+   "kind": "launch",
+   "page": "https://podcasts.apple.com/us/podcast/pc-perspective-podcast-400-05-19-16/id253635069?i=1000369001410",
+   "embed": "https://embed.podcasts.apple.com/us/podcast/pc-perspective-podcast-400-05-19-16/id253635069?i=1000369001410"
+  },
+  {
+   "id": "1000369372995",
+   "show": "The Full Nerd Podcast",
+   "title": "Episode 1: Intel's bad-ass Skull Canyon, GeForce GTX 1070 vs. 1080",
+   "date": "2016-05-25",
+   "mins": 57,
+   "note": "Alaina Yee and Brad Chacos weigh whether to spend on a GeForce GTX 1070 or a GTX 1080, alongside Intel's Skull Canyon mini PC.",
+   "kind": "launch",
+   "page": "https://podcasts.apple.com/us/podcast/episode-1-intels-bad-ass-skull-canyon-geforce-gtx-1070/id1113193062?i=1000369372995",
+   "embed": "https://embed.podcasts.apple.com/us/podcast/episode-1-intels-bad-ass-skull-canyon-geforce-gtx-1070/id1113193062?i=1000369372995"
+  },
+  {
+   "id": "1000369975890",
+   "show": "PC Perspective Podcast",
+   "title": "PC Perspective Podcast 402 - 06/03/16",
+   "date": "2016-06-03",
+   "mins": 121,
+   "note": "Covers the GTX 1070 review, plus the i7-6950X review, AMD's Radeon RX 480 and aftermarket GTX 1080s.",
+   "kind": "launch",
+   "page": "https://podcasts.apple.com/us/podcast/pc-perspective-podcast-402-06-03-16/id1076710056?i=1000369975890",
+   "embed": "https://embed.podcasts.apple.com/us/podcast/pc-perspective-podcast-402-06-03-16/id1076710056?i=1000369975890"
+  },
+  {
+   "id": "1000377458886",
+   "show": "PC Perspective Podcast",
+   "title": "PC Perspective Podcast 423 - 11/03/16",
+   "date": "2016-11-03",
+   "mins": 70,
+   "note": "Among other topics, issues reported with GTX 1070 and GTX 1080 cards.",
+   "kind": "later",
+   "page": "https://podcasts.apple.com/us/podcast/pc-perspective-podcast-423-11-03-16/id253635069?i=1000377458886",
+   "embed": "https://embed.podcasts.apple.com/us/podcast/pc-perspective-podcast-423-11-03-16/id253635069?i=1000377458886"
+  },
+  {
+   "id": "1000430725352",
+   "show": "The Design Brief",
+   "title": "GTX 1070 Vs RTX 2070 for Designers and Video Editing",
+   "date": "2019-02-27",
+   "mins": 9,
+   "note": "A split test of the GTX 1070 against the RTX 2070 for graphic design and video editing.",
+   "kind": "later",
+   "page": "https://podcasts.apple.com/us/podcast/gtx-1070-vs-rtx-2070-for-designers-and-video-editing/id1435525158?i=1000430725352",
+   "embed": "https://embed.podcasts.apple.com/us/podcast/gtx-1070-vs-rtx-2070-for-designers-and-video-editing/id1435525158?i=1000430725352"
+  },
+  {
+   "id": "1000489079869",
+   "show": "The Hardware Asylum Podcast",
+   "title": "Explore the Performance of the GTX 1070 SLI",
+   "date": "2020-08-24",
+   "mins": 25,
+   "note": "Titled for GTX 1070 SLI performance; the episode description is about extreme overclocking and doubling up GPUs.",
+   "kind": "later",
+   "page": "https://podcasts.apple.com/us/podcast/explore-the-performance-of-the-gtx-1070-sli/id435354089?i=1000489079869",
+   "embed": "https://embed.podcasts.apple.com/us/podcast/explore-the-performance-of-the-gtx-1070-sli/id435354089?i=1000489079869"
+  }
+ ]
+}

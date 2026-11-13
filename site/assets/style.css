@@ -200,3 +200,17 @@ a.cite{display:inline-block;min-width:24px;min-height:24px;text-align:center;lin
 footer.site a{text-decoration:underline;text-underline-offset:3px}
 /* Any link inside a paragraph or list item is underlined (WCAG 1.4.1), except button-styled links. */
 main p a:not(.btn):not(.chip),main li a:not(.btn):not(.chip){text-decoration:underline;text-underline-offset:3px}
+
+/* GeForce GTX 1070 podcast cards (facade player). */
+.podhead-gtx{margin-top:34px}
+.gtx-group{margin:22px 0 10px;font:700 15px var(--f-ui);color:var(--acc2);letter-spacing:.02em}
+.gtx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.gtxpod{padding:16px;display:flex;flex-direction:column;gap:8px}
+.gtxpod h5{margin:0;font:700 16px/1.3 var(--f-ui)}
+.gtxpod p{margin:0;color:var(--mut);font-size:14px}
+.gtxpod .meta{font:12px var(--f-mono);color:var(--faint)}
+.gtxpod .gtxslot{min-height:175px;display:grid;align-items:center;border:1px dashed var(--line);border-radius:14px;padding:10px;text-align:center}
+.gtxpod .gtxslot iframe{display:block;border:0;border-radius:12px;width:100%;height:175px}
+.gtxpod .gtxslot:has(iframe){padding:0;border:0}
+.gtxpod .chip{align-self:flex-start}
+.gtxpod .gtxload{justify-self:center}

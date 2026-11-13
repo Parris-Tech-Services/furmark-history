@@ -84,6 +84,16 @@ check("Resale grades are consistent with the fleet data and every card has a she
   assert.equal(resale.lots.reduce((n,l)=>n+l.count,0), resale.cards.length);
   assert(existsSync(join(site,"data","resale-grades.csv")));
 });
+check("GTX 1070 podcast list has unique Apple Podcasts embeds", () => {
+  const d=JSON.parse(read("site/data/podcasts-gtx1070.json")), ids=new Set();
+  assert(d.episodes.length>=5);
+  for(const e of d.episodes){
+    assert(!ids.has(e.id),"duplicate episode "+e.id); ids.add(e.id);
+    assert.match(e.embed,/^https:\/\/embed\.podcasts\.apple\.com\/[a-z]{2}\/podcast\/[^/]+\/id\d+\?i=\d+$/);
+    assert.match(e.page,/^https:\/\/podcasts\.apple\.com\//);
+    assert(e.title&&e.show&&e.date&&e.note,"episode "+e.id+" is missing fields");
+  }
+});
 const n=result.filter(Boolean).length;
 console.log(n+"/"+result.length+" checks passed");
 if(n!==result.length)process.exitCode=1;
