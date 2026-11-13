@@ -190,20 +190,46 @@ function hall(G){
 
 /* ---------- fleet ---------- */
 function fleet(F){
-  var C=F.cards,RIGC={"Gigabyte":"#76d12a","Asus B250":"#35a7ff","ASrock":"#ff8a2a","unlabelled":"#9aa3b8"},st={m:"fm",rig:"all",sel:null,zero:false};
+  var C=F.cards,RIGC={"Gigabyte":"#76d12a","Asus B250":"#35a7ff","ASrock":"#ff8a2a","unlabelled":"#9aa3b8"},st={m:"fm",rig:"all",sel:null,zero:false,follow:false};
   var MET={fm:["FurMark 1080p","points"],sp:["Superposition","points"],sn:["Steel Nomad","points"]};
   var FLAGS={4:["warn","The FurMark link opens a different GPU (RX 9070 XT, 15,590). Do not read its telemetry as this card; find the real result."],15:["note","Lowest FurMark (4,819) and Steel Nomad (1,272), on the Celeron / Asus B250 rig. Retest before judging the card."],19:["ok","OCCT: no errors. FurMark 5,033, 59 °C peak, max 1,785 MHz."],23:["note","Superposition 11,446 is about 7% under the same-rig median. Repeat with an identical preset and API."],24:["ok","Highest recorded in all three benchmarks (5,182 / 13,062 / 1,373), but on a different rig from many lower cards."],25:["note","FurMark and Steel Nomad high, Superposition lower. Check for a settings mismatch first."],36:["warn","Fan spinning loudly; test stopped. Keep out of stress testing until the fan is physically checked."],37:["ok","Public FurMark 5,033 (83 FPS), 56 °C, matches your photo."],38:["note","Superposition and Steel Nomad still blank."]};
+  function needsFollowUp(c){return c.status==="LINK_SCORE_MISMATCH"||c.status==="FAN_NOISE_STOP"||c.fm==null||c.sp==null||c.sn==null||[15,23,25].indexOf(c.card)>=0}
   var vals=function(k,rig){return C.filter(function(c){return c[k]!=null&&(rig==="all"||c.rig===rig)}).map(function(c){return c[k]})};
   var mean=function(a){return a.reduce(function(x,y){return x+y},0)/a.length};
   var fmt=function(x){return Math.round(x).toLocaleString()};
   $("#fsnap").textContent=F.snapshot;
   $("#gtxspec").innerHTML=[["Launched","10 Jun 2016"],["Chip","Pascal GP104, 16 nm"],["CUDA cores","1,920"],["Memory","8 GB GDDR5, 256-bit"],["Reference clocks","1506 / 1683 MHz"],["Board power","150 W reference"],["Launch price","US$379 / $449 FE"],["Ray tracing","none (no RT cores)"]].map(function(x){return"<div>"+x[0]+"<b>"+x[1]+"</b></div>"}).join("");
-  $("#ftiles").innerHTML='<div class="card ftile"><b>'+F.started+" / "+F.slots+'</b>cards started<small>slots are not proof a card exists</small></div>'+Object.keys(MET).map(function(k){var a=vals(k,"all");return'<div class="card ftile"><b>'+fmt(mean(a))+"</b>"+MET[k][0]+" mean<small>n="+a.length+" · low "+fmt(Math.min.apply(null,a))+" · high "+fmt(Math.max.apply(null,a))+"</small></div>"}).join("");
+  var fullyTested=C.filter(function(c){return c.fm!=null&&c.sp!=null&&c.sn!=null}).length;
+  $("#ftiles").innerHTML='<div class="card ftile"><b>'+F.started+" / "+F.slots+'</b>cards started<small>slots are not proof a card exists</small></div>'+
+      '<div class="card ftile"><b>'+fullyTested+'</b>all 3 scores recorded<small>Not a pass certificate; VRAM and fans still need checking</small></div>'+
+      Object.keys(MET).map(function(k){var a=vals(k,"all");return'<div class="card ftile"><b>'+(a.length?fmt(mean(a)):"–")+"</b>"+MET[k][0]+" mean<small>n="+a.length+(a.length?" · low "+fmt(Math.min.apply(null,a))+" · high "+fmt(Math.max.apply(null,a)):"")+"</small></div>"}).join("");
   function chips(el,items,key,lab){el.innerHTML=items.map(function(x){return'<button class="chip" data-k="'+x+'" aria-pressed="'+(st[key]===x)+'">'+lab(x)+"</button>"}).join("");$$("button",el).forEach(function(b){b.onclick=function(){st[key]=b.dataset.k;$$("button",el).forEach(function(o){o.setAttribute("aria-pressed",o===b)});draw()}})}
   chips($("#ff-metric"),["fm","sp","sn"],"m",function(k){return MET[k][0]});
   var rigs=["all"].concat(Object.keys(RIGC).filter(function(r){return C.some(function(c){return c.rig===r})}));
   chips($("#ff-rig"),rigs,"rig",function(r){return r==="all"?"All test PCs":r});
   $("#fzero").onchange=function(){st.zero=this.checked;draw()};
+  $("#ffollow").onchange=function(){st.follow=this.checked;draw()};
+  function rowsForView(){return C.filter(function(c){return c[st.m]!=null&&(st.rig==="all"||c.rig===st.rig)&&(!st.follow||needsFollowUp(c))}).sort(function(a,b){return b[st.m]-a[st.m]})}
+  $("#fgo").onclick=function(){var n=Number($("#fcardgo").value),c=C.find(function(x){return x.card===n});
+    if(!Number.isInteger(n)||n<1||n>F.slots){$("#factionmsg").textContent="Enter a card number from 1 to "+F.slots+".";return}
+    if(!c){$("#factionmsg").textContent="Card #"+n+" is a blank, unstarted slot in this saved snapshot.";return}
+    $("#factionmsg").textContent="Showing saved results for card #"+n+".";
+    st.rig="all";st.follow=false;$("#ffollow").checked=false;
+    $("#ff-rig button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.k==="all"))});
+    draw();sel(n);$("#fdetail").focus();$("#fdetail").scrollIntoView({block:"nearest",behavior:"smooth"});
+  };
+  $("#fcardgo").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();$("#fgo").click()}});
+  $("#fexport").onclick=function(){
+    var rows=rowsForView();
+    if(!rows.length){$("#factionmsg").textContent="No matching cards to export.";return}
+    var fields=["card","rig","fm","sp","sn","status","temp","power","clockmax","cpu","driver","url","note"];
+    function cell(v){var x=String(v==null?"":v);if(/^[=+@-]/.test(x))x="'"+x;return '"'+x.replace(/"/g,'""')+'"'}
+    var csv=fields.join(",")+"\r\n"+rows.map(function(c){return fields.map(function(k){return cell(c[k])}).join(",")}).join("\r\n")+"\r\n";
+    var blob=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"})),a=document.createElement("a");
+    a.href=blob;a.download="gtx1070-"+F.snapshot+"-"+st.m+"-selected.csv";document.body.appendChild(a);a.click();a.remove();
+    setTimeout(function(){URL.revokeObjectURL(blob)},1000);
+    $("#factionmsg").textContent="Exported "+rows.length+" visible cards (snapshot "+F.snapshot+").";
+  };
   function sel(n){st.sel=n;draw();var c=C.filter(function(x){return x.card===n})[0];var fl=FLAGS[n];
     $("#fdetail").innerHTML='<span class="kicker">Card #'+n+'</span><div class="dgrid">'+[["FurMark",c.fm],["Superposition",c.sp],["Steel Nomad",c.sn],["Peak temp",c.temp!=null?c.temp+" °C":null],["Peak power (est.)",c.power!=null?c.power+" W":null],["Max clock",c.clockmax!=null?c.clockmax+" MHz":null],["Test PC",c.rig],["CPU",c.cpu],["Driver",c.driver]].map(function(x){return"<div>"+x[0]+"<b>"+(x[1]!=null&&x[1]!==""?(typeof x[1]==="number"?x[1].toLocaleString():esc(x[1])):"–")+"</b></div>"}).join("")+"</div>"+
       (c.fm!=null?'<p style="margin:12px 0 0;color:var(--mut);font-size:14px">FurMark '+fmt(c.fm)+' points ≈ '+(c.fm/60).toFixed(0)+' FPS over the 60 s run'+(c.sn!=null?'; Steel Nomad '+fmt(c.sn)+' ≈ '+(c.sn/100).toFixed(1)+' FPS at 4K':"")+".</p>":"")+
