@@ -1,0 +1,29 @@
+<!doctype html><html lang="en-AU"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GTX 1070 sale preparation</title>
+<style>body{font:1rem/1.55 system-ui;max-width:64rem;margin:auto;padding:1rem;color:#172428}a{color:#07546d}th,td{text-align:left;padding:.45rem;border-bottom:1px solid #ccd6d8}table{border-collapse:collapse}section{overflow-x:auto}textarea{width:96%;height:8rem}button{padding:.5rem} @media print{button,nav{display:none}}</style>
+<nav><a href="./#lab">← Fleet explorer</a></nav><h1>GTX 1070 sale preparation</h1>
+<p>Prioritise #18, #19 and #20 for final inspection, then #24. Sign off each physical card separately. Run dates and scores are linked in each card record.</p>
+<section><table><thead><tr><th>Card</th><th>FurMark</th><th>Superposition</th><th>Steel Nomad</th><th>Next bench action</th></tr></thead><tbody id="rows"></tbody></table></section>
+<h2>Bench sheet</h2><p>Print one copy per card. Keep serials and unredacted sticker photos in your private inventory.</p>
+<p>Card # ______　 Date ______　 Tester PC ______　 Driver ______</p><ol>
+<li>Match the numbered sticker to the physical card. Photograph both sides and the connector panel. Record the exact board model from its label.</li>
+<li>Inspect the cooler, connectors and fan. If there is rubbing, damage or persistent loud noise, stop and record it.</li>
+<li>Connect a known-working monitor and cable to each output. Record port, display mode and result for each.</li>
+<li>Run the OCCT VRAM test. Record version, memory allocation, actual elapsed time and error count. Save the dated report against this card number.</li>
+<li>For a comparison run, record the PC, driver, benchmark version, preset, API, resolution and duration. Save a screenshot and result link. Record any artefacts, crashes or fan noise.</li>
+</ol><p>Model ______　 Outputs checked ______　 Fan ______　 VRAM report ______　 Faults ______　 Signed off by ______</p>
+<button onclick="print()">Print</button>
+<h2>Buyer description for card #18</h2><p>GeForce GTX 1070, inventory card #18. Recorded FurMark score 5,081 with a peak of 58°C during that run, Superposition 12,783, Steel Nomad 1,362 and Heaven 4,627. The test log records “No errors” for OCCT. Its mode and duration were not recorded. <a href="./?card=18#fdetail">View the test record.</a></p>
+<script>
+const actions={4:'Hold evidence: linked RX 9070 XT result belongs to another GPU. Recover the correct submission or rerun.',15:'Repeat FurMark and Steel Nomad on the same rig and settings.',18:'First: photo, model, outputs, fan and dated VRAM report.',19:'Priority final inspection and dated VRAM report.',20:'Priority final inspection and dated VRAM report.',23:'Repeat Superposition with the preset and API recorded.',24:'Next after #20: final inspection and dated VRAM report.',36:'Hold: inspect loud fan before any load test.'};
+fetch('data/batch.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(f=>{
+ const priority=[18,19,20,24];const rank=n=>priority.includes(n)?priority.indexOf(n):n+5;
+ for(const c of [...f.cards].sort((a,b)=>rank(a.card)-rank(b.card))){
+ const tr=document.querySelector('#rows').insertRow();const a=document.createElement('a');a.href='./?card='+c.card+'#fdetail';a.textContent='#'+c.card;tr.insertCell().append(a);
+ for(const k of ['fm','sp','sn'])tr.insertCell().textContent=c[k]??'—';
+ const notes=[actions[c.card]||'Complete physical checks and save VRAM evidence.'];
+ if(c.rig==='unlabelled')notes.push('Confirm test PC.');
+ if(c.card!==36 && c.sn==null)notes.push('Record Steel Nomad edition and score.');
+ tr.insertCell().textContent=notes.join(' ');
+ }
+}).catch(()=>document.querySelector('#rows').insertRow().insertCell().textContent='Fleet data unavailable. Reload to try again.');
+</script></html>

@@ -22,6 +22,7 @@ cards = []
 seen = set()
 now = datetime.now(timezone.utc).isoformat(timespec='seconds')
 prior = {c['card']: c for c in old['cards']}
+verified_runs = json.loads((ROOT / 'data/verified_furmark_runs.json').read_text())
 for row in reader:
     number, recognised, *rest = (row[key].strip() for key in fields)
     if not number.isdigit() or int(number) < 1 or int(number) in seen:
@@ -36,15 +37,21 @@ for row in reader:
     if not any((recognised, *rest)):
         continue
     link = rest[3].split('#')[0]
+    if re.fullmatch(r'(?:https?://)?(?:www\.)?gpumagick\.com/scores/\d+', link):
+        link = 'https://www.gpumagick.com/scores/' + link.rsplit('/', 1)[1]
     link = link if re.fullmatch(r'https://www\.gpumagick\.com/scores/\d+', link) else None
     rig = rest[4] if rest[4] in ('Gigabyte', 'Asus B250', 'ASrock') else 'unlabelled'
     prev = prior.get(n, {})
     card = dict(prev, card=n, gpuz=recognised=='Y', fm=scores[0], sp=scores[1], sn=scores[2], rig=rig, url=link)
     if any(card.get(k) != prev.get(k) for k in ('fm','url','rig')) or not prev:
         card.update(status='UNAUDITED', **dict.fromkeys(('temp','power','clockmax','cpu','driver','gpu','pci','tested','preset','note','occt')))
-    if card.get('status') == 'MATCHED_GTX1070':
-        record = next(r for r in audit if int(r['Card']) == n)
-        card.update(tested=record['Published_submission_time'], preset='2.11.0.4 · OpenGL 3.2 · P1080 · 60 s')
+    verified = verified_runs.get(link)
+    if verified and verified['fm'] == scores[0]:
+        card.update(verified)
+    elif card.get('status') == 'MATCHED_GTX1070':
+        record = next((r for r in audit if int(r['Card']) == n), None)
+        if record:
+            card.update(tested=record['Published_submission_time'], preset='2.11.0.4 · OpenGL 3.2 · P1080 · 60 s')
     if prev and any(card.get(k) != prev.get(k) for k in ('fm','sp','sn','url','rig')):
         card['history'] = prev.get('history', []) + [dict(observed=old.get('synced',old['snapshot']), **{k:prev.get(k) for k in ('fm','sp','sn','rig','tested')})]
     cards.append(card)

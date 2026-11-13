@@ -1,0 +1,67 @@
+{
+  "https://www.gpumagick.com/scores/3389788": {
+    "status": "MATCHED_GTX1070",
+    "fm": 5100,
+    "tested": "Nov 12, 2026 @ 06:23:28",
+    "driver": "560.94",
+    "gpu": "NVIDIA GeForce GTX 1070",
+    "cpu": "Core i5-3570",
+    "temp": 61,
+    "power": 182,
+    "clockmax": 1785,
+    "pci": "DEV: 10DE-1B81 - SUB: 7377-0 - REV: A1",
+    "preset": "2.11.0.4 \u00b7 OpenGL 3.2 \u00b7 P1080 \u00b7 60 s"
+  },
+  "https://www.gpumagick.com/scores/3393397": {
+    "status": "MATCHED_GTX1070",
+    "fm": 4908,
+    "tested": "Nov 13, 2026 @ 01:54:46",
+    "driver": "582.78",
+    "gpu": "NVIDIA GeForce GTX 1070",
+    "cpu": "Celeron  G3900",
+    "temp": 52,
+    "power": 163,
+    "clockmax": 1658,
+    "pci": "DEV: 10DE-1B81 - SUB: 7377-0 - REV: A1",
+    "preset": "2.11.0.4 \u00b7 OpenGL 3.2 \u00b7 P1080 \u00b7 60 s"
+  },
+  "https://www.gpumagick.com/scores/3393637": {
+    "status": "MATCHED_GTX1070",
+    "fm": 5133,
+    "tested": "Nov 13, 2026 @ 04:01:20",
+    "driver": "560.94",
+    "gpu": "NVIDIA GeForce GTX 1070",
+    "cpu": "Core i5-3570",
+    "temp": 56,
+    "power": 182,
+    "clockmax": 1823,
+    "pci": "DEV: 10DE-1B81 - SUB: 7377-0 - REV: A1",
+    "preset": "2.11.0.4 \u00b7 OpenGL 3.2 \u00b7 P1080 \u00b7 60 s"
+  },
+  "https://www.gpumagick.com/scores/3393639": {
+    "status": "MATCHED_GTX1070",
+    "fm": 5108,
+    "tested": "Nov 13, 2026 @ 04:02:01",
+    "driver": "582.78",
+    "gpu": "NVIDIA GeForce GTX 1070",
+    "cpu": "Pentium  G3258",
+    "temp": 60,
+    "power": 183,
+    "clockmax": 1785,
+    "pci": "DEV: 10DE-1B81 - SUB: 7377-0 - REV: A1",
+    "preset": "2.11.0.4 \u00b7 OpenGL 3.2 \u00b7 P1080 \u00b7 60 s"
+  },
+  "https://www.gpumagick.com/scores/3393640": {
+    "status": "MATCHED_GTX1070",
+    "fm": 5168,
+    "tested": "Nov 13, 2026 @ 04:02:40",
+    "driver": "582.78",
+    "gpu": "NVIDIA GeForce GTX 1070",
+    "cpu": "Celeron  G3900",
+    "temp": 60,
+    "power": 187,
+    "clockmax": 1810,
+    "pci": "DEV: 10DE-1B81 - SUB: 7377-0 - REV: A1",
+    "preset": "2.11.0.4 \u00b7 OpenGL 3.2 \u00b7 P1080 \u00b7 60 s"
+  }
+}
