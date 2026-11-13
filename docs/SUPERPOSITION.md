@@ -4,7 +4,7 @@
 
 ## The short version
 
-Superposition is the fifth GPU benchmark in a line that UNIGINE, a real-time 3D engine company, began in 2007. It launched on 11 April 2017 on the UNIGINE 2 engine, as the successor to Heaven (2009) and Valley (2013). Its scene is a cluttered lab belonging to a fictional professor; its headline feature is a lighting method UNIGINE calls SSRTGI. It was built to double as a stability and overclocking test, and the only update the developer has shipped is version 1.1 in April 2019. [1][2][7]
+Superposition is the fifth GPU benchmark in a line that UNIGINE, a real-time 3D engine company, began in 2007. It launched on 11 April 2017 on the UNIGINE 2 engine, as the successor to Heaven (2009) and Valley (2013). Its scene is a cluttered lab belonging to a fictional professor; its headline feature is a lighting method UNIGINE calls SSRTGI. It was built to double as a stability and overclocking test, and the latest version currently listed by the developer is version 1.1, released in April 2019. [1][2][7]
 
 ## The family it comes from
 
@@ -34,9 +34,13 @@ Heaven is the one most people remember. It was released on 22 October 2009 and i
 - **The presets.** 1080p Medium (entry-level gaming PCs and laptops), 1080p High (mid-range), 1080p Extreme and 4K Optimized (high-end), and 8K Optimized, which the manual labels "future configurations (2017)". A Custom preset exists but cannot be published to the leaderboards. You pick DirectX or OpenGL as the API. [7]
 - **The scoring.** Each test and preset gives its own score. There is no overall score, and scores from different presets are not comparable. A separate VR-ready test is capped at 10,000 and is not sent to the leaderboards. [7]
 - **The modes.** A scripted benchmark, a free interactive mode with mini-games (the manual and 1.1 notes mention throwing darts) and over 900 interactive objects, a loop stress test, VR modes, and a global leaderboard. [6][7]
-- **The editions.** Three: Basic (free: single runs, settings, GPU monitoring, VR-ready test, VR and interactive mode, no leaderboards), Advanced (adds history, leaderboards, the stress test, personal use only) and Pro (adds command-line automation, reports, fixed-frame rendering, per-frame stats, technical support and commercial use). [7]
+- **The editions.** **Historically three in the 1.1 manual**: Basic (free: individual benchmark runs, GPU monitoring, VR-ready and interactive mode, but not score submission), Advanced (paid: leaderboards, timed loop stress test, personal use) and Pro (paid: command-line automation, reporting, per-frame analysis and commercial use) [7]. **The current product page lists four purchasing tiers**: Basic, Advanced, Professional and Enterprise (the last adds multiple seats/installs); the extra tier is a licensing option, not evidence of a new engine release [6]. Do not claim the free Basic edition includes the paid loop stress-test feature.
 - **Platforms.** Windows 7 SP1 64-bit and up, and 64-bit Linux. Minimum GPU is AMD HD 7xxx, Intel HD 5xxx or NVIDIA GTX 6xx, with 2 GB of VRAM. [6]
 - **No Mac version.** UNIGINE's own manual and download list cover Windows and Linux only. A MacRumors thread quotes UNIGINE support saying the Mac was not supported because macOS lacks an OpenGL 4.5 Core profile. Wikipedia's infobox lists macOS, but nothing from the developer backs that. [6][7][12]
+
+### Score comparability across versions
+
+UNIGINE explicitly said the version 1.1 update did **not** change its measurement algorithm or workload, so the same machine and preset should produce comparable scores in 1.0 and 1.1 [2]. That does **not** make different presets, APIs, resolutions or settings interchangeable; also see [benchmark interpretation](BENCHMARK_PRACTICE.md).
 
 ### Launch reception
 
@@ -58,14 +62,14 @@ UNIGINE's post also gave two years of usage figures: over 200K competitive score
 ## Settled in the second research pass
 
 - **Launch day:** 11 April 2017. Two review sites dated their stories that day; the 12 April dates are later coverage. [8][9][10][5]
-- **Versions after 1.1:** none in the developer's version history, and the Chocolatey and MajorGeeks listings also show 1.1. [7]
+- **Versions after 1.1:** as at 13 November 2026, the developer's current product page still identifies 1.1 (2019) as the current version [6]. This establishes the latest advertised release, not the impossibility of undocumented builds.
 - **macOS:** never supported by the developer (see above).
 - **"Superposition is a ray-tracing benchmark":** no. SSRTGI is screen-space; the later DXR-based tests came from 3DMark. [3][6]
 
 ## Still open
 
 - The original UNIGINE press release for 1.0. I could not find it; the April 2017 date comes from the manual and the review sites.
-- The Tom's Hardware, TechPowerUp, Vortez, VideoCardz and Phoronix launch stories blocked my fetches, so those are cited only from search summaries and headline dates.
+- Several secondary launch pieces were inaccessible in the original research pass. In this audit, TechPowerUp's dated 11 April 2017 article and its 1.0 download entry were independently opened [8][14]; other listed headlines are still lower-confidence where only search snippets were available.
 - UNIGINE's usage numbers and the "over 40 million active users" figure are the company's own and are not independently audited.
 
 ## Sources
@@ -83,3 +87,6 @@ UNIGINE's post also gave two years of usage figures: over 200K competitive score
 11. Legit Reviews, "Unigine 'Heaven' - The First DirectX 11 Benchmark", 31 October 2009. https://www.legitreviews.com/unigine-heaven-the-first-directx-11-benchmark_1117
 12. MacRumors forums, "Unigene Superposition Benchmark" (undated; predates 1.1). https://forums.macrumors.com/threads/unigene-superposition-benchmark.2043107/
 13. VideoCardz, "UNIGINE announces Superposition benchmark" and Alienware Arena, "Unigine Superposition Benchmark finally released" (headlines and summaries only; pages blocked). https://videocardz.com/65465/unigine-announces-superposition-benchmark-coming-q4-2016
+
+14. TechPowerUp download archive, *UNIGINE Superposition 1.0* (11 Apr 2017) and 1.1 (12 Apr 2019), including downloadable file hashes. https://www.techpowerup.com/download/unigine-superposition/
+15. Phoronix Test Suite/OpenBenchmarking profile, benchmark test profile created 11 Apr 2017 (corroborates launch chronology, but a benchmark profile version is not a UNIGINE application release). https://openbenchmarking.org/test/pts/unigine-super-1.0.5
