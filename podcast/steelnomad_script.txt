@@ -2,38 +2,50 @@
 # Speaker lines start with SAM: or JORDAN:
 
 ## Cold open
-SAM: In May of two thousand and twenty-four, a company announced a benchmark by saying one number. Almost forty-eight million.
-JORDAN: That is how many Time Spy results people had submitted since two thousand and sixteen. And it was the reason for the new test.
+SAM: In May of two thousand and twenty-four, a company justified a new benchmark with one number. Almost forty-eight million.
+JORDAN: That is how many Time Spy results people had submitted since two thousand and sixteen. And the average score had roughly tripled.
 SAM: Today: 3DMark, from a Finnish startup in the nineteen nineties, all the way to Steel Nomad.
 
-## The company
-JORDAN: The company that made 3DMark was founded in Espoo, Finland, in November of nineteen ninety-seven, and launched in February nineteen ninety-eight.
-SAM: First it was called MadOnion dot com. In two thousand and two it became Futuremark.
-JORDAN: Then a run of ownership changes. A spin-off called Rightware in December two thousand and nine. A sale to Rovio in March two thousand and twelve. And in October two thousand and fourteen, an acquisition by UL.
-SAM: In April two thousand and eighteen the products were rebranded UL Benchmarks.
+## Before 3DMark
+JORDAN: The story starts with a benchmark called Final Reality, in May of nineteen ninety-seven. It was made by a team at Remedy Entertainment, the game studio, together with a magazine publisher's labs, and it was handed out on magazine cover discs.
+SAM: That team then left to form their own company in Espoo, Finland, in November of nineteen ninety-seven. It launched in February nineteen ninety-eight.
+JORDAN: And on the twenty-sixth of October, nineteen ninety-eight, its press release said: today, the twenty-sixth of October nineteen ninety-eight, we released 3DMark ninety-nine, the gamers' benchmark.
+SAM: It ran on DirectX six, used Remedy's own game engine, and claimed to be the first three D benchmark aimed directly at gamers.
+
+## Names and owners
+JORDAN: The company changed its trading name to MadOnion dot com in nineteen ninety-nine, and became Futuremark in two thousand and two.
+SAM: In December two thousand and nine the mobile business was spun off as Rightware. In March two thousand and twelve the games division went to Rovio, the Angry Birds company.
+JORDAN: And on the thirty-first of October, two thousand and fourteen, the whole company was acquired by UL, the safety science firm. In April twenty eighteen the Futuremark name was retired for UL Benchmarks, though the team stayed in Espoo.
 
 ## One benchmark per DirectX
-JORDAN: The pattern is simple. Each big graphics standard gets its own 3DMark, and scores do not carry across versions.
-SAM: Nineteen ninety-eight, the first one, for DirectX six. Then two thousand and one, the first to use shaders. Two thousand and three, for DirectX nine.
-JORDAN: Two thousand and six did something new. For the first time the processor result fed into the final score.
-SAM: Vantage in April two thousand and eight. Then three D Mark eleven in December twenty ten. Then in February twenty thirteen, plain 3DMark, one app with Fire Strike as the main test and mobile versions soon after.
-JORDAN: Time Spy for DirectX twelve in July twenty sixteen. Port Royal for ray tracing in January twenty nineteen. And Speed Way, on the twelfth of October, twenty twenty-two, for DirectX twelve Ultimate.
+SAM: The pattern is simple. Each big graphics standard gets its own 3DMark, and scores never carry across versions.
+JORDAN: Two thousand and one was the first to use vertex and pixel shaders, and the last on that Remedy engine. Two thousand and three was DirectX nine and the first to test the processor.
+SAM: Two thousand and six did something that mattered. For the first time the processor result fed into the final score.
+JORDAN: Vantage, April two thousand and eight, for DirectX ten. Three D Mark eleven, December twenty ten, with tessellation and compute shaders.
+SAM: Then in February twenty thirteen, plain 3DMark. One app, separate tests with their own scores, and for the first time Windows, Android and iOS results could be compared.
+
+## The modern run
+JORDAN: Time Spy. Futuremark showed a trailer on the twenty-third of June, twenty sixteen, full of old 3DMark scenes, and released it on the fourteenth of July.
+SAM: Pure DirectX twelve, with asynchronous compute and multi-threading, built with AMD, Intel, Microsoft and Nvidia. And it was a free update, even for the free edition.
+JORDAN: January eighth, twenty nineteen: Port Royal, billed as the world's first dedicated real-time ray tracing benchmark for gamers, at fourteen-forty P.
+SAM: October twelfth, twenty twenty-two: Speed Way, for DirectX twelve Ultimate. Ray traced reflections and global illumination, mesh shaders, and a sponsor, Lenovo Legion.
 
 ## Steel Nomad
-SAM: Then the twenty-first of May, twenty twenty-four. Steel Nomad and a lighter Steel Nomad Light.
-JORDAN: UL's reasoning: the average Time Spy score had roughly tripled, so a new non-ray-traced test was due. Time Spy was not fully retired.
-SAM: Steel Nomad runs at what UL calls native four K. By UL's own numbers it is about three times heavier than Time Spy, and almost seven times heavier than Fire Strike.
-JORDAN: UL also notes that on a fast twenty twenty-four graphics card, the processor can bottleneck the older tests and flatten the results.
-SAM: And it is cross-platform. Windows and Windows on Arm with DirectX twelve and Vulkan, Android with Vulkan, iPhone with Metal.
+JORDAN: Now the main event. Steel Nomad was supposed to land in the first quarter of twenty twenty-four.
+SAM: Then a message on Steam moved it to the start of the second quarter. Then it slipped past April. UL said it had a release candidate ready, but wanted a final round of feedback from industry partners while the Windows interface was finished.
+JORDAN: It arrived on the twenty-first of May, twenty twenty-four, with a lighter sibling, Steel Nomad Light.
+SAM: Standard Steel Nomad runs at native four K. UL says it is about three times heavier than Time Spy and almost seven times heavier than Fire Strike.
+JORDAN: Here is a detail that confuses people. You will see Steel Nomad described as fourteen-forty P. That is Light. UL's own support page lists Light at twenty-five sixty by fourteen forty, aimed at integrated graphics, tablets and phones.
+SAM: And it is not ray traced. UL also notes that on a fast twenty twenty-four graphics card, the processor can bottleneck the older tests and flatten the results, which is exactly why a heavier test was needed.
+JORDAN: It is also cross-platform. Windows and Windows on Arm with DirectX twelve and Vulkan, Android with Vulkan, iPhone with Metal. Thirty-five dollars on Steam for newcomers, free for people who already owned 3DMark.
 
 ## After launch
-JORDAN: June twelfth, twenty twenty-five, 3DMark became a native Mac app. UL said about one in six iOS submissions had been coming from Macs, and running the phone version on a Mac could lower scores.
-SAM: August twentieth, Solar Bay Extreme, with more ray tracing. Reflections, glass and soft shadows.
-JORDAN: Then on the third of June, twenty twenty-six, UL announced a new fully path-traced benchmark, at native four K and with upscaling and frame generation from several vendors.
-SAM: In July it added Seasonic as a sponsor. No name and no date yet. UL only says it will share more when it is ready.
+SAM: June twelfth, twenty twenty-five: a native Mac app. UL had noticed roughly one in six iOS submissions were coming from Macs, and running the phone version on a Mac could lower scores.
+JORDAN: August twentieth: Solar Bay Extreme, with ray traced reflections on every surface and soft shadows.
+SAM: Linux is the one that keeps slipping. UL promised it at launch and even said later in twenty twenty-four. Mac arrived. Linux still has no public date, though UL has described a Vulkan build for enterprise customers and reviewers.
+JORDAN: And on the third of June, twenty twenty-six, UL announced a new fully path-traced benchmark, at native four K, with a choice of upscaling and frame generation from several vendors.
+SAM: In July, Seasonic joined as a sponsor. No name and no date yet. UL says it has been in the works for a long time, and it will share it when it is ready.
 
-## What we could not verify
-JORDAN: A few conflicts. Another outlet gave the twenty-fifth of May as the launch date, and UL's own post says the twenty-first. We went with UL.
-SAM: Some coverage calls it fourteen-forty P resolution. UL says native four K, and we did not test it.
-JORDAN: And two small ones: the exact day of Time Spy, and whether the first 3DMark came out on the twenty-sixth or the twenty-eighth of October nineteen ninety-eight.
-SAM: Sources are in the repo. Thanks for listening.
+## Wrap
+JORDAN: So that is a line stretching nearly three decades, from a cover disc benchmark to a path-traced one. Every few years, the same promise: how will your PC handle what is next.
+SAM: The full research and every source are in the repo. Thanks for listening.

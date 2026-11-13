@@ -3,38 +3,50 @@
 
 ## Cold open
 ALEX: A lone professor, an abandoned classroom, and a loud bang from the laboratory a few moments ago.
-MORGAN: That is the actual setup of a graphics card benchmark. Your job is to look around and work out what happened.
-ALEX: Today: UNIGINE Superposition, the benchmark that has been heating up graphics cards since April of two thousand and seventeen.
+MORGAN: That is the actual premise of a graphics card benchmark. Your job is to look around and work out what happened.
+ALEX: Today: UNIGINE Superposition, the benchmark that has been pushing graphics cards since the eleventh of April, two thousand and seventeen.
 
 ## The family
-MORGAN: Start with who made it. UNIGINE says it was established in two thousand and five, and it builds a real-time three D engine for simulation, games and virtual reality.
-ALEX: And along the way it built a line of benchmarks. By its own list: Sanctuary in two thousand and seven, Tropics in two thousand and eight, Heaven in two thousand and nine, Valley in two thousand and thirteen, and Superposition in two thousand and seventeen.
-MORGAN: Heaven is the famous one. It came out on the twenty-second of October, two thousand and nine, and it is widely described as the first DirectX eleven benchmark.
-ALEX: Worth a small asterisk there. That claim comes from press coverage at the time, so call it the contemporary description, not an audited fact.
-MORGAN: Fair. UNIGINE also says its benchmarks have over forty million active users. That is the company's own figure, and I could not check it.
+MORGAN: Start with who made it. UNIGINE was established in two thousand and five, and its real product is a real-time three D engine, used for simulation, games and virtual reality.
+ALEX: But the benchmarks are what gamers know. Sanctuary in two thousand and seven. Tropics in two thousand and eight. Heaven in two thousand and nine. Valley in two thousand and thirteen. And Superposition in two thousand and seventeen.
+MORGAN: Heaven is the one that made the name. On the twenty-second of October, two thousand and nine, UNIGINE announced it as the world's first true DirectX eleven benchmark.
+ALEX: The pitch was tessellation. A cobblestone street that looked flat in DirectX nine suddenly had real depth in DirectX eleven. One reviewer even showed the wireframe, because the wireframe was the whole point.
+MORGAN: And it supported AMD's Eyefinity for multiple monitors, which was a big deal for the enthusiasts of that moment.
 
-## The release
-ALEX: Superposition one point zero arrived in April two thousand and seventeen, on the second generation of the UNIGINE engine.
-MORGAN: The exact day is a little fuzzy. UNIGINE itself says only April. Wikipedia says the eleventh, and a Linux news site posted its launch story on the twelfth.
-ALEX: Which might just be time zones, but I could not find a primary announcement that settles it.
-MORGAN: What I can say is how it was received. That Linux reviewer called it very demanding, and said the work spread evenly across all of his processor cores.
-ALEX: He also hit rough edges. The Linux build offered only OpenGL, no Vulkan, and it saw only three gigabytes of an eight gigabyte card.
+## A long wait
+ALEX: Superposition did not arrive on time. It was announced in late twenty sixteen with a promise to ship by the end of that year.
+MORGAN: Instead it slipped, and landed on the eleventh of April, twenty seventeen. Overclock3D and TechPowerUp both ran it that day, and a lot of other sites picked it up on the twelfth.
+ALEX: It ran on the second generation of the UNIGINE engine, which is the real technical jump from Valley and Heaven.
+MORGAN: Early reviews called it very demanding. One Linux reviewer watched the work spread evenly across every one of his processor cores. He also hit rough edges: the Linux build offered only OpenGL, with no Vulkan, and it saw only three gigabytes of his eight gigabyte card.
 
-## What it is
-MORGAN: The scene is a cluttered lab belonging to a fictional professor. The headline feature is a lighting method UNIGINE calls SSRTGI, screen-space ray-traced global illumination.
-ALEX: And here is a careful point. Wikipedia describes it as testing ray tracing capability. But it works in screen space. It is not the hardware ray tracing you get from DirectX Raytracing.
-MORGAN: Beyond the scripted run, there is an interactive mode with mini-games and over nine hundred objects you can poke at.
-ALEX: There is a loop stress test to check that your card, your cooling and your power supply stay stable. A global leaderboard. And virtual reality modes for Oculus Rift, HTC Vive and other SteamVR headsets.
-MORGAN: The basic edition is free. UNIGINE lists the stress loop, the leaderboard, commercial use and quality-assurance automation under extended editions.
+## What you actually do with it
+MORGAN: Here is how it works. There are presets, each for a class of machine. Ten eighty P Medium for entry-level gaming PCs and laptops. Ten eighty P High for the mid-range. Ten eighty P Extreme and four K Optimized for the high end.
+ALEX: And then eight K Optimized. UNIGINE's own manual describes that one as, quote, future configurations, from two thousand and seventeen. An eight K benchmark, in a year when most people were still arguing about four K.
+MORGAN: One odd choice: there is no single overall score. Every test and preset gives its own number, and you are told not to compare across presets.
+ALEX: There is also a virtual reality readiness test, capped at ten thousand points, which tells you whether your card can run a headset at that quality. That one is kept out of the leaderboards.
+MORGAN: And you choose your graphics interface, DirectX or OpenGL.
+
+## The lab itself
+ALEX: The scene is a cluttered lab belonging to that fictional professor, and the headline technology is called SSRTGI. Screen-space ray-traced global illumination.
+MORGAN: Careful with that name. It works in screen space. It is UNIGINE's own dynamic lighting trick, not the hardware ray tracing that Nvidia's RTX cards brought in twenty eighteen.
+ALEX: Which is why Superposition was never a ray tracing benchmark. The first dedicated one for gamers was 3DMark Port Royal, in January twenty nineteen.
+MORGAN: Beyond the scripted run there is an interactive mode with mini-games and over nine hundred objects you can pick up and throw. Darts are in there. It turns out there was once a crash caused by throwing darts, and it got a line in the release notes.
+ALEX: There is also a loop stress test, built to find out whether your card, your cooling and your power supply stay stable for hours, not minutes.
+
+## Three editions
+MORGAN: Superposition comes in three editions. Basic is free, with single runs, settings, GPU monitoring and the virtual reality readiness test.
+ALEX: Advanced adds history, the stress test and the online leaderboards, for personal use. Pro adds command-line automation, reports, per-frame statistics, technical support and commercial use, which is how hardware makers use it on a production line.
+MORGAN: It runs on Windows seven service pack one and up, and on Linux. Notably not on Mac. UNIGINE support once told a forum user that macOS lacks the OpenGL four point five core profile the engine needed.
 
 ## Version one point one
-ALEX: The one feature update on record came on the twelfth of April, two thousand and nineteen. Version one point one.
-MORGAN: Free virtual reality for the basic edition, which had been a paid feature. Better graphics card detection. The maximum render resolution raised to sixteen thousand three hundred eighty-four pixels square.
-ALEX: And virtual reality on Linux through SteamVR, which fixes that gap from the launch review.
-MORGAN: UNIGINE also published two years of numbers. Over two hundred thousand competitive scores. More than eight thousand benchmark videos on YouTube. Three million, three hundred thirty-eight thousand, nine hundred twenty-three tests run.
-ALEX: All of that is the developer's own marketing. It even says an eight K demo was broadcast from space. I found no independent confirmation of any of it.
+ALEX: In April of twenty nineteen, version one point one arrived, and it is still the latest listed in UNIGINE's own version history.
+MORGAN: The headline: free virtual reality in the Basic edition, which used to be paid. Plus virtual reality on Linux through SteamVR.
+ALEX: They also raised the maximum render resolution to sixteen thousand three hundred eighty-four pixels square, added a Vive Pro preset, and updated the hardware database so new cards were detected properly.
+MORGAN: And a handful of fixes, including a wrong setting at three thousand four hundred forty by fourteen hundred forty, a splash screen bug on ultrawide monitors, and, yes, the dart crash.
+ALEX: UNIGINE also shared its first two years of numbers. Over two hundred thousand competitive scores, more than eight thousand benchmark videos on YouTube, and three million, three hundred thirty-eight thousand, nine hundred twenty-three tests run.
+MORGAN: Plus a claim that an eight K demo was broadcast from space by satellite. Those are the company's own figures, but they paint the picture of a benchmark that overclockers truly adopted.
 
-## What we could not verify
-MORGAN: So, the honest gaps. The exact launch day. Whether any version exists after one point one. The macOS claim, since Wikipedia lists it and UNIGINE's download page shows only Windows and Linux.
-ALEX: But the shape of the story is solid. A small engine company, five benchmarks, and one lab with a professor who is still, as far as anyone can tell, mid-experiment.
-MORGAN: The full write-up and sources are in the repo. Thanks for listening.
+## Why it stuck
+ALEX: Superposition sits in a useful niche. It is free, it runs on Linux, it has a stress test, and it is pretty enough to leave running while you tune a card.
+MORGAN: And it is the last stop of a line that began with a rendered sanctuary in two thousand and seven. Five benchmarks, one engine, and a professor who is still, as far as anyone can tell, mid-experiment.
+ALEX: The full research and every source are in the repo. Thanks for listening.
