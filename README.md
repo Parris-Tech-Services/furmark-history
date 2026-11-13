@@ -27,7 +27,7 @@ Why these two: of the free routes I checked, Google's NotebookLM sounds best but
 **What's here**
 | Path | What |
 |---|---|
-| `docs/HISTORY.md` | The research: timeline, the "power virus" years, what could not be verified, 17 numbered sources |
+| `docs/HISTORY.md` | The research: timeline, the "power virus" years, what could not be verified, 20 numbered sources |
 | `docs/SUPERPOSITION.md` | The history of UNIGINE Superposition and its benchmark lineage |
 | `docs/3DMARK_STEEL_NOMAD.md` | 3DMark history from 1998 to Steel Nomad (2024) |
 | `podcast/script.txt` | The FurMark episode script (Leda and Doral). Spoken forms: numbers are written out |
