@@ -37,6 +37,8 @@ An earlier physical photograph was identified as **Gigabyte GV-N1070WF2OC-8GD Re
 
 The result pages instead report **7377:0000**. The PCI-SIG member directory identifies 0x7377 as **Colorful** [1], and independent Linux hardware records resolve the *same GPU + subsystem* to Colorful [6]. Colorful sold several GTX 1070 designs with differing cooling and power connectors [7].
 
+**Additional firmware corroboration:** An archived GPU VBIOS entry specifically labelled **GV-N1070WF2OC-8GD** lists the *Gigabyte* PCI subsystem vendor **1458**, device **377F**, and a **180 W target / 200 W maximum** power limit (read-only archive: https://modbios.io/v2/vgabios/gigabyte-gtx-1070-8192-1737812201). The 180-ish-watt software telemetry reported by the tested cards therefore does **not** prove Colorful versus Gigabyte: similar power limits exist. The **1458 versus 7377 vendor difference**, however, reinforces that the exact board/firmware identity needs proper on-device verification. **This is not a recommendation to download or flash the archived BIOS.**
+
 **Read-only reconciliation before selling as a named board:** Photograph both sides, sticker/model/revision (serial should be stored privately), GPU-Z Graphics Card screenshot with **Subvendor, memory size/type, PCI ID, BIOS Version**, port arrangement and physical power sockets. Compare against the manufacturer's exact model, not just the NVIDIA GPU name. **Do not flash firmware as an identification experiment.** A BIOS can expose a subvendor different from the exterior; without original records this discrepancy remains unresolved.
 
 ## 2. What does the real benchmark batch show?
