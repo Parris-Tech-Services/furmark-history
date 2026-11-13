@@ -2,7 +2,7 @@ name: Deploy site to GitHub Pages
 on:
   push:
     branches: [main]
-    paths: ['site/**', '.github/workflows/pages.yml']
+    paths: ['site/**', 'tools/test_site.mjs', '.github/workflows/pages.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -12,7 +12,14 @@ concurrency:
   group: pages
   cancel-in-progress: true
 jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check published site and dataset
+        run: node tools/test_site.mjs
   deploy:
+    needs: verify
     runs-on: ubuntu-latest
     environment:
       name: github-pages
