@@ -12,6 +12,7 @@
 |---|---|---|
 | May 1997 | Final Reality, made by the founding team at Remedy Entertainment with VNU Labs | [2][11] |
 | Nov 1997 | Company founded in Espoo, Finland | [2] |
+| 31 Dec 1997 | Official company papers received (UL's timeline: "On New Year's Eve we receive our official company papers. Futuremark is born!"); Wikipedia gives November 1997 for the founding | [2][16] |
 | 27 Feb 1998 | Company launched | [2] |
 | 26 Oct 1998 | 3DMark99 released, "the world's first 3D benchmark aimed directly at the 3D gaming community" | [10] |
 | By Nov 1999 | Trading name changed to MadOnion.com (Futuremark press release dated 9 Nov 1999) | [2] |
@@ -113,3 +114,4 @@ UL promised Linux support in May 2024 and at one point said macOS and Linux woul
 16. UL Benchmarks support, "Steel Nomad Graphics Test" and "Overview of Steel Nomad Light" (both give 2560 x 1440 for Light). https://support.benchmarks.ul.com/support/solutions/articles/44002528070-overview-of-steel-nomad-light
 17. VideoCardz, "3DMark Steel Nomad non-raytraced benchmark has been delayed to April"; Overclock3D delay stories; Steam store page (release date 21 May 2024). https://store.steampowered.com/app/2695340/3DMark_Steel_Nomad/
 18. GamingOnLinux, "3DMark are planning a Linux version but no date for it yet", June 2025. https://www.gamingonlinux.com/2025/06/3dmark-are-planning-a-linux-version-but-no-date-for-it-yet
+16. UL Benchmarks, "About us" (company timeline from 1997 to 2025). https://benchmarks.ul.com/about
