@@ -141,6 +141,60 @@ function watch(M){
     $$(".yt").forEach(function(y){y.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();y.click()}})})}
   r()}
 
+/* ---------- playable first-party podcast episodes ---------- */
+(function(){
+  var audios=$$("#pod-originals audio");
+  if(!audios.length)return;
+  function getButton(audio){return $('.pod-play[data-audio="'+audio.id+'"]')}
+  function getFeedback(audio){return audio.closest(".pod-episode").querySelector(".pod-feedback")}
+  function refresh(audio){
+    var btn=getButton(audio);
+    if(!btn)return;
+    var playing=!audio.paused&&!audio.ended;
+    btn.textContent=playing?"❚❚ Pause episode":"▶ Play this episode";
+    btn.setAttribute("aria-pressed",String(playing));
+  }
+  audios.forEach(function(audio){
+    audio.addEventListener("play",function(){
+      audios.forEach(function(other){if(other!==audio&&!other.paused)other.pause()});
+      getFeedback(audio).textContent="";
+      refresh(audio);
+    });
+    audio.addEventListener("pause",function(){refresh(audio)});
+    audio.addEventListener("ended",function(){refresh(audio);getFeedback(audio).textContent="Episode finished."});
+    audio.addEventListener("error",function(){
+      var fallback=audio.closest(".pod-episode").querySelector('a[download]');
+      getFeedback(audio).textContent="Audio could not load. Try the Download MP3 link or reload the page.";
+      if(fallback)fallback.focus();
+      refresh(audio);
+    });
+    audio.addEventListener("loadedmetadata",function(){
+      var seconds=audio.duration;
+      if(Number.isFinite(seconds)&&seconds>10){
+        audio.closest(".pod-episode").querySelector(".meta span").textContent=Math.round(seconds/60)+" min";
+      }
+    });
+    refresh(audio);
+  });
+  $$(".pod-play").forEach(function(btn){
+    btn.addEventListener("click",function(){
+      var audio=document.getElementById(btn.dataset.audio);if(!audio)return;
+      if(!audio.paused){audio.pause();return}
+      var p=audio.play();
+      if(p&&typeof p.catch==="function")p.catch(function(){
+        getFeedback(audio).textContent="Playback was blocked or the recording did not load. Use the native audio controls or the Download MP3 link.";
+        refresh(audio);
+      });
+    });
+  });
+  $$(".pod-speed").forEach(function(sel){
+    sel.addEventListener("change",function(){
+      var audio=document.getElementById(sel.dataset.audio);
+      if(audio)audio.playbackRate=Number(sel.value)||1;
+    });
+  });
+})();
+
 /* ---------- spotify shelf ---------- */
 (function(){
   var KEY="spotify-shelf",box=$("#spembeds");
