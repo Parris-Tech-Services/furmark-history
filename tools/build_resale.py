@@ -145,12 +145,15 @@ def lots(rows):
 def ebay_title(r):
     photo = r.get("photo_inspection")
     if photo:
-        return "Colorful iGame GTX 1070 U-TOP-8G 8GB GDDR5 3-Fan - GPU #%02d" % r["card"]
+        return "Colorful iGame GTX 1070 U-TOP 8GB GDDR5 Triple Fan Graphics Card"
     return "NVIDIA GeForce GTX 1070 8GB GDDR5 Graphics Card - Benchmarked GPU #%02d" % r["card"]
 
 
 def pilot_price(r):
     # Advertised price to test buyer demand; not a market valuation or guaranteed sale.
+    # Card #18 is the user's A$200 Buy It Now pilot; do not reprice other cards.
+    if r["card"] == 18 and r["grade"] in ("A", "B"):
+        return 200
     return 139 if r["grade"] == "A" else 129 if r["grade"] == "B" else None
 
 
@@ -175,7 +178,7 @@ def listing_text(r):
         lines.append("Photos of the exact GPU #%02d show the three iGame-branded cooling fans, matching Colorful iGame backplate and model label." % r["card"])
         lines.append("Visible connectors: %s. Physical presence does not confirm operation." % photo["visible_connectors"])
         lines.append("Visible condition: %s." % photo["visible_condition"])
-        lines.append("Two 8-pin power sockets visible; connector functionality was not tested from these photos.")
+        lines.append("Auxiliary PCIe power sockets are visible; verify actual pin counts on the physical card before listing.")
     if r["grade"] == "A":
         lines.append("OCCT: 'No errors' is recorded, but test mode and duration were not documented. A VRAM-specific pass is NOT claimed.")
     else:
