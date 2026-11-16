@@ -11,7 +11,7 @@
 <meta property="og:image" content="https://parris-tech-services.github.io/furmark-history/assets/og-card.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="GPU Benchmark Lore">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="../assets/apple-touch-icon.png"><link rel="manifest" href="../manifest.webmanifest">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"How this site is built: web best practices applied","description":"What research says makes a great website, and what was changed because of it.","url":"https://parris-tech-services.github.io/furmark-history/read/website-notes.html","mainEntityOfPage":"https://parris-tech-services.github.io/furmark-history/read/website-notes.html","inLanguage":"en","dateModified":"2026-11-13","license":"https://opensource.org/licenses/MIT","isPartOf":{"@type":"WebSite","name":"GPU Benchmark Lore","url":"https://parris-tech-services.github.io/furmark-history/"},"publisher":{"@type":"Organization","name":"Parris Tech Services"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://parris-tech-services.github.io/furmark-history/"},{"@type":"ListItem","position":2,"name":"Guides and method","item":"https://parris-tech-services.github.io/furmark-history/#library"},{"@type":"ListItem","position":3,"name":"How this site is built: web best practices applied","item":"https://parris-tech-services.github.io/furmark-history/read/website-notes.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"How this site is built: web best practices applied","description":"What research says makes a great website, and what was changed because of it.","url":"https://parris-tech-services.github.io/furmark-history/read/website-notes.html","mainEntityOfPage":"https://parris-tech-services.github.io/furmark-history/read/website-notes.html","inLanguage":"en","dateModified":"2026-11-16","license":"https://opensource.org/licenses/MIT","isPartOf":{"@type":"WebSite","name":"GPU Benchmark Lore","url":"https://parris-tech-services.github.io/furmark-history/"},"publisher":{"@type":"Organization","name":"Parris Tech Services"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://parris-tech-services.github.io/furmark-history/"},{"@type":"ListItem","position":2,"name":"Guides and method","item":"https://parris-tech-services.github.io/furmark-history/#library"},{"@type":"ListItem","position":3,"name":"How this site is built: web best practices applied","item":"https://parris-tech-services.github.io/furmark-history/read/website-notes.html"}]}]}</script>
 <link rel="preload" href="../assets/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500 700;font-display:swap;src:url(../assets/fonts/jetbrains-mono-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 @font-face{font-family:'Newsreader';font-style:normal;font-weight:400 700;font-display:swap;src:url(../assets/fonts/newsreader-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
@@ -86,7 +86,7 @@ h2:hover .hlink,h3:hover .hlink{opacity:1}
   <span class="tag">Method</span>
   <h1>How this site is built: web best practices applied</h1>
   <p>What research says makes a great website, and what was changed because of it.</p>
-  <div class="meta"><span>~6 min read</span><span>·</span><span>updated <time datetime="2026-11-13">2026-11-13</time></span><span>·</span><a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/WEBSITE_NOTES.md">view source on GitHub</a></div>
+  <div class="meta"><span>~6 min read</span><span>·</span><span>updated <time datetime="2026-11-16">2026-11-16</time></span><span>·</span><a href="https://github.com/Parris-Tech-Services/furmark-history/blob/main/docs/WEBSITE_NOTES.md">view source on GitHub</a></div>
 </div></section>
 <main class="wrap layout">
   <aside class="toc" aria-label="On this page"><p class="tochead">On this page</p><ol id="tocol"><li><a href="#the-short-version">The short version</a></li><li><a href="#what-the-research-says">What the research says</a></li><li><a href="#what-was-changed-and-why">What was changed, and why</a></li><li><a href="#measured-results">Measured results</a></li><li><a href="#considered-and-left-out">Considered and left out</a></li><li><a href="#sources">Sources</a></li></ol></aside>
@@ -108,65 +108,65 @@ h2:hover .hlink,h3:hover .hlink{opacity:1}
 <h2 id="what-was-changed-and-why">What was changed, and why</h2>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Finding</th>
 <th>Change on this site</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Fonts should be self-hosted, and a third-party font stylesheet is an extra request that blocks first render <a class="cite" href="#src-7">7</a></td>
 <td>The three fonts are now <strong>self-hosted Latin subsets</strong> (Space Grotesk 22 KB, JetBrains Mono 31 KB, Newsreader 58 KB, pinned to one optical size), with the font CSS inlined and the main font preloaded.</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Swapping fonts can shift layout <a class="cite" href="#src-3">3</a><a class="cite" href="#src-7">7</a></td>
 <td>Added <strong>size-matched fallback fonts</strong>, so the swap barely moves text.</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Images need dimensions and modern formats <a class="cite" href="#src-3">3</a><a class="cite" href="#src-8">8</a></td>
 <td>The seven photographs are <strong>WebP</strong> (about 40% smaller, 1.1 MB to 0.6 MB), with <code>width</code>, <code>height</code> and <code>decoding="async"</code>; video thumbnails got dimensions too.</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Long tasks hurt responsiveness <a class="cite" href="#src-4">4</a></td>
 <td>The hero animation draws <strong>1,500 strands instead of 3,600</strong>, allocates nothing per frame, starts after the first paint, caps its frame rate, <strong>adapts its density to the device</strong>, and pauses off-screen or in a hidden tab. Decorative canvas art and the 70-question explorer now load only when you scroll near them.</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Low contrast is the top failure <a class="cite" href="#src-5">5</a></td>
 <td>The faint-text colour was darkened or lightened to pass 4.5:1 in both themes.</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Colour alone must not signal a link (WCAG 1.4.1) <a class="cite" href="#src-9">9</a></td>
 <td>Links inside running text are underlined.</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Targets must be 24 px (2.5.8) <a class="cite" href="#src-9">9</a></td>
 <td>Citation markers, chart rows, buttons and chips now meet the minimum.</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Dragging needs an alternative (2.5.7) <a class="cite" href="#src-9">9</a></td>
 <td>The hero torus rotates with the <strong>arrow keys</strong> as well as by dragging.</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Accessible names must contain visible text; heading levels must not skip <a class="cite" href="#src-5">5</a><a class="cite" href="#src-9">9</a></td>
 <td>Chart rows start their accessible name with the visible label; footer and calculator headings were fixed; the logo link has a name.</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Descriptive titles, canonical URLs, sitemap <a class="cite" href="#src-6">6</a></td>
 <td><strong>Canonical URLs, <code>sitemap.xml</code>, <code>robots.txt</code></strong>, per-page descriptions, breadcrumbs, and <strong>JSON-LD</strong> (WebSite on the home page; Article and BreadcrumbList on each reading page).</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Shared links need a preview</td>
 <td><strong>Open Graph and Twitter card</strong> metadata with a 1200 by 630 preview image.</td>
 </tr>
-<tr class="even">
+<tr>
 <td>A missing favicon logged a 404 on every page</td>
 <td>Added an <strong>SVG favicon</strong>, touch icon and a web <strong>app manifest</strong> with theme colour.</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>People scan <a class="cite" href="#src-10">10</a></td>
 <td>Reading pages already had a table of contents, reading time and hover-to-preview citations; they now also have <strong>breadcrumbs, an "updated" date and a print stylesheet</strong> that expands links into the page.</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Broken links should lead somewhere</td>
 <td>A real <strong>404 page</strong> with routes back into the site.</td>
 </tr>
@@ -176,7 +176,7 @@ h2:hover .hlink,h3:hover .hlink{opacity:1}
 <p>Lighthouse (mobile profile, simulated slow connection) on the published site, before the changes and after them:</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Page</th>
 <th>Performance</th>
 <th>Accessibility</th>
@@ -188,7 +188,7 @@ h2:hover .hlink,h3:hover .hlink{opacity:1}
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Home, before</td>
 <td>81</td>
 <td>85</td>
@@ -198,7 +198,7 @@ h2:hover .hlink,h3:hover .hlink{opacity:1}
 <td>690 ms</td>
 <td>0</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Home, after</td>
 <td>99 to 100</td>
 <td>100</td>
@@ -208,7 +208,7 @@ h2:hover .hlink,h3:hover .hlink{opacity:1}
 <td>10 to 120 ms</td>
 <td>0.04</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>A reading page, before</td>
 <td>98</td>
 <td>84</td>
@@ -218,7 +218,7 @@ h2:hover .hlink,h3:hover .hlink{opacity:1}
 <td>0 ms</td>
 <td>0</td>
 </tr>
-<tr class="even">
+<tr>
 <td>A reading page, after</td>
 <td>100</td>
 <td>100</td>

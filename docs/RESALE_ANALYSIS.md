@@ -1,14 +1,14 @@
-*Generated from the 2026-11-13 fleet snapshot by `tools/build_resale.py`. 41 started cards out of 100 sheet slots. Every grade below says what the recorded evidence supports; none says a card is healthy.*
+*Generated from the 2026-11-15 fleet snapshot by `tools/build_resale.py`. 41 started cards out of 100 sheet slots. Every grade below says what the recorded evidence supports; none says a card is healthy.*
 
 ## The short version
 
-Of 41 started cards, **31 can be listed now** (3 with a clean memory test, 28 on benchmarks alone), **8 need more testing**, **1 needs the evidence fixed** and **1 should be held back**. At the observed asking range, the "list now" group is worth about **AU$3,780 to AU$5,020 gross**, and the cards that still need tests could add roughly AU$960 to AU$1,280 if they pass. Those are asking prices before fees, shipping and time, not what the cards will sell for.
+Of 41 started cards, **31 have enough benchmark evidence to prepare listings, subject to physical checks** (3 have an OCCT no-error note of unspecified mode/duration, 28 have benchmarks alone), **8 need more testing**, **1 needs the evidence fixed** and **1 should be held back**. At the observed asking range, the "list now" group is worth about **AU$3,780 to AU$5,020 gross**, and the cards that still need tests could add roughly AU$960 to AU$1,280 if they pass. Those are asking prices before fees, shipping and time, not what the cards will sell for.
 
 ## How cards are graded
 
 | Grade | Meaning | Rule |
 |---|---|---|
-| **A** | Benchmarks and VRAM test passed | Three scores within range of its rig, public result verified, OCCT memory test with no errors. |
+| **A** | Benchmarks and OCCT no-error note | Three scores within range, public result verified, and an OCCT no-error note recorded (test mode and duration not documented). |
 | **B** | Benchmarks passed | Three scores within range of its rig and the public result verified. Memory, outputs and fan are not yet tested. |
 | **R** | Retest | A score is more than 3% under its rig's median, or the scores disagree by more than 5 points. Repeat on the same rig. |
 | **I** | Incomplete | Fewer than three benchmark scores recorded. |
@@ -47,7 +47,7 @@ The whole batch is tight: most cards sit within a few percent of their rig's med
 
 **Gross asking range for "list now":** AU$3,780 to AU$5,020 individually. If sold as one wholesale lot at a discount (a planning assumption, not a sourced figure): 0% off gives AU$3,780 to AU$5,020; 15% off gives AU$3,213 to AU$4,267; 30% off gives AU$2,646 to AU$3,514.
 
-**Where the price range comes from.** The earlier audit observed November 2026 asking prices for ordinary used GTX 1070 8 GB cards on eBay Australia of about AU$135 to 158, with some ASUS examples AU$170 to 200 and more, and concluded **AU$120 to 180** is a defensible individual asking range for a correctly identified, clean, adequately tested card. This analysis splits that range by evidence: A cards (memory tested) AU$140 to 180, B cards AU$120 to 160. The split is a planning choice. It is not a market fact, and a pile sold as one lot would likely achieve less per card (see the [audit](gpu-batch-research.html)).
+**Where the price range comes from.** The earlier audit observed November 2026 asking prices for ordinary used GTX 1070 8 GB cards on eBay Australia of about AU$135 to 158, with some ASUS examples AU$170 to 200 and more, and concluded **AU$120 to 180** is a defensible individual asking range for a correctly identified, clean, adequately tested card. This analysis splits that range by evidence: A cards (OCCT no-error note, mode/duration unverified) AU$140 to 180, B cards AU$120 to 160. The split is a planning choice. It is not a market fact, and a pile sold as one lot would likely achieve less per card (see the [audit](gpu-batch-research.html)).
 
 ## What is still missing for every card
 
@@ -64,7 +64,7 @@ Missing tests are **unknown**, not passes or fails. Each card's listing sheet ca
 
 ## What this analysis cannot tell you
 
-- **Health.** Short benchmark runs show a card initialised and completed three workloads. They do not show memory correctness, outputs, fan bearings or reliability over time. Only three cards (#18 to #20) have a recorded memory test.
+- **Health.** Short benchmark runs show a card initialised and completed three workloads. They do not show memory correctness, outputs, fan bearings or reliability over time. Only three cards (#18 to #20) have an OCCT “No errors” note, without documented test mode or duration.
 - **Which board each card is.** The public results report subsystem 7377:0000, which the PCI-SIG registry assigns to Colorful, not Gigabyte. That conflict is unresolved.
 - **Mining history, condition or warranty.** Not in the sheet.
 - **A real selling price.** Only asking prices were observed. Completed sales, fees and shipping are unknown.
