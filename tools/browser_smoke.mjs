@@ -115,9 +115,11 @@ try{
   assert.match(await page.locator("#auditstatus").innerText(),/links investigated|not available yet/);
   pass("Ten card sale queue, transparent link audit, and live packaging margin calculator");
   await page.goto(url+"cards/card-18.html",{waitUntil:"domcontentloaded"});
-  assert.match(await page.locator("#titletext").inputValue(),/GTX 1070 8GB/);
+  assert.match(await page.locator("#titletext").inputValue(),/Colorful iGame GTX 1070 U-TOP-8G/);
   assert.match(await page.locator("#draft").inputValue(),/previously operated multi-GPU mining equipment batch/i);
   assert.match(await page.locator("#draft").inputValue(),/mode and duration were not documented/i);
+  assert.match(await page.locator("#draft").inputValue(),/3 × DisplayPort, 1 × HDMI, 1 × DVI-D/);
+  assert.match(await page.locator("body").innerText(),/Still untested:/);
   assert.match(await page.locator("body").innerText(),/AU\$139/);
   await page.goto(url+"cards/card-36.html",{waitUntil:"domcontentloaded"});
   assert.match(await page.locator("#draft").inputValue(),/NOT READY TO LIST/);
