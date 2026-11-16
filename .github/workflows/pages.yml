@@ -1,8 +1,8 @@
-name: Deploy site to GitHub Pages
+name: Build, verify and deploy GPU resale website
 on:
   push:
     branches: [main]
-    paths: ['site/**', 'tools/test_site.mjs', 'tools/browser_smoke.mjs', 'tools/build_resale.py', 'tools/sync_fleet.py', '.github/workflows/pages.yml']
+    paths: ['site/**', 'tools/**', 'docs/**', 'data/**', '.github/workflows/pages.yml']
   schedule:
     - cron: '17 */4 * * *'
   workflow_dispatch:
@@ -14,85 +14,54 @@ concurrency:
   group: pages
   cancel-in-progress: true
 jobs:
-  sync:
+  deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    outputs:
-      revision: ${{ steps.rev.outputs.sha }}
+    environment:
+      name: github-pages
+      url: \${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Refresh public fleet extract and rebuild resale pages
+      - name: Build resale website from the read-only testing sheet
         run: |
           set -euo pipefail
-          if [ "${{ github.event_name }}" != 'push' ]; then
-            python3 tools/sync_fleet.py
-          fi
+          python3 tools/sync_fleet.py
           python3 tools/build_resale.py
           if ! command -v pandoc >/dev/null; then
             sudo apt-get update -qq
             sudo apt-get install -y pandoc
           fi
           python3 tools/build_site.py
-          node tools/test_site.mjs
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add site/ docs/RESALE_ANALYSIS.md data/resale_grades_*.csv
-          if ! git diff --cached --quiet; then
-            git commit -m 'Refresh GPU resale grades and listing sheets'
-            git push origin HEAD:main
-          fi
-      - id: rev
-        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-  verify:
-    needs: sync
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ needs.sync.outputs.revision }}
-      - name: Check published site and dataset
+      - name: Validate generated resale data, cards and site
         run: node tools/test_site.mjs
       - name: Browser smoke tests (desktop and mobile)
         run: |
           npm install --no-save --no-package-lock --ignore-scripts playwright-core@1.57.0
           node tools/browser_smoke.mjs
-  deploy:
-    needs: [sync, verify]
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ needs.sync.outputs.revision }}
       - uses: actions/configure-pages@v5
         with:
           enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
-      # Allow GitHub Pages artifact metadata to become available after upload.
-      # Rerun as a fresh workflow run, not a failed-job rerun, to avoid duplicate artifacts.
       - name: Wait for Pages artifact propagation
         run: sleep 25
       - id: deployment
         uses: actions/deploy-pages@v4
-      - name: Check live website after deployment
+      - name: Verify live website and card listing templates
         run: |
           set -euo pipefail
           site_url="https://parris-tech-services.github.io/furmark-history/"
           for attempt in $(seq 1 18); do
-            if curl --fail --silent --show-error --location --max-time 15 "${site_url}" -o /tmp/furmark-live.html && grep -q 'Compare this card' /tmp/furmark-live.html; then
-              echo "Production homepage includes the GPU fleet controls"
+            if curl --fail --silent --show-error --location --max-time 15 "\${site_url}" -o /tmp/furmark-live.html && grep -q 'Compare this card' /tmp/furmark-live.html; then
+              echo "Production homepage includes the fleet explorer"
               break
             fi
-            if [ "$attempt" = 18 ]; then echo "Production homepage did not publish the updated controls"; exit 1; fi
+            if [ "$attempt" = 18 ]; then echo "Production homepage not deployed"; exit 1; fi
             sleep 5
           done
-          for asset in assets/app.js assets/home.js data/batch.json read/gpu-batch-research.html podcast.xml; do
-            curl --fail --silent --show-error --location --retry 3 --retry-delay 2 "${site_url}${asset}" --output /dev/null
-            echo "Live asset OK: $asset"
+          last_card=$(python3 -c "import json; print(max(c['card'] for c in json.load(open('site/data/batch.json'))['cards']))")
+          for asset in assets/app.js assets/home.js data/batch.json data/resale.json resale.html sale.html cards/card-18.html "cards/card-$(printf '%02d' "$last_card").html"; do
+            curl --fail --silent --show-error --location --retry 3 --retry-delay 2 "\${site_url}\${asset}" --output /dev/null
+            echo "Live OK: $asset"
           done
-
+          echo "Verified deployed site for card #$last_card"
