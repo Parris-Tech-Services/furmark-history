@@ -87,6 +87,12 @@ check("Resale grades are consistent with the fleet data and every card has a she
     if(r.grade==="A") assert(/no error/i.test(r.occt||""), "A needs a clean memory test");
   }
   assert.equal(resale.lots.reduce((n,l)=>n+l.count,0), resale.cards.length);
+  const photographed=resale.cards.find(r=>r.card===18);
+  assert.equal(photographed?.photo_inspection?.model,"Colorful iGame GTX 1070 U-TOP-8G");
+  const draft=read("site/cards/card-18.html");
+  assert(draft.includes("Colorful iGame GTX 1070 U-TOP-8G"));
+  assert(draft.includes("Photo-based physical identification"));
+  assert(draft.includes("Still untested:"));
   assert(existsSync(join(site,"data","resale-grades.csv")));
 });
 check("Public benchmark link audits retain uncertainty and source provenance", () => {
