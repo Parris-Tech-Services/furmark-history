@@ -36,18 +36,28 @@ textarea{width:100%;min-height:210px;background:var(--bg2);border:1px solid var(
 <section aria-labelledby="t"><h2 id="t">Public telemetry and test PC</h2><div class="facts"><div><span>Peak temp</span><b>58 °C</b></div><div><span>Peak power (est.)</span><b>185 W</b></div><div><span>Max clock</span><b>1836 MHz</b></div><div><span>Test PC</span><b>Gigabyte</b></div><div><span>PCI ID</span><b>DEV: 10DE-1B81 - SUB: 7377-0 - REV: A1</b></div></div><p style="color:var(--mut);font-size:14px"><a href="https://www.gpumagick.com/scores/3393282" target="_blank" rel="noopener">Open the public FurMark result</a>. Telemetry is software-estimated from the public result, not measured at the wall.</p></section>
 <section aria-labelledby="k"><h2 id="k">Still to check before listing</h2><ul class="gaps"><li><label><input type="checkbox"> <span><b>VRAM test</b>: Run an OCCT VRAM test and record the error count.</span></label></li><li><label><input type="checkbox"> <span><b>Display outputs</b>: Test every HDMI / DisplayPort output.</span></label></li><li><label><input type="checkbox"> <span><b>Fan and noise</b>: Check fan response at idle and moderate load; listen for rubbing.</span></label></li><li><label><input type="checkbox"> <span><b>Physical identity</b>: Numbered sticker, photo of both sides, model/revision label and a GPU-Z screenshot.</span></label></li><li><label><input type="checkbox"> <span><b>Board maker</b>: Public results show subsystem 7377:0000 (Colorful), which conflicts with the Gigabyte label. Confirm before a brand-specific listing.</span></label></li><li><label><input type="checkbox"> <span><b>Superposition / Steel Nomad settings</b>: Record the Superposition preset and API and whether standard Steel Nomad or Light was run.</span></label></li></ul></section>
 <section aria-labelledby="p"><h2 id="p">Asking-price planning range</h2><p style="color:var(--mut)">AU$120 to AU$160 (planning range, not a sold price). Observed asking prices, before fees, shipping and your time.</p></section>
-<section aria-labelledby="l"><h2 id="l">Listing draft</h2><p style="color:var(--mut);font-size:14px">Replace every bracketed item before publishing. Do not claim anything the evidence above does not support.</p>
-<label for="draft" class="sr">Listing draft text</label><textarea id="draft">NVIDIA GeForce GTX 1070 8GB graphics card (Pascal), used.
-Recognised by GPU-Z and tested with FurMark 2.11 (OpenGL, 1080p, 60 s): 5,182 points (about 86 FPS).
-Also tested: UNIGINE Superposition 13,062; 3DMark Steel Nomad 1,373 (about 13.7 FPS at 4K).
-Peak reported GPU temperature during the FurMark run: 58 °C.
-OCCT: no verified result recorded.
-VRAM-specific test: [RECORD MODE, DURATION AND ERROR COUNT BEFORE CLAIMING IT PASSED]
-Display outputs and fan: [CHECK AND FILL IN BEFORE LISTING].
-Board maker / model: [CONFIRM FROM THE CARD&#x27;S LABEL BEFORE LISTING].
-Sold as tested; no warranty implied.</textarea>
-<div class="row noprint"><button class="btn" id="copy" type="button">Copy draft</button><button class="btn ghost" type="button" onclick="window.print()">Print this sheet</button><a class="btn ghost" href="../read/resale-analysis.html">How the grade works</a></div></section>
+<section aria-labelledby="l"><h2 id="l">eBay listing draft</h2><p style="color:var(--mut);font-size:14px">Suggested trial Buy It Now price: <b>AU$129</b>, plus buyer-paid postage. Best Offer can be enabled. This is a preparation sheet, not a published listing. Do not list multiple identical fixed-price GPUs simultaneously. Replace all bracketed fields and complete physical inspection before publishing.</p>
+<label for="titletext">Draft title (edit after confirming exact physical model)</label><textarea id="titletext" style="min-height:65px" readonly>NVIDIA GeForce GTX 1070 8GB GDDR5 Graphics Card - Benchmarked GPU #24</textarea>
+<label for="draft">Description draft (edit before copying to eBay)</label><textarea id="draft">Used NVIDIA GeForce GTX 1070 8GB GDDR5 graphics card, inventory GPU #24.
+This GPU is from a previously operated multi-GPU mining equipment batch. Exact prior operating hours are unknown.
+Individually benchmarked; tests completed on the PC identified in our records as Gigabyte (test PC name is not the graphics card brand).
+FurMark 2.11 (OpenGL, 1920x1080, 60 seconds): 5,182 points.
+UNIGINE Superposition: 13,062 points (preset/API not recorded).
+3DMark Steel Nomad: 1,373 points (edition/settings to confirm).
+Peak software-reported GPU temperature during the linked FurMark run: 58°C.
+Public FurMark result: https://www.gpumagick.com/scores/3393282
+OCCT/VRAM-specific test: not independently verified.
+
+Before publishing, complete these per-card details:
+Actual board maker and exact model/revision: [CONFIRM FROM PHYSICAL LABEL]
+Cooling fans and noise under load: [INSPECT AND DESCRIBE]
+Display ports successfully tested: [CHECK AND LIST]
+Cosmetic condition and accessories: [DESCRIBE AND MATCH PHOTOS]
+VRAM-specific test, if performed: [VERSION, DURATION, RESULT]
+Photos should show the exact GPU being sold. GPU only unless accessories are explicitly described.
+Results reflect the recorded tests and do not guarantee future performance.</textarea>
+<div class="row noprint"><button class="btn" id="copy" type="button">Copy description</button><button class="btn ghost" id="copytitle" type="button">Copy title</button><a class="btn ghost" href="https://www.ebay.com.au/sl/prelist/suggest" target="_blank" rel="noopener">Open eBay listing creator</a><button class="btn ghost" type="button" onclick="window.print()">Print this sheet</button><a class="btn ghost" href="../read/resale-analysis.html">How the grade works</a></div></section>
 </main>
 <script src="../assets/app.js" data-base="../"></script>
-<script>document.getElementById("copy").onclick=function(){var t=document.getElementById("draft"),b=this;t.select();(navigator.clipboard?navigator.clipboard.writeText(t.value):Promise.reject()).then(function(){b.textContent="Copied ✓"},function(){document.execCommand("copy");b.textContent="Copied ✓"})}</script>
+<script>document.getElementById("copy").onclick=function(){var t=document.getElementById("draft"),b=this;t.select();(navigator.clipboard?navigator.clipboard.writeText(t.value):Promise.reject()).then(function(){b.textContent="Copied ✓"},function(){document.execCommand("copy");b.textContent="Copied ✓"})};document.getElementById("copytitle").onclick=function(){var t=document.getElementById("titletext"),b=this;t.select();(navigator.clipboard?navigator.clipboard.writeText(t.value):Promise.reject()).then(function(){b.textContent="Copied title ✓"},function(){document.execCommand("copy");b.textContent="Copied title ✓"})}</script>
 </body></html>
