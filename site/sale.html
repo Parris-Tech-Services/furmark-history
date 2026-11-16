@@ -14,7 +14,7 @@
 <h2 id="sale-plan-title">eBay selling plan · 16 November 2026</h2>
 <p><strong>Pilot:</strong> prepare physical GPU #18 first, then #19 and #20, then #24. The <a href="resale.html">resale grades and individual copyable listing drafts</a> are generated from your separate read-only benchmark extract. A benchmark grade is not a warranty or a full hardware health test.</p>
 <ul>
-<li><strong>Trial price:</strong> A$139 Buy It Now with Best Offer (plus postage). Consider offers around A$110–125 only after checking current demand and your total costs. This is a starting experiment, not a guaranteed sale price. Australian GTX 1070 listings have shown a wide spread: a September 2026 Gigabyte auction ended at A$70.64 including buyer protection, while higher-priced models are advertised around A$135–180.</li>
+<li><strong>Trial price:</strong> A$200 Buy It Now for GPU #18 (plus postage), as chosen by the seller. Best Offer is optional; hold at A$200 initially or set a minimum explicitly. Other GPUs retain their earlier trial prices. This is a starting experiment, not a guaranteed sale price. Australian GTX 1070 listings have shown a wide spread: a September 2026 Gigabyte auction ended at A$70.64 including buyer protection, while higher-priced models are advertised around A$135–180.</li>
 <li><strong>Before posting:</strong> attach the numbered GPU label, photograph front/back/model sticker and outputs, confirm actual board maker in person, save a dated OCCT memory-test report and check every display output and fan under load. Do not publish serial numbers or claim a memory-test pass from a generic “No errors” note.</li>
 <li><strong>Packaging:</strong> put the bare card in an antistatic shielding bag, immobilise it in a padded rigid cardboard box, and protect connectors and fan shroud. Do not ship a GPU loose in a soft satchel.</li>
 <li><strong>Postage:</strong> Australia Post's July 2026 domestic retail rates list A$16 postage for other packaging over 500 g to 1 kg and A$20.25 for over 1 kg to 3 kg, before purchasing the box and protective materials. Measure the fully packed parcel, check cubic weight, and confirm the exact eBay label quote before listing.</li>
@@ -27,7 +27,7 @@
 <p><strong>Packaging candidate:</strong> <a href="https://www.abldistribution.com.au/p-7760-medium-cardboard-boxes.aspx">ABL 340 × 250 × 120 mm C-flute box</a>, advertised around A$2.31 each for small orders or A$1.74 each at 25–99 units (confirm GST, shipping and stock before purchase). <a href="https://auspackaging.com.au/products/anti-static-bags-300x400mm-as12pb">300 × 400 mm static-shielding bags</a> come in 100-packs; price requires a quote. Do not substitute ordinary pink anti-static bags for shielding if there is a risk of electrostatic discharge.</p>
 <p><strong>Cubic weight:</strong> 0.34 × 0.25 × 0.12 × 250 = <strong>2.55 kg</strong>. <a href="https://auspost.com.au/disruptions-and-updates/pricing-updates/apr-pricing-update-2026">Australia Post retail pricing</a> lists A$20.25 postage for over 1 kg up to 3 kg on other packaging (national flat-rate reference; obtain a label quote for your specific parcel/destination). Account for eBay's requirement to purchase eligible shipping labels on-platform.</p>
 <div class="sale-calcs">
-<label>Item price (A$)<input id="cprice" type="number" min="0" step=".01" value="139"></label>
+<label>Item price (A$)<input id="cprice" type="number" min="0" step=".01" value="200"></label>
 <label>Postage charged (A$)<input id="cshipcharged" type="number" min="0" step=".01" value="20.25"></label>
 <label>Actual shipping (A$)<input id="cshipcost" type="number" min="0" step=".01" value="20.25"></label>
 <label>Packaging (A$)<input id="cpacking" type="number" min="0" step=".01" value="4"></label>
@@ -59,7 +59,7 @@ fetch('data/resale.json').then(r=>{if(!r.ok)throw Error('Grades unavailable');re
   const row=body.insertRow();
   row.insertCell().textContent='#'+id;
   row.insertCell().textContent=card.grade+' — '+(d.grades[card.grade]?.name||'');
-  row.insertCell().textContent=card.grade==='A'?'A$139':card.grade==='B'?'A$129':'Do not list';
+  row.insertCell().textContent=(id===18 && (card.grade==='A'||card.grade==='B'))?'A$200':card.grade==='A'?'A$139':card.grade==='B'?'A$129':'Do not list';
   const a=document.createElement('a');a.href='cards/card-'+String(id).padStart(2,'0')+'.html';a.textContent='Open copy-ready draft';row.insertCell().append(a);
  }
  document.getElementById('freshness').textContent='Prepared from '+d.started+' started cards; grading snapshot '+d.snapshot+'. Physical inspection and model identification still required.';
