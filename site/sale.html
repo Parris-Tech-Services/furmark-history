@@ -6,7 +6,9 @@
 <p>Start with GPU #18, then #19 and #20. These are <strong>drafts</strong>; every physical GPU must be identified, photographed and checked before publication. The "test PC" name is not the graphics-card brand.</p>
 <table><thead><tr><th scope="col">GPU</th><th scope="col">Grade</th><th scope="col">Pilot asking price</th><th scope="col">Draft</th></tr></thead><tbody id="pilotrows"><tr><td colspan="4">Loading verified fleet grades…</td></tr></tbody></table>
 <p class="warning"><strong>Duplicate listings:</strong> do not activate ten identical fixed-price listings just because they have different inventory numbers. Use one at a time until you can establish materially different products/conditions, or review Pro multi-quantity eligibility. Photos are not yet supplied.</p>
-<p id="freshness" class="small"></p></section>
+<p id="freshness" class="small"></p>
+<p class="small"><strong>Public benchmark evidence:</strong> <span id="auditstatus">Loading link audit…</span> <a href="data/public-link-audit.json" target="_blank" rel="noopener">View complete result-link audit</a>. A text match on a third-party page never proves physical GPU identity.</p>
+</section>
 <section><table><thead><tr><th>Card</th><th>FurMark</th><th>Superposition</th><th>Steel Nomad</th><th>Next bench action</th></tr></thead><tbody id="rows"></tbody></table></section>
 <section id="ebay-plan" aria-labelledby="sale-plan-title">
 <h2 id="sale-plan-title">eBay selling plan · 16 November 2026</h2>
@@ -59,6 +61,10 @@ fetch('data/resale.json').then(r=>{if(!r.ok)throw Error('Grades unavailable');re
  }
  document.getElementById('freshness').textContent='Prepared from '+d.started+' started cards; grading snapshot '+d.snapshot+'. Any physical inspections and model identification remain your responsibility.';
 }).catch(e=>{document.getElementById('pilotrows').textContent='Could not load listing drafts: '+e.message});
+fetch('data/public-link-audit.json').then(r=>{if(!r.ok)throw Error('Not deployed');return r.json()}).then(a=>{
+ const readable=a.results.filter(x=>x.http_status===200).length;
+ document.getElementById('auditstatus').textContent=a.checked+' unverified links investigated; '+readable+' readable; 0 automatically approved. Verify GPU identity, score and test settings manually.';
+}).catch(()=>{document.getElementById('auditstatus').textContent='Audit not available yet; unverified cards remain on hold.'});
 const calc=()=>{const val=id=>Number(document.getElementById(id).value)||0;const total=val('cprice')+val('cshipcharged')-val('cshipcost')-val('cpacking')-val('cfee');document.getElementById('cnet').textContent='A{4:'Hold evidence: linked RX 9070 XT result belongs to another GPU. Recover the correct submission or rerun.',15:'Repeat FurMark and Steel Nomad on the same rig and settings.',18:'First: photo, model, outputs, fan and dated VRAM report.',19:'Priority final inspection and dated VRAM report.',20:'Priority final inspection and dated VRAM report.',23:'Repeat Superposition with the preset and API recorded.',24:'Next after #20: final inspection and dated VRAM report.',36:'Hold: inspect loud fan before any load test.'};
 fetch('data/batch.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(f=>{
  const priority=[18,19,20,24];const rank=n=>priority.includes(n)?priority.indexOf(n):n+5;
