@@ -54,42 +54,39 @@
 const pilotIds=[18,19,20,24,12,10,30,27,31,34];
 fetch('data/resale.json').then(r=>{if(!r.ok)throw Error('Grades unavailable');return r.json()}).then(d=>{
  const body=document.getElementById('pilotrows');body.replaceChildren();
- for(const id of pilotIds){const card=d.cards.find(x=>x.card===id);if(!card)continue;
- const row=body.insertRow();row.insertCell().textContent='#'+id;row.insertCell().textContent=card.grade+' — '+(d.grades[card.grade]?.name||'');
- row.insertCell().textContent=card.grade==='A'?'A$139':card.grade==='B'?'A$129':'Do not list';
- const a=document.createElement('a');a.href='cards/card-'+String(id).padStart(2,'0')+'.html';a.textContent='Open copy-ready draft';row.insertCell().append(a);
+ for(const id of pilotIds){
+  const card=d.cards.find(x=>x.card===id);if(!card)continue;
+  const row=body.insertRow();
+  row.insertCell().textContent='#'+id;
+  row.insertCell().textContent=card.grade+' — '+(d.grades[card.grade]?.name||'');
+  row.insertCell().textContent=card.grade==='A'?'A$139':card.grade==='B'?'A$129':'Do not list';
+  const a=document.createElement('a');a.href='cards/card-'+String(id).padStart(2,'0')+'.html';a.textContent='Open copy-ready draft';row.insertCell().append(a);
  }
- document.getElementById('freshness').textContent='Prepared from '+d.started+' started cards; grading snapshot '+d.snapshot+'. Any physical inspections and model identification remain your responsibility.';
+ document.getElementById('freshness').textContent='Prepared from '+d.started+' started cards; grading snapshot '+d.snapshot+'. Physical inspection and model identification still required.';
 }).catch(e=>{document.getElementById('pilotrows').textContent='Could not load listing drafts: '+e.message});
 fetch('data/public-link-audit.json').then(r=>{if(!r.ok)throw Error('Not deployed');return r.json()}).then(a=>{
  const readable=a.results.filter(x=>x.http_status===200).length;
  document.getElementById('auditstatus').textContent=a.checked+' unverified links investigated; '+readable+' readable; 0 automatically approved. Verify GPU identity, score and test settings manually.';
 }).catch(()=>{document.getElementById('auditstatus').textContent='Audit not available yet; unverified cards remain on hold.'});
-const calc=()=>{const val=id=>Number(document.getElementById(id).value)||0;const total=val('cprice')+val('cshipcharged')-val('cshipcost')-val('cpacking')-val('cfee');document.getElementById('cnet').textContent='A{4:'Hold evidence: linked RX 9070 XT result belongs to another GPU. Recover the correct submission or rerun.',15:'Repeat FurMark and Steel Nomad on the same rig and settings.',18:'First: photo, model, outputs, fan and dated VRAM report.',19:'Priority final inspection and dated VRAM report.',20:'Priority final inspection and dated VRAM report.',23:'Repeat Superposition with the preset and API recorded.',24:'Next after #20: final inspection and dated VRAM report.',36:'Hold: inspect loud fan before any load test.'};
+const calc=()=>{
+ const val=id=>Number(document.getElementById(id).value)||0;
+ const total=val('cprice')+val('cshipcharged')-val('cshipcost')-val('cpacking')-val('cfee');
+ document.getElementById('cnet').textContent='A$'+total.toFixed(2);
+};
+for(const id of ['cprice','cshipcharged','cshipcost','cpacking','cfee'])document.getElementById(id).addEventListener('input',calc);
+calc();
+const actions={4:'Hold evidence: linked RX 9070 XT result belongs to another GPU. Recover the correct submission or rerun.',15:'Repeat FurMark and Steel Nomad on the same rig and settings.',18:'First: photo, model, outputs, fan and dated VRAM report.',19:'Priority final inspection and dated VRAM report.',20:'Priority final inspection and dated VRAM report.',23:'Repeat Superposition with the preset and API recorded.',24:'Next after #20: final inspection and dated VRAM report.',36:'Hold: inspect loud fan before any load test.',40:'Hold: investigate previous test-PC NVIDIA BSOD before selling.'};
 fetch('data/batch.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(f=>{
  const priority=[18,19,20,24];const rank=n=>priority.includes(n)?priority.indexOf(n):n+5;
  for(const c of [...f.cards].sort((a,b)=>rank(a.card)-rank(b.card))){
- const tr=document.querySelector('#rows').insertRow();const a=document.createElement('a');a.href='./?card='+c.card+'#fdetail';a.textContent='#'+c.card;tr.insertCell().append(a);
- for(const k of ['fm','sp','sn'])tr.insertCell().textContent=c[k]??'—';
- const notes=[actions[c.card]||'Complete physical checks and save VRAM evidence.'];
- if(c.rig==='unlabelled')notes.push('Confirm test PC.');
- if(c.card!==36 && c.sn==null)notes.push('Record Steel Nomad edition and score.');
- tr.insertCell().textContent=notes.join(' ');
- }
-}).catch(()=>document.querySelector('#rows').insertRow().insertCell().textContent='Fleet data unavailable. Reload to try again.');
-</script></html>
-+total.toFixed(2)};
-for(const id of ['cprice','cshipcharged','cshipcost','cpacking','cfee'])document.getElementById(id).addEventListener('input',calc);calc();
-const actions={4:'Hold evidence: linked RX 9070 XT result belongs to another GPU. Recover the correct submission or rerun.',15:'Repeat FurMark and Steel Nomad on the same rig and settings.',18:'First: photo, model, outputs, fan and dated VRAM report.',19:'Priority final inspection and dated VRAM report.',20:'Priority final inspection and dated VRAM report.',23:'Repeat Superposition with the preset and API recorded.',24:'Next after #20: final inspection and dated VRAM report.',36:'Hold: inspect loud fan before any load test.'};
-fetch('data/batch.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(f=>{
- const priority=[18,19,20,24];const rank=n=>priority.includes(n)?priority.indexOf(n):n+5;
- for(const c of [...f.cards].sort((a,b)=>rank(a.card)-rank(b.card))){
- const tr=document.querySelector('#rows').insertRow();const a=document.createElement('a');a.href='./?card='+c.card+'#fdetail';a.textContent='#'+c.card;tr.insertCell().append(a);
- for(const k of ['fm','sp','sn'])tr.insertCell().textContent=c[k]??'—';
- const notes=[actions[c.card]||'Complete physical checks and save VRAM evidence.'];
- if(c.rig==='unlabelled')notes.push('Confirm test PC.');
- if(c.card!==36 && c.sn==null)notes.push('Record Steel Nomad edition and score.');
- tr.insertCell().textContent=notes.join(' ');
+  const tr=document.querySelector('#rows').insertRow();
+  const a=document.createElement('a');a.href='./?card='+c.card+'#fdetail';a.textContent='#'+c.card;
+  tr.insertCell().append(a);
+  for(const k of ['fm','sp','sn'])tr.insertCell().textContent=c[k]??'—';
+  const notes=[actions[c.card]||'Complete physical checks and save VRAM evidence.'];
+  if(c.rig==='unlabelled')notes.push('Confirm test PC.');
+  if(c.card!==36 && c.sn==null)notes.push('Record Steel Nomad edition and score.');
+  tr.insertCell().textContent=notes.join(' ');
  }
 }).catch(()=>document.querySelector('#rows').insertRow().insertCell().textContent='Fleet data unavailable. Reload to try again.');
 </script></html>
