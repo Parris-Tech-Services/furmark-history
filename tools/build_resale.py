@@ -18,6 +18,7 @@ import csv, html, json, os, statistics as st, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, "site")
 BASE = "https://parris-tech-services.github.io/furmark-history/"
+PHOTO_INSPECTIONS = json.load(open(os.path.join(ROOT, "data", "physical_inspections.json"), encoding="utf-8")).get("cards", {})
 
 # ---- Tunable rules (documented in docs/RESALE_ANALYSIS.md) -------------------------------------------------
 RETEST_BELOW_PCT = -3.0      # any score this far under its rig median means: retest on the same rig
@@ -106,10 +107,11 @@ def analyse(cards):
             else:
                 grade = "A" if occt_ok else "B"
         row["grade"], row["reasons"] = grade, reasons
+        row["photo_inspection"] = PHOTO_INSPECTIONS.get(str(c["card"]))
         gaps = ["outputs", "identity", "preset"]
         gaps.insert(0, "vram")  # OCCT "No errors" alone does not prove a VRAM-specific test
         if c["status"] != "FAN_NOISE_STOP": gaps.insert(2, "fan")
-        if c["status"] == "MATCHED_GTX1070" and (c.get("pci") or "").find("7377") >= 0: gaps.append("board")
+        if c["status"] == "MATCHED_GTX1070" and (c.get("pci") or "").find("7377") >= 0 and not row["photo_inspection"]: gaps.append("board")
         # keep the display order of GAPS
         row["gaps"] = [g[0] for g in GAPS if g[0] in gaps]
         lo, hi = ASK.get(grade, (None, None))
@@ -141,6 +143,9 @@ def lots(rows):
 
 
 def ebay_title(r):
+    photo = r.get("photo_inspection")
+    if photo:
+        return "Colorful iGame GTX 1070 U-TOP-8G 8GB GDDR5 3-Fan - GPU #%02d" % r["card"]
     return "NVIDIA GeForce GTX 1070 8GB GDDR5 Graphics Card - Benchmarked GPU #%02d" % r["card"]
 
 
@@ -154,7 +159,7 @@ def listing_text(r):
     if r["grade"] not in ("A", "B"):
         return "NOT READY TO LIST: GPU #%02d. %s" % (r["card"], "; ".join(r["reasons"]))
     lines = [
-        "Used NVIDIA GeForce GTX 1070 8GB GDDR5 graphics card, inventory GPU #%02d." % r["card"],
+        ("Used %s, inventory GPU #%02d." % (r["photo_inspection"]["model"], r["card"])) if r.get("photo_inspection") else ("Used NVIDIA GeForce GTX 1070 8GB GDDR5 graphics card, inventory GPU #%02d." % r["card"]),
         "This GPU is from a previously operated multi-GPU mining equipment batch. Exact prior operating hours are unknown.",
         "Individually benchmarked; tests completed on the PC identified in our records as %s (test PC name is not the graphics card brand)." % r["rig"],
         "FurMark 2.11 (OpenGL, 1920x1080, 60 seconds): %s points." % f(r["fm"]),
@@ -165,6 +170,12 @@ def listing_text(r):
         lines.append("Peak software-reported GPU temperature during the linked FurMark run: %d°C." % r["temp"])
     if r.get("url"):
         lines.append("Public FurMark result: %s" % r["url"])
+    if r.get("photo_inspection"):
+        photo = r["photo_inspection"]
+        lines.append("Photos of the exact GPU #%02d show the three iGame-branded cooling fans, matching Colorful iGame backplate and model label." % r["card"])
+        lines.append("Visible connectors: %s. Physical presence does not confirm operation." % photo["visible_connectors"])
+        lines.append("Visible condition: %s." % photo["visible_condition"])
+        lines.append("Two 8-pin power sockets visible; connector functionality was not tested from these photos.")
     if r["grade"] == "A":
         lines.append("OCCT: 'No errors' is recorded, but test mode and duration were not documented. A VRAM-specific pass is NOT claimed.")
     else:
@@ -172,7 +183,7 @@ def listing_text(r):
     lines += [
         "",
         "Before publishing, complete these per-card details:",
-        "Actual board maker and exact model/revision: [CONFIRM FROM PHYSICAL LABEL]",
+        ("Actual board maker/model: %s (identified from photos; check against card when packing)" % r["photo_inspection"]["model"]) if r.get("photo_inspection") else "Actual board maker and exact model/revision: [CONFIRM FROM PHYSICAL LABEL]",
         "Cooling fans and noise under load: [INSPECT AND DESCRIBE]",
         "Display ports successfully tested: [CHECK AND LIST]",
         "Cosmetic condition and accessories: [DESCRIBE AND MATCH PHOTOS]",
@@ -196,7 +207,9 @@ def card_page(r, template):
     reasons = "".join("<li>%s</li>" % html.escape(x) for x in r["reasons"]) or "<li>No concerns found in the recorded scores.</li>"
     link = ('<a href="%s" target="_blank" rel="noopener">Open the public FurMark result</a>' % html.escape(r["url"])) if r["url"] else "No public link recorded"
     ask = ("%s to %s (planning range, not a sold price)" % (money(r["ask"][0]), money(r["ask"][1]))) if r["ask"] else "No price until the grade improves"
-    return (template.replace("{{N}}", "%02d" % r["card"]).replace("{{NUM}}", str(r["card"])).replace("{{TITLE}}", html.escape(ebay_title(r))).replace("{{PILOTPRICE}}", ("AU$%d" % pilot_price(r)) if pilot_price(r) else "Not priced — hold for verification").replace("{{GRADE}}", r["grade"])
+    photo = r.get("photo_inspection")
+    evidence = ("<section><h2>Photo-based physical identification</h2><p><strong>%s</strong>. %s</p><p>%s. %s.</p><p><strong>Still untested:</strong> %s.</p><p>Photos were provided for sale preparation; original serial and barcode labels have not been published here.</p></section>" % (html.escape(photo["model"]), html.escape(photo["identification"]), html.escape(photo["visible_connectors"]), html.escape(photo["visible_condition"]), html.escape(photo["remaining_tests"]))) if photo else ""
+    return (template.replace("{{N}}", "%02d" % r["card"]).replace("{{NUM}}", str(r["card"])).replace("{{PHOTOEVIDENCE}}", evidence).replace("{{TITLE}}", html.escape(ebay_title(r))).replace("{{PILOTPRICE}}", ("AU$%d" % pilot_price(r)) if pilot_price(r) else "Not priced — hold for verification").replace("{{GRADE}}", r["grade"])
             .replace("{{GRADENAME}}", html.escape(G[0])).replace("{{GRADEWHY}}", html.escape(G[2])).replace("{{CLS}}", cls)
             .replace("{{SCORES}}", scores).replace("{{TELE}}", tele).replace("{{GAPS}}", gaps).replace("{{REASONS}}", reasons)
             .replace("{{LINK}}", link).replace("{{ASK}}", ask).replace("{{LISTING}}", html.escape(listing_text(r))).replace("{{BASE}}", BASE))
@@ -238,6 +251,7 @@ textarea{width:100%;min-height:210px;background:var(--bg2);border:1px solid var(
 <ul style="color:var(--mut)">{{REASONS}}</ul></section>
 <section aria-labelledby="s"><h2 id="s">Benchmark scores</h2><div class="facts">{{SCORES}}</div></section>
 <section aria-labelledby="t"><h2 id="t">Public telemetry and test PC</h2><div class="facts">{{TELE}}</div><p style="color:var(--mut);font-size:14px">{{LINK}}. Telemetry is software-estimated from the public result, not measured at the wall.</p></section>
+{{PHOTOEVIDENCE}}
 <section aria-labelledby="k"><h2 id="k">Still to check before listing</h2><ul class="gaps">{{GAPS}}</ul></section>
 <section aria-labelledby="p"><h2 id="p">Asking-price planning range</h2><p style="color:var(--mut)">{{ASK}}. Observed asking prices, before fees, shipping and your time.</p></section>
 <section aria-labelledby="l"><h2 id="l">eBay listing draft</h2><p style="color:var(--mut);font-size:14px">Suggested trial Buy It Now price: <b>{{PILOTPRICE}}</b>, plus buyer-paid postage. Best Offer can be enabled. This is a preparation sheet, not a published listing. Do not list multiple identical fixed-price GPUs simultaneously. Replace all bracketed fields and complete physical inspection before publishing.</p>
@@ -351,6 +365,10 @@ def main():
     lot_list = lots(rows)
     # ---- self-checks: fail loudly rather than publish a wrong grade ----
     assert len(rows) == len(cards) and all(r["grade"] in GRADES for r in rows)
+    if "18" in PHOTO_INSPECTIONS:
+        c18 = next(r for r in rows if r["card"] == 18)
+        assert c18["photo_inspection"]["model"] == "Colorful iGame GTX 1070 U-TOP-8G"
+        assert c18["grade"] in ("A", "B", "R", "I", "V", "H")
     for r in rows:
         if r["status"] == "FAN_NOISE_STOP": assert r["grade"] == "H", r
         if r["status"] == "LINK_SCORE_MISMATCH": assert r["grade"] == "V", r
