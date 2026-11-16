@@ -29,7 +29,7 @@ ASK = {"A": (140, 180), "B": (120, 160)}
 LOT_DISCOUNTS = (0, 15, 30)  # per-card discount for a single wholesale lot: a planning assumption, not sourced
 
 GRADES = {
-    "A": ("Benchmarks and VRAM test passed", "ok", "Three scores within range of its rig, public result verified, OCCT memory test with no errors."),
+    "A": ("Benchmarks and OCCT no-error note", "ok", "Three scores within range, public result verified, and an OCCT no-error note recorded (test mode and duration not documented)."),
     "B": ("Benchmarks passed", "ok", "Three scores within range of its rig and the public result verified. Memory, outputs and fan are not yet tested."),
     "R": ("Retest", "note", "A score is more than 3% under its rig's median, or the scores disagree by more than 5 points. Repeat on the same rig."),
     "I": ("Incomplete", "note", "Fewer than three benchmark scores recorded."),
@@ -95,6 +95,8 @@ def analyse(cards):
             grade = "V"; reasons.append("Public FurMark link opens a different GPU" if c["status"] == "LINK_SCORE_MISMATCH" else "No public result link")
         elif len(have) < 3:
             grade = "I"; reasons.append("Missing: " + ", ".join({"fm": "FurMark", "sp": "Superposition", "sn": "Steel Nomad"}[k] for k in metrics if k not in have))
+        elif c["status"] != "MATCHED_GTX1070":
+            grade = "V"; reasons.append("Public result not yet independently verified against this card and score")
         else:
             low = [k for k in have if pct.get(k, 0) < RETEST_BELOW_PCT]
             if low:
@@ -105,7 +107,7 @@ def analyse(cards):
                 grade = "A" if occt_ok else "B"
         row["grade"], row["reasons"] = grade, reasons
         gaps = ["outputs", "identity", "preset"]
-        if not occt_ok: gaps.insert(0, "vram")
+        gaps.insert(0, "vram")  # OCCT "No errors" alone does not prove a VRAM-specific test
         if c["status"] != "FAN_NOISE_STOP": gaps.insert(2, "fan")
         if c["status"] == "MATCHED_GTX1070" and (c.get("pci") or "").find("7377") >= 0: gaps.append("board")
         # keep the display order of GAPS
@@ -145,7 +147,8 @@ def listing_text(r):
         lines.append("Recognised by GPU-Z and tested with FurMark 2.11 (OpenGL, 1080p, 60 s): %s points (about %d FPS)." % (f(r["fm"]), round(r["fm"] / 60)))
         lines.append("Also tested: UNIGINE Superposition %s; 3DMark Steel Nomad %s (about %.1f FPS at 4K)." % (f(r["sp"]), f(r["sn"]), r["sn"] / 100))
         if r["temp"]: lines.append("Peak reported GPU temperature during the FurMark run: %d °C." % r["temp"])
-        lines.append("Memory test (OCCT VRAM): %s." % ("passed, no errors" if r["grade"] == "A" else "not yet run [FILL IN BEFORE LISTING]"))
+        lines.append("OCCT: %s." % ("No errors recorded; test mode/duration not documented" if r["grade"] == "A" else "no verified result recorded"))
+        lines.append("VRAM-specific test: [RECORD MODE, DURATION AND ERROR COUNT BEFORE CLAIMING IT PASSED]")
         lines.append("Display outputs and fan: [CHECK AND FILL IN BEFORE LISTING].")
         lines.append("Board maker / model: [CONFIRM FROM THE CARD'S LABEL BEFORE LISTING].")
         lines.append("Sold as tested; no warranty implied.")
@@ -244,7 +247,7 @@ def doc(rows, lot_list, rig_med, rig_n, batch_med, snap, slots):
 
 ## The short version
 
-Of {len(rows)} started cards, **{len(by['A']) + len(by['B'])} can be listed now** ({len(by['A'])} with a clean memory test, {len(by['B'])} on benchmarks alone), **{len(by['R']) + len(by['I'])} need more testing**, **{len(by['V'])} {plural(len(by['V']), 'needs', 'need')} the evidence fixed** and **{len(by['H'])} {plural(len(by['H']), 'should', 'should')} be held back**. At the observed asking range, the "list now" group is worth about **{money(lst['ask_total'][0])} to {money(lst['ask_total'][1])} gross**, and the cards that still need tests could add roughly {money(fin['upside_if_pass'][0])} to {money(fin['upside_if_pass'][1])} if they pass. Those are asking prices before fees, shipping and time, not what the cards will sell for.
+Of {len(rows)} started cards, **{len(by['A']) + len(by['B'])} have enough benchmark evidence to prepare listings, subject to physical checks** ({len(by['A'])} have an OCCT no-error note of unspecified mode/duration, {len(by['B'])} have benchmarks alone), **{len(by['R']) + len(by['I'])} need more testing**, **{len(by['V'])} {plural(len(by['V']), 'needs', 'need')} the evidence fixed** and **{len(by['H'])} {plural(len(by['H']), 'should', 'should')} be held back**. At the observed asking range, the "list now" group is worth about **{money(lst['ask_total'][0])} to {money(lst['ask_total'][1])} gross**, and the cards that still need tests could add roughly {money(fin['upside_if_pass'][0])} to {money(fin['upside_if_pass'][1])} if they pass. Those are asking prices before fees, shipping and time, not what the cards will sell for.
 
 ## How cards are graded
 
@@ -279,7 +282,7 @@ The whole batch is tight: most cards sit within a few percent of their rig's med
 
 **Gross asking range for "list now":** {money(lst['ask_total'][0])} to {money(lst['ask_total'][1])} individually. If sold as one wholesale lot at a discount (a planning assumption, not a sourced figure): """ + "; ".join("%d%% off gives %s to %s" % (w["discount"], money(w["total"][0]), money(w["total"][1])) for w in lst["wholesale"]) + f""".
 
-**Where the price range comes from.** The earlier audit observed November 2026 asking prices for ordinary used GTX 1070 8 GB cards on eBay Australia of about AU$135 to 158, with some ASUS examples AU$170 to 200 and more, and concluded **AU$120 to 180** is a defensible individual asking range for a correctly identified, clean, adequately tested card. This analysis splits that range by evidence: A cards (memory tested) AU$140 to 180, B cards AU$120 to 160. The split is a planning choice. It is not a market fact, and a pile sold as one lot would likely achieve less per card (see the [audit](gpu-batch-research.html)).
+**Where the price range comes from.** The earlier audit observed November 2026 asking prices for ordinary used GTX 1070 8 GB cards on eBay Australia of about AU$135 to 158, with some ASUS examples AU$170 to 200 and more, and concluded **AU$120 to 180** is a defensible individual asking range for a correctly identified, clean, adequately tested card. This analysis splits that range by evidence: A cards (OCCT no-error note, mode/duration unverified) AU$140 to 180, B cards AU$120 to 160. The split is a planning choice. It is not a market fact, and a pile sold as one lot would likely achieve less per card (see the [audit](gpu-batch-research.html)).
 
 ## What is still missing for every card
 
@@ -291,7 +294,7 @@ Missing tests are **unknown**, not passes or fails. Each card's listing sheet ca
 
 ## What this analysis cannot tell you
 
-- **Health.** Short benchmark runs show a card initialised and completed three workloads. They do not show memory correctness, outputs, fan bearings or reliability over time. Only three cards (#18 to #20) have a recorded memory test.
+- **Health.** Short benchmark runs show a card initialised and completed three workloads. They do not show memory correctness, outputs, fan bearings or reliability over time. Only three cards (#18 to #20) have an OCCT “No errors” note, without documented test mode or duration.
 - **Which board each card is.** The public results report subsystem 7377:0000, which the PCI-SIG registry assigns to Colorful, not Gigabyte. That conflict is unresolved.
 - **Mining history, condition or warranty.** Not in the sheet.
 - **A real selling price.** Only asking prices were observed. Completed sales, fees and shipping are unknown.
@@ -324,10 +327,10 @@ def main():
     for r in rows:
         if r["status"] == "FAN_NOISE_STOP": assert r["grade"] == "H", r
         if r["status"] == "LINK_SCORE_MISMATCH": assert r["grade"] == "V", r
-        if r["grade"] in ("A", "B"): assert all(r[k] is not None for k in ("fm", "sp", "sn")) and r["ask"], r
+        if r["grade"] in ("A", "B"): assert r["status"] == "MATCHED_GTX1070" and all(r[k] is not None for k in ("fm", "sp", "sn")) and r["ask"], r
         if r["grade"] == "A": assert "no error" in (r["occt"] or "").lower(), r
     assert sum(l["count"] for l in lot_list) == len(rows)
-    snap = data["snapshot"]
+    snap = data.get("synced", data["snapshot"])[:10]
     out = {"snapshot": snap, "slots": data["slots"], "started": len(rows), "rules": {"retest_below_pct": RETEST_BELOW_PCT, "spread_points": SPREAD_PCT_POINTS, "min_rig_cards": MIN_RIG_CARDS},
            "ask": ASK, "grades": {g: {"name": GRADES[g][0], "tone": GRADES[g][1], "rule": GRADES[g][2]} for g in ORDER}, "order": ORDER,
            "gaps": [{"id": g[0], "label": g[1], "todo": g[2]} for g in GAPS], "rig_median": rig_med, "rig_count": rig_n, "batch_median": batch_med,
