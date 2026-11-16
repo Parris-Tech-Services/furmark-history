@@ -29,9 +29,9 @@ for row in reader:
         raise ValueError('Invalid or duplicate slot')
     n = int(number)
     seen.add(n)
+    # Text in a benchmark cell is a safety note (for example a noisy fan), not a score.
+    nonnumeric = [x for x in rest[:3] if x and not x.isdecimal()]
     scores = [int(x) if x.isdecimal() else None for x in rest[:3]]
-    if any(x and not x.isdecimal() for x in rest[:3]):
-        raise ValueError('Unrecognised score')
     if recognised not in ('', 'Y', 'N'):
         raise ValueError('Unknown GPU-Z result')
     if not any((recognised, *rest)):
@@ -45,6 +45,18 @@ for row in reader:
     card = dict(prev, card=n, gpuz=recognised=='Y', fm=scores[0], sp=scores[1], sn=scores[2], rig=rig, url=link)
     if any(card.get(k) != prev.get(k) for k in ('fm','url','rig')) or not prev:
         card.update(status='UNAUDITED', **dict.fromkeys(('temp','power','clockmax','cpu','driver','gpu','pci','tested','preset','note','occt')))
+    # Read OCCT notes as notes only. 'No errors' does not identify test mode or duration.
+    occt_cell = (row.get('Test 8 - OCCT') or '').strip()
+    if occt_cell:
+        card['occt'] = occt_cell[:160]
+    extra_note = (row.get('Other notes') or '').strip()
+    if nonnumeric or ('fan' in extra_note.lower() and ('noisy' in extra_note.lower() or 'loud' in extra_note.lower())):
+        note = '; '.join([*nonnumeric, extra_note]).strip('; ')[:200]
+        card['status'] = 'FAN_NOISE_STOP' if 'fan' in note.lower() else 'TEST_NOTE_HOLD'
+        card['note'] = note
+    # Hold #40 pending confirmation that earlier test-PC BSOD was unrelated to its GPU.
+    if n == 40 and not card.get('note'):
+        card['note'] = 'Earlier NVIDIA-related BSOD on test PC; GPU causation unconfirmed. Retest before sale.'
     verified = verified_runs.get(link)
     if verified and verified['fm'] == scores[0]:
         card.update(verified)
@@ -57,6 +69,9 @@ for row in reader:
     cards.append(card)
 if not seen or seen != set(range(1,max(seen)+1)) or max(seen)<old['slots'] or not set(prior).issubset(c['card'] for c in cards):
     raise ValueError('Incomplete sheet; keeping last successful import')
+if cards == old['cards'] and len(cards) == old['started'] and len(seen) == old['slots']:
+    print('Fleet unchanged; no write required')
+    sys.exit(0)
 old.update(cards=cards, started=len(cards), slots=len(seen), synced=now)
 tmp = target.with_suffix('.tmp')
 tmp.write_text(json.dumps(old,separators=(',',':')))
