@@ -1,0 +1,21 @@
+{
+  "updated": "2026-11-16",
+  "description": "Public-safe physical observations. Never store serial numbers, original label/barcode photos or personal data in this file.",
+  "cards": {
+    "18": {
+      "evidence": "Three user-provided photographs: front, metal backplate, output bracket",
+      "photo_status": "Received; sale-use copies prepared separately with serial and barcode labels obscured; originals kept out of the public repository",
+      "model": "Colorful iGame GTX 1070 U-TOP-8G",
+      "model_code": "iGameGTX1070 U-TOP-8G",
+      "identification": "Colorful/iGame branding visible on three fans and backplate; model label is consistent with U-TOP-8G and with Colorful's published product imagery",
+      "identification_confidence": "High, photo-based",
+      "manufacturer_reference": "https://www.colorfly.eu/products/graphic-cards-for-industrial-use/basics-for-customized/igame-gtx1070-u-top-8g/",
+      "visible_connectors": "3 × DisplayPort, 1 × HDMI, 1 × DVI-D; one-key overclock button",
+      "power_socket_appearance": "2 × 8-pin PCIe sockets",
+      "visible_condition": "Used, visible surface dust and light cosmetic marks; all three fan assemblies present in still images",
+      "remaining_tests": "Actual fan operation/noise, display output functionality, OCCT VRAM mode/duration/error count, power connectors, physical inspection of GPU",
+      "serials_redacted": true,
+      "photos_published": false
+    }
+  }
+}
