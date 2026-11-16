@@ -1,7 +1,12 @@
 <!doctype html><html lang="en-AU"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GTX 1070 sale preparation</title>
-<style>body{font:1rem/1.55 system-ui;max-width:64rem;margin:auto;padding:1rem;color:#172428}a{color:#07546d}th,td{text-align:left;padding:.45rem;border-bottom:1px solid #ccd6d8}table{border-collapse:collapse}section{overflow-x:auto}textarea{width:96%;height:8rem}button{padding:.5rem} @media print{button,nav{display:none}}</style>
+<style>body{font:1rem/1.55 system-ui;max-width:64rem;margin:auto;padding:1rem;color:#172428}a{color:#07546d}th,td{text-align:left;padding:.45rem;border-bottom:1px solid #ccd6d8}table{border-collapse:collapse}section{overflow-x:auto}textarea{width:96%;height:8rem}button{padding:.5rem}input[type=number]{padding:.45rem;width:6rem;max-width:100%}.pilot{background:#eef8f3;padding:1rem;border-radius:.8rem}.pilot a{font-weight:650}.small{font-size:.9rem;color:#46545a}.sale-calcs{display:flex;gap:1rem;flex-wrap:wrap}.sale-calcs label{display:grid;gap:.25rem}.warning{background:#fff4da;border-left:4px solid #c98d23;padding:.65rem 1rem} @media print{button,nav{display:none}}</style>
 <nav><a href="./#lab">← Fleet explorer</a></nav><h1>GTX 1070 sale preparation</h1>
-<p>Prioritise #18, #19 and #20 for final inspection, then #24. Sign off each physical card separately. Run dates and scores are linked in each card record.</p>
+<p>Use the <a href="resale.html">existing grading dashboard</a> and individual card sheets to prepare listings. Your Google Sheet is read-only to this website. No eBay items have been published by this site.</p>
+<section class="pilot" aria-labelledby="pilot-title"><h2 id="pilot-title">First ten eBay listing drafts</h2>
+<p>Start with GPU #18, then #19 and #20. These are <strong>drafts</strong>; every physical GPU must be identified, photographed and checked before publication. The "test PC" name is not the graphics-card brand.</p>
+<table><thead><tr><th scope="col">GPU</th><th scope="col">Grade</th><th scope="col">Pilot asking price</th><th scope="col">Draft</th></tr></thead><tbody id="pilotrows"><tr><td colspan="4">Loading verified fleet grades…</td></tr></tbody></table>
+<p class="warning"><strong>Duplicate listings:</strong> do not activate ten identical fixed-price listings just because they have different inventory numbers. Use one at a time until you can establish materially different products/conditions, or review Pro multi-quantity eligibility. Photos are not yet supplied.</p>
+<p id="freshness" class="small"></p></section>
 <section><table><thead><tr><th>Card</th><th>FurMark</th><th>Superposition</th><th>Steel Nomad</th><th>Next bench action</th></tr></thead><tbody id="rows"></tbody></table></section>
 <section id="ebay-plan" aria-labelledby="sale-plan-title">
 <h2 id="sale-plan-title">eBay selling plan · 16 November 2026</h2>
@@ -16,6 +21,23 @@
 </ul>
 <p>Sources: <a href="https://www.ebay.com.au/itm/800647784310">September 2026 sold auction</a> · <a href="https://www.ebay.com.au/b/NVIDIA-GeForce-GTX-1070-8-GB-Memory-Computer-Graphics-Video-Cards/27386/bn_7116940860">GTX 1070 asking prices</a> · <a href="https://auspost.com.au/disruptions-and-updates/pricing-updates/apr-pricing-update-2026">Australia Post July 2026 prices</a> · <a href="https://www.ebay.com.au/help/policies/listing-policies/duplicate-listings-policy?id=4255">eBay duplicate listings</a> · <a href="https://www.ebay.com.au/help/selling/fees-credits-invoices/selling-fees-managed-payments-sellers?id=4822">eBay selling fees</a>.</p>
 </section>
+<section aria-labelledby="economics-title"><h2 id="economics-title">Postage, packaging and estimated proceeds</h2>
+<p><strong>Packaging candidate:</strong> <a href="https://www.abldistribution.com.au/p-7760-medium-cardboard-boxes.aspx">ABL 340 × 250 × 120 mm C-flute box</a>, advertised around A$2.31 each for small orders or A$1.74 each at 25–99 units (confirm GST, shipping and stock before purchase). <a href="https://auspackaging.com.au/products/anti-static-bags-300x400mm-as12pb">300 × 400 mm static-shielding bags</a> come in 100-packs; price requires a quote. Do not substitute ordinary pink anti-static bags for shielding if there is a risk of electrostatic discharge.</p>
+<p><strong>Cubic weight:</strong> 0.34 × 0.25 × 0.12 × 250 = <strong>2.55 kg</strong>. <a href="https://auspost.com.au/disruptions-and-updates/pricing-updates/apr-pricing-update-2026">Australia Post retail pricing</a> lists A$20.25 postage for over 1 kg up to 3 kg on other packaging (national flat-rate reference; obtain a label quote for your specific parcel/destination). Account for eBay's requirement to purchase eligible shipping labels on-platform.</p>
+<div class="sale-calcs">
+<label>Item price (A$)<input id="cprice" type="number" min="0" step=".01" value="139"></label>
+<label>Postage charged (A$)<input id="cshipcharged" type="number" min="0" step=".01" value="20.25"></label>
+<label>Actual shipping (A$)<input id="cshipcost" type="number" min="0" step=".01" value="20.25"></label>
+<label>Packaging (A$)<input id="cpacking" type="number" min="0" step=".01" value="4"></label>
+<label>Seller fees (A$)<input id="cfee" type="number" min="0" step=".01" value="0"></label>
+</div><p><strong>Estimated proceeds before purchase cost, returns and tax: <output id="cnet">A$135.00</output></strong></p>
+<p class="small">If eligible for eBay AU's non-Pro fee-free tier under A$25,000 rolling annual sales, standard seller transaction fees may be zero; other costs can still apply. Buyer Protection charges paid by the buyer are not your proceeds. Do not count postage twice.</p></section>
+<section aria-labelledby="buyers-title"><h2 id="buyers-title">Bulk-buyer alternatives (no quotes obtained yet)</h2>
+<ul>
+<li><a href="https://www.therecycleproject.com.au/business">The Recycle Project (Penrith)</a> — buys suitable bulk surplus tech and desktop components; approved mail-in options Australia-wide. Request a written quote for the tested GTX 1070 lot.</li>
+<li><a href="https://greentechtraders.com.au/">Green Tech Traders (Rouse Hill)</a> — buys and sells large quantities of redundant IT equipment. Their site does not specifically promise to buy GTX 1070 GPUs; confirm first.</li>
+<li><a href="https://www.theboardguy.com.au/what-we-buy">The Board Guy (Auburn)</a> — accepts graphics cards for scrap. His <a href="https://app.theboardguy.com.au/prices">published GPU-with-heatsink scrap rate was A$9/kg</a>; this is a low-value fallback for faulty cards, not a price target for working GPUs.</li>
+</ul><p class="small">Ask each for: price per working GPU, price for the full lot, requirements for acceptance/testing, freight responsibility, returns/grade disputes, and payment timing. Compare total net proceeds to individual eBay sales. No enquiries have been sent.</p></section>
 <h2>Bench sheet</h2><p>Print one copy per card. Keep serials and unredacted sticker photos in your private inventory.</p>
 <p>Card # ______　 Date ______　 Tester PC ______　 Driver ______</p><ol>
 <li>Match the numbered sticker to the physical card. Photograph both sides and the connector panel. Record the exact board model from its label.</li>
@@ -27,6 +49,31 @@
 <button onclick="print()">Print</button>
 <h2>Buyer description for card #18</h2><p>GeForce GTX 1070, inventory card #18. Recorded FurMark score 5,081 with a peak of 58°C during that run, Superposition 12,783, Steel Nomad 1,362 and Heaven 4,627. The test log records “No errors” for OCCT. Its mode and duration were not recorded. <a href="./?card=18#fdetail">View the test record.</a></p>
 <script>
+const pilotIds=[18,19,20,24,12,10,30,27,31,34];
+fetch('data/resale.json').then(r=>{if(!r.ok)throw Error('Grades unavailable');return r.json()}).then(d=>{
+ const body=document.getElementById('pilotrows');body.replaceChildren();
+ for(const id of pilotIds){const card=d.cards.find(x=>x.card===id);if(!card)continue;
+ const row=body.insertRow();row.insertCell().textContent='#'+id;row.insertCell().textContent=card.grade+' — '+(d.grades[card.grade]?.name||'');
+ row.insertCell().textContent=card.grade==='A'?'A$139':card.grade==='B'?'A$129':'Do not list';
+ const a=document.createElement('a');a.href='cards/card-'+String(id).padStart(2,'0')+'.html';a.textContent='Open copy-ready draft';row.insertCell().append(a);
+ }
+ document.getElementById('freshness').textContent='Prepared from '+d.started+' started cards; grading snapshot '+d.snapshot+'. Any physical inspections and model identification remain your responsibility.';
+}).catch(e=>{document.getElementById('pilotrows').textContent='Could not load listing drafts: '+e.message});
+const calc=()=>{const val=id=>Number(document.getElementById(id).value)||0;const total=val('cprice')+val('cshipcharged')-val('cshipcost')-val('cpacking')-val('cfee');document.getElementById('cnet').textContent='A{4:'Hold evidence: linked RX 9070 XT result belongs to another GPU. Recover the correct submission or rerun.',15:'Repeat FurMark and Steel Nomad on the same rig and settings.',18:'First: photo, model, outputs, fan and dated VRAM report.',19:'Priority final inspection and dated VRAM report.',20:'Priority final inspection and dated VRAM report.',23:'Repeat Superposition with the preset and API recorded.',24:'Next after #20: final inspection and dated VRAM report.',36:'Hold: inspect loud fan before any load test.'};
+fetch('data/batch.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(f=>{
+ const priority=[18,19,20,24];const rank=n=>priority.includes(n)?priority.indexOf(n):n+5;
+ for(const c of [...f.cards].sort((a,b)=>rank(a.card)-rank(b.card))){
+ const tr=document.querySelector('#rows').insertRow();const a=document.createElement('a');a.href='./?card='+c.card+'#fdetail';a.textContent='#'+c.card;tr.insertCell().append(a);
+ for(const k of ['fm','sp','sn'])tr.insertCell().textContent=c[k]??'—';
+ const notes=[actions[c.card]||'Complete physical checks and save VRAM evidence.'];
+ if(c.rig==='unlabelled')notes.push('Confirm test PC.');
+ if(c.card!==36 && c.sn==null)notes.push('Record Steel Nomad edition and score.');
+ tr.insertCell().textContent=notes.join(' ');
+ }
+}).catch(()=>document.querySelector('#rows').insertRow().insertCell().textContent='Fleet data unavailable. Reload to try again.');
+</script></html>
++total.toFixed(2)};
+for(const id of ['cprice','cshipcharged','cshipcost','cpacking','cfee'])document.getElementById(id).addEventListener('input',calc);calc();
 const actions={4:'Hold evidence: linked RX 9070 XT result belongs to another GPU. Recover the correct submission or rerun.',15:'Repeat FurMark and Steel Nomad on the same rig and settings.',18:'First: photo, model, outputs, fan and dated VRAM report.',19:'Priority final inspection and dated VRAM report.',20:'Priority final inspection and dated VRAM report.',23:'Repeat Superposition with the preset and API recorded.',24:'Next after #20: final inspection and dated VRAM report.',36:'Hold: inspect loud fan before any load test.'};
 fetch('data/batch.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(f=>{
  const priority=[18,19,20,24];const rank=n=>priority.includes(n)?priority.indexOf(n):n+5;
