@@ -2,7 +2,7 @@ name: Deploy site to GitHub Pages
 on:
   push:
     branches: [main]
-    paths: ['site/**', 'tools/test_site.mjs', 'tools/browser_smoke.mjs', '.github/workflows/pages.yml']
+    paths: ['site/**', 'tools/test_site.mjs', 'tools/browser_smoke.mjs', 'tools/build_resale.py', 'tools/sync_fleet.py', '.github/workflows/pages.yml']
   schedule:
     - cron: '17 */4 * * *'
   workflow_dispatch:
@@ -22,16 +22,26 @@ jobs:
       revision: ${{ steps.rev.outputs.sha }}
     steps:
       - uses: actions/checkout@v4
-      - name: Refresh public fleet extract
-        if: github.event_name != 'push'
+      - name: Refresh public fleet extract and rebuild resale pages
         run: |
-          python3 tools/sync_fleet.py
+          set -euo pipefail
+          if [ "${{ github.event_name }}" != 'push' ]; then
+            python3 tools/sync_fleet.py
+          fi
+          python3 tools/build_resale.py
+          if ! command -v pandoc >/dev/null; then
+            sudo apt-get update -qq
+            sudo apt-get install -y pandoc
+          fi
+          python3 tools/build_site.py
           node tools/test_site.mjs
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add site/data/batch.json
-          git commit -m 'Refresh public fleet scores'
-          git push origin HEAD:main
+          git add site/ docs/RESALE_ANALYSIS.md data/resale_grades_*.csv
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh GPU resale grades and listing sheets'
+            git push origin HEAD:main
+          fi
       - id: rev
         run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
   verify:
