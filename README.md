@@ -11,6 +11,7 @@ Sourced histories of GPU benchmarks. The main project is **FurMark** (below); ne
 - [Deep research and hardware identification audit](docs/GPU_BATCH_RESEARCH.md) — 2016 GTX 1070 history/specs, Colorful PCI subsystem vs Gigabyte-label discrepancy, real score analysis, driver lifespan, cooling/VRAM, resale and recommended checks.
 - [Source-linked GPU testing snapshot (CSV)](data/benchmark_snapshot_2026-11-13.csv) — 100 numbered sheet slots, each published test URL, result verification, CPU/driver/temperature/power and issue flags. This is a dated snapshot, not live-sync.
 - [Live GPU Testing Sheet](https://docs.google.com/spreadsheets/d/1yCaJ1PXI7R5sCuZopxetPMwNWyK142i7SJOmZRwTj44/edit) (also linked by the raw [benchmark](benchmark) file).
+- [GPU seller allocation: 20 each for Ned, James and Josh](docs/GPU_SELLER_ALLOCATION.md) — [machine-readable allocation](data/gpu_seller_allocation.json). Provisional reservations; #60–61 need testing, #36 excluded.
 - **Important findings:** 36 correctly linked GTX 1070 submissions; card #4 has an unrelated RX 9070 XT URL, #36 has a noisy fan, and the actual physical board manufacturer needs verification. **The live Google Sheet was not modified.**
 
 **The stories behind the scenes (30 additional questions, completed 13 November 2026)**
