@@ -110,6 +110,7 @@ try{
   await page.waitForFunction(()=>document.querySelectorAll("#pilotrows tr").length>=10,{timeout:25000});
   assert.match(await page.locator("#pilotrows").innerText(),/Open copy-ready draft/);
   assert.equal(await page.locator("#checkout-gpu18").getAttribute("href"),"https://buy.stripe.com/bJecN5fo9anC8851qwaVa00");
+  assert.match(await page.locator("#payment-safety").innerText(),/buy\.stripe\.com/);
   assert.match(await page.locator("#gpu18-live-sale").innerText(),/A\$227 delivered/);
   assert.equal(await page.locator("#cnet").innerText(),"A$198.89");
   await page.locator("#cpacking").fill("5");
@@ -118,6 +119,7 @@ try{
   pass("Ten card sale queue, transparent link audit, and live packaging margin calculator");
   await page.goto(url+"cards/card-18.html",{waitUntil:"domcontentloaded"});
   assert.equal(await page.locator("#buy-gpu18 [data-checkout='stripe-live']").getAttribute("href"),"https://buy.stripe.com/bJecN5fo9anC8851qwaVa00");
+  assert.match(await page.locator("#buy-gpu18").innerText(),/verification, release or upgrade fees/i);
   assert.match(await page.locator("#buy-gpu18").innerText(),/A\$227 total/);
   assert.match(await page.locator("#titletext").inputValue(),/Colorful iGame GTX 1070 U-TOP 8GB GDDR5 Triple Fan Graphics Card/);
   assert.match(await page.locator("#draft").inputValue(),/previously operated multi-GPU mining equipment batch/i);
