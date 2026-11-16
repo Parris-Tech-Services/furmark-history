@@ -70,6 +70,7 @@ check("No unreferenced local media in the podcast feed", () => {
 check("Resale grades are consistent with the fleet data and every card has a sheet", () => {
   const fleet=JSON.parse(read("site/data/batch.json")), resale=JSON.parse(read("site/data/resale.json"));
   assert.equal(resale.cards.length, fleet.cards.length, "resale.json is stale: run tools/build_resale.py");
+  assert.equal(resale.snapshot, (fleet.synced || fleet.snapshot).slice(0,10), "resale snapshot date must match fleet sync date");
   const grades=new Set(Object.keys(resale.grades));
   for(const r of resale.cards){
     assert(grades.has(r.grade), "unknown grade "+r.grade);
@@ -78,7 +79,11 @@ check("Resale grades are consistent with the fleet data and every card has a she
     assert(src, "card "+r.card+" not in fleet data");
     if(src.status==="FAN_NOISE_STOP") assert.equal(r.grade,"H","a card with a physical fault must be held");
     if(src.status==="LINK_SCORE_MISMATCH") assert.equal(r.grade,"V","a card with a wrong result link must be re-verified");
-    if(r.grade==="A"||r.grade==="B") assert(r.fm!=null&&r.sp!=null&&r.sn!=null&&r.ask, "A/B cards need three scores and a price range");
+    if(r.grade==="A"||r.grade==="B") {
+      assert.equal(src.status,"MATCHED_GTX1070","unverified GPU must not be graded for listing");
+      assert(r.fm!=null&&r.sp!=null&&r.sn!=null&&r.ask, "A/B cards need three scores and a price range");
+    }
+    if(src.note) assert.equal(r.grade,"H","unresolved physical or driver concern must be held");
     if(r.grade==="A") assert(/no error/i.test(r.occt||""), "A needs a clean memory test");
   }
   assert.equal(resale.lots.reduce((n,l)=>n+l.count,0), resale.cards.length);
