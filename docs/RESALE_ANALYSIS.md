@@ -1,8 +1,8 @@
-*Generated from the 2026-11-15 fleet snapshot by `tools/build_resale.py`. 41 started cards out of 100 sheet slots. Every grade below says what the recorded evidence supports; none says a card is healthy.*
+*Generated from the 2026-11-16 fleet snapshot by `tools/build_resale.py`. 54 started cards out of 100 sheet slots. Every grade below says what the recorded evidence supports; none says a card is healthy.*
 
 ## The short version
 
-Of 41 started cards, **31 have enough benchmark evidence to prepare listings, subject to physical checks** (3 have an OCCT no-error note of unspecified mode/duration, 28 have benchmarks alone), **8 need more testing**, **1 needs the evidence fixed** and **1 should be held back**. At the observed asking range, the "list now" group is worth about **AU$3,780 to AU$5,020 gross**, and the cards that still need tests could add roughly AU$960 to AU$1,280 if they pass. Those are asking prices before fees, shipping and time, not what the cards will sell for.
+Of 54 started cards, **31 have enough benchmark evidence to prepare listings, subject to physical checks** (3 have an OCCT no-error note of unspecified mode/duration, 28 have benchmarks alone), **8 need more testing**, **13 need the evidence fixed** and **2 should be held back**. At the observed asking range, the "list now" group is worth about **AU$3,780 to AU$5,020 gross**, and the cards that still need tests could add roughly AU$960 to AU$1,280 if they pass. Those are asking prices before fees, shipping and time, not what the cards will sell for.
 
 ## How cards are graded
 
@@ -30,9 +30,9 @@ Rules are applied in order: hold, then verify, then incomplete, then retest, the
 - **A (3):** #18, #19, #20
 - **B (28):** #1, #2, #3, #5, #6, #7, #8, #9, #10, #12, #13, #16, #17, #21, #24, #26, #27, #28, #29, #30, #31, #32, #34, #35, #37, #38, #39, #41
 - **R, retest (7):** #11, #14, #15, #22, #23, #25, #33
-- **I, incomplete (1):** #40
-- **V, verify the result (1):** #4
-- **H, hold (1):** #36
+- **I, incomplete (1):** #54
+- **V, verify the result (13):** #4, #42, #43, #44, #45, #46, #47, #48, #49, #50, #51, #52, #53
+- **H, hold (2):** #36, #40
 
 The whole batch is tight: most cards sit within a few percent of their rig's median, so the retest list is short and the differences are small. A low score here is a reason to repeat the test, not evidence of a fault.
 
@@ -42,8 +42,8 @@ The whole batch is tight: most cards sit within a few percent of their rig's med
 |---|---|---|---|
 | List now | 31 | A, B | Individually, honest about what is untested. |
 | Finish tests first | 8 | R, I | Retest or complete the missing benchmarks, then re-grade. |
-| Resolve the evidence | 1 | V | Find the real public result, then re-grade. |
-| Hold | 1 | H | Do not list until the fault is understood. |
+| Resolve the evidence | 13 | V | Find the real public result, then re-grade. |
+| Hold | 2 | H | Do not list until the fault is understood. |
 
 **Gross asking range for "list now":** AU$3,780 to AU$5,020 individually. If sold as one wholesale lot at a discount (a planning assumption, not a sourced figure): 0% off gives AU$3,780 to AU$5,020; 15% off gives AU$3,213 to AU$4,267; 30% off gives AU$2,646 to AU$3,514.
 
