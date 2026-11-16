@@ -140,20 +140,46 @@ def lots(rows):
     return out
 
 
+def ebay_title(r):
+    return "NVIDIA GeForce GTX 1070 8GB GDDR5 Graphics Card - Benchmarked GPU #%02d" % r["card"]
+
+
+def pilot_price(r):
+    # Advertised price to test buyer demand; not a market valuation or guaranteed sale.
+    return 139 if r["grade"] == "A" else 129 if r["grade"] == "B" else None
+
+
 def listing_text(r):
     f = lambda v: format(int(v), ",")
-    lines = ["NVIDIA GeForce GTX 1070 8GB graphics card (Pascal), used."]
-    if r["grade"] in ("A", "B"):
-        lines.append("Recognised by GPU-Z and tested with FurMark 2.11 (OpenGL, 1080p, 60 s): %s points (about %d FPS)." % (f(r["fm"]), round(r["fm"] / 60)))
-        lines.append("Also tested: UNIGINE Superposition %s; 3DMark Steel Nomad %s (about %.1f FPS at 4K)." % (f(r["sp"]), f(r["sn"]), r["sn"] / 100))
-        if r["temp"]: lines.append("Peak reported GPU temperature during the FurMark run: %d °C." % r["temp"])
-        lines.append("OCCT: %s." % ("No errors recorded; test mode/duration not documented" if r["grade"] == "A" else "no verified result recorded"))
-        lines.append("VRAM-specific test: [RECORD MODE, DURATION AND ERROR COUNT BEFORE CLAIMING IT PASSED]")
-        lines.append("Display outputs and fan: [CHECK AND FILL IN BEFORE LISTING].")
-        lines.append("Board maker / model: [CONFIRM FROM THE CARD'S LABEL BEFORE LISTING].")
-        lines.append("Sold as tested; no warranty implied.")
+    if r["grade"] not in ("A", "B"):
+        return "NOT READY TO LIST: GPU #%02d. %s" % (r["card"], "; ".join(r["reasons"]))
+    lines = [
+        "Used NVIDIA GeForce GTX 1070 8GB GDDR5 graphics card, inventory GPU #%02d." % r["card"],
+        "This GPU is from a previously operated multi-GPU mining equipment batch. Exact prior operating hours are unknown.",
+        "Individually benchmarked; tests completed on the PC identified in our records as %s (test PC name is not the graphics card brand)." % r["rig"],
+        "FurMark 2.11 (OpenGL, 1920x1080, 60 seconds): %s points." % f(r["fm"]),
+        "UNIGINE Superposition: %s points (preset/API not recorded)." % f(r["sp"]),
+        "3DMark Steel Nomad: %s points (edition/settings to confirm)." % f(r["sn"]),
+    ]
+    if r["temp"] is not None:
+        lines.append("Peak software-reported GPU temperature during the linked FurMark run: %d°C." % r["temp"])
+    if r.get("url"):
+        lines.append("Public FurMark result: %s" % r["url"])
+    if r["grade"] == "A":
+        lines.append("OCCT: 'No errors' is recorded, but test mode and duration were not documented. A VRAM-specific pass is NOT claimed.")
     else:
-        lines.append("NOT READY TO LIST. " + "; ".join(r["reasons"]) + ".")
+        lines.append("OCCT/VRAM-specific test: not independently verified.")
+    lines += [
+        "",
+        "Before publishing, complete these per-card details:",
+        "Actual board maker and exact model/revision: [CONFIRM FROM PHYSICAL LABEL]",
+        "Cooling fans and noise under load: [INSPECT AND DESCRIBE]",
+        "Display ports successfully tested: [CHECK AND LIST]",
+        "Cosmetic condition and accessories: [DESCRIBE AND MATCH PHOTOS]",
+        "VRAM-specific test, if performed: [VERSION, DURATION, RESULT]",
+        "Photos should show the exact GPU being sold. GPU only unless accessories are explicitly described.",
+        "Results reflect the recorded tests and do not guarantee future performance."
+    ]
     return "\n".join(lines)
 
 
@@ -170,7 +196,7 @@ def card_page(r, template):
     reasons = "".join("<li>%s</li>" % html.escape(x) for x in r["reasons"]) or "<li>No concerns found in the recorded scores.</li>"
     link = ('<a href="%s" target="_blank" rel="noopener">Open the public FurMark result</a>' % html.escape(r["url"])) if r["url"] else "No public link recorded"
     ask = ("%s to %s (planning range, not a sold price)" % (money(r["ask"][0]), money(r["ask"][1]))) if r["ask"] else "No price until the grade improves"
-    return (template.replace("{{N}}", "%02d" % r["card"]).replace("{{NUM}}", str(r["card"])).replace("{{GRADE}}", r["grade"])
+    return (template.replace("{{N}}", "%02d" % r["card"]).replace("{{NUM}}", str(r["card"])).replace("{{TITLE}}", html.escape(ebay_title(r))).replace("{{PILOTPRICE}}", ("AU$%d" % pilot_price(r)) if pilot_price(r) else "Not priced — hold for verification").replace("{{GRADE}}", r["grade"])
             .replace("{{GRADENAME}}", html.escape(G[0])).replace("{{GRADEWHY}}", html.escape(G[2])).replace("{{CLS}}", cls)
             .replace("{{SCORES}}", scores).replace("{{TELE}}", tele).replace("{{GAPS}}", gaps).replace("{{REASONS}}", reasons)
             .replace("{{LINK}}", link).replace("{{ASK}}", ask).replace("{{LISTING}}", html.escape(listing_text(r))).replace("{{BASE}}", BASE))
@@ -214,12 +240,13 @@ textarea{width:100%;min-height:210px;background:var(--bg2);border:1px solid var(
 <section aria-labelledby="t"><h2 id="t">Public telemetry and test PC</h2><div class="facts">{{TELE}}</div><p style="color:var(--mut);font-size:14px">{{LINK}}. Telemetry is software-estimated from the public result, not measured at the wall.</p></section>
 <section aria-labelledby="k"><h2 id="k">Still to check before listing</h2><ul class="gaps">{{GAPS}}</ul></section>
 <section aria-labelledby="p"><h2 id="p">Asking-price planning range</h2><p style="color:var(--mut)">{{ASK}}. Observed asking prices, before fees, shipping and your time.</p></section>
-<section aria-labelledby="l"><h2 id="l">Listing draft</h2><p style="color:var(--mut);font-size:14px">Replace every bracketed item before publishing. Do not claim anything the evidence above does not support.</p>
-<label for="draft" class="sr">Listing draft text</label><textarea id="draft">{{LISTING}}</textarea>
-<div class="row noprint"><button class="btn" id="copy" type="button">Copy draft</button><button class="btn ghost" type="button" onclick="window.print()">Print this sheet</button><a class="btn ghost" href="../read/resale-analysis.html">How the grade works</a></div></section>
+<section aria-labelledby="l"><h2 id="l">eBay listing draft</h2><p style="color:var(--mut);font-size:14px">Suggested trial Buy It Now price: <b>{{PILOTPRICE}}</b>, plus buyer-paid postage. Best Offer can be enabled. This is a preparation sheet, not a published listing. Do not list multiple identical fixed-price GPUs simultaneously. Replace all bracketed fields and complete physical inspection before publishing.</p>
+<label for="titletext">Draft title (edit after confirming exact physical model)</label><textarea id="titletext" style="min-height:65px" readonly>{{TITLE}}</textarea>
+<label for="draft">Description draft (edit before copying to eBay)</label><textarea id="draft">{{LISTING}}</textarea>
+<div class="row noprint"><button class="btn" id="copy" type="button">Copy description</button><button class="btn ghost" id="copytitle" type="button">Copy title</button><a class="btn ghost" href="https://www.ebay.com.au/sl/prelist/suggest" target="_blank" rel="noopener">Open eBay listing creator</a><button class="btn ghost" type="button" onclick="window.print()">Print this sheet</button><a class="btn ghost" href="../read/resale-analysis.html">How the grade works</a></div></section>
 </main>
 <script src="../assets/app.js" data-base="../"></script>
-<script>document.getElementById("copy").onclick=function(){var t=document.getElementById("draft"),b=this;t.select();(navigator.clipboard?navigator.clipboard.writeText(t.value):Promise.reject()).then(function(){b.textContent="Copied ✓"},function(){document.execCommand("copy");b.textContent="Copied ✓"})}</script>
+<script>document.getElementById("copy").onclick=function(){var t=document.getElementById("draft"),b=this;t.select();(navigator.clipboard?navigator.clipboard.writeText(t.value):Promise.reject()).then(function(){b.textContent="Copied ✓"},function(){document.execCommand("copy");b.textContent="Copied ✓"})};document.getElementById("copytitle").onclick=function(){var t=document.getElementById("titletext"),b=this;t.select();(navigator.clipboard?navigator.clipboard.writeText(t.value):Promise.reject()).then(function(){b.textContent="Copied title ✓"},function(){document.execCommand("copy");b.textContent="Copied title ✓"})}</script>
 </body></html>
 """
 
