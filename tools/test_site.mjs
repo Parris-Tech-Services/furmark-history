@@ -89,6 +89,17 @@ check("Resale grades are consistent with the fleet data and every card has a she
   assert.equal(resale.lots.reduce((n,l)=>n+l.count,0), resale.cards.length);
   assert(existsSync(join(site,"data","resale-grades.csv")));
 });
+check("Public benchmark link audits retain uncertainty and source provenance", () => {
+  const a=JSON.parse(read("site/data/public-link-audit.json"));
+  assert.equal(a.results.length,a.checked);
+  assert.equal(a.confirmed_by_this_script,0,"A page text match must not auto-approve a GPU");
+  const fleet=JSON.parse(read("site/data/batch.json"));
+  for(const r of a.results) {
+    assert(fleet.cards.some(x=>x.card===r.card),"Link audit refers to unknown card");
+    assert(r.verification==="not_verified","Unconfirmed evidence presented as verified");
+    assert(r.url?.startsWith("https://www.gpumagick.com/scores/"));
+  }
+});
 check("GTX 1070 podcast list has unique Apple Podcasts embeds", () => {
   const d=JSON.parse(read("site/data/podcasts-gtx1070.json")), ids=new Set();
   assert(d.episodes.length>=5);
