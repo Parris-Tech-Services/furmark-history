@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "record_type": "gpu_seller_allocation",
+  "created_date": "2026-11-16",
+  "status": "provisional_seller_allocation_not_sale_clearance",
+  "repository": "Parris-Tech-Services/furmark-history",
+  "source": "User-approved allocations from ChatGPT conversation, checked against GPU Testing Sheet (read-only).",
+  "source_sheet_url": "https://docs.google.com/spreadsheets/d/1yCaJ1PXI7R5sCuZopxetPMwNWyK142i7SJOmZRwTj44/edit",
+  "price_assumption": {
+    "currency": "AUD",
+    "buy_it_now_per_gpu": 200,
+    "indicative_only": true
+  },
+  "allocation_notes": [
+    "Allocations are by numbered physical GPU; do not substitute a test PC label for the GPU manufacturer.",
+    "58 numbered GPUs have three numeric benchmark results; #60 and #61 are reservations pending benchmarking.",
+    "#36 noisy fan is excluded.",
+    "Do not treat benchmark completion as full hardware certification; physical checks and accurate listing-specific photos remain required.",
+    "No eBay listings or Google Sheet edits were made as part of saving this allocation."
+  ],
+  "excluded_from_sale_group": [
+    36
+  ],
+  "unassigned_count_of_92": 32,
+  "total_assigned": 60,
+  "sellers": [
+    {
+      "seller": "Ned",
+      "gpu_numbers": [
+        8,
+        12,
+        14,
+        15,
+        16,
+        17,
+        20,
+        23,
+        26,
+        30,
+        31,
+        34,
+        39,
+        40,
+        45,
+        46,
+        47,
+        53,
+        57,
+        58
+      ],
+      "count": 20,
+      "benchmarked_three_scores": 20,
+      "awaiting_benchmark": [],
+      "potential_gross_aud_at_200": 4000,
+      "flags": {
+        "40": "Earlier NVIDIA-related BSOD on test PC; GPU causation unconfirmed. Retest and inspect before listing."
+      }
+    },
+    {
+      "seller": "James",
+      "gpu_numbers": [
+        1,
+        2,
+        4,
+        7,
+        11,
+        19,
+        22,
+        27,
+        32,
+        35,
+        44,
+        48,
+        49,
+        50,
+        51,
+        52,
+        54,
+        55,
+        56,
+        59
+      ],
+      "count": 20,
+      "benchmarked_three_scores": 20,
+      "awaiting_benchmark": [],
+      "potential_gross_aud_at_200": 4000,
+      "flags": {
+        "4": "Existing public FurMark link is for another GPU. Recover correct GTX 1070 evidence or rerun."
+      }
+    },
+    {
+      "seller": "Josh",
+      "gpu_numbers": [
+        3,
+        5,
+        6,
+        9,
+        10,
+        13,
+        18,
+        21,
+        24,
+        25,
+        28,
+        29,
+        33,
+        37,
+        38,
+        41,
+        42,
+        43,
+        60,
+        61
+      ],
+      "count": 20,
+      "benchmarked_three_scores": 18,
+      "awaiting_benchmark": [
+        60,
+        61
+      ],
+      "potential_gross_aud_at_200": 4000,
+      "flags": {
+        "18": "Already prepared as the Colorful iGame GTX 1070 U-TOP-8G A$200 Buy It Now pilot; remaining physical checks and eBay publication are not complete.",
+        "60": "Not yet benchmarked; reserved for Josh only.",
+        "61": "Not yet benchmarked; reserved for Josh only."
+      }
+    }
+  ]
+}
