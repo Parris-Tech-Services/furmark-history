@@ -118,7 +118,7 @@ try{
   assert.match(await page.locator("#titletext").inputValue(),/GTX 1070 8GB/);
   assert.match(await page.locator("#draft").inputValue(),/previously operated multi-GPU mining equipment batch/i);
   assert.match(await page.locator("#draft").inputValue(),/mode and duration were not documented/i);
-  assert.match(await page.locator("body").innerText(),/A\$139/);
+  assert.match(await page.locator("body").innerText(),/AU\$139/);
   await page.goto(url+"cards/card-36.html",{waitUntil:"domcontentloaded"});
   assert.match(await page.locator("#draft").inputValue(),/NOT READY TO LIST/);
   pass("Per-card eBay draft and safety-hold integrity");
