@@ -1,0 +1,13 @@
+# Security supply-chain maintenance: creates reviewable PRs, never auto-merges.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "07:00"
+      timezone: Australia/Sydney
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
