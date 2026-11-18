@@ -9,7 +9,7 @@
 ## 1. Executive findings and decision
 
 1. **Both cards are GP104/Pascal GTX 1070 8GB designs**, not cut-down GA100 mining accelerators. There is no verified, practical 8-to-16GB or GTX-1070-to-GTX-1080 unlock for either *specific* board in the sources examined. Avoid buying flash files or advertising more than 8GB VRAM per unit. [S1–S7]
-2. **The exact boards are different.** Colorful's U-TOP lists three 80mm fans, four 7mm heatpipes, **two 6-pin power connectors (owner-observed and corroborated by Korean launch/Japanese SKU sources), not the 2×8-pin stated on one Colorful Europe page**, and a dual-clock specification; launch reporting names 8+2 power phases and its modular i-MSD design. Gigabyte Rev 2.0 lists WINDFORCE 2X, one 8-pin connector, 6+2 phases and its own mode clocks. These are *board-level* distinctions, not proof one survives longer. [S1–S4]
+2. **The exact boards are different.** Colorful's **Chinese manufacturer's exact U-TOP** listing describes three fans, one 8mm plus one 6mm heatpipe, **two 6-pin power connectors (owner-observed and corroborated by Korean launch/Japanese SKU sources)**, and 6+2 power phases; a conflicting Colorful Europe page appears to mix in X-TOP-style specifications. Contemporary reporting describes dual-clock modes and its modular i-MSD design. Gigabyte Rev 2.0 lists WINDFORCE 2X, one 8-pin connector, 6+2 phases and its own mode clocks. These are *board-level* distinctions, not proof one survives longer. [S1–S4]
 3. **The collection is not yet 89 verified-good GPUs.** Historic FurMark results repeatedly identify subsystem vendor 7377 (Colorful), while separate photographed cards were labelled Gigabyte. Physical model/revision and a serial-to-test mapping must be established before representing every result as belonging to an exact board. The latest generated resale analysis is dated 16 November, before this revised inventory. [I1–I3]
 4. **712GB does not act like one GPU with 712GB memory.** The most practical cluster workloads are independent jobs and data-parallel batches, not a single enormous model stretched across 89 consumer GPUs over PCIe and Ethernet.
 5. **Software longevity is becoming the bottleneck.** GTX 1070 compute capability is 6.1. CUDA 13 removed Pascal offline compilation and libraries, and PyTorch announced the end of published CUDA 12.6 wheels with 2.15. Preserve pinned, tested CUDA 12.x / driver combinations for experimental use; do not assume a new CUDA/PyTorch wheel will work. [S8–S12]
@@ -25,15 +25,15 @@
 | Launch history | Custom U-TOP and X-TOP announced 10 June 2016; expected late June China availability | Exact Rev. 2.0 first-sale date **not verified**; do not use initial GTX 1070 launch date as board-revision date |
 | Silicon | NVIDIA GP104 Pascal, GTX 1070 | NVIDIA GP104 Pascal, GTX 1070 |
 | Cores / memory | 1,920 CUDA cores, 8GB GDDR5, 256-bit | 1,920 CUDA cores, 8GB GDDR5, 256-bit |
-| Listed base clock | 1506–1684 MHz (manufacturer publishes a range, probably operating modes; confirm card VBIOS) | Gaming 1556 MHz; OC mode 1582 MHz |
-| Listed boost clock | 1607–1797 MHz (range as published) | Gaming 1746 MHz; OC mode 1771 MHz |
+| Listed base clock | **1506 MHz** standard / **1569 MHz** boosted BIOS mode reported in U-variant teardown [S27]; Chinese official U-TOP quotes 1569 MHz [S26]; check actual VBIOS | Gaming 1556 MHz; OC mode 1582 MHz |
+| Listed boost clock | **1683 MHz** standard / **1759 MHz** boosted BIOS mode in independent U-variant review [S27] and 1759 MHz Chinese official U-TOP [S26] | Gaming 1746 MHz; OC mode 1771 MHz |
 | Memory data rate | 8008 MT/s effective | 8008 MT/s effective (check actual VBIOS) |
-| Cooler | 3 × 80mm fans, 4 × 7mm plated heatpipes on distributor page | WINDFORCE 2X, two fans, composite heatpipes |
-| Listed VRM | 8+2 phases in contemporary Colorful launch coverage; not a component-level schematic | 6+2 phases on official Gigabyte page |
+| Cooler | 3 fans, **1 × 8mm + 1 × 6mm heatpipe**, per Chinese Colorful official U-TOP listing [S26]; Europe page describes a conflicting cooler | WINDFORCE 2X, two fans, composite heatpipes |
+| Listed VRM | **6+2 phases** on Chinese Colorful official U-TOP page [S26] and U-variant teardown [S27]; **8+2** applies to different X-TOP coverage and must not be transplanted | 6+2 phases on official Gigabyte page |
 | Auxiliary power | **2 × 6-pin** on the owner's actual cards, corroborated by model-specific Korean 2016 launch coverage and Japanese SKU catalogue [S24–S25]; **one Colorful Europe page incorrectly lists 2 × 8-pin for this variant** [S1] | **1 × 8-pin** per owner and official Gigabyte Rev 2.0 specifications [S2] |
 | Video ports | 3 × DisplayPort 1.4, 1 × HDMI 2.0b, 1 × DVI | 3 × DisplayPort, 1 × HDMI, 1 × DVI-D |
 | Listed reference-style TDP | 150W (vendor listing); a firmware power limit may be higher | 150W class / actual firmware limit varies |
-| Board dimensions | Exact measured U-TOP dimensions **not verified** | 280 × 131 × 37mm on official Gigabyte spec |
+| Board dimensions | Japanese exact-SKU listing **302 × 148 × 45 mm**, not measured on this fleet [S25] | 280 × 131 × 37mm on official Gigabyte spec |
 | PCIe | PCIe 3.0 x16 (GPU capability; electrical slot wiring may be narrower) | PCIe 3.0 x16 |
 | Confidence | HIGH on product listing; MEDIUM that every physical card is identical | HIGH on official model specs; physical individual IDs remain UNKNOWN |
 
@@ -43,7 +43,7 @@
 
 - **Pre-2016:** NVIDIA's Maxwell family precedes Pascal. Colorful had established iGame gaming cards in China; Gigabyte offered various WINDFORCE cooler generations. The two companies serve different channels; there is no evidence in this review of shared PCB designs between these SKUs.
 - **May 2016:** NVIDIA publicly detailed GTX 1070's cut-down GP104: 1,920 CUDA cores, full 256-bit GDDR5 interface, 8GB memory. The earlier full GTX 1080 used 2,560 cores and faster GDDR5X. [S5–S7]
-- **10 June 2016:** GTX 1070 retail launch, US MSRP **US$379** partner / approximately **US$449** Founders Edition, not a current Australian value. Colorful introduced U-TOP and X-TOP versions for the Chinese market; contemporary coverage describes the 8+2 phase and i-MSD modular hardware. [S3–S7]
+- **10 June 2016:** GTX 1070 retail launch, US MSRP **US$379** partner / approximately **US$449** Founders Edition, not a current Australian value. Colorful introduced U-TOP and X-TOP versions for the Chinese market; the Chinese official U-TOP page describes **6+2 phases**, while other contemporary **X-TOP** coverage describes 8+2; i-MSD modular hardware appeared in launch coverage. [S3–S7]
 - **Late June 2016:** Period reporting expected custom Colorful boards to be available; this is an announcement-window estimate, **not proof of when these 66 particular cards were manufactured**. [S3–S4]
 - **2017–2021:** Pascal remained popular in budget gaming and later used mining markets. Individual cards' previous mining history is **unknown**; cooling or fan wear cannot establish their previous workload by itself.
 - **October 2025:** NVIDIA stopped normal feature/Game Ready development for Maxwell, Pascal and Volta, while announcing critical-security fixes to October 2028. [S9]
@@ -197,9 +197,9 @@ Track every device with a one-card JSON or CSV record and make changes traceable
 
 1. Colorful U-TOP and X-TOP were distinct launch SKUs (not interchangeable spec names). [S3]
 2. **Important correction:** The owner's Colorful U-TOP cards have **two 6-pin power connectors**; Korean 2016 launch reporting explicitly says GTX 1070 U-TOP = 6+6 and GTX 1080 U-TOP = 8+8, and Japanese exact-SKU specifications independently say 6+6. The Colorful Europe page instead says 2×8 for U-TOP; treat that particular vendor-listing detail as **contradicted/possibly variant-mislabelled**, not authoritative over the cards. [S1, S24–S25]
-3. It lists **three 80mm fans and four plated 7mm heatpipes**. [S1]
+3. The Chinese official U-TOP listing calls out **three fans plus one 8mm and one 6mm heatpipe**, not the contradictory four 7mm claim on a European reseller page. [S1, S26]
 4. Original iGame press coverage describes **i-MSD modular assembly** designed for customisation. [S4]
-5. Launch reporting calls its supply design **8+2**, unlike Gigabyte's official **6+2**. [S2–S4]
+5. **Both U-TOP and Gigabyte WF2OC are documented as 6+2-phase designs** on their respective manufacturer pages; 8+2 references in English reports appear to describe the **X-TOP**. [S2, S26]
 6. Gigabyte's Rev 2.0 listing provides **two explicit BIOS/software clock modes**, not one fixed speed. [S2]
 7. Gigabyte **WF2OC** and **WF2 without OC** have distinct official pages; conflating them corrupts clock comparisons. [S2]
 8. One GPU-Z subsystem ID cannot prove a photographed board partner; the fleet has a **7377 vs 1458** identity investigation. [I1]
@@ -270,6 +270,9 @@ Track every device with a one-card JSON or CSV record and make changes traceable
 
 - [S24] Korean 2016 Waycos/Colorful iGame U-TOP launch announcement: GTX1070 U-TOP **6+6pin**, GTX1080 U-TOP **8+8pin**, https://www.bodnara.co.kr/bbs/article.html?num=132217
 - [S25] Japanese Kakaku exact model iGame GTX1070 U-TOP-8G model specifications, auxiliary power **6pin + 6pin**, https://kakaku.com/item/K0001039095/
+
+- [S26] Colorful **Chinese manufacturer** page: `iGame GeForce GTX1070 烈焰战神U-8GD5 Top`, GP104 1,920 CUDA, 1569/1759MHz, **6+2 phases**, 3 fans, **one 8mm and one 6mm heatpipe**: https://www.colorful.cn/home/product?id=382&mid=102
+- [S27] Chinese first-hand teardown of GTX 1070 烈焰战神U, not independently proven identical *PCB revision* to all U-TOP units: **6+2**, **2×6-pin**, uP9511P PWM and Samsung K4G80325FB-HC25 memory, 1×8mm +1×6mm heatpipes: https://m.zol.com.cn/quanzi/d14_11211.html
 
 **Existing internal research and its limits**
 
