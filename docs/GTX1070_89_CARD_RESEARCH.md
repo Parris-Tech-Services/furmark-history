@@ -161,7 +161,7 @@ A bulk sale will usually trade lower unit proceeds for lower testing, packaging 
 
 **Possible repair budgets:** Instead of publishing invented quotations for unknown fan part numbers and thermal pads, define a per-unit maximum approved spend after diagnosis. For example, at a hypothetical AU$15 consumables each, all 89 would cost **AU$1,335** *before labour*; if the real parts exceed the expected increase in sale proceeds, stop. Do not repaste 89 cards blindly when measured thermals and pads are currently acceptable.
 
-**Modern GPU comparison:** As of October–November 2026, local RTX 3060 12GB ads show hundreds of AUD per card; they add Tensor cores and a 12GB contiguous working set, but published asking price is not what a purchaser must pay. [S23] A small number of newer GPUs may deliver lower cost per useful AI job than 89 Pas c al-era boards; measure exact application throughput, not spec-sheet TFLOPS.
+**Modern GPU comparison:** As of October–November 2026, local RTX 3060 12GB ads show hundreds of AUD per card; they add Tensor cores and a 12GB contiguous working set, but published asking price is not what a purchaser must pay. [S23] A small number of newer GPUs may deliver lower cost per useful AI job than 89 Pascal-era boards; measure exact application throughput, not spec-sheet TFLOPS.
 
 ## 11. Safe per-card test / refurbishment protocol
 
