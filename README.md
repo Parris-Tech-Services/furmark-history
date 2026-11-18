@@ -8,6 +8,7 @@ Sourced histories of GPU benchmarks. The main project is **FurMark** (below); ne
 
 **NEW: The actual GTX 1070 batch being benchmarked (13 November 2026)**
 
+- **[89-card GTX 1070 deep research (18 Nov 2026)](docs/GTX1070_89_CARD_RESEARCH.md)** — exact Colorful iGame U-TOP vs Gigabyte WINDFORCE OC Rev 2.0 history, physical design, memory/core unlock feasibility, legacy CUDA/AI, 89-GPU lab and cluster scenarios, electricity and Australian market evidence. **Current physical inventory: 66 Colorful + 23 Gigabyte = 89 GPUs / 712GB aggregate VRAM (working condition not individually verified).**
 - [Deep research and hardware identification audit](docs/GPU_BATCH_RESEARCH.md) — 2016 GTX 1070 history/specs, Colorful PCI subsystem vs Gigabyte-label discrepancy, real score analysis, driver lifespan, cooling/VRAM, resale and recommended checks.
 - [Source-linked GPU testing snapshot (CSV)](data/benchmark_snapshot_2026-11-13.csv) — 100 numbered sheet slots, each published test URL, result verification, CPU/driver/temperature/power and issue flags. This is a dated snapshot, not live-sync.
 - [Live GPU Testing Sheet](https://docs.google.com/spreadsheets/d/1yCaJ1PXI7R5sCuZopxetPMwNWyK142i7SJOmZRwTj44/edit) (also linked by the raw [benchmark](benchmark) file).
