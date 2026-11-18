@@ -74,4 +74,8 @@ jobs:
             if [ "$attempt" = 18 ]; then echo "New research page was not published correctly"; exit 1; fi
             sleep 5
           done
+          curl --fail --silent --show-error --location --retry 3 --retry-delay 2 "${site_url}read/gtx1070-exact-schematics-boardviews.html" -o /tmp/gtx-schematics.html
+          grep -q 'GP104H8-D50 Rev A' /tmp/gtx-schematics.html
+          grep -q 'GV-N1070WF2OC-8GD Rev. 2.0' /tmp/gtx-schematics.html
+          echo "Verified live: exact-model schematic and boardview source index"
           echo "Verified deployed site for card #$last_card"
