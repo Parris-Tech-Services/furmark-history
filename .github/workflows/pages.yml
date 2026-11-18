@@ -65,4 +65,13 @@ jobs:
             curl --fail --silent --show-error --location --retry 3 --retry-delay 2 "${site_url}${asset}" --output /dev/null
             echo "Live OK: $asset"
           done
+          # Verify the exact new 89-card research document, not just the homepage.
+          for attempt in $(seq 1 18); do
+            if curl --fail --silent --show-error --location --max-time 15 "${site_url}read/gtx1070-89-card-research.html" -o /tmp/gtx1070-research.html && grep -q '89 GTX 1070s: history, unlocks, AI and economics' /tmp/gtx1070-research.html; then
+              echo "Verified live: sourced 89-card GTX 1070 research page"
+              break
+            fi
+            if [ "$attempt" = 18 ]; then echo "New research page was not published correctly"; exit 1; fi
+            sleep 5
+          done
           echo "Verified deployed site for card #$last_card"
