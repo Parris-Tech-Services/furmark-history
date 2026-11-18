@@ -9,7 +9,7 @@
 ## 1. Executive findings and decision
 
 1. **Both cards are GP104/Pascal GTX 1070 8GB designs**, not cut-down GA100 mining accelerators. There is no verified, practical 8-to-16GB or GTX-1070-to-GTX-1080 unlock for either *specific* board in the sources examined. Avoid buying flash files or advertising more than 8GB VRAM per unit. [S1–S7]
-2. **The exact boards are different.** Colorful's U-TOP lists three 80mm fans, four 7mm heatpipes, two 8-pin power connectors, and a dual-clock specification; launch reporting names 8+2 power phases and its modular i-MSD design. Gigabyte Rev 2.0 lists WINDFORCE 2X, one 8-pin connector, 6+2 phases and its own mode clocks. These are *board-level* distinctions, not proof one survives longer. [S1–S4]
+2. **The exact boards are different.** Colorful's U-TOP lists three 80mm fans, four 7mm heatpipes, **two 6-pin power connectors (owner-observed and corroborated by Korean launch/Japanese SKU sources), not the 2×8-pin stated on one Colorful Europe page**, and a dual-clock specification; launch reporting names 8+2 power phases and its modular i-MSD design. Gigabyte Rev 2.0 lists WINDFORCE 2X, one 8-pin connector, 6+2 phases and its own mode clocks. These are *board-level* distinctions, not proof one survives longer. [S1–S4]
 3. **The collection is not yet 89 verified-good GPUs.** Historic FurMark results repeatedly identify subsystem vendor 7377 (Colorful), while separate photographed cards were labelled Gigabyte. Physical model/revision and a serial-to-test mapping must be established before representing every result as belonging to an exact board. The latest generated resale analysis is dated 16 November, before this revised inventory. [I1–I3]
 4. **712GB does not act like one GPU with 712GB memory.** The most practical cluster workloads are independent jobs and data-parallel batches, not a single enormous model stretched across 89 consumer GPUs over PCIe and Ethernet.
 5. **Software longevity is becoming the bottleneck.** GTX 1070 compute capability is 6.1. CUDA 13 removed Pascal offline compilation and libraries, and PyTorch announced the end of published CUDA 12.6 wheels with 2.15. Preserve pinned, tested CUDA 12.x / driver combinations for experimental use; do not assume a new CUDA/PyTorch wheel will work. [S8–S12]
@@ -30,7 +30,7 @@
 | Memory data rate | 8008 MT/s effective | 8008 MT/s effective (check actual VBIOS) |
 | Cooler | 3 × 80mm fans, 4 × 7mm plated heatpipes on distributor page | WINDFORCE 2X, two fans, composite heatpipes |
 | Listed VRM | 8+2 phases in contemporary Colorful launch coverage; not a component-level schematic | 6+2 phases on official Gigabyte page |
-| Auxiliary power | **2 × 8-pin** per Colorful Europe product listing | **1 × 8-pin** on Gigabyte Rev 2.0 spec |
+| Auxiliary power | **2 × 6-pin** on the owner's actual cards, corroborated by model-specific Korean 2016 launch coverage and Japanese SKU catalogue [S24–S25]; **one Colorful Europe page incorrectly lists 2 × 8-pin for this variant** [S1] | **1 × 8-pin** per owner and official Gigabyte Rev 2.0 specifications [S2] |
 | Video ports | 3 × DisplayPort 1.4, 1 × HDMI 2.0b, 1 × DVI | 3 × DisplayPort, 1 × HDMI, 1 × DVI-D |
 | Listed reference-style TDP | 150W (vendor listing); a firmware power limit may be higher | 150W class / actual firmware limit varies |
 | Board dimensions | Exact measured U-TOP dimensions **not verified** | 280 × 131 × 37mm on official Gigabyte spec |
@@ -166,7 +166,7 @@ A bulk sale will usually trade lower unit proceeds for lower testing, packaging 
 ## 11. Safe per-card test / refurbishment protocol
 
 1. **Stocktake first:** label physical cards C-001…C-066 and G-001…G-023 *only after physical identification*; private table: serial, model/revision, PCI subsystem, GPU-Z, VBIOS checksum, GDDR5 vendor, connector layout, photos, test rig, sale allocation and condition. Do not assume an old sheet number matches a new serial.
-2. **Powered-off inspection:** check 2×8-pin vs 1×8-pin, fan spins freely, screws/pads/shroud, corrosion, connectors and loose pieces. Hold any burn marks or grinding fans. Existing card **#36** needs fan diagnosis before load.
+2. **Powered-off inspection:** check Colorful 2×6-pin vs Gigabyte 1×8-pin, fan spins freely, screws/pads/shroud, corrosion, connectors and loose pieces. Hold any burn marks or grinding fans. Existing card **#36** needs fan diagnosis before load.
 3. **Safe boot:** identify device and board with GPU-Z or nvidia-smi, record driver, PCI ID, firmware version and available VRAM; **read-only** until diagnosis. Be cautious of a Colorful subsystem ID inside a Gigabyte shroud—document first.
 4. **Standard render:** fixed machine, fixed driver, same 60s FurMark2 P1080 GL + Superposition preset. Record average score, reported max temp, clock, power, fan behaviour, ambient temp, crashes/artifacts and result links. Run shorter if any anomaly; never bypass thermal protection.
 5. **Memory verification:** run an appropriate supported OCCT VRAM test, record exact version, mode, duration and **error count**; one no-error test is not lifetime proof.
@@ -196,7 +196,7 @@ Track every device with a one-card JSON or CSV record and make changes traceable
 ## 13. Twenty non-obvious, source-linked discoveries
 
 1. Colorful U-TOP and X-TOP were distinct launch SKUs (not interchangeable spec names). [S3]
-2. Colorful U-TOP's product page states **two** 8-pin auxiliary connectors despite the GTX 1070 reference **150W** class. [S1]
+2. **Important correction:** The owner's Colorful U-TOP cards have **two 6-pin power connectors**; Korean 2016 launch reporting explicitly says GTX 1070 U-TOP = 6+6 and GTX 1080 U-TOP = 8+8, and Japanese exact-SKU specifications independently say 6+6. The Colorful Europe page instead says 2×8 for U-TOP; treat that particular vendor-listing detail as **contradicted/possibly variant-mislabelled**, not authoritative over the cards. [S1, S24–S25]
 3. It lists **three 80mm fans and four plated 7mm heatpipes**. [S1]
 4. Original iGame press coverage describes **i-MSD modular assembly** designed for customisation. [S4]
 5. Launch reporting calls its supply design **8+2**, unlike Gigabyte's official **6+2**. [S2–S4]
@@ -238,7 +238,7 @@ Track every device with a one-card JSON or CSV record and make changes traceable
 
 **Manufacturer/primary sources**
 
-- [S1] Colorful Europe distribution product page, iGame GTX1070 U-TOP-8G, accessed 18 Nov 2026: https://www.colorfly.eu/products/graphic-cards-for-industrial-use/basics-for-customized/igame-gtx1070-u-top-8g/ (product specs, 2×8 pin, cooler).
+- [S1] Colorful Europe distribution product page, iGame GTX1070 U-TOP-8G, accessed 18 Nov 2026: https://www.colorfly.eu/products/graphic-cards-for-industrial-use/basics-for-customized/igame-gtx1070-u-top-8g/ (product specs and cooler; **power-connector claim 2×8 is contradicted by model-specific launch/spec evidence and the owner's physically observed 2×6**).
 - [S2] Gigabyte Australia, **GV-N1070WF2OC-8GD Rev 2.0**, accessed 18 Nov 2026: https://www.gigabyte.com/au/Graphics-Card/GV-N1070WF2OC-8GD-rev-20 and detailed spec https://www.gigabyte.com/Graphics-Card/GV-N1070WF2OC-8GD-rev-20/sp
 - [S8] NVIDIA legacy GPU compute-capability matrix (GTX 1070 SM 6.1): https://developer.nvidia.com/cuda/gpus/legacy
 - [S9] NVIDIA official legacy driver policy, October 2025–October 2028: https://nvidia.custhelp.com/app/answers/detail/a_id/5676/
@@ -267,6 +267,9 @@ Track every device with a one-card JSON or CSV record and make changes traceable
 - [S21] Australian Gumtree ASUS Strix GTX1070 asking AU$170, Nov 2026: https://www.gumtree.com.au/s-components/greenwich-sydney/c18552l3003831r100?condition=used
 - [S22] eBay completed listing **21 October 2026**, damaged MSI GTX1070, *for parts/no display*, ~AU$64.96 displayed: https://www.ebay.com.au/itm/168586025419
 - [S23] Gumtree used RTX 3060 ads, October–November 2026, showing a different price class: https://www.gumtree.com.au/s-components/rtx%2B3060/k0c18552
+
+- [S24] Korean 2016 Waycos/Colorful iGame U-TOP launch announcement: GTX1070 U-TOP **6+6pin**, GTX1080 U-TOP **8+8pin**, https://www.bodnara.co.kr/bbs/article.html?num=132217
+- [S25] Japanese Kakaku exact model iGame GTX1070 U-TOP-8G model specifications, auxiliary power **6pin + 6pin**, https://kakaku.com/item/K0001039095/
 
 **Existing internal research and its limits**
 
