@@ -16,6 +16,8 @@
 6. **An always-on 89-GPU rig would be expensive.** An illustrative 12-host, 150W/card, 90%-efficient PSU scenario is ~16.2kW at the wall, about **AU$3,492 per 30-day month** at an assumed 30c/kWh, excluding active cooling. Measure real watts before committing.
 7. **Practical recommendation:** audit and grade the stock first, retain a modest 2–8-card reproducible compute/benchmark lab, benchmark useful workloads *per watt*, then sell or separately use the rest if their operating cost is unjustifiable. Keep firmware and voltage experiments away from sale-ready cards.
 
+**Schematic/boardview follow-up (18 November):** [Exact model reference and download-source index](GTX1070_EXACT_SCHEMATICS_BOARDVIEWS.md) documents **Colorful iGame GTX1070 U-TOP GP104H8-D50 Rev A** schematic listings and exact **Gigabyte GV-N1070WF2OC-8GD Rev 2.0** TVW boardviews. File bytes and actual board revision compatibility remain unverified.
+
 ## 2. Model identification and side-by-side specifications
 
 | Attribute | Colorful iGame GTX1070 U-TOP-8G (66 claimed) | Gigabyte GV-N1070WF2OC-8GD **Rev. 2.0** (23 claimed) |
