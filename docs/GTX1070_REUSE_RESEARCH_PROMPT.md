@@ -1,0 +1,19 @@
+# Deep research prompt: practical second lives for an 89-card GTX 1070 fleet
+
+Investigate, as of 21 November 2026, whether repurposing existing GTX 1070s is useful and economical in regional NSW, Australia. Use primary documentation, open the sources, date all compatibility findings, and distinguish documented capability, engineering estimates and measurements. Do not invent performance results or profitability.
+
+Context: 66 Colorful iGame GTX 1070 U-TOP 8GB cards and 23 Gigabyte GTX 1070 WINDFORCE 8GB cards, 89 total. Owner reports Colorful power connectors are 2 × 6-pin and Gigabyte 1 × 8-pin; confirm physical PCB revisions before making exact-board claims. Cards previously mined Ethereum and have been stored unused. An older QNAP NAS is available, but its model, CPU, RAM, operating system, disks, network speed and expansion capabilities are unknown.
+
+Evaluate every technical proposition from a private discussion, paraphrased without identifying its participant:
+
+1. Ethereum mining ended; distinguish the Merge from exhaustion of the ETH supply and from other proof-of-work chains.
+2. Modern coin mining is generally unattractive in Australia. Test that claim with a transparent AUD break-even model including measured wall power, pool/software fees, exchange costs, difficulty, cooling, downtime, storage where genuinely relevant, and the opportunity cost of selling. Avoid treating a calculator projection as reliable income.
+3. Local LLMs are a useful second life. Separate Ollama (runtime) from Qwen (model family), verify Pascal compute capability, compatible driver and CUDA branches, runtime binaries and model formats. Assess one-card 4-bit 4B/8B models, two-card larger models, context/KV-cache overhead and CPU offload. Identify what must be benchmarked.
+4. Determine whether a special motherboard is necessary. Explain mechanical versus electrical PCIe slots, x1 mining risers versus x8/x16 links, lane allocation, shared chipset bandwidth, BIOS address space, PSU/cooling and software sharding. Explain why 712GB aggregate VRAM is not one pooled 712GB accelerator and why inference is different from training.
+5. Evaluate media-server transcoding on GTX 1070: NVENC/NVDEC, H.264/HEVC/10-bit, AV1 limitations, HDR tone mapping, subtitles, quality/bitrate and driver-dependent session limits. Do not promise a stream count without a specified test workload.
+6. Compare Jellyfin and Plex: free versus paid components, hardware-transcoding entitlement, direct play, clients, remote access and actual host compatibility. Clarify that Plex itself has free features.
+7. Explain Immich as a personal photo/video service: phone backup, search/faces, video transcoding, separate ML acceleration, CPU/RAM requirements, Docker/GPU configuration and Pascal compatibility uncertainty. Distinguish the media files, PostgreSQL data and backup copies.
+8. Evaluate QNAP-only and QNAP-storage-plus-PC designs, without assuming an unknown NAS supports GPUs or containers. Keep PostgreSQL on supported local storage. Include separate backup and restore requirements.
+9. Compare with ordinary gaming/resale. Explain why a Minecraft dedicated server is not a GPU workload; distinguish client graphics, shaders and remote gaming. Do not extrapolate a temperature screenshot into proof of card health.
+
+Deliver a claim/verdict matrix; dated source-linked technical findings; one-, two- and many-card architecture options; indicative AUD electricity scenarios clearly labelled assumptions; reproducible acceptance tests and remaining unknowns; a ranked practical recommendation; and a reusable prompt. Publish a separate, discoverable page in the existing FurMark website with matching repository documentation. Do not publish private screenshots, names, profiles or financial anecdotes. All physical-device performance must remain explicitly unverified until measured.

@@ -79,3 +79,8 @@ jobs:
           grep -q 'GV-N1070WF2OC-8GD Rev. 2.0' /tmp/gtx-schematics.html
           echo "Verified live: exact-model schematic and boardview source index"
           echo "Verified deployed site for card #$last_card"
+          for page in gtx1070-reuse-findings gtx1070-reuse-research-prompt; do
+            curl --fail --silent --show-error --location --retry 5 --retry-delay 3 "${site_url}read/${page}.html" -o "/tmp/${page}.html"
+            grep -q 'Immich' "/tmp/${page}.html"
+            echo "Verified live: $page"
+          done

@@ -6,6 +6,8 @@ This repo documents the history of GPU benchmark culture: sourced research on Fu
 
 Sourced histories of GPU benchmarks. The main project is **FurMark** (below); newer write-ups cover **UNIGINE Superposition** and **3DMark / Steel Nomad**.
 
+**New, 21 November 2026:** [GTX 1070 second lives: local AI, Jellyfin, Plex, Immich and QNAP](docs/GTX1070_REUSE_FINDINGS.md) · [Reusable deep research prompt](docs/GTX1070_REUSE_RESEARCH_PROMPT.md) · [Read the separate website page](https://parris-tech-services.github.io/furmark-history/read/gtx1070-reuse-findings.html).
+
 **NEW: The actual GTX 1070 batch being benchmarked (13 November 2026)**
 
 - **[Exact model schematics and boardviews — source index](docs/GTX1070_EXACT_SCHEMATICS_BOARDVIEWS.md)** — Colorful U-TOP GP104H8-D50 Rev A schematic listing and Gigabyte WINDFORCE Rev 2.0 TVW boardview listings; actual file bytes/physical PCB revisions not yet verified.

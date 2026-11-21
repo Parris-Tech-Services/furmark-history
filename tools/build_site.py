@@ -32,6 +32,8 @@ META = {
  "SCENE_STEEL_NOMAD":     ("The masked wanderer: scene and lore", "3dmark", "Lore", "Who is the Nomad, and what is the world?"),
  "QUESTIONS":             ("The thirty technical questions", "all", "Index", "Every open question and where it is answered."),
  "SCENE_STORY_QUESTIONS": ("The thirty scene questions", "all", "Index", "Story and visual-lore questions."),
+ "GTX1070_REUSE_FINDINGS": ("GTX 1070 second lives: AI, media and Immich", "fleet", "Deep research", "Local Qwen/Ollama, Jellyfin vs Plex, Immich, QNAP architecture and Australian electricity scenarios."),
+ "GTX1070_REUSE_RESEARCH_PROMPT": ("Deep research prompt: GTX 1070 reuse", "fleet", "Research prompt", "Reusable source-led investigation of local AI, mining, media servers, NAS and family photo hosting."),
  "GTX1070_89_CARD_RESEARCH": ("89 GTX 1070s: history, unlocks, AI and economics", "fleet", "Deep research", "Colorful U-TOP and Gigabyte WINDFORCE Rev 2.0, 89 cards, legacy compute, costs and safety."),
  "GTX1070_EXACT_SCHEMATICS_BOARDVIEWS": ("GTX 1070: schematic and boardview source index", "fleet", "Technical references", "Exact U-TOP schematic and Gigabyte WINDFORCE Rev 2.0 boardview sources; match PCB revisions."),
  "GPU_BATCH_RESEARCH":     ("My GTX 1070 batch: deep research", "fleet", "Your GPUs", "100 sheet slots, 38 started cards, link audit, rig bias, health and resale."),
