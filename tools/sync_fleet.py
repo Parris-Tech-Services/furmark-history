@@ -25,8 +25,16 @@ prior = {c['card']: c for c in old['cards']}
 verified_runs = json.loads((ROOT / 'data/verified_furmark_runs.json').read_text())
 for row in reader:
     number, recognised, *rest = (row[key].strip() for key in fields)
+    # Ignore only the known model divider and rows with no slot or primary test data.
+    # Unassigned notes are not card evidence and must not be published against a card.
+    if number == 'This is the end of the iGame GTX 1070 U-TOP 8GB GDDR5 and the start of the Gigabyte GeForce GTX 1070 WINDFORCE OC 8GB' and not any((recognised, *rest)):
+        continue
+    if not number and not any((recognised, *rest)):
+        if any((row.get(key) or '').strip() for key in ('Other notes', 'Test 8 - OCCT', 'Test 9 - NeroScore')):
+            print('Ignoring unassigned notes: no inventory slot')
+        continue
     if not number.isdigit() or int(number) < 1 or int(number) in seen:
-        raise ValueError('Invalid or duplicate slot')
+        raise ValueError(f'Invalid or duplicate slot on CSV row {reader.line_num}')
     n = int(number)
     seen.add(n)
     # Text in a benchmark cell is a safety note (for example a noisy fan), not a score.
@@ -74,7 +82,10 @@ for row in reader:
     if prev and any(card.get(k) != prev.get(k) for k in ('fm','sp','sn','url','rig')):
         card['history'] = prev.get('history', []) + [dict(observed=old.get('synced',old['snapshot']), **{k:prev.get(k) for k in ('fm','sp','sn','rig','tested')})]
     cards.append(card)
-if not seen or seen != set(range(1,max(seen)+1)) or max(seen)<old['slots'] or not set(prior).issubset(c['card'] for c in cards):
+# The reconciled physical inventory is 89 cards; older snapshots reserved 100 slots.
+# Only accept this exact, explicitly confirmed shrink, and never drop an existing card.
+confirmed_shrink = old['slots'] == 100 and seen == set(range(1, 90))
+if not seen or seen != set(range(1,max(seen)+1)) or (max(seen)<old['slots'] and not confirmed_shrink) or not set(prior).issubset(c['card'] for c in cards):
     raise ValueError('Incomplete sheet; keeping last successful import')
 if cards == old['cards'] and len(cards) == old['started'] and len(seen) == old['slots']:
     print('Fleet unchanged; no write required')
