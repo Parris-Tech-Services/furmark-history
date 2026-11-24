@@ -32,9 +32,12 @@ for row in reader:
     # Text in a benchmark cell is a safety note (for example a noisy fan), not a score.
     nonnumeric = [x for x in rest[:3] if x and not x.isdecimal()]
     scores = [int(x) if x.isdecimal() else None for x in rest[:3]]
-    if recognised not in ('', 'Y', 'N'):
-        raise ValueError('Unknown GPU-Z result')
-    if not any((recognised, *rest)):
+    # The sheet may record a stopped test instead of a recognition result.
+    # This exact observed note is not proof of recognition and must never clear a sale hold.
+    gpuz_fan_hold = recognised.casefold() == 'didnt continue with benchmarking, fans need tightening'
+    if recognised not in ('', 'Y', 'N') and not gpuz_fan_hold:
+        raise ValueError(f'Unknown GPU-Z result in slot {n}')
+    if not gpuz_fan_hold and not any((recognised, *rest)):
         continue
     link = rest[3].split('#')[0]
     if re.fullmatch(r'(?:https?://)?(?:www\.)?gpumagick\.com/scores/\d+', link):
@@ -64,6 +67,10 @@ for row in reader:
         record = next((r for r in audit if int(r['Card']) == n), None)
         if record:
             card.update(tested=record['Published_submission_time'], preset='2.11.0.4 · OpenGL 3.2 · P1080 · 60 s')
+    # Apply after the public-result lookup so old verified scores cannot remove this hold.
+    if gpuz_fan_hold:
+        card.update(gpuz=False, status='FAN_NOISE_STOP',
+                    note='Benchmarking stopped; fans need tightening. GPU-Z recognition unverified.')
     if prev and any(card.get(k) != prev.get(k) for k in ('fm','sp','sn','url','rig')):
         card['history'] = prev.get('history', []) + [dict(observed=old.get('synced',old['snapshot']), **{k:prev.get(k) for k in ('fm','sp','sn','rig','tested')})]
     cards.append(card)
