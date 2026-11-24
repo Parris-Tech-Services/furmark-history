@@ -25,6 +25,10 @@ prior = {c['card']: c for c in old['cards']}
 verified_runs = json.loads((ROOT / 'data/verified_furmark_runs.json').read_text())
 for row in reader:
     number, recognised, *rest = (row[key].strip() for key in fields)
+    # Scratch notes typed below the table (prices, buyer names) have no slot number
+    # and nothing in the tracked columns: ignore them rather than fail the build.
+    if not number and not any((recognised, *rest)):
+        continue
     if not number.isdigit() or int(number) < 1 or int(number) in seen:
         raise ValueError('Invalid or duplicate slot')
     n = int(number)
@@ -32,10 +36,15 @@ for row in reader:
     # Text in a benchmark cell is a safety note (for example a noisy fan), not a score.
     nonnumeric = [x for x in rest[:3] if x and not x.isdecimal()]
     scores = [int(x) if x.isdecimal() else None for x in rest[:3]]
-    if recognised not in ('', 'Y', 'N'):
-        raise ValueError('Unknown GPU-Z result')
     if not any((recognised, *rest)):
         continue
+    # Text in the GPU-Z cell (e.g. "fans need tightening") is a test note, not a result:
+    # hold the card like any other noted card instead of failing the whole site build.
+    if recognised.upper() in ('Y', 'N'):
+        recognised = recognised.upper()
+    elif recognised:
+        nonnumeric.insert(0, recognised)
+        recognised = ''
     link = rest[3].split('#')[0]
     if re.fullmatch(r'(?:https?://)?(?:www\.)?gpumagick\.com/scores/\d+', link):
         link = 'https://www.gpumagick.com/scores/' + link.rsplit('/', 1)[1]
